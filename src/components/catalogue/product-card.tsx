@@ -10,17 +10,12 @@ import { Badge } from "@/components/ui/badge";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import {
   availabilityLabels,
+  availabilityVariant,
   getBrandBySlug,
   getCategoryIcon,
   type DemoProduct,
 } from "@/lib/catalogue";
 import { useKit } from "@/components/kit/kit-provider";
-
-const availabilityVariant = {
-  available: "outline",
-  limited: "technical",
-  "on-request": "secondary",
-} as const;
 
 export interface ProductCardProps {
   product: DemoProduct;

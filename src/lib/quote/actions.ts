@@ -7,6 +7,7 @@ import {
   validateProjectDetails,
 } from "./validation";
 import type { QuoteSubmissionPayload } from "./types";
+import type { QuoteRequestInsert } from "@/lib/supabase/database.types";
 
 export type SubmitQuoteResult = { ok: true } | { ok: false; error: string };
 
@@ -49,7 +50,7 @@ export async function submitQuoteRequest(
     return { ok: true };
   }
 
-  const { error } = await supabase.from("quote_requests").insert({
+  const insertPayload: QuoteRequestInsert = {
     status: "pending",
     start_date: payload.startDate,
     end_date: payload.endDate,
@@ -59,18 +60,20 @@ export async function submitQuoteRequest(
     project_name: payload.project.projectName,
     project_type: payload.project.projectType,
     shoot_location: payload.project.shootLocation,
-    production_days: payload.project.productionDays || null,
-    crew_size: payload.project.crewSize || null,
+    production_days: payload.project.productionDays ? Number(payload.project.productionDays) : null,
+    crew_size: payload.project.crewSize ? Number(payload.project.crewSize) : null,
     project_description: payload.project.additionalNotes || null,
     customer_name: payload.customer.name,
     customer_company: payload.customer.company || null,
     customer_email: payload.customer.email,
     customer_phone: payload.customer.phone,
     customer_whatsapp: payload.customer.whatsapp || null,
-    delivery_method: payload.delivery.method,
+    delivery_method: payload.delivery.method || "pickup",
     delivery_location: payload.delivery.location || null,
     delivery_instructions: payload.delivery.instructions || null,
-  });
+  };
+
+  const { error } = await supabase.from("quote_requests").insert(insertPayload);
 
   if (error) {
     console.error("[quote] Supabase insert failed:", error.message);

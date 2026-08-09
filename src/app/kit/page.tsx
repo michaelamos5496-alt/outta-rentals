@@ -1,8 +1,9 @@
 "use client";
 
+import * as React from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { Package } from "lucide-react";
+import { AlertCircle, CheckCircle2, LoaderCircle, Package, SearchCheck } from "lucide-react";
 
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
@@ -25,6 +26,7 @@ import { RentalDates } from "@/components/kit/rental-dates";
 import { resolveKitLines, getKitTotal } from "@/lib/kit/pricing";
 import { kitPresets } from "@/lib/placeholder-data";
 import { WhatsAppButton } from "@/components/quote/whatsapp-button";
+import { checkKitAvailability, type KitAvailabilityResult } from "@/lib/catalogue/actions";
 
 function SectionLabel({ children }: { children: ReactNode }) {
   return <p className="text-label mb-4">{children}</p>;
@@ -38,6 +40,19 @@ export default function KitPage() {
   const total = getKitTotal(lines);
   const canPrice = !dateError && rentalDays !== null;
   const itemCount = items.reduce((n, i) => n + i.quantity, 0);
+
+  const [checking, setChecking] = React.useState(false);
+  const [availabilityResults, setAvailabilityResults] = React.useState<
+    KitAvailabilityResult[] | null
+  >(null);
+
+  async function handleCheckAvailability() {
+    setChecking(true);
+    setAvailabilityResults(null);
+    const results = await checkKitAvailability(items, startDate, endDate);
+    setAvailabilityResults(results);
+    setChecking(false);
+  }
 
   if (items.length === 0) {
     return (
@@ -84,6 +99,48 @@ export default function KitPage() {
           <div className="mt-12">
             <SectionLabel>Rental dates</SectionLabel>
             <RentalDates />
+
+            <Button
+              variant="outline"
+              size="sm"
+              className="mt-4"
+              disabled={!canPrice || checking}
+              onClick={handleCheckAvailability}
+            >
+              {checking ? <LoaderCircle className="animate-spin" /> : <SearchCheck />}
+              Check availability for these dates
+            </Button>
+
+            {availabilityResults ? (
+              <div className="mt-4 flex flex-col gap-2">
+                {availabilityResults.map((result) => (
+                  <div
+                    key={result.productSlug}
+                    className="flex items-center gap-2.5 text-sm"
+                  >
+                    {result.available ? (
+                      <CheckCircle2 className="size-4 shrink-0 text-brand" />
+                    ) : (
+                      <AlertCircle className="size-4 shrink-0 text-destructive" />
+                    )}
+                    <span className="text-muted-foreground">{result.productName}</span>
+                    <span>
+                      {result.available
+                        ? "Available for these dates"
+                        : result.availableQuantity !== null
+                          ? `Only ${result.availableQuantity} available for these dates`
+                          : "Not available for these dates"}
+                    </span>
+                  </div>
+                ))}
+                {availabilityResults[0]?.source === "status-only" ? (
+                  <p className="text-meta mt-1">
+                    Based on current status only — live date-range checking
+                    activates once OUTTA&rsquo;s inventory system is connected.
+                  </p>
+                ) : null}
+              </div>
+            ) : null}
           </div>
         </div>
 

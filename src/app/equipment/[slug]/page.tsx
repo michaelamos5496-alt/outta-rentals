@@ -7,11 +7,13 @@ import {
   getBrandBySlug,
   getCategoryBySlug,
   getCompatibleProducts,
-  getProductBySlug,
   getRelatedProducts,
   availabilityLabels,
+  availabilityVariant,
   type DemoProductSpec,
 } from "@/lib/catalogue";
+import { fetchProductBySlug } from "@/lib/catalogue/db";
+import { getRecommendedForShoot } from "@/lib/packages";
 import { Container } from "@/components/ui/container";
 import { Badge } from "@/components/ui/badge";
 import { Divider } from "@/components/ui/divider";
@@ -21,13 +23,15 @@ import { ProductGallery } from "@/components/catalogue/product-gallery";
 import { ProductActions } from "@/components/catalogue/product-actions";
 import { ProductShelf } from "@/components/catalogue/product-shelf";
 
+export const revalidate = 60; // seconds — keep inventory reasonably fresh once a real DB is connected
+
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await fetchProductBySlug(slug);
   return { title: product ? product.name : "Equipment Not Found" };
 }
 
@@ -45,15 +49,9 @@ function groupSpecifications(specs: DemoProductSpec[]) {
   return groups;
 }
 
-const availabilityVariant = {
-  available: "outline",
-  limited: "technical",
-  "on-request": "secondary",
-} as const;
-
 export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await fetchProductBySlug(slug);
 
   if (!product) {
     return (
@@ -76,6 +74,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const specGroups = groupSpecifications(product.specifications);
   const compatible = getCompatibleProducts(product);
   const accessories = getAccessoryProducts(product);
+  const alreadyShown = new Set([...compatible, ...accessories].map((p) => p.slug));
+  const recommendedForShoot = getRecommendedForShoot(product).filter(
+    (p) => !alreadyShown.has(p.slug)
+  );
   const related = getRelatedProducts(product);
 
   return (
@@ -181,14 +183,19 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
       <Container>
         <ProductShelf
-          title="Compatible equipment"
+          title="You may also need"
+          eyebrow="Complete The Kit"
+          products={accessories}
+        />
+        <ProductShelf
+          title="Compatible with"
           eyebrow="Works With"
           products={compatible}
         />
         <ProductShelf
-          title="Recommended accessories"
-          eyebrow="Complete The Kit"
-          products={accessories}
+          title="Recommended for your shoot"
+          eyebrow="From Our Preset Packages"
+          products={recommendedForShoot}
         />
         <ProductShelf title="Related products" eyebrow="More Like This" products={related} />
       </Container>

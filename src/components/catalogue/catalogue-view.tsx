@@ -8,10 +8,8 @@ import { useDebouncedValue } from "@/lib/use-debounced-value";
 import {
   brands,
   categories,
-  getAllProducts,
   getCategoryBySlug,
   getPriceBounds,
-  getProductsByCategory,
   searchProducts,
   type DemoProduct,
 } from "@/lib/catalogue";
@@ -63,14 +61,13 @@ function sortProducts(list: DemoProduct[], sort: SortKey): DemoProduct[] {
 const PAGE_SIZE = 9;
 
 export interface CatalogueViewProps {
+  /** Already fetched server-side (database when connected, demo data otherwise) — see `src/lib/catalogue/db.ts`. */
+  products: DemoProduct[];
   lockedCategory?: string;
 }
 
-function CatalogueView({ lockedCategory }: CatalogueViewProps) {
-  const categoryPool = React.useMemo(
-    () => (lockedCategory ? getProductsByCategory(lockedCategory) : getAllProducts()),
-    [lockedCategory]
-  );
+function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
+  const categoryPool = products;
   const priceBounds = React.useMemo(() => getPriceBounds(categoryPool), [categoryPool]);
   const brandOptions = React.useMemo(() => {
     const slugsInPool = new Set(categoryPool.map((p) => p.brandSlug));

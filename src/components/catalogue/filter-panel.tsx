@@ -23,7 +23,13 @@ export interface FilterPanelProps {
   hasActiveFilters: boolean;
 }
 
-const availabilityOptions: ProductAvailability[] = ["available", "limited", "on-request"];
+const availabilityOptions: ProductAvailability[] = [
+  "available",
+  "reserved",
+  "coming_soon",
+  "maintenance",
+  "unavailable",
+];
 
 function toggleValue<T>(list: T[], value: T): T[] {
   return list.includes(value) ? list.filter((v) => v !== value) : [...list, value];

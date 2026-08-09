@@ -70,6 +70,17 @@ export function getPriceBounds(pool: DemoProduct[] = products): [number, number]
 
 export const availabilityLabels: Record<DemoProduct["availability"], string> = {
   available: "Available",
-  limited: "Limited",
-  "on-request": "On request",
+  reserved: "Reserved",
+  maintenance: "Maintenance",
+  "coming_soon": "Coming Soon",
+  unavailable: "Unavailable",
 };
+
+/** Badge variant per status — shared across product cards, product pages and filters. */
+export const availabilityVariant = {
+  available: "outline",
+  reserved: "technical",
+  maintenance: "destructive",
+  "coming_soon": "secondary",
+  unavailable: "ghost",
+} as const;

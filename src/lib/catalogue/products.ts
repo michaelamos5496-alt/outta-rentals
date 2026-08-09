@@ -93,7 +93,7 @@ export const products: DemoProduct[] = [
     dayRate: 285,
     weekRate: 1425,
     currency: "USD",
-    availability: "limited",
+    availability: "reserved",
     specifications: [
       { label: "Sensor", value: "Full-Frame 6K Exmor R CMOS", group: "Imaging" },
       { label: "Max Resolution", value: "4K UHD oversampled from 6K", group: "Imaging" },
@@ -153,7 +153,7 @@ export const products: DemoProduct[] = [
     dayRate: 650,
     weekRate: 3250,
     currency: "USD",
-    availability: "on-request",
+    availability: "maintenance",
     featured: true,
     specifications: [
       { label: "Sensor", value: "Large Format ALEV III CMOS", group: "Imaging" },
@@ -187,7 +187,7 @@ export const products: DemoProduct[] = [
     dayRate: 595,
     weekRate: 2975,
     currency: "USD",
-    availability: "limited",
+    availability: "reserved",
     specifications: [
       { label: "Sensor", value: "8K Vista Vision CMOS", group: "Imaging" },
       { label: "Max Resolution", value: "8K up to 120fps", group: "Imaging" },
@@ -268,7 +268,7 @@ export const products: DemoProduct[] = [
     dayRate: 240,
     weekRate: 1200,
     currency: "USD",
-    availability: "limited",
+    availability: "reserved",
     featured: true,
     specifications: [
       { label: "Focal Lengths", value: "25 / 35 / 50 / 85 / 135mm", group: "Optics" },
@@ -376,7 +376,7 @@ export const products: DemoProduct[] = [
     dayRate: 40,
     weekRate: 200,
     currency: "USD",
-    availability: "limited",
+    availability: "reserved",
     specifications: [
       { label: "Output", value: "300W daylight-balanced LED", group: "Light" },
       { label: "Color Temp", value: "5600K", group: "Light" },
@@ -482,7 +482,7 @@ export const products: DemoProduct[] = [
     dayRate: 65,
     weekRate: 325,
     currency: "USD",
-    availability: "limited",
+    availability: "reserved",
     specifications: [
       { label: "Track Length", value: "4ft (122cm)", group: "Support" },
       { label: "Payload", value: "Up to 8kg", group: "Support" },
@@ -535,7 +535,7 @@ export const products: DemoProduct[] = [
     dayRate: 45,
     weekRate: 225,
     currency: "USD",
-    availability: "available",
+    availability: "unavailable",
     specifications: [
       { label: "Microphone", value: "Shotgun, supercardioid pattern", group: "Audio" },
       { label: "Boom Pole", value: "Carbon fiber, 5-section, 3m extended", group: "Body" },
@@ -560,7 +560,7 @@ export const products: DemoProduct[] = [
     dayRate: 60,
     weekRate: 300,
     currency: "USD",
-    availability: "on-request",
+    availability: "maintenance",
     specifications: [
       { label: "Inputs", value: "8× XLR/TRS combo", group: "Audio" },
       { label: "Timecode", value: "Built-in generator, jam-sync", group: "Audio" },
@@ -612,7 +612,7 @@ export const products: DemoProduct[] = [
     dayRate: 55,
     weekRate: 275,
     currency: "USD",
-    availability: "limited",
+    availability: "reserved",
     specifications: [
       { label: "Screen Size", value: "7-inch, 2000-nit daylight visible", group: "Display" },
       { label: "3D LUT Support", value: "Yes, loadable via USB", group: "Display" },
@@ -639,7 +639,7 @@ export const products: DemoProduct[] = [
     dayRate: 450,
     weekRate: 2250,
     currency: "USD",
-    availability: "on-request",
+    availability: "coming_soon",
     specifications: [
       { label: "Sensor", value: "Full-Frame 8K", group: "Imaging" },
       { label: "Flight Time", value: "Up to 28 minutes", group: "Flight" },

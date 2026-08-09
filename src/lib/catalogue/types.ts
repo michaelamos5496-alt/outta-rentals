@@ -1,4 +1,14 @@
-export type ProductAvailability = "available" | "limited" | "on-request";
+/**
+ * Mirrors the `product_status` enum in `src/lib/supabase/schema.sql`. This
+ * is the product's current operational status, distinct from date-specific
+ * availability (see `checkProductAvailability` in `src/lib/catalogue/db.ts`).
+ */
+export type ProductAvailability =
+  | "available"
+  | "unavailable"
+  | "maintenance"
+  | "reserved"
+  | "coming_soon";
 
 export interface DemoProductSpec {
   label: string;
