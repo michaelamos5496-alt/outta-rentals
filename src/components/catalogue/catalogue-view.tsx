@@ -69,10 +69,6 @@ export interface CatalogueViewProps {
 function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
   const categoryPool = products;
   const priceBounds = React.useMemo(() => getPriceBounds(categoryPool), [categoryPool]);
-  const brandOptions = React.useMemo(() => {
-    const slugsInPool = new Set(categoryPool.map((p) => p.brandSlug));
-    return brands.filter((b) => slugsInPool.has(b.slug));
-  }, [categoryPool]);
 
   const [query, setQuery] = React.useState("");
   const debouncedQuery = useDebouncedValue(query, 300);
@@ -84,6 +80,29 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
     availability: [],
     priceRange: priceBounds,
   });
+
+  // Only offer brands that actually have equipment in the selected category —
+  // otherwise the brand list stays global even when a category is checked.
+  const brandOptions = React.useMemo(() => {
+    const activeCategories = lockedCategory ? [lockedCategory] : filters.categories;
+    const pool =
+      activeCategories.length > 0
+        ? categoryPool.filter((p) => activeCategories.includes(p.categorySlug))
+        : categoryPool;
+    const slugsInPool = new Set(pool.map((p) => p.brandSlug));
+    return brands.filter((b) => slugsInPool.has(b.slug));
+  }, [categoryPool, lockedCategory, filters.categories]);
+
+  // Drop any selected brand that's no longer offered once the category
+  // selection narrows the list — adjusting during render (rather than an
+  // effect) avoids an extra commit, same pattern as resetKey below.
+  const validBrandSlugs = React.useMemo(
+    () => new Set(brandOptions.map((b) => b.slug)),
+    [brandOptions]
+  );
+  if (filters.brands.some((slug) => !validBrandSlugs.has(slug))) {
+    setFilters((f) => ({ ...f, brands: f.brands.filter((slug) => validBrandSlugs.has(slug)) }));
+  }
   const [sort, setSort] = React.useState<SortKey>("featured");
   const [view, setView] = React.useState<"grid" | "list">("grid");
   const [visibleCount, setVisibleCount] = React.useState(PAGE_SIZE);

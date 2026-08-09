@@ -8,7 +8,7 @@ import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { HoverPlayVideo } from "@/components/ui/hover-play-video";
+import { AutoplayVideo } from "@/components/ui/autoplay-video";
 import { workShowcase } from "@/lib/placeholder-data";
 import { themeImages, workVideos } from "@/lib/editorial-images";
 
@@ -41,7 +41,7 @@ function WorkShowcase() {
           return (
           <motion.article key={project.title} variants={slideUp()} className="group/project">
             <div className="overflow-hidden rounded-xl">
-              <HoverPlayVideo
+              <AutoplayVideo
                 src={workVideos[slug]}
                 poster={themeImages[slug]}
                 alt={project.title}

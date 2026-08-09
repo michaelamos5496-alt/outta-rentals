@@ -5,6 +5,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { getCategoryIcon } from "@/lib/catalogue";
+import { categoryImages } from "@/lib/editorial-images";
 
 export interface ProductGalleryProps {
   categorySlug: string;
@@ -16,6 +17,7 @@ export interface ProductGalleryProps {
 
 function ProductGallery({ categorySlug, sku, name, frameCount = 4 }: ProductGalleryProps) {
   const icon = getCategoryIcon(categorySlug);
+  const image = categoryImages[categorySlug];
   const [active, setActive] = React.useState(0);
   const frames = Array.from({ length: frameCount });
 
@@ -23,6 +25,8 @@ function ProductGallery({ categorySlug, sku, name, frameCount = 4 }: ProductGall
     <div className="flex flex-col gap-3">
       <div className="overflow-hidden rounded-xl">
         <MediaPlaceholder
+          src={image}
+          alt={name}
           icon={icon}
           meta={`${sku} · ${active + 1}/${frameCount}`}
           className="aspect-square w-full sm:aspect-4/3"
@@ -43,7 +47,7 @@ function ProductGallery({ categorySlug, sku, name, frameCount = 4 }: ProductGall
                 : "ring-border hover:ring-foreground/30"
             )}
           >
-            <MediaPlaceholder icon={icon} className="aspect-square w-full" />
+            <MediaPlaceholder src={image} alt={`${name} ${i + 1}`} icon={icon} className="aspect-square w-full" />
           </button>
         ))}
       </div>

@@ -8,6 +8,7 @@ import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { getBrandBySlug, getCategoryIcon } from "@/lib/catalogue";
 import type { ResolvedKitLine } from "@/lib/kit/pricing";
 import { useKit } from "@/components/kit/kit-provider";
+import { categoryImages } from "@/lib/editorial-images";
 
 export interface KitItemRowProps {
   line: ResolvedKitLine;
@@ -24,7 +25,12 @@ function KitItemRow({ line, compact = false }: KitItemRowProps) {
   return (
     <div className="flex gap-4 py-4">
       <Link href={href} className="block size-16 shrink-0 overflow-hidden rounded-lg sm:size-20">
-        <MediaPlaceholder icon={icon} className="size-full" />
+        <MediaPlaceholder
+          src={categoryImages[product.categorySlug]}
+          alt={product.name}
+          icon={icon}
+          className="size-full"
+        />
       </Link>
 
       <div className="flex min-w-0 flex-1 flex-col">

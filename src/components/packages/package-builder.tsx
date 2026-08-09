@@ -12,6 +12,7 @@ import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { getBrandBySlug, getCategoryIcon, getProductBySlug } from "@/lib/catalogue";
 import { useKit } from "@/components/kit/kit-provider";
 import type { ProductionPackage } from "@/lib/packages/types";
+import { categoryImages } from "@/lib/editorial-images";
 
 interface BuilderLine {
   role: string;
@@ -86,7 +87,12 @@ function PackageBuilder({ pkg }: PackageBuilderProps) {
                 href={`/equipment/${product.slug}`}
                 className="block size-16 shrink-0 overflow-hidden rounded-lg sm:size-20"
               >
-                <MediaPlaceholder icon={icon} className="size-full" />
+                <MediaPlaceholder
+                  src={categoryImages[product.categorySlug]}
+                  alt={product.name}
+                  icon={icon}
+                  className="size-full"
+                />
               </Link>
               <div className="flex min-w-0 flex-1 flex-col">
                 <div className="flex items-start justify-between gap-2">

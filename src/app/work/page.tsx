@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
 import { Badge } from "@/components/ui/badge";
-import { HoverPlayVideo } from "@/components/ui/hover-play-video";
+import { AutoplayVideo } from "@/components/ui/autoplay-video";
 import { slideUp, viewportOnce } from "@/lib/motion";
 import { workProjects } from "@/lib/content/work";
 import { themeImages, workVideos } from "@/lib/editorial-images";
@@ -47,7 +47,7 @@ export default function WorkPage() {
                 }`}
               >
                 <div className="overflow-hidden rounded-xl">
-                  <HoverPlayVideo
+                  <AutoplayVideo
                     src={workVideos[slug]}
                     poster={themeImages[slug]}
                     alt={project.title}

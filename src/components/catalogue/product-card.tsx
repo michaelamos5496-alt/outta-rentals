@@ -16,6 +16,7 @@ import {
   type DemoProduct,
 } from "@/lib/catalogue";
 import { useKit } from "@/components/kit/kit-provider";
+import { categoryImages } from "@/lib/editorial-images";
 
 export interface ProductCardProps {
   product: DemoProduct;
@@ -52,6 +53,8 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
         )}
       >
         <MediaPlaceholder
+          src={categoryImages[product.categorySlug]}
+          alt={product.name}
           icon={icon}
           meta={product.sku}
           className={cn(

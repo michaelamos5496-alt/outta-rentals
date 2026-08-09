@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { featuredProducts } from "@/lib/placeholder-data";
+import { categoryImages } from "@/lib/editorial-images";
 
 const availabilityVariant = {
   Available: "outline",
@@ -41,6 +42,8 @@ function FeaturedEquipment() {
           <motion.article key={product.name} variants={slideUp()} className="group/product">
             <div className="overflow-hidden rounded-xl">
               <MediaPlaceholder
+                src={categoryImages[product.category.toLowerCase()]}
+                alt={product.name}
                 icon={product.icon}
                 meta={product.category}
                 className="aspect-4/3 w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
