@@ -130,13 +130,35 @@ create table customers (
   created_at timestamptz not null default now()
 );
 
+-- Anonymous/guest quote requests from the Phase 5 quote wizard. `customer_id`
+-- and `kit_id` stay nullable so a request can be captured before an account
+-- or a normalized `kit_lists` row exists; `kit_snapshot` preserves what was
+-- actually requested independent of later catalogue changes. Once accounts
+-- and saved kits exist, new submissions can populate `customer_id`/`kit_id`
+-- and treat the flat columns below as the guest-checkout fallback.
 create table quote_requests (
   id uuid primary key default gen_random_uuid(),
   customer_id uuid references customers (id) on delete set null,
   kit_id uuid references kit_lists (id) on delete set null,
   start_date date not null,
   end_date date not null,
+  rental_days int not null,
+  estimated_total numeric(10, 2),
+  kit_snapshot jsonb not null, -- [{ productSlug, productName, quantity, dayRate }]
+  project_name text,
+  project_type text,
+  shoot_location text,
+  production_days int,
+  crew_size int,
   project_description text,
+  customer_name text,
+  customer_company text,
+  customer_email text,
+  customer_phone text,
+  customer_whatsapp text,
+  delivery_method text check (delivery_method in ('pickup', 'delivery')),
+  delivery_location text,
+  delivery_instructions text,
   status text not null default 'pending'
     check (status in ('pending', 'reviewed', 'quoted', 'converted', 'declined')),
   created_at timestamptz not null default now()
