@@ -11,14 +11,8 @@ import { primaryNav } from "@/config/site";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { SearchInput } from "@/components/ui/search-input";
-import { EmptyState } from "@/components/ui/state";
 import { Modal } from "@/components/ui/modal";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-} from "@/components/ui/drawer";
+import { useKit } from "@/components/kit/kit-provider";
 
 function useScrolled(threshold = 8) {
   const [scrolled, setScrolled] = React.useState(false);
@@ -37,7 +31,7 @@ function Navbar() {
   const scrolled = useScrolled();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [searchOpen, setSearchOpen] = React.useState(false);
-  const [kitOpen, setKitOpen] = React.useState(false);
+  const { itemCount, openDrawer, hydrated } = useKit();
 
   return (
     <header
@@ -88,13 +82,15 @@ function Navbar() {
               variant="ghost"
               size="icon"
               aria-label="Kit list"
-              onClick={() => setKitOpen(true)}
+              onClick={openDrawer}
               className="relative hidden sm:inline-flex"
             >
               <Package />
-              <span className="absolute top-1 right-1 flex size-3.5 items-center justify-center rounded-full bg-brand text-[0.5625rem] font-medium text-brand-foreground">
-                0
-              </span>
+              {hydrated && itemCount > 0 ? (
+                <span className="absolute top-1 right-1 flex size-3.5 items-center justify-center rounded-full bg-brand text-[0.5625rem] font-medium text-brand-foreground">
+                  {itemCount > 9 ? "9+" : itemCount}
+                </span>
+              ) : null}
             </Button>
             <Button
               variant="ghost"
@@ -119,22 +115,6 @@ function Navbar() {
       >
         <SearchInput autoFocus />
       </Modal>
-
-      {/* Kit list — UI shell only, no cart logic wired up yet */}
-      <Drawer open={kitOpen} onOpenChange={setKitOpen}>
-        <DrawerContent>
-          <DrawerHeader>
-            <DrawerTitle>Your kit</DrawerTitle>
-          </DrawerHeader>
-          <div className="px-4">
-            <EmptyState
-              icon={Package}
-              title="Your kit is empty"
-              description="Add equipment to build a kit and request a quote. Kit building arrives in a later phase."
-            />
-          </div>
-        </DrawerContent>
-      </Drawer>
 
       {/* Mobile navigation */}
       <AnimatePresence>
@@ -195,13 +175,18 @@ function Navbar() {
                 </Button>
                 <Button
                   variant="outline"
-                  className="flex-1"
+                  className="relative flex-1"
                   onClick={() => {
                     setMobileOpen(false);
-                    setKitOpen(true);
+                    openDrawer();
                   }}
                 >
                   <Package /> Kit
+                  {hydrated && itemCount > 0 ? (
+                    <span className="absolute -top-2 -right-2 flex size-5 items-center justify-center rounded-full bg-brand text-[0.6875rem] font-medium text-brand-foreground">
+                      {itemCount > 9 ? "9+" : itemCount}
+                    </span>
+                  ) : null}
                 </Button>
               </div>
             </Container>

@@ -1,0 +1,115 @@
+"use client";
+
+import * as React from "react";
+import Link from "next/link";
+import { Check, Plus } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { MediaPlaceholder } from "@/components/ui/media-placeholder";
+import {
+  availabilityLabels,
+  getBrandBySlug,
+  getCategoryIcon,
+  type DemoProduct,
+} from "@/lib/catalogue";
+import { useKit } from "@/components/kit/kit-provider";
+
+const availabilityVariant = {
+  available: "outline",
+  limited: "technical",
+  "on-request": "secondary",
+} as const;
+
+export interface ProductCardProps {
+  product: DemoProduct;
+  view?: "grid" | "list";
+  className?: string;
+}
+
+function ProductCard({ product, view = "grid", className }: ProductCardProps) {
+  const { addItem } = useKit();
+  const [added, setAdded] = React.useState(false);
+  const brand = getBrandBySlug(product.brandSlug)?.name ?? product.brandSlug;
+  const icon = getCategoryIcon(product.categorySlug);
+  const href = `/equipment/${product.slug}`;
+
+  React.useEffect(() => {
+    if (!added) return;
+    const timeout = setTimeout(() => setAdded(false), 1600);
+    return () => clearTimeout(timeout);
+  }, [added]);
+
+  return (
+    <article
+      className={cn(
+        "group/product flex",
+        view === "list" ? "flex-row gap-5" : "flex-col",
+        className
+      )}
+    >
+      <Link
+        href={href}
+        className={cn(
+          "block shrink-0 overflow-hidden rounded-xl",
+          view === "list" ? "w-32 sm:w-48" : "w-full"
+        )}
+      >
+        <MediaPlaceholder
+          icon={icon}
+          meta={product.sku}
+          className={cn(
+            "w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105",
+            view === "list" ? "aspect-square h-full" : "aspect-4/3"
+          )}
+        />
+      </Link>
+
+      <div className={cn("flex flex-1 flex-col", view === "grid" && "mt-4")}>
+        <div className="flex items-start justify-between gap-2">
+          <div>
+            <p className="text-label text-muted-foreground">{brand}</p>
+            <Link href={href}>
+              <h3 className="mt-1 font-medium leading-snug hover:text-brand">
+                {product.name}
+              </h3>
+            </Link>
+          </div>
+          <Badge variant={availabilityVariant[product.availability]} className="shrink-0">
+            {availabilityLabels[product.availability]}
+          </Badge>
+        </div>
+        <p className="text-small mt-2 line-clamp-2">{product.shortDescription}</p>
+
+        <div className="mt-auto flex items-center justify-between gap-3 pt-4">
+          <p className="text-sm">
+            <span className="font-medium">
+              {product.currency === "USD" ? "$" : ""}
+              {product.dayRate}
+            </span>
+            <span className="text-muted-foreground"> / day</span>
+          </p>
+          <div className="flex gap-2">
+            <Button asChild variant="ghost" size="sm">
+              <Link href={href}>View Details</Link>
+            </Button>
+            <Button
+              variant={added ? "secondary" : "outline"}
+              size="sm"
+              onClick={() => {
+                addItem(product.slug);
+                setAdded(true);
+              }}
+            >
+              {added ? <Check /> : <Plus />}
+              {added ? "Added" : "Add to Kit"}
+            </Button>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+export { ProductCard };

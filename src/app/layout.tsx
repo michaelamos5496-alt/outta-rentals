@@ -4,6 +4,9 @@ import "./globals.css";
 
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { KitProvider } from "@/components/kit/kit-provider";
+import { KitDrawer } from "@/components/kit/kit-drawer";
+import { FloatingKitButton } from "@/components/kit/floating-kit-button";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,9 +34,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`dark ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <KitProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <KitDrawer />
+          <FloatingKitButton />
+        </KitProvider>
       </body>
     </html>
   );
