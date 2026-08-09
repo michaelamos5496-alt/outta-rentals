@@ -10,6 +10,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { workShowcase } from "@/lib/placeholder-data";
+import { themeImages } from "@/lib/editorial-images";
+
+function slugifyProductionType(value: string): string {
+  return value.toLowerCase().replace(/\s+/g, "-");
+}
 
 function WorkShowcase() {
   return (
@@ -35,6 +40,8 @@ function WorkShowcase() {
           <motion.article key={project.title} variants={slideUp()} className="group/project">
             <div className="overflow-hidden rounded-xl">
               <MediaPlaceholder
+                src={themeImages[slugifyProductionType(project.productionType)]}
+                alt={project.title}
                 icon={Clapperboard}
                 meta="16:9 · SAMPLE"
                 className="aspect-video w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/project:scale-105"

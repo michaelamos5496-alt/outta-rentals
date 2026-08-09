@@ -8,6 +8,11 @@ import { Badge } from "@/components/ui/badge";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { slideUp, viewportOnce } from "@/lib/motion";
 import { workProjects } from "@/lib/content/work";
+import { themeImages } from "@/lib/editorial-images";
+
+function slugifyProductionType(value: string): string {
+  return value.toLowerCase().replace(/\s+/g, "-");
+}
 
 export default function WorkPage() {
   return (
@@ -41,6 +46,8 @@ export default function WorkPage() {
               >
                 <div className="overflow-hidden rounded-xl">
                   <MediaPlaceholder
+                    src={themeImages[slugifyProductionType(project.productionType)]}
+                    alt={project.title}
                     icon={project.icon}
                     meta="16:9 · SAMPLE"
                     className="aspect-video w-full"

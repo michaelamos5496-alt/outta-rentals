@@ -1,15 +1,23 @@
 "use client";
 
+import * as React from "react";
 import { motion } from "framer-motion";
 
 import { Section } from "@/components/ui/section";
 import { Divider } from "@/components/ui/divider";
-import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { slideUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { aboutSections } from "@/lib/content/about";
-import { Compass } from "lucide-react";
 
 export default function AboutPage() {
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+
+  React.useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    video.play().catch(() => {});
+  }, []);
+
   return (
     <>
       <Section spacing="compact" className="pt-16 sm:pt-20">
@@ -31,7 +39,18 @@ export default function AboutPage() {
       </Section>
 
       <Section spacing="none" bleed className="border-y border-border">
-        <MediaPlaceholder icon={Compass} tone="hero" className="aspect-21/9 w-full rounded-none sm:aspect-32/9" />
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden
+          className="aspect-21/9 w-full object-cover sm:aspect-32/9"
+        >
+          <source src="/video/about.mp4" type="video/mp4" />
+        </video>
       </Section>
 
       <Section>

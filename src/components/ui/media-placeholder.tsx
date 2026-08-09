@@ -1,4 +1,5 @@
 import * as React from "react";
+import Image from "next/image";
 import type { LucideIcon } from "lucide-react";
 import { ImageIcon } from "lucide-react";
 
@@ -22,15 +23,47 @@ export interface MediaPlaceholderProps extends React.ComponentProps<"div"> {
   meta?: string;
   /** Larger, brighter glow — used for hero / full-bleed placements. */
   tone?: "default" | "hero";
+  /** Real editorial photography — when set, renders the image instead of the placeholder glow/icon. */
+  src?: string;
+  alt?: string;
+  priority?: boolean;
 }
 
 function MediaPlaceholder({
   icon: Icon = ImageIcon,
   meta,
   tone = "default",
+  src,
+  alt = "",
+  priority,
   className,
   ...props
 }: MediaPlaceholderProps) {
+  if (src) {
+    return (
+      <div
+        data-slot="media-placeholder"
+        className={cn("relative isolate overflow-hidden bg-card", className)}
+        {...props}
+      >
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          priority={priority}
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 ring-1 ring-inset ring-foreground/10" />
+        {meta ? (
+          <span className="text-meta absolute bottom-3 left-3 text-white/80 drop-shadow-sm">
+            {meta}
+          </span>
+        ) : null}
+      </div>
+    );
+  }
+
   return (
     <div
       data-slot="media-placeholder"

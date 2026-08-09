@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { slideUp, viewportOnce } from "@/lib/motion";
 import { serviceDetails } from "@/lib/content/services";
+import { serviceImages } from "@/lib/editorial-images";
 
 export default function ServicesPage() {
   return (
@@ -41,7 +42,12 @@ export default function ServicesPage() {
                 }`}
               >
                 <div className="overflow-hidden rounded-xl">
-                  <MediaPlaceholder icon={service.icon} className="aspect-4/3 w-full sm:aspect-16/9" />
+                  <MediaPlaceholder
+                    src={serviceImages[service.slug]}
+                    alt={service.name}
+                    icon={service.icon}
+                    className="aspect-4/3 w-full sm:aspect-16/9"
+                  />
                 </div>
                 <div>
                   <p className="text-label text-brand">{service.name}</p>

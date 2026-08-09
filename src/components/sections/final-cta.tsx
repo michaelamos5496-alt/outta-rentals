@@ -8,11 +8,16 @@ import { slideUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
+import { finalCtaImage } from "@/lib/editorial-images";
 
 function FinalCta() {
   return (
     <Section spacing="none" bleed className="relative overflow-hidden py-28 sm:py-36">
-      <MediaPlaceholder tone="hero" className="absolute inset-0 h-full w-full rounded-none" />
+      <MediaPlaceholder
+        src={finalCtaImage}
+        tone="hero"
+        className="absolute inset-0 h-full w-full rounded-none"
+      />
       <div className="absolute inset-0 bg-background/70" />
 
       <motion.div

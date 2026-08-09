@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { getCategoryIcon, getProductBySlug } from "@/lib/catalogue";
 import { getAllPackages } from "@/lib/packages";
+import { themeImages } from "@/lib/editorial-images";
 
 export const metadata: Metadata = {
   title: "Production Packages",
@@ -39,7 +40,12 @@ export default function PackagesPage() {
               key={pkg.slug}
               className="flex flex-col overflow-hidden rounded-xl border border-border"
             >
-              <MediaPlaceholder icon={icon} className="aspect-square w-full" />
+              <MediaPlaceholder
+                src={themeImages[pkg.slug]}
+                alt={pkg.name}
+                icon={icon}
+                className="aspect-square w-full"
+              />
               <div className="flex flex-1 flex-col p-4">
                 <h3 className="font-medium">{pkg.name}</h3>
                 <p className="text-small mt-1.5 flex-1">{pkg.description}</p>

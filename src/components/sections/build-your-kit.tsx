@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { kitPresets } from "@/lib/placeholder-data";
 import { getPackageBySlug } from "@/lib/packages";
+import { themeImages } from "@/lib/editorial-images";
 
 function slugifyPresetName(name: string): string {
   return name.toLowerCase().replace(/\s+/g, "-");
@@ -46,6 +47,8 @@ function BuildYourKit() {
               className="group/preset flex flex-col overflow-hidden rounded-xl border border-border"
             >
               <MediaPlaceholder
+                src={themeImages[slug]}
+                alt={preset.name}
                 icon={preset.icon}
                 className="aspect-square w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/preset:scale-105"
               />

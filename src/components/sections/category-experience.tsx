@@ -9,6 +9,7 @@ import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { equipmentCategories } from "@/lib/placeholder-data";
+import { categoryImages } from "@/lib/editorial-images";
 
 function CategoryExperience() {
   return (
@@ -37,6 +38,8 @@ function CategoryExperience() {
               className="group/cat relative block overflow-hidden rounded-xl"
             >
               <MediaPlaceholder
+                src={categoryImages[category.slug]}
+                alt={category.name}
                 icon={category.icon}
                 tone={i === 0 ? "hero" : "default"}
                 className={
