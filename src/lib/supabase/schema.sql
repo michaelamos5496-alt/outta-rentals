@@ -132,6 +132,20 @@ create table customers (
 );
 
 -- ------------------------------------------------------------------
+-- Admin
+-- ------------------------------------------------------------------
+-- Defined here (not at the end) since `quote_notes` references it below.
+-- Provisioning is manual (Supabase dashboard) — this app has no admin
+-- signup flow. `id` matches the corresponding Supabase Auth user's id.
+
+create table admin_users (
+  id uuid primary key default gen_random_uuid(),
+  full_name text not null,
+  email text not null unique,
+  role text not null default 'staff' check (role in ('owner', 'manager', 'staff'))
+);
+
+-- ------------------------------------------------------------------
 -- Kit lists (build-a-kit)
 -- ------------------------------------------------------------------
 
@@ -184,8 +198,21 @@ create table quote_requests (
   delivery_method text check (delivery_method in ('pickup', 'delivery')),
   delivery_location text,
   delivery_instructions text,
-  status text not null default 'pending'
-    check (status in ('pending', 'reviewed', 'quoted', 'converted', 'declined')),
+  -- Matches the admin dashboard's quote pipeline (Phase 9): New → Reviewing
+  -- → Quoted → Confirmed → Completed, with Cancelled off that path at any point.
+  status text not null default 'new'
+    check (status in ('new', 'reviewing', 'quoted', 'confirmed', 'completed', 'cancelled')),
+  created_at timestamptz not null default now()
+);
+
+-- Internal admin notes on a quote request (Phase 9 dashboard). Never
+-- exposed to the customer — service-role only, same as `quote_requests`
+-- reads.
+create table quote_notes (
+  id uuid primary key default gen_random_uuid(),
+  quote_request_id uuid not null references quote_requests (id) on delete cascade,
+  author_id uuid references admin_users (id) on delete set null,
+  note text not null,
   created_at timestamptz not null default now()
 );
 
@@ -296,16 +323,6 @@ create table testimonials (
   project_id uuid references projects (id) on delete set null
 );
 
--- ------------------------------------------------------------------
--- Admin
--- ------------------------------------------------------------------
-
-create table admin_users (
-  id uuid primary key default gen_random_uuid(),
-  full_name text not null,
-  email text not null unique,
-  role text not null default 'staff' check (role in ('owner', 'manager', 'staff'))
-);
 
 -- ============================================================================
 -- Row Level Security
@@ -337,6 +354,7 @@ alter table testimonials enable row level security;
 
 alter table customers enable row level security;
 alter table quote_requests enable row level security;
+alter table quote_notes enable row level security;
 alter table orders enable row level security;
 alter table kit_lists enable row level security;
 alter table kit_items enable row level security;
@@ -370,9 +388,12 @@ create policy "Anyone can submit a quote request" on quote_requests
   for insert to anon, authenticated with check (true);
 
 -- ---- Everything else: service-role only ------------------------------------
--- `customers`, `orders`, `kit_lists`, `kit_items`, `rental_bookings` and
--- `admin_users` have RLS enabled above with no policies, so anon/
--- authenticated access is denied entirely. Once accounts exist, add
+-- `customers`, `orders`, `kit_lists`, `kit_items`, `rental_bookings`,
+-- `quote_notes` and `admin_users` have RLS enabled above with no policies,
+-- so anon/authenticated access is denied entirely — the admin dashboard
+-- (Phase 9) reads and writes them via the service role only, gated by
+-- `getAdminSession()` in application code (`src/lib/admin/auth.ts`), not by
+-- a customer-facing RLS policy. Once customer accounts exist, add
 -- owner-scoped policies here, e.g.:
 --   create policy "Customers read their own orders" on orders
 --     for select to authenticated using (customer_id = auth.uid());

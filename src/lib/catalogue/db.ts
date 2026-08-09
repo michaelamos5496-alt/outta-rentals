@@ -1,10 +1,7 @@
 import "server-only";
 
 import { getSupabaseServerClient } from "@/lib/supabase/server";
-import {
-  getAllProducts as getStaticProducts,
-  getProductBySlug as getStaticProductBySlug,
-} from "./index";
+import { listProducts as listAdminProducts } from "@/lib/admin/store";
 import { categories as staticCategories } from "./categories";
 import { brands as staticBrands } from "./brands";
 import type { DemoProduct, DemoProductSpec, ProductAvailability } from "./types";
@@ -129,6 +126,20 @@ async function fetchAllProductsFromDb(): Promise<DemoProduct[] | null> {
   });
 }
 
+/**
+ * Without a live Supabase project, the "database" the storefront reads is
+ * the admin store (`src/lib/admin/store.ts`) — seeded from the static demo
+ * catalogue, then mutated directly by admin CRUD. That's what makes admin
+ * edits show up on the public site in this environment: archived products
+ * are excluded, and the admin-only `images`/`archived` fields are stripped
+ * back down to the plain `DemoProduct` shape the storefront expects.
+ */
+function getFallbackProducts(): DemoProduct[] {
+  return listAdminProducts()
+    .filter((p) => !p.archived)
+    .map(({ images: _images, archived: _archived, ...product }) => product);
+}
+
 /** Fetches once per request/build and reuses the result for every helper below. */
 async function getProductPool(): Promise<{ products: DemoProduct[]; fromDb: boolean }> {
   if (cachedProducts) return { products: cachedProducts, fromDb: true };
@@ -139,7 +150,7 @@ async function getProductPool(): Promise<{ products: DemoProduct[]; fromDb: bool
     return { products: dbProducts, fromDb: true };
   }
 
-  return { products: getStaticProducts(), fromDb: false };
+  return { products: getFallbackProducts(), fromDb: false };
 }
 
 export async function fetchAllProducts(): Promise<DemoProduct[]> {
@@ -157,9 +168,9 @@ export async function fetchProductBySlug(slug: string): Promise<DemoProduct | un
   const found = products.find((p) => p.slug === slug);
   if (found) return found;
   // Belt-and-suspenders: if the DB pool was fetched but somehow doesn't
-  // contain this slug (e.g. stale cache), fall back to the static catalogue
+  // contain this slug (e.g. stale cache), fall back to the admin store
   // rather than showing a false "not found."
-  return fromDb ? getStaticProductBySlug(slug) : undefined;
+  return fromDb ? getFallbackProducts().find((p) => p.slug === slug) : undefined;
 }
 
 export interface AvailabilityResult {

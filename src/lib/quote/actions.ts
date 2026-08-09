@@ -51,7 +51,7 @@ export async function submitQuoteRequest(
   }
 
   const insertPayload: QuoteRequestInsert = {
-    status: "pending",
+    status: "new",
     start_date: payload.startDate,
     end_date: payload.endDate,
     rental_days: payload.rentalDays,

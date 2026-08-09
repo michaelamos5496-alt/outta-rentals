@@ -87,7 +87,7 @@ export interface ProductCompatibilityRow {
 }
 
 export interface QuoteRequestInsert {
-  status: "pending" | "reviewed" | "quoted" | "converted" | "declined";
+  status: "new" | "reviewing" | "quoted" | "confirmed" | "completed" | "cancelled";
   start_date: string;
   end_date: string;
   rental_days: number;
