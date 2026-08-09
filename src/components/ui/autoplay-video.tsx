@@ -29,7 +29,14 @@ function AutoplayVideo({ src, poster, alt, className, ...props }: AutoplayVideoP
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) video.play().catch(() => {});
+        // Only trigger once — without disconnecting here, a flickering
+        // intersection ratio near the threshold (common during entrance
+        // animations) re-fires play() repeatedly, re-requesting the video
+        // on every toggle.
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+          observer.disconnect();
+        }
       },
       { threshold: 0.25 }
     );
