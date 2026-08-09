@@ -37,9 +37,9 @@ export const footerLinkGroups: FooterLinkGroup[] = [
   {
     title: "Services",
     links: [
-      { label: "Kit Building", href: "/services/kit-building" },
-      { label: "On-Set Support", href: "/services/on-set-support" },
-      { label: "Delivery", href: "/services/delivery" },
+      { label: "Custom Packages", href: "/services" },
+      { label: "Production Support", href: "/services" },
+      { label: "Delivery & Collection", href: "/services" },
     ],
   },
   {

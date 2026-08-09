@@ -61,7 +61,7 @@ export function getWhatsAppNumber(): string | null {
 
 export function getWhatsAppLink(input: WhatsAppMessageInput): string | null {
   const number = getWhatsAppNumber();
-  if (!number || input.items.length === 0) return null;
+  if (!number) return null;
   const digitsOnly = number.replace(/[^\d]/g, "");
   const message = buildWhatsAppMessage(input);
   return `https://wa.me/${digitsOnly}?text=${encodeURIComponent(message)}`;
