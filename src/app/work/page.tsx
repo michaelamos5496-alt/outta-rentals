@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
 import { Badge } from "@/components/ui/badge";
-import { MediaPlaceholder } from "@/components/ui/media-placeholder";
+import { HoverPlayVideo } from "@/components/ui/hover-play-video";
 import { slideUp, viewportOnce } from "@/lib/motion";
 import { workProjects } from "@/lib/content/work";
-import { themeImages } from "@/lib/editorial-images";
+import { themeImages, workVideos } from "@/lib/editorial-images";
 
 function slugifyProductionType(value: string): string {
   return value.toLowerCase().replace(/\s+/g, "-");
@@ -29,7 +29,9 @@ export default function WorkPage() {
       </Section>
 
       <div className="border-t border-border">
-        {workProjects.map((project, i) => (
+        {workProjects.map((project, i) => {
+          const slug = slugifyProductionType(project.productionType);
+          return (
           <motion.article
             key={project.slug}
             initial="hidden"
@@ -45,11 +47,10 @@ export default function WorkPage() {
                 }`}
               >
                 <div className="overflow-hidden rounded-xl">
-                  <MediaPlaceholder
-                    src={themeImages[slugifyProductionType(project.productionType)]}
+                  <HoverPlayVideo
+                    src={workVideos[slug]}
+                    poster={themeImages[slug]}
                     alt={project.title}
-                    icon={project.icon}
-                    meta="16:9 · SAMPLE"
                     className="aspect-video w-full"
                   />
                 </div>
@@ -73,7 +74,8 @@ export default function WorkPage() {
               </div>
             </Section>
           </motion.article>
-        ))}
+          );
+        })}
       </div>
     </>
   );

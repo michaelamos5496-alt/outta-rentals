@@ -44,3 +44,21 @@ export const serviceImages: Record<string, string> = {
 };
 
 export const finalCtaImage = pexelsUrl(30697927, 1920);
+
+/**
+ * Sample-project preview clips (Pexels, free-to-use license), keyed by the
+ * same production-type slugs as `themeImages`. Used with poster={theme image}
+ * and play-on-hover rather than autoplay — some of these run 10-25MB and
+ * autoplaying all of them at once on the work page would be a real page-weight
+ * problem, so nothing downloads until a viewer actually hovers.
+ */
+export const workVideos: Record<string, string> = {
+  commercial: "https://videos.pexels.com/video-files/7618431/7618431-uhd_2732_1440_25fps.mp4",
+  documentary: "https://videos.pexels.com/video-files/4198787/4198787-uhd_2560_1440_24fps.mp4",
+  "music-video":
+    "https://videos.pexels.com/video-files/35555595/15064917_1440_2560_60fps.mp4",
+  "feature-film":
+    "https://videos.pexels.com/video-files/3945446/3945446-uhd_2732_1440_25fps.mp4",
+  "live-production":
+    "https://videos.pexels.com/video-files/13641378/13641378-hd_1080_1920_24fps.mp4",
+};

@@ -1,16 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Clapperboard } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { slideUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MediaPlaceholder } from "@/components/ui/media-placeholder";
+import { HoverPlayVideo } from "@/components/ui/hover-play-video";
 import { workShowcase } from "@/lib/placeholder-data";
-import { themeImages } from "@/lib/editorial-images";
+import { themeImages, workVideos } from "@/lib/editorial-images";
 
 function slugifyProductionType(value: string): string {
   return value.toLowerCase().replace(/\s+/g, "-");
@@ -36,14 +36,15 @@ function WorkShowcase() {
         variants={staggerContainer(0.08)}
         className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2"
       >
-        {workShowcase.map((project) => (
+        {workShowcase.map((project) => {
+          const slug = slugifyProductionType(project.productionType);
+          return (
           <motion.article key={project.title} variants={slideUp()} className="group/project">
             <div className="overflow-hidden rounded-xl">
-              <MediaPlaceholder
-                src={themeImages[slugifyProductionType(project.productionType)]}
+              <HoverPlayVideo
+                src={workVideos[slug]}
+                poster={themeImages[slug]}
                 alt={project.title}
-                icon={Clapperboard}
-                meta="16:9 · SAMPLE"
                 className="aspect-video w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/project:scale-105"
               />
             </div>
@@ -60,7 +61,8 @@ function WorkShowcase() {
               View Project <ArrowRight />
             </Button>
           </motion.article>
-        ))}
+          );
+        })}
       </motion.div>
     </Section>
   );
