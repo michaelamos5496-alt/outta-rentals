@@ -62,7 +62,7 @@ function Hero() {
         style={{ opacity: contentOpacity, y: contentY }}
         className="relative z-10 w-full pt-40 pb-12 sm:pb-16"
       >
-        <div className="mx-auto w-full max-w-(--container-content) px-5 sm:px-8 lg:px-12">
+        <div className="mx-auto flex w-full max-w-(--container-content) flex-col items-center px-5 text-center sm:px-8 lg:px-12">
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -95,7 +95,7 @@ function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: duration.base, delay: 0.45, ease: easeOutta }}
-            className="text-body mt-6 max-w-md"
+            className="text-body mx-auto mt-6 max-w-md"
           >
             Professional cameras, lenses, lighting and production equipment for
             filmmakers, photographers, agencies and creators.
@@ -105,7 +105,7 @@ function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: duration.base, delay: 0.55, ease: easeOutta }}
-            className="mt-8 flex flex-wrap gap-3"
+            className="mt-8 flex flex-wrap items-center justify-center gap-3"
           >
             <Button asChild size="lg" className="group/cta uppercase tracking-wide">
               <Link href="/equipment">
