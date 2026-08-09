@@ -41,6 +41,7 @@ export default function ContactPage() {
           <div>
             <p className="text-label mb-3">Prefer WhatsApp?</p>
             <WhatsAppButton
+              label="Message OUTTA on WhatsApp"
               closingLine="I'd like to talk about an upcoming shoot."
               className="w-full"
             />

@@ -7,12 +7,14 @@ import { Button } from "@/components/ui/button";
 import { getWhatsAppLink, type WhatsAppMessageInput } from "@/lib/quote/whatsapp";
 
 export interface WhatsAppButtonProps extends WhatsAppMessageInput {
+  label?: string;
   className?: string;
   variant?: React.ComponentProps<typeof Button>["variant"];
   size?: React.ComponentProps<typeof Button>["size"];
 }
 
 function WhatsAppButton({
+  label = "Send Kit to WhatsApp",
   className,
   variant = "outline",
   size = "lg",
@@ -23,7 +25,7 @@ function WhatsAppButton({
   if (!link) {
     return (
       <Button variant={variant} size={size} className={className} disabled title="WhatsApp isn't configured yet">
-        <MessageCircle /> Send Kit to WhatsApp
+        <MessageCircle /> {label}
       </Button>
     );
   }
@@ -31,7 +33,7 @@ function WhatsAppButton({
   return (
     <Button asChild variant={variant} size={size} className={className}>
       <a href={link} target="_blank" rel="noopener noreferrer">
-        <MessageCircle /> Send Kit to WhatsApp
+        <MessageCircle /> {label}
       </a>
     </Button>
   );
