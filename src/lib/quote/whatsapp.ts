@@ -1,9 +1,12 @@
 export interface WhatsAppMessageInput {
-  items: { name: string; quantity: number }[];
+  /** Omit or leave empty for a general inquiry with no kit attached. */
+  items?: { name: string; quantity: number }[];
   startDate?: string;
   endDate?: string;
   projectLabel?: string;
   location?: string;
+  /** Defaults to "Please send me a quotation." — override for non-kit messages. */
+  closingLine?: string;
 }
 
 function formatShortDate(iso: string): string {
@@ -18,6 +21,7 @@ function formatShortDate(iso: string): string {
  * than rendered empty.
  */
 export function buildWhatsAppMessage(input: WhatsAppMessageInput): string {
+  const items = input.items ?? [];
   const lines: string[] = ["OUTTA RENTALS — KIT REQUEST", ""];
 
   if (input.projectLabel) {
@@ -32,17 +36,19 @@ export function buildWhatsAppMessage(input: WhatsAppMessageInput): string {
     lines.push("Dates:", range, "");
   }
 
-  lines.push("Equipment:", "");
-  for (const item of input.items) {
-    lines.push(`${item.name} × ${item.quantity}`);
+  if (items.length > 0) {
+    lines.push("Equipment:", "");
+    for (const item of items) {
+      lines.push(`${item.name} × ${item.quantity}`);
+    }
+    lines.push("");
   }
-  lines.push("");
 
   if (input.location) {
     lines.push("Location:", input.location, "");
   }
 
-  lines.push("Please send me a quotation.");
+  lines.push(input.closingLine ?? "Please send me a quotation.");
 
   return lines.join("\n");
 }
