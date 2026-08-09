@@ -109,21 +109,25 @@ export default function QuotePage() {
     setSubmitState("loading");
     setSubmitError(null);
 
-    const result = await submitQuoteRequest({
-      kit: lines.map((l) => ({
-        productSlug: l.product.slug,
-        productName: l.product.name,
-        quantity: l.quantity,
-        dayRate: l.product.dayRate,
-      })),
-      startDate,
-      endDate,
-      rentalDays: rentalDays ?? 0,
-      estimatedTotal: total,
-      project,
-      customer,
-      delivery,
-    });
+    const minDelay = new Promise((resolve) => setTimeout(resolve, 500));
+    const [result] = await Promise.all([
+      submitQuoteRequest({
+        kit: lines.map((l) => ({
+          productSlug: l.product.slug,
+          productName: l.product.name,
+          quantity: l.quantity,
+          dayRate: l.product.dayRate,
+        })),
+        startDate,
+        endDate,
+        rentalDays: rentalDays ?? 0,
+        estimatedTotal: total,
+        project,
+        customer,
+        delivery,
+      }),
+      minDelay,
+    ]);
 
     if (result.ok) {
       setSubmitState("success");
