@@ -7,6 +7,7 @@ export const revalidate = 60; // seconds — keep inventory reasonably fresh onc
 
 export const metadata: Metadata = {
   title: "Cameras",
+  description: "Cinema and mirrorless camera bodies for every production scale.",
 };
 
 export default async function CamerasPage() {

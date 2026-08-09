@@ -20,6 +20,7 @@ const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
           ref={ref}
           type="search"
           placeholder={placeholder}
+          aria-label={props["aria-label"] ?? placeholder}
           className={cn("h-10 rounded-full pl-9", className)}
           {...props}
         />

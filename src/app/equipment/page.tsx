@@ -7,6 +7,8 @@ export const revalidate = 60; // seconds — keep inventory reasonably fresh onc
 
 export const metadata: Metadata = {
   title: "Equipment",
+  description:
+    "Browse the full OUTTA RENTALS catalogue — cameras, lenses, lighting, grip, audio, monitors, drones and accessories for professional productions.",
 };
 
 export default async function EquipmentPage() {

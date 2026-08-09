@@ -7,6 +7,7 @@ export const revalidate = 60; // seconds — keep inventory reasonably fresh onc
 
 export const metadata: Metadata = {
   title: "Accessories",
+  description: "Power, media, filtration and cabling.",
 };
 
 export default async function AccessoriesPage() {

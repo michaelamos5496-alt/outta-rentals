@@ -7,6 +7,7 @@ export const revalidate = 60; // seconds — keep inventory reasonably fresh onc
 
 export const metadata: Metadata = {
   title: "Drones",
+  description: "Aerial camera platforms and accessories.",
 };
 
 export default async function DronesPage() {

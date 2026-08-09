@@ -84,8 +84,9 @@ function CategoryManager({ categories }: { categories: AdminCategory[] }) {
           className="mt-4 flex flex-col gap-3 rounded-lg border border-border p-4 sm:flex-row sm:items-end"
         >
           <div className="flex-1">
-            <label className="text-label">Name</label>
+            <label className="text-label" htmlFor="new-category-name">Name</label>
             <Input
+              id="new-category-name"
               className="mt-1.5"
               required
               value={draft.name}
@@ -93,8 +94,9 @@ function CategoryManager({ categories }: { categories: AdminCategory[] }) {
             />
           </div>
           <div className="flex-1">
-            <label className="text-label">Slug</label>
+            <label className="text-label" htmlFor="new-category-slug">Slug</label>
             <Input
+              id="new-category-slug"
               className="mt-1.5"
               placeholder="auto from name if left blank"
               value={draft.slug}
@@ -102,8 +104,9 @@ function CategoryManager({ categories }: { categories: AdminCategory[] }) {
             />
           </div>
           <div className="flex-[2]">
-            <label className="text-label">Description</label>
+            <label className="text-label" htmlFor="new-category-description">Description</label>
             <Input
+              id="new-category-description"
               className="mt-1.5"
               value={draft.description}
               onChange={(e) => setDraft((d) => ({ ...d, description: e.target.value }))}
@@ -134,18 +137,21 @@ function CategoryManager({ categories }: { categories: AdminCategory[] }) {
                     <>
                       <TableCell>
                         <Input
+                          aria-label="Category name"
                           value={editDraft.name}
                           onChange={(e) => setEditDraft((d) => ({ ...d, name: e.target.value }))}
                         />
                       </TableCell>
                       <TableCell>
                         <Input
+                          aria-label="Category slug"
                           value={editDraft.slug}
                           onChange={(e) => setEditDraft((d) => ({ ...d, slug: e.target.value }))}
                         />
                       </TableCell>
                       <TableCell>
                         <Input
+                          aria-label="Category description"
                           value={editDraft.description}
                           onChange={(e) =>
                             setEditDraft((d) => ({ ...d, description: e.target.value }))

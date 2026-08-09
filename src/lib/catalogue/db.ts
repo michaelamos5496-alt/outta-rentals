@@ -137,7 +137,8 @@ async function fetchAllProductsFromDb(): Promise<DemoProduct[] | null> {
 function getFallbackProducts(): DemoProduct[] {
   return listAdminProducts()
     .filter((p) => !p.archived)
-    .map(({ images: _images, archived: _archived, ...product }) => product);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    .map(({ images, archived, ...product }) => product);
 }
 
 /** Fetches once per request/build and reuses the result for every helper below. */

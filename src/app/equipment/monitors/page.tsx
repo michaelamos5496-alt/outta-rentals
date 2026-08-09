@@ -7,6 +7,7 @@ export const revalidate = 60; // seconds — keep inventory reasonably fresh onc
 
 export const metadata: Metadata = {
   title: "Monitors",
+  description: "On-camera and production monitoring.",
 };
 
 export default async function MonitorsPage() {

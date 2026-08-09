@@ -14,6 +14,7 @@ import {
 } from "@/lib/catalogue";
 import { fetchProductBySlug } from "@/lib/catalogue/db";
 import { getRecommendedForShoot } from "@/lib/packages";
+import { absoluteUrl, SITE_NAME } from "@/lib/seo";
 import { Container } from "@/components/ui/container";
 import { Badge } from "@/components/ui/badge";
 import { Divider } from "@/components/ui/divider";
@@ -32,7 +33,19 @@ interface ProductPageProps {
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
   const product = await fetchProductBySlug(slug);
-  return { title: product ? product.name : "Equipment Not Found" };
+  if (!product) return { title: "Equipment Not Found" };
+
+  return {
+    title: product.name,
+    description: product.shortDescription,
+    alternates: { canonical: `/equipment/${product.slug}` },
+    openGraph: {
+      title: `${product.name} — ${SITE_NAME}`,
+      description: product.shortDescription,
+      url: `/equipment/${product.slug}`,
+      type: "website",
+    },
+  };
 }
 
 function groupSpecifications(specs: DemoProductSpec[]) {
@@ -80,8 +93,61 @@ export default async function ProductPage({ params }: ProductPageProps) {
   );
   const related = getRelatedProducts(product);
 
+  const schemaAvailability: Record<string, string> = {
+    available: "https://schema.org/InStock",
+    reserved: "https://schema.org/LimitedAvailability",
+    coming_soon: "https://schema.org/PreOrder",
+    maintenance: "https://schema.org/OutOfStock",
+    unavailable: "https://schema.org/OutOfStock",
+  };
+
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.shortDescription,
+    brand: { "@type": "Brand", name: brand?.name ?? product.brandSlug },
+    sku: product.sku,
+    url: absoluteUrl(`/equipment/${product.slug}`),
+    offers: {
+      "@type": "Offer",
+      priceCurrency: product.currency,
+      price: product.dayRate,
+      availability: schemaAvailability[product.availability] ?? "https://schema.org/OutOfStock",
+      url: absoluteUrl(`/equipment/${product.slug}`),
+    },
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Equipment", item: absoluteUrl("/equipment") },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: category?.name ?? product.categorySlug,
+        item: absoluteUrl(`/equipment/${product.categorySlug}`),
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: product.name,
+        item: absoluteUrl(`/equipment/${product.slug}`),
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <Container className="py-10 sm:py-14">
         <p className="text-small mb-6">
           <Link href="/equipment" className="hover:text-foreground">

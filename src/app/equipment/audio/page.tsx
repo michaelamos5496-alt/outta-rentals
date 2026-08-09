@@ -7,6 +7,7 @@ export const revalidate = 60; // seconds — keep inventory reasonably fresh onc
 
 export const metadata: Metadata = {
   title: "Audio",
+  description: "Wireless, boom and field recording gear.",
 };
 
 export default async function AudioPage() {

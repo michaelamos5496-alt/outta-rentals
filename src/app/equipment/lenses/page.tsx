@@ -7,6 +7,7 @@ export const revalidate = 60; // seconds — keep inventory reasonably fresh onc
 
 export const metadata: Metadata = {
   title: "Lenses",
+  description: "Cine primes, zooms and specialty glass.",
 };
 
 export default async function LensesPage() {

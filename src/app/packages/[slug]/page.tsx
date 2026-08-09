@@ -15,7 +15,10 @@ interface PackagePageProps {
 export async function generateMetadata({ params }: PackagePageProps): Promise<Metadata> {
   const { slug } = await params;
   const pkg = getPackageBySlug(slug);
-  return { title: pkg ? `${pkg.name} Package` : "Package Not Found" };
+  return {
+    title: pkg ? `${pkg.name} Package` : "Package Not Found",
+    description: pkg?.description,
+  };
 }
 
 export default async function PackagePage({ params }: PackagePageProps) {

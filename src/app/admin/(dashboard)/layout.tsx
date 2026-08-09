@@ -15,6 +15,10 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
+// Never statically cache admin pages — every request must re-run the
+// session check above, not serve a build-time (or edge-cached) snapshot.
+export const dynamic = "force-dynamic";
+
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const session = await getAdminSession();
 
@@ -50,6 +54,9 @@ export default async function AdminLayout({ children }: { children: ReactNode })
               <SignOutButton />
             </div>
           </header>
+          <div className="border-b border-border px-3 py-2 lg:hidden">
+            <AdminSidebar variant="horizontal" />
+          </div>
           <main className="p-6">{children}</main>
         </div>
       </div>

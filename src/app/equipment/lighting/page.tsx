@@ -7,6 +7,7 @@ export const revalidate = 60; // seconds — keep inventory reasonably fresh onc
 
 export const metadata: Metadata = {
   title: "Lighting",
+  description: "LED, HMI and tungsten fixtures for any setup.",
 };
 
 export default async function LightingPage() {

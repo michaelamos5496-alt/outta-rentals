@@ -238,6 +238,7 @@ function ProductForm({ product }: ProductFormProps) {
             <div key={i} className="flex gap-2">
               <Input
                 placeholder="https://…"
+                aria-label="Image URL"
                 value={image.url}
                 onChange={(e) =>
                   setImages((imgs) => imgs.map((img, j) => (j === i ? { ...img, url: e.target.value } : img)))
@@ -245,6 +246,7 @@ function ProductForm({ product }: ProductFormProps) {
               />
               <Input
                 placeholder="Alt text"
+                aria-label="Image alt text"
                 value={image.alt}
                 onChange={(e) =>
                   setImages((imgs) => imgs.map((img, j) => (j === i ? { ...img, alt: e.target.value } : img)))
@@ -254,6 +256,7 @@ function ProductForm({ product }: ProductFormProps) {
                 type="button"
                 variant="ghost"
                 size="icon"
+                aria-label="Remove image"
                 onClick={() => setImages((imgs) => imgs.filter((_, j) => j !== i))}
               >
                 <Trash2 />
@@ -284,6 +287,7 @@ function ProductForm({ product }: ProductFormProps) {
             <div key={i} className="flex gap-2">
               <Input
                 placeholder="Group (e.g. Imaging)"
+                aria-label="Specification group"
                 className="w-32"
                 value={spec.group ?? ""}
                 onChange={(e) =>
@@ -294,6 +298,7 @@ function ProductForm({ product }: ProductFormProps) {
               />
               <Input
                 placeholder="Label"
+                aria-label="Specification label"
                 value={spec.label}
                 onChange={(e) =>
                   setSpecifications((specs) =>
@@ -303,6 +308,7 @@ function ProductForm({ product }: ProductFormProps) {
               />
               <Input
                 placeholder="Value"
+                aria-label="Specification value"
                 value={spec.value}
                 onChange={(e) =>
                   setSpecifications((specs) =>
@@ -314,6 +320,7 @@ function ProductForm({ product }: ProductFormProps) {
                 type="button"
                 variant="ghost"
                 size="icon"
+                aria-label="Remove specification"
                 onClick={() => setSpecifications((specs) => specs.filter((_, j) => j !== i))}
               >
                 <Trash2 />
@@ -341,6 +348,7 @@ function ProductForm({ product }: ProductFormProps) {
           {included.map((item, i) => (
             <div key={i} className="flex gap-2">
               <Input
+                aria-label="Included item"
                 value={item}
                 onChange={(e) =>
                   setIncluded((list) => list.map((it, j) => (j === i ? e.target.value : it)))
@@ -350,6 +358,7 @@ function ProductForm({ product }: ProductFormProps) {
                 type="button"
                 variant="ghost"
                 size="icon"
+                aria-label="Remove included item"
                 onClick={() => setIncluded((list) => list.filter((_, j) => j !== i))}
               >
                 <Trash2 />

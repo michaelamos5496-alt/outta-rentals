@@ -33,7 +33,7 @@ function RentalDates() {
       </div>
 
       {dateError ? (
-        <p className="mt-2.5 flex items-center gap-1.5 text-sm text-destructive">
+        <p role="alert" className="mt-2.5 flex items-center gap-1.5 text-sm text-destructive">
           <AlertCircle className="size-3.5 shrink-0" />
           {dateError}
         </p>

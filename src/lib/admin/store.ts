@@ -43,6 +43,9 @@ function seedCategories(): AdminCategory[] {
 
 function seedQuotes(): AdminQuote[] {
   const now = Date.now();
+  // n > 0 = in the past, n < 0 = in the future. Every (startDate, endDate)
+  // pair below must satisfy startDate <= endDate chronologically — double
+  // check the sign when adding a seed row, it's easy to get backwards.
   const daysAgo = (n: number) => new Date(now - n * 86_400_000).toISOString();
 
   return [
@@ -55,10 +58,10 @@ function seedQuotes(): AdminQuote[] {
       projectName: "Coca-Cola Summer Campaign",
       projectType: "Commercial",
       shootLocation: "Accra",
-      startDate: daysAgo(-5),
-      endDate: daysAgo(-2),
+      startDate: daysAgo(-2),
+      endDate: daysAgo(-5),
       rentalDays: 3,
-      estimatedTotal: 915,
+      estimatedTotal: 1230,
       kit: [
         { productSlug: "sony-fx6", productName: "Sony FX6", quantity: 1, dayRate: 220 },
         {
@@ -81,10 +84,10 @@ function seedQuotes(): AdminQuote[] {
       projectName: "Independent Feature — Dust",
       projectType: "Feature Film",
       shootLocation: "Kumasi",
-      startDate: daysAgo(-14),
-      endDate: daysAgo(-4),
+      startDate: daysAgo(-4),
+      endDate: daysAgo(-14),
       rentalDays: 10,
-      estimatedTotal: 12500,
+      estimatedTotal: 8900,
       kit: [
         {
           productSlug: "arri-alexa-mini-lf",
@@ -118,10 +121,10 @@ function seedQuotes(): AdminQuote[] {
       projectName: "Brand Documentary",
       projectType: "Documentary",
       shootLocation: "Cape Coast",
-      startDate: daysAgo(10),
-      endDate: daysAgo(15),
+      startDate: daysAgo(15),
+      endDate: daysAgo(10),
       rentalDays: 5,
-      estimatedTotal: 1450,
+      estimatedTotal: 1000,
       kit: [
         { productSlug: "sony-fx3", productName: "Sony FX3", quantity: 1, dayRate: 145 },
         {
@@ -149,7 +152,7 @@ function seedQuotes(): AdminQuote[] {
       startDate: daysAgo(20),
       endDate: daysAgo(20),
       rentalDays: 1,
-      estimatedTotal: 245,
+      estimatedTotal: 215,
       kit: [
         { productSlug: "sony-fx3", productName: "Sony FX3", quantity: 1, dayRate: 145 },
         {
@@ -175,7 +178,7 @@ function seedQuotes(): AdminQuote[] {
       startDate: daysAgo(35),
       endDate: daysAgo(34),
       rentalDays: 2,
-      estimatedTotal: 990,
+      estimatedTotal: 1000,
       kit: [
         { productSlug: "sony-fx6", productName: "Sony FX6", quantity: 2, dayRate: 220 },
         {
@@ -201,7 +204,7 @@ function seedQuotes(): AdminQuote[] {
       startDate: daysAgo(-8),
       endDate: daysAgo(-8),
       rentalDays: 1,
-      estimatedTotal: 890,
+      estimatedTotal: 700,
       kit: [
         { productSlug: "red-v-raptor", productName: "RED V-RAPTOR 8K VV", quantity: 1, dayRate: 595 },
         {

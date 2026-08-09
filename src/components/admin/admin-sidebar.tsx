@@ -24,11 +24,12 @@ const navItems = [
   { href: "/admin/orders", label: "Orders", icon: ClipboardList },
 ];
 
-function AdminSidebar() {
+function AdminSidebar({ variant = "vertical" }: { variant?: "vertical" | "horizontal" }) {
   const pathname = usePathname();
+  const horizontal = variant === "horizontal";
 
   return (
-    <nav className="flex flex-col gap-0.5">
+    <nav className={cn("flex gap-0.5", horizontal ? "flex-row overflow-x-auto" : "flex-col")}>
       {navItems.map((item) => {
         const active = item.exact ? pathname === item.href : pathname.startsWith(item.href);
         return (
@@ -36,7 +37,7 @@ function AdminSidebar() {
             key={item.href}
             href={item.href}
             className={cn(
-              "flex items-center gap-2.5 rounded-md px-3 py-2 text-sm transition-colors",
+              "flex shrink-0 items-center gap-2.5 rounded-md px-3 py-2 text-sm transition-colors",
               active
                 ? "bg-secondary text-foreground"
                 : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"

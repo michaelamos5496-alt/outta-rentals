@@ -85,9 +85,11 @@ export default async function AdminQuoteDetailPage({ params }: QuoteDetailPagePr
               {quote.kit.map((line) => (
                 <div key={line.productSlug} className="flex justify-between p-3 text-sm">
                   <span>
-                    {line.productName} × {line.quantity}
+                    {line.productName} × {line.quantity} × {quote.rentalDays}d
                   </span>
-                  <span>${(line.dayRate * line.quantity).toLocaleString()}</span>
+                  <span>
+                    ${(line.dayRate * line.quantity * quote.rentalDays).toLocaleString()}
+                  </span>
                 </div>
               ))}
               <div className="flex justify-between p-3 text-sm font-medium">
