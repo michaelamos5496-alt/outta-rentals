@@ -13,10 +13,21 @@ const headlineLines = ["THE KIT", "BEHIND THE", "VISION."];
 
 function Hero() {
   const ref = React.useRef<HTMLDivElement>(null);
+  const videoRef = React.useRef<HTMLVideoElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
+
+  React.useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    // Some browsers (notably Safari/iOS) only honor autoplay when `muted`
+    // is set as a JS property, not just the HTML attribute — and .play()
+    // can return a rejected promise if the policy check fails regardless.
+    video.muted = true;
+    video.play().catch(() => {});
+  }, []);
 
   const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 80]);
@@ -31,6 +42,7 @@ function Hero() {
       <div ref={ref} className="absolute inset-0 bg-background">
         <motion.div style={{ scale: bgScale }} className="absolute inset-0">
           <video
+            ref={videoRef}
             autoPlay
             muted
             loop
