@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
@@ -10,9 +11,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { AutoplayVideo } from "@/components/ui/autoplay-video";
 import { workShowcase } from "@/lib/placeholder-data";
-import { themeImages, workVideos } from "@/lib/editorial-images";
+import { themeImages } from "@/lib/editorial-images";
 
 function slugifyProductionType(value: string): string {
+  return value.toLowerCase().replace(/\s+/g, "-");
+}
+
+function slugifyTitle(value: string): string {
   return value.toLowerCase().replace(/\s+/g, "-");
 }
 
@@ -42,7 +47,7 @@ function WorkShowcase() {
           <motion.article key={project.title} variants={slideUp()} className="group/project">
             <div className="overflow-hidden rounded-xl">
               <AutoplayVideo
-                src={workVideos[slug]}
+                src="/video/about.mp4"
                 poster={themeImages[slug]}
                 alt={project.title}
                 className="aspect-video w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/project:scale-105"
@@ -57,8 +62,10 @@ function WorkShowcase() {
                 {project.productionType}
               </Badge>
             </div>
-            <Button variant="link" className="mt-2 h-auto p-0">
-              View Project <ArrowRight />
+            <Button asChild variant="link" className="mt-2 h-auto p-0">
+              <Link href={`/work#${slugifyTitle(project.title)}`}>
+                View Project <ArrowRight />
+              </Link>
             </Button>
           </motion.article>
           );
