@@ -1,6 +1,8 @@
 "use server";
 
-import { checkProductAvailability, fetchProductBySlug } from "./db";
+import { checkProductAvailability, fetchAllProducts, fetchProductBySlug } from "./db";
+import { getBrandBySlug, getCategoryBySlug } from "./index";
+import type { ProductAvailability } from "./types";
 
 export interface KitAvailabilityCheckItem {
   productSlug: string;
@@ -43,4 +45,51 @@ export async function checkKitAvailability(
   }
 
   return results;
+}
+
+export interface CatalogueSearchResult {
+  slug: string;
+  name: string;
+  brandName: string;
+  categoryName: string;
+  categorySlug: string;
+  dayRate: number;
+  currency: string;
+  availability: ProductAvailability;
+}
+
+function normalize(value: string): string {
+  return value.trim().toLowerCase();
+}
+
+/**
+ * Powers the navbar's search modal. Queries the same DB-or-fallback product
+ * pool the storefront reads (`fetchAllProducts`), so results reflect admin
+ * edits — same matching rules as `searchProducts` in `./index`, just async
+ * and callable from a client component.
+ */
+export async function searchCatalogueAction(query: string): Promise<CatalogueSearchResult[]> {
+  const q = normalize(query);
+  if (!q) return [];
+
+  const products = await fetchAllProducts();
+
+  return products
+    .filter((p) => {
+      const brandName = getBrandBySlug(p.brandSlug)?.name ?? "";
+      const categoryName = getCategoryBySlug(p.categorySlug)?.name ?? "";
+      const haystack = [p.name, brandName, categoryName, ...p.tags].map(normalize).join(" ");
+      return haystack.includes(q);
+    })
+    .slice(0, 8)
+    .map((p) => ({
+      slug: p.slug,
+      name: p.name,
+      brandName: getBrandBySlug(p.brandSlug)?.name ?? p.brandSlug,
+      categoryName: getCategoryBySlug(p.categorySlug)?.name ?? p.categorySlug,
+      categorySlug: p.categorySlug,
+      dayRate: p.dayRate,
+      currency: p.currency,
+      availability: p.availability,
+    }));
 }

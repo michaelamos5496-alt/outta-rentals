@@ -3,14 +3,11 @@
 import * as React from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Package, Search } from "lucide-react";
+import { ArrowRight, Package } from "lucide-react";
 
 import { duration, easeOutta } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { SearchInput } from "@/components/ui/search-input";
-import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 
 const headlineLines = ["THE KIT", "BEHIND THE", "VISION."];
 
@@ -31,13 +28,19 @@ function Hero() {
       bleed
       className="relative flex h-[100svh] min-h-[640px] w-full items-end overflow-hidden"
     >
-      <div ref={ref} className="absolute inset-0">
+      <div ref={ref} className="absolute inset-0 bg-background">
         <motion.div style={{ scale: bgScale }} className="absolute inset-0">
-          <MediaPlaceholder
-            tone="hero"
-            meta="OUTTA RENTALS · PRODUCTION FOOTAGE PLACEHOLDER"
-            className="h-full w-full rounded-none"
-          />
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-hidden
+            className="h-full w-full object-cover"
+          >
+            <source src="/video/hero.mp4" type="video/mp4" />
+          </video>
         </motion.div>
         {/* Legibility scrim, heaviest toward the content at the bottom */}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/10" />
@@ -107,40 +110,6 @@ function Hero() {
               <Link href="#build-your-kit">
                 <Package /> Build Your Kit
               </Link>
-            </Button>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: duration.base, delay: 0.65, ease: easeOutta }}
-            className="mt-10 flex flex-col gap-3 rounded-xl border border-border bg-card/70 p-3 shadow-[var(--shadow-outta-lg)] backdrop-blur-md sm:flex-row sm:items-center sm:gap-2 sm:p-2"
-          >
-            <SearchInput
-              containerClassName="sm:flex-1"
-              className="h-11 border-transparent bg-transparent sm:border-input"
-              placeholder="Search equipment…"
-            />
-            <div className="grid grid-cols-1 gap-2 sm:contents">
-              <label className="flex h-11 items-center gap-2 rounded-lg border border-input px-3">
-                <span className="text-label shrink-0 text-muted-foreground">From</span>
-                <Input
-                  type="date"
-                  aria-label="Start date"
-                  className="h-auto min-w-0 border-0 p-0 focus-visible:ring-0"
-                />
-              </label>
-              <label className="flex h-11 items-center gap-2 rounded-lg border border-input px-3">
-                <span className="text-label shrink-0 text-muted-foreground">To</span>
-                <Input
-                  type="date"
-                  aria-label="End date"
-                  className="h-auto min-w-0 border-0 p-0 focus-visible:ring-0"
-                />
-              </label>
-            </div>
-            <Button size="lg" className="uppercase tracking-wide sm:w-auto">
-              <Search /> Build Kit
             </Button>
           </motion.div>
         </div>

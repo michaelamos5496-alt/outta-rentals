@@ -3,16 +3,107 @@
 import * as React from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, Package, Search, X } from "lucide-react";
+import { LoaderCircle, Menu, Package, Search, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { duration, easeOutta } from "@/lib/motion";
 import { primaryNav } from "@/config/site";
+import { availabilityLabels, availabilityVariant } from "@/lib/catalogue";
+import { searchCatalogueAction, type CatalogueSearchResult } from "@/lib/catalogue/actions";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { SearchInput } from "@/components/ui/search-input";
 import { Modal } from "@/components/ui/modal";
 import { useKit } from "@/components/kit/kit-provider";
+
+function useDebouncedValue<T>(value: T, delayMs: number): T {
+  const [debounced, setDebounced] = React.useState(value);
+  React.useEffect(() => {
+    const timer = setTimeout(() => setDebounced(value), delayMs);
+    return () => clearTimeout(timer);
+  }, [value, delayMs]);
+  return debounced;
+}
+
+function NavbarSearch({ onNavigate }: { onNavigate: () => void }) {
+  const [query, setQuery] = React.useState("");
+  const [results, setResults] = React.useState<CatalogueSearchResult[]>([]);
+  const [loading, setLoading] = React.useState(false);
+  const debouncedQuery = useDebouncedValue(query, 250);
+
+  React.useEffect(() => {
+    const q = debouncedQuery.trim();
+    if (!q) return;
+
+    let cancelled = false;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- kicks off the async search; not derivable from render
+    setLoading(true);
+    searchCatalogueAction(q).then((res) => {
+      if (!cancelled) {
+        setResults(res);
+        setLoading(false);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [debouncedQuery]);
+
+  const trimmedQuery = query.trim();
+  const showResults = trimmedQuery && !loading && results.length > 0;
+  const showEmpty = trimmedQuery && !loading && results.length === 0;
+
+  return (
+    <div>
+      <SearchInput
+        autoFocus
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+
+      <div className="mt-3 max-h-[60vh] overflow-y-auto">
+        {trimmedQuery && loading ? (
+          <div className="flex items-center justify-center gap-2 py-10 text-muted-foreground">
+            <LoaderCircle className="size-4 animate-spin" aria-hidden />
+            <span className="text-small">Searching…</span>
+          </div>
+        ) : showEmpty ? (
+          <p className="text-small py-10 text-center">
+            No equipment found for &ldquo;{trimmedQuery}&rdquo;.
+          </p>
+        ) : showResults ? (
+          <ul className="flex flex-col divide-y divide-border">
+            {results.map((product) => (
+              <li key={product.slug}>
+                <Link
+                  href={`/equipment/${product.slug}`}
+                  onClick={onNavigate}
+                  className="flex items-center justify-between gap-3 py-3 transition-colors hover:text-brand"
+                >
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium">{product.name}</p>
+                    <p className="text-small truncate">
+                      {product.brandName} · {product.categoryName}
+                    </p>
+                  </div>
+                  <div className="flex shrink-0 items-center gap-2">
+                    <span className="text-small whitespace-nowrap">
+                      ${product.dayRate}/day
+                    </span>
+                    <Badge variant={availabilityVariant[product.availability]}>
+                      {availabilityLabels[product.availability]}
+                    </Badge>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </div>
+    </div>
+  );
+}
 
 function useScrolled(threshold = 8) {
   const [scrolled, setScrolled] = React.useState(false);
@@ -105,15 +196,14 @@ function Navbar() {
         </nav>
       </Container>
 
-      {/* Search — UI shell only, no results wired up yet */}
       <Modal
         open={searchOpen}
         onOpenChange={setSearchOpen}
         title="Search equipment"
-        description="Full catalogue search arrives in a later phase."
+        description="Search the full catalogue by name, brand, category or tag."
         className="sm:max-w-lg"
       >
-        <SearchInput autoFocus />
+        <NavbarSearch onNavigate={() => setSearchOpen(false)} />
       </Modal>
 
       {/* Mobile navigation */}
