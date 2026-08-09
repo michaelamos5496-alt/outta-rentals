@@ -37,7 +37,7 @@ function Hero() {
     <Section
       spacing="none"
       bleed
-      className="relative flex h-[100svh] min-h-[640px] w-full items-end overflow-hidden"
+      className="relative flex h-[100svh] min-h-[640px] w-full items-center overflow-hidden"
     >
       <div ref={ref} className="absolute inset-0 bg-background">
         <motion.div style={{ scale: bgScale }} className="absolute inset-0">
@@ -54,13 +54,21 @@ function Hero() {
             <source src="/video/hero.mp4" type="video/mp4" />
           </video>
         </motion.div>
-        {/* Legibility scrim, heaviest toward the content at the bottom */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/10" />
+        {/* Legibility scrim — vignette centered on the text, plus a top/bottom fade */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/35 to-background/60" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(60% 50% at 50% 50%, var(--background) 0%, transparent 100%)",
+            opacity: 0.55,
+          }}
+        />
       </div>
 
       <motion.div
         style={{ opacity: contentOpacity, y: contentY }}
-        className="relative z-10 w-full pt-40 pb-12 sm:pb-16"
+        className="relative z-10 w-full py-24"
       >
         <div className="mx-auto flex w-full max-w-(--container-content) flex-col items-center px-5 text-center sm:px-8 lg:px-12">
           <motion.p
