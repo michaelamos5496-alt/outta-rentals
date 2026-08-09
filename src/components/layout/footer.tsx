@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import { siteConfig, footerLinkGroups, legalLinks } from "@/config/site";
 import { Container } from "@/components/ui/container";
@@ -8,12 +9,29 @@ function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer data-slot="footer" className="border-t border-border bg-background">
-      <Container className="py-16 sm:py-20">
+    <footer data-slot="footer" className="relative overflow-hidden border-t border-border bg-background">
+      {/* Oversized watermark of the real logo, bleeding off the edge — a texture, not a UI element */}
+      <Image
+        src="/brand/outta-logo-dark.png"
+        alt=""
+        aria-hidden
+        width={1190}
+        height={450}
+        className="pointer-events-none absolute -right-24 -bottom-20 w-[640px] max-w-none opacity-[0.05] select-none sm:w-[820px]"
+      />
+
+      <Container className="relative py-16 sm:py-20">
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
           <div className="col-span-2 sm:col-span-3 lg:col-span-1">
-            <Link href="/" className="font-heading text-lg font-semibold">
-              OUTTA<span className="text-brand">.</span>
+            <Link href="/" className="inline-block">
+              <Image
+                src="/brand/outta-logo-dark.png"
+                alt={siteConfig.name}
+                width={595}
+                height={225}
+                className="h-9 w-auto"
+                priority={false}
+              />
             </Link>
             <p className="text-small mt-4 max-w-xs">{siteConfig.tagline}</p>
           </div>
