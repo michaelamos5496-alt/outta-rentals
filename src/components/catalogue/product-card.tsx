@@ -16,7 +16,7 @@ import {
   type DemoProduct,
 } from "@/lib/catalogue";
 import { useKit } from "@/components/kit/kit-provider";
-import { categoryImages } from "@/lib/editorial-images";
+import { getProductImage } from "@/lib/editorial-images";
 import { formatPrice } from "@/lib/currency";
 
 export interface ProductCardProps {
@@ -54,7 +54,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
         )}
       >
         <MediaPlaceholder
-          src={categoryImages[product.categorySlug]}
+          src={getProductImage(product.slug, product.categorySlug)}
           alt={product.name}
           icon={icon}
           meta={product.sku}

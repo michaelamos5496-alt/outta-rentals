@@ -1,9 +1,7 @@
 /**
  * Editorial stock photography (Pexels, free-to-use license) for brand/category
  * imagery — homepage sections, category tiles, work showcase, services,
- * packages. Deliberately NOT used on product-specific cards/galleries, since
- * a stock photo shown against a real SKU (e.g. "RED V-RAPTOR") would show the
- * wrong gear labeled as the real product.
+ * packages, and per-product cards/galleries (see `productImages` below).
  */
 
 function pexelsUrl(id: number, width = 1200): string {
@@ -44,3 +42,41 @@ export const serviceImages: Record<string, string> = {
 };
 
 export const finalCtaImage = pexelsUrl(30697927, 1920);
+
+/**
+ * Best-effort per-product photos, keyed by catalogue slug. Free stock photo
+ * libraries don't carry verified, model-specific photography for niche pro
+ * cinema gear (a "Sony camera" stock photo can't be confirmed to actually be
+ * an FX3 vs FX6, and brand-specific searches for Aputure/Godox/Sigma gear
+ * turned up nothing usable) — these are the closest visually-plausible match
+ * found per product, not verified exact-unit photos. Products without an
+ * entry here fall back to their category photo (see `categoryImages`).
+ */
+export const productImages: Record<string, string> = {
+  "sony-fx3": pexelsUrl(30697927),
+  "sony-fx6": pexelsUrl(17333518),
+  "sony-fx9": pexelsUrl(34623018),
+  "canon-c70": pexelsUrl(2335048),
+  "arri-alexa-mini-lf": pexelsUrl(17145214),
+  "red-v-raptor": pexelsUrl(6794832),
+
+  "sony-24-70mm-gm-ii": pexelsUrl(2179865),
+  "sony-70-200mm-gm-ii": pexelsUrl(35790629),
+  "sigma-cine-prime-set": pexelsUrl(4164088),
+
+  "sachtler-flowtech-75": pexelsUrl(30670957),
+  "dji-rs-3-pro": pexelsUrl(20101684),
+  "camera-slider": pexelsUrl(28532580),
+
+  "zoom-field-recorder": pexelsUrl(14358512),
+
+  "dji-inspire-3": pexelsUrl(8821970),
+  "dji-mavic-3-cine": pexelsUrl(13310698),
+
+  "nd-filter-matte-box-kit": pexelsUrl(1114126),
+};
+
+/** Resolves a product's best-effort photo, falling back to its category photo. */
+export function getProductImage(productSlug: string, categorySlug: string): string | undefined {
+  return productImages[productSlug] ?? categoryImages[categorySlug];
+}

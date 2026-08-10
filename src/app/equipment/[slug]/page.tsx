@@ -164,6 +164,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
           <ProductGallery
+            productSlug={product.slug}
             categorySlug={product.categorySlug}
             sku={product.sku}
             name={product.name}

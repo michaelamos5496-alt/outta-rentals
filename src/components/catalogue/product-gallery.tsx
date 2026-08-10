@@ -5,9 +5,10 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { getCategoryIcon } from "@/lib/catalogue";
-import { categoryImages } from "@/lib/editorial-images";
+import { getProductImage } from "@/lib/editorial-images";
 
 export interface ProductGalleryProps {
+  productSlug: string;
   categorySlug: string;
   sku: string;
   name: string;
@@ -15,9 +16,9 @@ export interface ProductGalleryProps {
   frameCount?: number;
 }
 
-function ProductGallery({ categorySlug, sku, name, frameCount = 4 }: ProductGalleryProps) {
+function ProductGallery({ productSlug, categorySlug, sku, name, frameCount = 4 }: ProductGalleryProps) {
   const icon = getCategoryIcon(categorySlug);
-  const image = categoryImages[categorySlug];
+  const image = getProductImage(productSlug, categorySlug);
   const [active, setActive] = React.useState(0);
   const frames = Array.from({ length: frameCount });
 

@@ -12,7 +12,7 @@ import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { getBrandBySlug, getCategoryIcon, getProductBySlug } from "@/lib/catalogue";
 import { useKit } from "@/components/kit/kit-provider";
 import type { ProductionPackage } from "@/lib/packages/types";
-import { categoryImages } from "@/lib/editorial-images";
+import { getProductImage } from "@/lib/editorial-images";
 import { formatPrice } from "@/lib/currency";
 
 interface BuilderLine {
@@ -89,7 +89,7 @@ function PackageBuilder({ pkg }: PackageBuilderProps) {
                 className="block size-16 shrink-0 overflow-hidden rounded-lg sm:size-20"
               >
                 <MediaPlaceholder
-                  src={categoryImages[product.categorySlug]}
+                  src={getProductImage(product.slug, product.categorySlug)}
                   alt={product.name}
                   icon={icon}
                   className="size-full"

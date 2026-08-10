@@ -8,7 +8,6 @@ import { ArrowRight, Package } from "lucide-react";
 import { duration, easeOutta } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
-import { categoryImages } from "@/lib/editorial-images";
 
 const headlineLines = ["THE KIT", "BEHIND THE", "VISION."];
 
@@ -54,7 +53,7 @@ function Hero() {
             loop
             playsInline
             preload="auto"
-            poster={categoryImages.cameras}
+            poster="/video/hero-poster.jpg"
             {...({ fetchPriority: "high" } as React.VideoHTMLAttributes<HTMLVideoElement>)}
             aria-hidden
             className="h-full w-full object-cover"
