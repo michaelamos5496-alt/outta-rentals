@@ -1,7 +1,9 @@
 "use client";
 
+import * as React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Plus } from "lucide-react";
+import { Check, Plus } from "lucide-react";
 
 import { slideUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
@@ -9,16 +11,77 @@ import { Heading } from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
-import { featuredProducts } from "@/lib/placeholder-data";
-import { categoryImages } from "@/lib/editorial-images";
+import {
+  getBrandBySlug,
+  availabilityLabels,
+  availabilityVariant,
+  type DemoProduct,
+} from "@/lib/catalogue";
+import { getProductImage } from "@/lib/editorial-images";
+import { formatPrice } from "@/lib/currency";
+import { useKit } from "@/components/kit/kit-provider";
 
-const availabilityVariant = {
-  Available: "outline",
-  Limited: "technical",
-  "On request": "secondary",
-} as const;
+function FeaturedCard({ product }: { product: DemoProduct }) {
+  const { addItem } = useKit();
+  const [added, setAdded] = React.useState(false);
+  const brand = getBrandBySlug(product.brandSlug)?.name ?? product.brandSlug;
+  const href = `/equipment/${product.slug}`;
 
-function FeaturedEquipment() {
+  React.useEffect(() => {
+    if (!added) return;
+    const t = setTimeout(() => setAdded(false), 1600);
+    return () => clearTimeout(t);
+  }, [added]);
+
+  return (
+    <motion.article variants={slideUp()} className="group/product">
+      <Link href={href} className="block overflow-hidden rounded-xl">
+        <MediaPlaceholder
+          src={getProductImage(product.slug, product.categorySlug)}
+          alt={product.name}
+          meta={product.sku}
+          className="aspect-4/3 w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
+        />
+      </Link>
+      <div className="mt-4 flex items-start justify-between gap-2">
+        <div>
+          <p className="text-label text-muted-foreground">{brand}</p>
+          <Link href={href}>
+            <h3 className="mt-1 font-medium leading-snug hover:text-brand">{product.name}</h3>
+          </Link>
+        </div>
+        <Badge variant={availabilityVariant[product.availability]} className="shrink-0">
+          {availabilityLabels[product.availability]}
+        </Badge>
+      </div>
+      <p className="text-small mt-2 line-clamp-2">{product.shortDescription}</p>
+      <div className="mt-4 flex items-center justify-between gap-3">
+        <p className="text-sm">
+          <span className="font-medium">{formatPrice(product.dayRate)}</span>
+          <span className="text-muted-foreground"> / day</span>
+        </p>
+        <div className="flex gap-2">
+          <Button asChild variant="ghost" size="sm">
+            <Link href={href}>View</Link>
+          </Button>
+          <Button
+            variant={added ? "secondary" : "outline"}
+            size="sm"
+            onClick={() => {
+              addItem(product.slug);
+              setAdded(true);
+            }}
+          >
+            {added ? <Check /> : <Plus />}
+            {added ? "Added" : "Add to Kit"}
+          </Button>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
+function FeaturedEquipment({ products }: { products: DemoProduct[] }) {
   return (
     <Section>
       <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
@@ -26,8 +89,7 @@ function FeaturedEquipment() {
           The kit we&rsquo;d take.
         </Heading>
         <p className="text-small max-w-sm">
-          Sample equipment for illustration — the full catalogue arrives in a
-          later phase.
+          A pull from the full catalogue — everything here can be added straight to your kit.
         </p>
       </div>
 
@@ -38,42 +100,8 @@ function FeaturedEquipment() {
         variants={staggerContainer(0.06)}
         className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
       >
-        {featuredProducts.map((product) => (
-          <motion.article key={product.name} variants={slideUp()} className="group/product">
-            <div className="overflow-hidden rounded-xl">
-              <MediaPlaceholder
-                src={categoryImages[product.category.toLowerCase()]}
-                alt={product.name}
-                icon={product.icon}
-                meta={product.category}
-                className="aspect-4/3 w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
-              />
-            </div>
-            <div className="mt-4 flex items-start justify-between gap-2">
-              <div>
-                <p className="text-label text-muted-foreground">{product.brand}</p>
-                <h3 className="mt-1 font-medium leading-snug">{product.name}</h3>
-              </div>
-              <Badge variant={availabilityVariant[product.availability]} className="shrink-0">
-                {product.availability}
-              </Badge>
-            </div>
-            <p className="text-small mt-2">{product.description}</p>
-            <div className="mt-4 flex items-center justify-between gap-3">
-              <p className="text-sm">
-                <span className="font-medium">{product.dayRate}</span>
-                <span className="text-muted-foreground"> / day</span>
-              </p>
-              <div className="flex gap-2">
-                <Button variant="ghost" size="sm">
-                  View
-                </Button>
-                <Button variant="secondary" size="sm">
-                  <Plus /> Add to Kit
-                </Button>
-              </div>
-            </div>
-          </motion.article>
+        {products.map((product) => (
+          <FeaturedCard key={product.id} product={product} />
         ))}
       </motion.div>
     </Section>

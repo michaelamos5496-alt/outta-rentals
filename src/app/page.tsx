@@ -2,12 +2,15 @@ import dynamic from "next/dynamic";
 
 import { Hero } from "@/components/sections/hero";
 import { EquipmentStrip } from "@/components/sections/equipment-strip";
+import { FeaturedSpotlight } from "@/components/sections/featured-spotlight";
+import { fetchAllProducts } from "@/lib/catalogue/db";
+import type { DemoProduct } from "@/lib/catalogue";
 
 // Below-the-fold sections split into their own chunks — keeps the initial
 // bundle (and main-thread work during the LCP window) limited to what's
 // actually visible on load. Still server-rendered (ssr: true, the default)
 // so content and SEO are unaffected.
-const FeaturedEquipment = dynamic(() =>
+const FeaturedEquipment = dynamic<{ products: DemoProduct[] }>(() =>
   import("@/components/sections/featured-equipment").then((m) => m.FeaturedEquipment)
 );
 const CategoryExperience = dynamic(() =>
@@ -32,12 +35,22 @@ const FinalCta = dynamic(() =>
   import("@/components/sections/final-cta").then((m) => m.FinalCta)
 );
 
-export default function Home() {
+export default async function Home() {
+  const products = await fetchAllProducts();
+  const featured = products.filter((p) => p.featured);
+  // Spotlight banner gets a handful of hero-piece items; the grid below gets
+  // the rest of the featured set (falls back to top of catalogue if fewer
+  // than 8 products are marked featured).
+  const spotlightProducts = featured.slice(0, 5);
+  const gridProducts = (featured.length > 5 ? featured.slice(5) : featured).slice(0, 4);
+  const fallbackGrid = gridProducts.length > 0 ? gridProducts : products.slice(0, 4);
+
   return (
     <>
       <Hero />
       <EquipmentStrip />
-      <FeaturedEquipment />
+      <FeaturedSpotlight products={spotlightProducts} />
+      <FeaturedEquipment products={fallbackGrid} />
       <CategoryExperience />
       <BuildYourKit />
       <WhyOutta />
