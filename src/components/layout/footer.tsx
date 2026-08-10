@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { siteConfig, footerLinkGroups, legalLinks } from "@/config/site";
+import { siteConfig, primaryNav, footerLinkGroups, legalLinks } from "@/config/site";
 import { Container } from "@/components/ui/container";
 import { Divider } from "@/components/ui/divider";
 
@@ -20,8 +20,35 @@ function Footer() {
         className="pointer-events-none absolute -right-24 -bottom-20 w-[640px] max-w-none opacity-[0.05] select-none sm:w-[820px]"
       />
 
-      <Container className="relative py-16 sm:py-20">
-        <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
+      <Container className="relative py-12 sm:py-20">
+        <div className="lg:hidden">
+          <Link href="/" className="inline-block">
+            <Image
+              src="/brand/outta-logo-dark.png"
+              alt={siteConfig.name}
+              width={595}
+              height={225}
+              className="h-9 w-auto"
+              priority={false}
+            />
+          </Link>
+          <p className="text-small mt-4 max-w-xs">{siteConfig.tagline}</p>
+
+          <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2">
+            {primaryNav.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="text-small transition-colors hover:text-foreground"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="hidden grid-cols-2 gap-10 sm:grid-cols-3 lg:grid lg:grid-cols-[1.4fr_repeat(4,1fr)]">
           <div className="col-span-2 sm:col-span-3 lg:col-span-1">
             <Link href="/" className="inline-block">
               <Image
@@ -58,7 +85,7 @@ function Footer() {
           ))}
         </div>
 
-        <Divider className="my-10" />
+        <Divider className="my-8 lg:my-10" />
 
         <div className="flex flex-col-reverse items-start justify-between gap-6 sm:flex-row sm:items-center">
           <p className="text-meta">
