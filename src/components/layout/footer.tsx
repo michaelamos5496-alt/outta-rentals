@@ -62,7 +62,15 @@ function Footer() {
 
         <div className="flex flex-col-reverse items-start justify-between gap-6 sm:flex-row sm:items-center">
           <p className="text-meta">
-            © {year} {siteConfig.name}. All rights reserved.
+            © {year} {siteConfig.name}. All rights reserved. Developed by{" "}
+            <a
+              href="https://theimagedept.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-foreground"
+            >
+              TheImageDept.
+            </a>
           </p>
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
             {legalLinks.map((link) => (
