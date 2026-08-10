@@ -8,7 +8,7 @@ import { LoaderCircle, Menu, Package, Search, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { duration, easeOutta } from "@/lib/motion";
-import { primaryNav, siteConfig } from "@/config/site";
+import { primaryNav, siteConfig, type NavItem } from "@/config/site";
 import { availabilityLabels, availabilityVariant } from "@/lib/catalogue";
 import { searchCatalogueAction, type CatalogueSearchResult } from "@/lib/catalogue/actions";
 import { Container } from "@/components/ui/container";
@@ -106,6 +106,37 @@ function NavbarSearch({ onNavigate }: { onNavigate: () => void }) {
     </div>
   );
 }
+
+// Mobile-only grouping of the nav — desktop keeps the flat `primaryNav` list
+// (rendered separately below) untouched. Grouped headers give the mobile
+// panel MCB-style scannability without changing what routes exist.
+const mobileNavGroups: { title: string; items: NavItem[] }[] = [
+  {
+    title: "Equipment",
+    items: [
+      { label: "All Equipment", href: "/equipment" },
+      { label: "Cameras", href: "/equipment/cameras" },
+      { label: "Lenses", href: "/equipment/lenses" },
+      { label: "Lighting", href: "/equipment/lighting" },
+      { label: "Grip", href: "/equipment/grip" },
+    ],
+  },
+  {
+    title: "Explore",
+    items: [
+      { label: "Productions", href: "/work" },
+      { label: "Shot With This Gear", href: "/work" },
+    ],
+  },
+  {
+    title: "About",
+    items: [
+      { label: "About OUTTA", href: "/about" },
+      { label: "Services", href: "/services" },
+      { label: "Contact", href: "/contact" },
+    ],
+  },
+];
 
 function useScrolled(threshold = 8) {
   const [scrolled, setScrolled] = React.useState(false);
@@ -221,8 +252,8 @@ function Navbar() {
             transition={{ duration: duration.fast, ease: easeOutta }}
             className="fixed inset-0 z-50 bg-background lg:hidden"
           >
-            <Container>
-              <div className="flex h-16 items-center justify-between sm:h-20">
+            <Container className="flex h-full flex-col overflow-y-auto pb-8">
+              <div className="flex h-16 shrink-0 items-center justify-between sm:h-20">
                 <Image
                   src="/brand/outta-logo-dark.png"
                   alt={siteConfig.name}
@@ -239,28 +270,35 @@ function Navbar() {
                   <X />
                 </Button>
               </div>
-              <ul className="mt-8 flex flex-col gap-1">
-                {primaryNav.map((item, i) => (
-                  <motion.li
-                    key={item.href}
+              <nav className="mt-6 flex flex-col gap-7">
+                {mobileNavGroups.map((group, gi) => (
+                  <motion.div
+                    key={group.title}
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{
                       duration: duration.base,
-                      delay: i * 0.05,
+                      delay: gi * 0.05,
                       ease: easeOutta,
                     }}
                   >
-                    <Link
-                      href={item.href}
-                      onClick={() => setMobileOpen(false)}
-                      className="text-h3 block py-3"
-                    >
-                      {item.label}
-                    </Link>
-                  </motion.li>
+                    <p className="text-label text-brand">{group.title}</p>
+                    <ul className="mt-2 flex flex-col">
+                      {group.items.map((item) => (
+                        <li key={item.label}>
+                          <Link
+                            href={item.href}
+                            onClick={() => setMobileOpen(false)}
+                            className="block py-2.5 font-medium"
+                          >
+                            {item.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
                 ))}
-              </ul>
+              </nav>
               <div className="mt-8 flex gap-3">
                 <Button
                   variant="outline"

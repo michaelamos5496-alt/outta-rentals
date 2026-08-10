@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Check } from "lucide-react";
+import { Check, Clapperboard } from "lucide-react";
 
 import {
   getAccessoryProducts,
@@ -15,6 +15,7 @@ import {
 import { fetchProductBySlug } from "@/lib/catalogue/db";
 import { getRecommendedForShoot } from "@/lib/packages";
 import { absoluteUrl, SITE_NAME } from "@/lib/seo";
+import { workProjects } from "@/lib/content/work";
 import { Container } from "@/components/ui/container";
 import { Badge } from "@/components/ui/badge";
 import { Divider } from "@/components/ui/divider";
@@ -23,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import { ProductGallery } from "@/components/catalogue/product-gallery";
 import { ProductActions } from "@/components/catalogue/product-actions";
 import { ProductShelf } from "@/components/catalogue/product-shelf";
+import { MobileStickyRent } from "@/components/catalogue/mobile-sticky-rent";
 import { formatPrice } from "@/lib/currency";
 
 export const revalidate = 60; // seconds — keep inventory reasonably fresh once a real DB is connected
@@ -93,6 +95,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
     (p) => !alreadyShown.has(p.slug)
   );
   const related = getRelatedProducts(product);
+  const shotWithThis = workProjects.find((p) =>
+    p.equipmentUsed.some((e) => e.productSlug === product.slug)
+  );
 
   const schemaAvailability: Record<string, string> = {
     available: "https://schema.org/InStock",
@@ -149,7 +154,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <Container className="py-10 sm:py-14">
+      <Container className="py-10 pb-28 sm:py-14 lg:pb-14">
         <p className="text-small mb-6">
           <Link href="/equipment" className="hover:text-foreground">
             Equipment
@@ -204,9 +209,22 @@ export default async function ProductPage({ params }: ProductPageProps) {
               Rates shown are indicative demo pricing, confirmed at quote stage.
             </p>
 
-            <div className="mt-6">
+            <div className="mt-6 hidden lg:block">
               <ProductActions productSlug={product.slug} productName={product.name} />
             </div>
+
+            {shotWithThis ? (
+              <Link
+                href={`/work#${shotWithThis.slug}`}
+                className="mt-6 flex items-center gap-3 rounded-xl border border-border p-4 transition-colors hover:border-brand lg:hidden"
+              >
+                <Clapperboard className="size-8 shrink-0 text-brand" strokeWidth={1.5} />
+                <div className="min-w-0">
+                  <p className="text-label text-brand">Shot With This Gear</p>
+                  <p className="mt-0.5 truncate text-sm font-medium">{shotWithThis.title}</p>
+                </div>
+              </Link>
+            ) : null}
 
             {product.included.length > 0 ? (
               <div className="mt-8">
@@ -227,7 +245,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
         {specGroups.length > 0 ? (
           <div className="mt-16 border-t border-border pt-14 sm:mt-20 sm:pt-16">
             <p className="text-label mb-8">Specifications</p>
-            <div className="grid grid-cols-1 gap-x-12 gap-y-10 sm:grid-cols-2">
+
+            {/* Desktop: always-expanded grid, unchanged. */}
+            <div className="hidden grid-cols-1 gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid">
               {specGroups.map((group) => (
                 <div key={group.group}>
                   <p className="text-sm font-medium">{group.group}</p>
@@ -245,9 +265,39 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 </div>
               ))}
             </div>
+
+            {/* Mobile: collapsible per group so the page doesn't dump a wall
+                of specs before the shelves below. */}
+            <div className="flex flex-col divide-y divide-border lg:hidden">
+              {specGroups.map((group) => (
+                <details key={group.group} className="group py-4 first:pt-0">
+                  <summary className="cursor-pointer list-none text-sm font-medium marker:content-none">
+                    <span className="flex items-center justify-between">
+                      {group.group}
+                      <span className="text-muted-foreground transition-transform group-open:rotate-45">
+                        +
+                      </span>
+                    </span>
+                  </summary>
+                  <dl className="mt-3 flex flex-col">
+                    {group.specs.map((spec) => (
+                      <div
+                        key={spec.label}
+                        className="flex items-baseline justify-between gap-4 border-b border-border py-2.5 text-sm"
+                      >
+                        <dt className="text-muted-foreground">{spec.label}</dt>
+                        <dd className="text-right">{spec.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </details>
+              ))}
+            </div>
           </div>
         ) : null}
       </Container>
+
+      <MobileStickyRent productSlug={product.slug} dayRate={product.dayRate} />
 
       <Container>
         <ProductShelf

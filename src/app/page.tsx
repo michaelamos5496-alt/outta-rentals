@@ -45,17 +45,39 @@ export default async function Home() {
   const fallbackGrid = gridProducts.length > 0 ? gridProducts : products.slice(0, 4);
 
   return (
-    <>
+    // flex-col + per-item `order` lets mobile show a more concise, reordered
+    // flow (categories surfaced earlier, Services/Testimonials dropped) while
+    // `lg:order-none` resets every item to plain source order on desktop —
+    // i.e. visually identical to a plain stacked fragment at ≥lg.
+    <div className="flex flex-col">
       <Hero products={spotlightProducts} />
-      <EquipmentStrip />
-      <FeaturedEquipment products={fallbackGrid} />
-      <CategoryExperience />
-      <BuildYourKit />
-      <WhyOutta />
-      <WorkShowcase />
-      <Services />
-      <Testimonials />
-      <FinalCta />
-    </>
+      <div className="order-2 lg:order-none">
+        <EquipmentStrip />
+      </div>
+      <div className="order-4 lg:order-none">
+        <FeaturedEquipment products={fallbackGrid} />
+      </div>
+      <div className="order-3 lg:order-none">
+        <CategoryExperience />
+      </div>
+      <div className="order-6 lg:order-none">
+        <BuildYourKit />
+      </div>
+      <div className="order-7 lg:order-none">
+        <WhyOutta />
+      </div>
+      <div className="order-5 lg:order-none">
+        <WorkShowcase />
+      </div>
+      <div className="hidden lg:block">
+        <Services />
+      </div>
+      <div className="hidden lg:block">
+        <Testimonials />
+      </div>
+      <div className="order-8 lg:order-none">
+        <FinalCta />
+      </div>
+    </div>
   );
 }

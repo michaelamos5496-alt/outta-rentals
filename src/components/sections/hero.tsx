@@ -61,10 +61,56 @@ function Hero({ products }: { products: DemoProduct[] }) {
 
   return (
     <>
+      {/* Mobile hero — compact brand statement over rotating gear photography.
+          Desktop keeps the full-bleed 711rent-style spotlight below untouched. */}
       <Section
         spacing="none"
         bleed
-        className="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-background"
+        className="relative h-[78svh] min-h-[520px] w-full overflow-hidden bg-background lg:hidden"
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={product.slug}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: duration.base, ease: easeOutta }}
+            className="absolute inset-0"
+          >
+            {image ? (
+              <Image
+                src={image}
+                alt={product.name}
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover"
+              />
+            ) : null}
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-background/50" />
+          </motion.div>
+        </AnimatePresence>
+
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-end px-5 pb-10 text-center">
+          <p className="text-label text-brand">Film · Photography · Production Equipment</p>
+          <h1 className="text-h1 mt-3 max-w-xs uppercase">Rent the gear. Make the work.</h1>
+          <div className="mt-6 flex w-full max-w-xs flex-col gap-3">
+            <Button asChild size="lg" className="w-full uppercase tracking-wide">
+              <Link href="/equipment">
+                Browse Equipment <ArrowRight />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="w-full uppercase tracking-wide">
+              <Link href="/work">See What&rsquo;s Been Shot</Link>
+            </Button>
+          </div>
+        </div>
+      </Section>
+
+      <Section
+        spacing="none"
+        bleed
+        className="relative hidden h-[100svh] min-h-[640px] w-full overflow-hidden bg-background lg:block"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
@@ -140,7 +186,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
       </Section>
 
       {products.length > 1 ? (
-        <div className="border-b border-border bg-background">
+        <div className="hidden border-b border-border bg-background lg:block">
           <Container>
             <div className="scrollbar-none flex gap-2 overflow-x-auto py-3">
               {products.map((p, i) => {

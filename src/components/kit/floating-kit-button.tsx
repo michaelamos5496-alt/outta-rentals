@@ -3,13 +3,23 @@
 import { usePathname } from "next/navigation";
 import { Package } from "lucide-react";
 
+import { categories } from "@/lib/catalogue";
 import { useKit } from "@/components/kit/kit-provider";
 
 function FloatingKitButton() {
   const pathname = usePathname();
   const { itemCount, openDrawer, hydrated } = useKit();
 
-  if (!hydrated || itemCount === 0 || pathname?.startsWith("/kit")) return null;
+  // /equipment/<category-slug> is a listing page (fine to show the button);
+  // /equipment/<product-slug> is a product detail page, which has its own
+  // mobile sticky rent bar in the same bottom area — avoid stacking both.
+  const equipmentSegment = pathname?.startsWith("/equipment/")
+    ? pathname.split("/")[2]
+    : undefined;
+  const isProductPage =
+    equipmentSegment && !categories.some((c) => c.slug === equipmentSegment);
+
+  if (!hydrated || itemCount === 0 || pathname?.startsWith("/kit") || isProductPage) return null;
 
   return (
     <button

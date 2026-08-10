@@ -50,18 +50,21 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
             <h3 className="mt-1 font-medium leading-snug hover:text-brand">{product.name}</h3>
           </Link>
         </div>
-        <Badge variant={availabilityVariant[product.availability]} className="shrink-0">
+        <Badge
+          variant={availabilityVariant[product.availability]}
+          className="hidden shrink-0 sm:inline-flex"
+        >
           {availabilityLabels[product.availability]}
         </Badge>
       </div>
-      <p className="text-small mt-2 line-clamp-2">{product.shortDescription}</p>
+      <p className="text-small mt-2 hidden line-clamp-2 sm:block">{product.shortDescription}</p>
       <div className="mt-4 flex items-center justify-between gap-3">
         <p className="text-sm">
           <span className="font-medium">{formatPrice(product.dayRate)}</span>
           <span className="text-muted-foreground"> / day</span>
         </p>
         <div className="flex gap-2">
-          <Button asChild variant="ghost" size="sm">
+          <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
             <Link href={href}>View</Link>
           </Button>
           <Button
@@ -98,7 +101,7 @@ function FeaturedEquipment({ products }: { products: DemoProduct[] }) {
         whileInView="visible"
         viewport={viewportOnce}
         variants={staggerContainer(0.06)}
-        className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
+        className="mt-10 grid grid-cols-2 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4"
       >
         {products.map((product) => (
           <FeaturedCard key={product.id} product={product} />

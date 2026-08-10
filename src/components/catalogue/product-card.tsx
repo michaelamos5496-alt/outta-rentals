@@ -75,11 +75,16 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
               </h3>
             </Link>
           </div>
-          <Badge variant={availabilityVariant[product.availability]} className="shrink-0">
+          <Badge
+            variant={availabilityVariant[product.availability]}
+            className="hidden shrink-0 sm:inline-flex"
+          >
             {availabilityLabels[product.availability]}
           </Badge>
         </div>
-        <p className="text-small mt-2 line-clamp-2">{product.shortDescription}</p>
+        <p className="text-small mt-2 hidden line-clamp-2 sm:block">
+          {product.shortDescription}
+        </p>
 
         <div className="mt-auto flex items-center justify-between gap-3 pt-4">
           <p className="text-sm">
@@ -87,7 +92,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
             <span className="text-muted-foreground"> / day</span>
           </p>
           <div className="flex gap-2">
-            <Button asChild variant="ghost" size="sm">
+            <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
               <Link href={href}>View Details</Link>
             </Button>
             <Button
