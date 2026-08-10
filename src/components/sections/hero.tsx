@@ -8,6 +8,7 @@ import { ArrowRight, Package } from "lucide-react";
 import { duration, easeOutta } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
+import { categoryImages } from "@/lib/editorial-images";
 
 const headlineLines = ["THE KIT", "BEHIND THE", "VISION."];
 
@@ -39,6 +40,11 @@ function Hero() {
       bleed
       className="relative flex h-[100svh] min-h-[640px] w-full items-center overflow-hidden"
     >
+      {/* Hoisted into <head> by React — the single above-the-fold video, worth
+          fetching eagerly and at high priority (unlike the deferred, lazy
+          AutoplayVideo instances used everywhere else on the site). */}
+      <link rel="preload" as="video" href="/video/hero.mp4" fetchPriority="high" />
+
       <div ref={ref} className="absolute inset-0 bg-background">
         <motion.div style={{ scale: bgScale }} className="absolute inset-0">
           <video
@@ -47,7 +53,9 @@ function Hero() {
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="auto"
+            poster={categoryImages.cameras}
+            {...({ fetchPriority: "high" } as React.VideoHTMLAttributes<HTMLVideoElement>)}
             aria-hidden
             className="h-full w-full object-cover"
           >
