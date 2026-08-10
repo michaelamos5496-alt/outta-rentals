@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { SmoothScroll } from "@/components/layout/smooth-scroll";
 import { KitDrawer } from "@/components/kit/kit-drawer";
 import { FloatingKitButton } from "@/components/kit/floating-kit-button";
 
@@ -16,14 +17,21 @@ import { FloatingKitButton } from "@/components/kit/floating-kit-button";
 function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin");
+  const isHome = pathname === "/";
 
   if (isAdmin) return <>{children}</>;
+
+  const page = (
+    <>
+      <main className="flex-1">{children}</main>
+      <Footer />
+    </>
+  );
 
   return (
     <>
       <Navbar />
-      <main className="flex-1">{children}</main>
-      <Footer />
+      {isHome ? page : <SmoothScroll>{page}</SmoothScroll>}
       <KitDrawer />
       <FloatingKitButton />
     </>
