@@ -2,22 +2,44 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Package } from "lucide-react";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, ChevronLeft, ChevronRight, Plus } from "lucide-react";
 
 import { duration, easeOutta } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  getBrandBySlug,
+  availabilityLabels,
+  availabilityVariant,
+  type DemoProduct,
+} from "@/lib/catalogue";
+import { formatPrice } from "@/lib/currency";
+import { useKit } from "@/components/kit/kit-provider";
 
-const headlineLines = ["THE KIT", "BEHIND THE", "VISION."];
+const ROTATE_MS = 6000;
 
-function Hero() {
+/**
+ * The hero itself is the rotating flagship-equipment spotlight — modeled on
+ * 711rent.com's homepage banner (one hero item at a time, direct pricing,
+ * direct "rent it" CTAs) rather than a static marketing headline, on top of
+ * OUTTA's own cinematic video background.
+ */
+function Hero({ products }: { products: DemoProduct[] }) {
   const ref = React.useRef<HTMLDivElement>(null);
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
+
+  const [index, setIndex] = React.useState(0);
+  const [paused, setPaused] = React.useState(false);
+  const { addItem } = useKit();
+  const [added, setAdded] = React.useState(false);
+
+  const product = products[index];
 
   React.useEffect(() => {
     const video = videoRef.current;
@@ -29,9 +51,25 @@ function Hero() {
     video.play().catch(() => {});
   }, []);
 
+  React.useEffect(() => {
+    if (paused || products.length <= 1) return;
+    const timer = setInterval(() => {
+      setIndex((i) => (i + 1) % products.length);
+    }, ROTATE_MS);
+    return () => clearInterval(timer);
+  }, [paused, products.length]);
+
+  React.useEffect(() => {
+    if (!added) return;
+    const t = setTimeout(() => setAdded(false), 1600);
+    return () => clearTimeout(t);
+  }, [added]);
+
   const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 80]);
   const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+
+  const brand = product ? getBrandBySlug(product.brandSlug)?.name ?? product.brandSlug : "";
 
   return (
     <Section
@@ -76,69 +114,120 @@ function Hero() {
       <motion.div
         style={{ opacity: contentOpacity, y: contentY }}
         className="relative z-10 w-full py-24"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
       >
         <div className="mx-auto flex w-full max-w-(--container-content) flex-col items-center px-5 text-center sm:px-8 lg:px-12">
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: duration.base, ease: easeOutta }}
-            className="text-label text-brand"
-          >
-            Film · Photography · Production Equipment
-          </motion.p>
+          {product ? (
+            <>
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: duration.base, ease: easeOutta }}
+                className="text-label text-brand"
+              >
+                In the Spotlight · {brand}
+              </motion.p>
 
-          <h1 className="text-display mt-4 max-w-3xl">
-            {headlineLines.map((line, i) => (
-              <span key={line} className="block overflow-hidden">
-                <motion.span
-                  initial={{ y: "110%" }}
-                  animate={{ y: "0%" }}
-                  transition={{
-                    duration: duration.slow,
-                    delay: 0.1 + i * 0.09,
-                    ease: easeOutta,
-                  }}
-                  className="block"
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={product.slug}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -16 }}
+                  transition={{ duration: duration.base, ease: easeOutta }}
+                  className="flex flex-col items-center"
                 >
-                  {line}
-                </motion.span>
-              </span>
-            ))}
-          </h1>
+                  <h1 className="text-display mt-4 max-w-3xl uppercase">{product.name}</h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: duration.base, delay: 0.45, ease: easeOutta }}
-            className="text-body mx-auto mt-6 max-w-md"
-          >
-            Professional cameras, lenses, lighting and production equipment for
-            filmmakers, photographers, agencies and creators.
-          </motion.p>
+                  <div className="mt-3 flex items-center gap-3">
+                    <Badge variant={availabilityVariant[product.availability]}>
+                      {availabilityLabels[product.availability]}
+                    </Badge>
+                    <span className="text-body text-muted-foreground">
+                      {formatPrice(product.dayRate)}/day · {formatPrice(product.weekRate)}/week
+                    </span>
+                  </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: duration.base, delay: 0.55, ease: easeOutta }}
-            className="mt-8 flex flex-wrap items-center justify-center gap-3"
-          >
-            <Button asChild size="lg" className="group/cta uppercase tracking-wide">
-              <Link href="/equipment">
-                Explore Equipment
-                <ArrowRight className="transition-transform group-hover/cta:translate-x-0.5" />
-              </Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-foreground/25 bg-transparent uppercase tracking-wide hover:bg-foreground/5"
-            >
-              <Link href="#build-your-kit">
-                <Package /> Build Your Kit
-              </Link>
-            </Button>
-          </motion.div>
+                  <p className="text-body mx-auto mt-6 max-w-md">{product.shortDescription}</p>
+
+                  <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+                    <Button asChild size="lg" className="group/cta uppercase tracking-wide">
+                      <Link href={`/equipment/${product.slug}`}>
+                        View Details
+                        <ArrowRight className="transition-transform group-hover/cta:translate-x-0.5" />
+                      </Link>
+                    </Button>
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="border-foreground/25 bg-transparent uppercase tracking-wide hover:bg-foreground/5"
+                      onClick={() => {
+                        addItem(product.slug);
+                        setAdded(true);
+                      }}
+                    >
+                      <Plus /> {added ? "Added" : "Add to Kit"}
+                    </Button>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              {products.length > 1 ? (
+                <div className="mt-10 flex items-center gap-4">
+                  <Button
+                    variant="ghost"
+                    size="icon-sm"
+                    aria-label="Previous spotlight item"
+                    onClick={() => setIndex((i) => (i - 1 + products.length) % products.length)}
+                  >
+                    <ChevronLeft />
+                  </Button>
+                  <div className="flex items-center gap-2">
+                    {products.map((p, i) => (
+                      <button
+                        key={p.slug}
+                        type="button"
+                        aria-label={`Show ${p.name}`}
+                        aria-pressed={i === index}
+                        onClick={() => setIndex(i)}
+                        className={`h-1.5 rounded-full transition-all ${
+                          i === index ? "w-8 bg-brand" : "w-1.5 bg-foreground/30 hover:bg-foreground/50"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="icon-sm"
+                    aria-label="Next spotlight item"
+                    onClick={() => setIndex((i) => (i + 1) % products.length)}
+                  >
+                    <ChevronRight />
+                  </Button>
+                </div>
+              ) : null}
+            </>
+          ) : (
+            <>
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: duration.base, ease: easeOutta }}
+                className="text-label text-brand"
+              >
+                Film · Photography · Production Equipment
+              </motion.p>
+              <h1 className="text-display mt-4 max-w-3xl">THE KIT BEHIND THE VISION.</h1>
+              <div className="mt-8">
+                <Button asChild size="lg" className="uppercase tracking-wide">
+                  <Link href="/equipment">
+                    Explore Equipment <ArrowRight />
+                  </Link>
+                </Button>
+              </div>
+            </>
+          )}
         </div>
       </motion.div>
 

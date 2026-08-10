@@ -2,7 +2,6 @@ import dynamic from "next/dynamic";
 
 import { Hero } from "@/components/sections/hero";
 import { EquipmentStrip } from "@/components/sections/equipment-strip";
-import { FeaturedSpotlight } from "@/components/sections/featured-spotlight";
 import { fetchAllProducts } from "@/lib/catalogue/db";
 import type { DemoProduct } from "@/lib/catalogue";
 
@@ -38,7 +37,7 @@ const FinalCta = dynamic(() =>
 export default async function Home() {
   const products = await fetchAllProducts();
   const featured = products.filter((p) => p.featured);
-  // Spotlight banner gets a handful of hero-piece items; the grid below gets
+  // Hero rotates through a handful of flagship items; the grid below gets
   // the rest of the featured set (falls back to top of catalogue if fewer
   // than 8 products are marked featured).
   const spotlightProducts = featured.slice(0, 5);
@@ -47,9 +46,8 @@ export default async function Home() {
 
   return (
     <>
-      <Hero />
+      <Hero products={spotlightProducts} />
       <EquipmentStrip />
-      <FeaturedSpotlight products={spotlightProducts} />
       <FeaturedEquipment products={fallbackGrid} />
       <CategoryExperience />
       <BuildYourKit />
