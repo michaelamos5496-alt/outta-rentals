@@ -5,10 +5,12 @@ import Link from "next/link";
 import { LayoutGrid, List, SlidersHorizontal } from "lucide-react";
 
 import { useDebouncedValue } from "@/lib/use-debounced-value";
+import { cn } from "@/lib/utils";
 import {
   brands,
   categories,
   getCategoryBySlug,
+  getCategoryIcon,
   getPriceBounds,
   searchProducts,
   type DemoProduct,
@@ -179,7 +181,49 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
         </p>
       </div>
 
-      <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+      {!lockedCategory ? (
+        <div className="scrollbar-none -mx-4 mt-6 flex gap-2 overflow-x-auto px-4 pb-1 lg:hidden">
+          <button
+            type="button"
+            onClick={() => setFilters((f) => ({ ...f, categories: [] }))}
+            className={cn(
+              "text-label shrink-0 rounded-full border px-4 py-2 whitespace-nowrap transition-colors",
+              filters.categories.length === 0
+                ? "border-brand bg-brand text-brand-foreground"
+                : "border-border text-foreground/70"
+            )}
+          >
+            All
+          </button>
+          {categories.map((c) => {
+            const active = filters.categories.includes(c.slug);
+            const Icon = getCategoryIcon(c.slug);
+            return (
+              <button
+                key={c.slug}
+                type="button"
+                onClick={() =>
+                  setFilters((f) => ({
+                    ...f,
+                    categories: active ? [] : [c.slug],
+                  }))
+                }
+                className={cn(
+                  "text-label flex shrink-0 items-center gap-1.5 rounded-full border px-4 py-2 whitespace-nowrap transition-colors",
+                  active
+                    ? "border-brand bg-brand text-brand-foreground"
+                    : "border-border text-foreground/70"
+                )}
+              >
+                <Icon className="size-3.5" strokeWidth={1.75} />
+                {c.name}
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center lg:mt-8">
         <SearchInput
           containerClassName="flex-1"
           value={query}

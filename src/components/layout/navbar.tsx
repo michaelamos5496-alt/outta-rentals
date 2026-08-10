@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SearchInput } from "@/components/ui/search-input";
 import { Modal } from "@/components/ui/modal";
+import { useMobileNav } from "@/components/layout/mobile-nav-provider";
 import { useKit } from "@/components/kit/kit-provider";
 import { formatPrice } from "@/lib/currency";
 
@@ -153,7 +154,7 @@ function useScrolled(threshold = 8) {
 
 function Navbar() {
   const scrolled = useScrolled();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { open: mobileOpen, setOpen: setMobileOpen } = useMobileNav();
   const [searchOpen, setSearchOpen] = React.useState(false);
   const { itemCount, openDrawer, hydrated } = useKit();
 

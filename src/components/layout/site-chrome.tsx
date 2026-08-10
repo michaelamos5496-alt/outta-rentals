@@ -5,8 +5,10 @@ import { usePathname } from "next/navigation";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
+import { MobileNavProvider } from "@/components/layout/mobile-nav-provider";
+import { MobileTabBar } from "@/components/layout/mobile-tab-bar";
 import { KitDrawer } from "@/components/kit/kit-drawer";
-import { FloatingKitButton } from "@/components/kit/floating-kit-button";
+import { categories } from "@/lib/catalogue";
 
 /**
  * The admin backend has its own header/sidebar chrome (see
@@ -18,23 +20,27 @@ function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin");
   const isHome = pathname === "/";
+  const equipmentSegment = pathname?.startsWith("/equipment/")
+    ? pathname.split("/")[2]
+    : undefined;
+  const isProductPage = equipmentSegment && !categories.some((c) => c.slug === equipmentSegment);
 
   if (isAdmin) return <>{children}</>;
 
   const page = (
     <>
-      <main className="flex-1">{children}</main>
+      <main className={isProductPage ? "flex-1" : "flex-1 pb-20 lg:pb-0"}>{children}</main>
       <Footer />
     </>
   );
 
   return (
-    <>
+    <MobileNavProvider>
       <Navbar />
       {isHome ? page : <SmoothScroll>{page}</SmoothScroll>}
       <KitDrawer />
-      <FloatingKitButton />
-    </>
+      <MobileTabBar />
+    </MobileNavProvider>
   );
 }
 

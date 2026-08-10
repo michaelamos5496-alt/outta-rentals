@@ -13,15 +13,75 @@ import { Badge } from "@/components/ui/badge";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import {
   getBrandBySlug,
+  getCategoryBySlug,
   availabilityLabels,
   availabilityVariant,
   type DemoProduct,
 } from "@/lib/catalogue";
+import { cn } from "@/lib/utils";
 import { getProductImage } from "@/lib/editorial-images";
 import { formatPrice } from "@/lib/currency";
 import { useKit } from "@/components/kit/kit-provider";
 
 function FeaturedCard({ product }: { product: DemoProduct }) {
+  const { addItem } = useKit();
+  const [added, setAdded] = React.useState(false);
+  const brand = getBrandBySlug(product.brandSlug)?.name ?? product.brandSlug;
+  const category = getCategoryBySlug(product.categorySlug);
+  const href = `/equipment/${product.slug}`;
+
+  React.useEffect(() => {
+    if (!added) return;
+    const t = setTimeout(() => setAdded(false), 1600);
+    return () => clearTimeout(t);
+  }, [added]);
+
+  return (
+    <motion.article variants={slideUp()} className="group/product sm:hidden">
+      <Link href={href} className="block overflow-hidden rounded-xl border border-border bg-card">
+        <div className="relative">
+          <MediaPlaceholder
+            src={getProductImage(product.slug, product.categorySlug)}
+            alt={product.name}
+            className="aspect-square w-full"
+          />
+          {category ? (
+            <span className="text-meta absolute top-2 left-2 rounded-full bg-background/90 px-2.5 py-1 text-foreground/80 backdrop-blur-sm">
+              {category.name}
+            </span>
+          ) : null}
+        </div>
+        <div className="border-t border-border px-3 py-2.5">
+          <p className="text-label truncate text-muted-foreground">{brand}</p>
+          <p className="mt-0.5 truncate text-sm font-medium">{product.name}</p>
+        </div>
+        <div className="flex items-center justify-between gap-2 border-t border-border px-3 py-2.5">
+          <p className="text-sm">
+            <span className="font-medium">{formatPrice(product.dayRate)}</span>
+            <span className="text-muted-foreground">/day</span>
+          </p>
+          <button
+            type="button"
+            aria-label={added ? "Added to kit" : "Add to kit"}
+            onClick={(e) => {
+              e.preventDefault();
+              addItem(product.slug);
+              setAdded(true);
+            }}
+            className={cn(
+              "text-label rounded-full px-3 py-1.5 transition-colors",
+              added ? "bg-secondary text-secondary-foreground" : "bg-brand text-brand-foreground"
+            )}
+          >
+            {added ? "Added" : "Rent"}
+          </button>
+        </div>
+      </Link>
+    </motion.article>
+  );
+}
+
+function DesktopFeaturedCard({ product }: { product: DemoProduct }) {
   const { addItem } = useKit();
   const [added, setAdded] = React.useState(false);
   const brand = getBrandBySlug(product.brandSlug)?.name ?? product.brandSlug;
@@ -34,7 +94,7 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
   }, [added]);
 
   return (
-    <motion.article variants={slideUp()} className="group/product">
+    <motion.article variants={slideUp()} className="group/product hidden sm:block">
       <Link href={href} className="block overflow-hidden rounded-xl">
         <MediaPlaceholder
           src={getProductImage(product.slug, product.categorySlug)}
@@ -104,7 +164,10 @@ function FeaturedEquipment({ products }: { products: DemoProduct[] }) {
         className="mt-10 grid grid-cols-2 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4"
       >
         {products.map((product) => (
-          <FeaturedCard key={product.id} product={product} />
+          <React.Fragment key={product.id}>
+            <FeaturedCard product={product} />
+            <DesktopFeaturedCard product={product} />
+          </React.Fragment>
         ))}
       </motion.div>
     </Section>
