@@ -33,7 +33,11 @@ function SmoothScroll({ children }: { children: React.ReactNode }) {
     smootherRef.current = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
       content: "#smooth-content",
-      smooth: 1.2,
+      // Well above GSAP's default (1) — on a trackpad, which already has its
+      // own native momentum, anything close to the default reads as identical
+      // to plain scrolling. This is deliberately pronounced enough to feel
+      // distinct from native momentum on any input device.
+      smooth: 2.2,
       effects: false,
       // normalizeScroll caused a real bug on touch: native scroll (window.scrollY)
       // moved but the content transform never updated, so the page visually froze
