@@ -1,30 +1,42 @@
+import dynamic from "next/dynamic";
+
 import { Hero } from "@/components/sections/hero";
 import { EquipmentStrip } from "@/components/sections/equipment-strip";
-import { FeaturedEquipment } from "@/components/sections/featured-equipment";
-import { CategoryExperience } from "@/components/sections/category-experience";
-import { BuildYourKit } from "@/components/sections/build-your-kit";
-import { WhyOutta } from "@/components/sections/why-outta";
-import { WorkShowcase } from "@/components/sections/work-showcase";
-import { Services } from "@/components/sections/services";
-import { Testimonials } from "@/components/sections/testimonials";
-import { FinalCta } from "@/components/sections/final-cta";
-import { ScrollSnap } from "@/components/home/scroll-snap";
 
-// Statically imported (not next/dynamic) — ScrollSnap needs every section's
-// DOM node to exist synchronously when it wires up GSAP on mount, which a
-// still-loading/Suspense-deferred section can't guarantee. Passing
-// next/dynamic() components as children across the server/client boundary
-// into ScrollSnap also hit a real Next.js RSC serialization bug (each lazy
-// reference was duplicated in the children array).
+// Below-the-fold sections split into their own chunks — keeps the initial
+// bundle (and main-thread work during the LCP window) limited to what's
+// actually visible on load. Still server-rendered (ssr: true, the default)
+// so content and SEO are unaffected.
+const FeaturedEquipment = dynamic(() =>
+  import("@/components/sections/featured-equipment").then((m) => m.FeaturedEquipment)
+);
+const CategoryExperience = dynamic(() =>
+  import("@/components/sections/category-experience").then((m) => m.CategoryExperience)
+);
+const BuildYourKit = dynamic(() =>
+  import("@/components/sections/build-your-kit").then((m) => m.BuildYourKit)
+);
+const WhyOutta = dynamic(() =>
+  import("@/components/sections/why-outta").then((m) => m.WhyOutta)
+);
+const WorkShowcase = dynamic(() =>
+  import("@/components/sections/work-showcase").then((m) => m.WorkShowcase)
+);
+const Services = dynamic(() =>
+  import("@/components/sections/services").then((m) => m.Services)
+);
+const Testimonials = dynamic(() =>
+  import("@/components/sections/testimonials").then((m) => m.Testimonials)
+);
+const FinalCta = dynamic(() =>
+  import("@/components/sections/final-cta").then((m) => m.FinalCta)
+);
+
 export default function Home() {
   return (
-    <ScrollSnap>
-      {/* Hero + the category chip strip share one slide — the strip is a thin
-          nav aid, not enough content to justify its own full-screen slide. */}
-      <div className="flex min-h-full flex-col">
-        <Hero />
-        <EquipmentStrip />
-      </div>
+    <>
+      <Hero />
+      <EquipmentStrip />
       <FeaturedEquipment />
       <CategoryExperience />
       <BuildYourKit />
@@ -33,6 +45,6 @@ export default function Home() {
       <Services />
       <Testimonials />
       <FinalCta />
-    </ScrollSnap>
+    </>
   );
 }
