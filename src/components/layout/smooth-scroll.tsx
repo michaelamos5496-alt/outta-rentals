@@ -35,7 +35,9 @@ function SmoothScroll({ children }: { children: React.ReactNode }) {
       content: "#smooth-content",
       smooth: 1.2,
       effects: false,
-      normalizeScroll: true,
+      // normalizeScroll caused a real bug on touch: native scroll (window.scrollY)
+      // moved but the content transform never updated, so the page visually froze
+      // while actually scrolling underneath — confirmed via a real touch-drag test.
     });
 
     return () => {
