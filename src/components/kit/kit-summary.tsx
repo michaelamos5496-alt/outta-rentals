@@ -11,6 +11,7 @@ import { resolveKitLines, getKitTotal } from "@/lib/kit/pricing";
 import { useKit } from "@/components/kit/kit-provider";
 import { KitItemRow } from "@/components/kit/kit-item-row";
 import { RentalDates } from "@/components/kit/rental-dates";
+import { formatPrice } from "@/lib/currency";
 
 export interface KitSummaryProps {
   compact?: boolean;
@@ -60,7 +61,7 @@ function KitSummary({ compact = false, showDates = true, emptyAction, footer }: 
             {items.reduce((n, i) => n + i.quantity, 0) === 1 ? "" : "s"}
           </span>
           <span className="font-medium">
-            {canPrice ? `$${total.toLocaleString()}` : "—"}
+            {canPrice ? formatPrice(total) : "—"}
           </span>
         </div>
         <p className="text-meta">

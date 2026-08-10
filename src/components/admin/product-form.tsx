@@ -73,7 +73,7 @@ function ProductForm({ product }: ProductFormProps) {
       description,
       dayRate: Number(dayRate) || 0,
       weekRate: Number(weekRate) || 0,
-      currency: "USD",
+      currency: "GHS",
       availability,
       featured,
       specifications,

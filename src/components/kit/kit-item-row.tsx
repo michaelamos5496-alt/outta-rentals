@@ -9,6 +9,7 @@ import { getBrandBySlug, getCategoryIcon } from "@/lib/catalogue";
 import type { ResolvedKitLine } from "@/lib/kit/pricing";
 import { useKit } from "@/components/kit/kit-provider";
 import { categoryImages } from "@/lib/editorial-images";
+import { formatPrice } from "@/lib/currency";
 
 export interface KitItemRowProps {
   line: ResolvedKitLine;
@@ -79,11 +80,11 @@ function KitItemRow({ line, compact = false }: KitItemRowProps) {
           <div className="text-right">
             {!compact && line.rentalDays > 0 ? (
               <p className="text-meta">
-                ${product.dayRate}/day × {quantity} × {line.rentalDays}d
+                {formatPrice(product.dayRate)}/day × {quantity} × {line.rentalDays}d
               </p>
             ) : null}
             <p className="text-sm font-medium">
-              {line.rentalDays > 0 ? `$${lineTotal.toLocaleString()}` : "—"}
+              {line.rentalDays > 0 ? formatPrice(lineTotal) : "—"}
             </p>
           </div>
         </div>

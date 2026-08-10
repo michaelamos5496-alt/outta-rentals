@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { ProductGallery } from "@/components/catalogue/product-gallery";
 import { ProductActions } from "@/components/catalogue/product-actions";
 import { ProductShelf } from "@/components/catalogue/product-shelf";
+import { formatPrice } from "@/lib/currency";
 
 export const revalidate = 60; // seconds — keep inventory reasonably fresh once a real DB is connected
 
@@ -185,7 +186,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               <div>
                 <p className="text-meta">Daily rate</p>
                 <p className="text-h3 mt-1">
-                  ${product.dayRate}
+                  {formatPrice(product.dayRate)}
                   <span className="text-sm font-normal text-muted-foreground"> / day</span>
                 </p>
               </div>
@@ -193,7 +194,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               <div>
                 <p className="text-meta">Weekly rate</p>
                 <p className="text-h3 mt-1">
-                  ${product.weekRate}
+                  {formatPrice(product.weekRate)}
                   <span className="text-sm font-normal text-muted-foreground"> / week</span>
                 </p>
               </div>

@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/table";
 import { QuoteStatusBadge, quoteStatusLabels, quoteStatuses } from "@/components/admin/quote-status-badge";
 import type { AdminQuote } from "@/lib/admin/types";
+import { formatPrice } from "@/lib/currency";
 
 function QuotesTable({ quotes }: { quotes: AdminQuote[] }) {
   const [query, setQuery] = React.useState("");
@@ -94,7 +95,7 @@ function QuotesTable({ quotes }: { quotes: AdminQuote[] }) {
                     {new Date(quote.startDate).toLocaleDateString()} →{" "}
                     {new Date(quote.endDate).toLocaleDateString()}
                   </TableCell>
-                  <TableCell>${quote.estimatedTotal.toLocaleString()}</TableCell>
+                  <TableCell>{formatPrice(quote.estimatedTotal)}</TableCell>
                   <TableCell>
                     <QuoteStatusBadge status={quote.status} />
                   </TableCell>

@@ -5,6 +5,7 @@ import { EmptyState } from "@/components/ui/state";
 import { Button } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
 import { QuoteDetailActions } from "@/components/admin/quote-detail-actions";
+import { formatPrice } from "@/lib/currency";
 
 interface QuoteDetailPageProps {
   params: Promise<{ id: string }>;
@@ -88,13 +89,13 @@ export default async function AdminQuoteDetailPage({ params }: QuoteDetailPagePr
                     {line.productName} × {line.quantity} × {quote.rentalDays}d
                   </span>
                   <span>
-                    ${(line.dayRate * line.quantity * quote.rentalDays).toLocaleString()}
+                    {formatPrice(line.dayRate * line.quantity * quote.rentalDays)}
                   </span>
                 </div>
               ))}
               <div className="flex justify-between p-3 text-sm font-medium">
                 <span>Estimated total</span>
-                <span>${quote.estimatedTotal.toLocaleString()}</span>
+                <span>{formatPrice(quote.estimatedTotal)}</span>
               </div>
             </div>
           </section>

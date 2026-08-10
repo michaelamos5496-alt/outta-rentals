@@ -13,6 +13,7 @@ import { listProducts, listQuotes } from "@/lib/admin/store";
 import { StatCard } from "@/components/admin/stat-card";
 import { QuoteStatusBadge } from "@/components/admin/quote-status-badge";
 import { Button } from "@/components/ui/button";
+import { formatPrice } from "@/lib/currency";
 
 export const metadata = { title: "Dashboard" };
 
@@ -49,7 +50,7 @@ export default function AdminDashboardPage() {
         <StatCard label="Total products" value={products.length} icon={Boxes} />
         <StatCard
           label="Revenue"
-          value={`$${revenue.toLocaleString()}`}
+          value={formatPrice(revenue)}
           icon={DollarSign}
           hint="Placeholder — completed quotes only, no payments connected."
         />
@@ -79,7 +80,7 @@ export default function AdminDashboardPage() {
                   </p>
                 </div>
                 <div className="flex shrink-0 items-center gap-4">
-                  <span className="text-small">${quote.estimatedTotal.toLocaleString()}</span>
+                  <span className="text-small">{formatPrice(quote.estimatedTotal)}</span>
                   <QuoteStatusBadge status={quote.status} />
                 </div>
               </Link>

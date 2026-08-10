@@ -4,6 +4,7 @@ import { getCustomerByEmail } from "@/lib/admin/store";
 import { EmptyState } from "@/components/ui/state";
 import { Button } from "@/components/ui/button";
 import { QuoteStatusBadge } from "@/components/admin/quote-status-badge";
+import { formatPrice } from "@/lib/currency";
 
 interface CustomerDetailPageProps {
   params: Promise<{ id: string }>;
@@ -100,7 +101,7 @@ export default async function AdminCustomerDetailPage({ params }: CustomerDetail
               <span>{quote.projectName}</span>
               <div className="flex items-center gap-3">
                 <span className="text-muted-foreground">
-                  ${quote.estimatedTotal.toLocaleString()}
+                  {formatPrice(quote.estimatedTotal)}
                 </span>
                 <QuoteStatusBadge status={quote.status} />
               </div>

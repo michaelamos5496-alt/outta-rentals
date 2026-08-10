@@ -9,6 +9,7 @@ import { Divider } from "@/components/ui/divider";
 import { WhatsAppButton } from "@/components/quote/whatsapp-button";
 import type { ResolvedKitLine } from "@/lib/kit/pricing";
 import type { CustomerDetails, DeliveryDetails, ProjectDetails } from "@/lib/quote/types";
+import { formatPrice } from "@/lib/currency";
 
 export type SubmitState = "idle" | "loading" | "success" | "error";
 
@@ -77,7 +78,7 @@ function ConfirmationStep({
             <SummaryRow
               key={line.product.slug}
               label={`${line.product.name} × ${line.quantity}`}
-              value={`$${line.lineTotal.toLocaleString()}`}
+              value={formatPrice(line.lineTotal)}
             />
           ))}
         </div>
@@ -89,7 +90,7 @@ function ConfirmationStep({
         <p className="text-label mb-2">Dates</p>
         <SummaryRow label="Rental period" value={`${startDate} → ${endDate}`} />
         <SummaryRow label="Rental days" value={rentalDays} />
-        <SummaryRow label="Estimated rental" value={<span className="font-medium">${total.toLocaleString()}</span>} />
+        <SummaryRow label="Estimated rental" value={<span className="font-medium">{formatPrice(total)}</span>} />
         <p className="text-meta mt-1">Estimate — final quote confirmed by OUTTA.</p>
       </section>
 

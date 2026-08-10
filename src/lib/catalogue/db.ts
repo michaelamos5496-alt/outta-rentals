@@ -114,7 +114,7 @@ async function fetchAllProductsFromDb(): Promise<DemoProduct[] | null> {
       description: row.description ?? "",
       dayRate: dayRate?.price ?? 0,
       weekRate: weekRate?.price ?? 0,
-      currency: dayRate?.currency ?? weekRate?.currency ?? "USD",
+      currency: dayRate?.currency ?? weekRate?.currency ?? "GHS",
       availability: row.status as ProductAvailability,
       featured: row.featured,
       isNew: row.is_new,

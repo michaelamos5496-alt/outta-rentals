@@ -24,7 +24,7 @@ export const products: DemoProduct[] = [
       "A compact, full-frame cinema camera body with in-body stabilization and a fan-cooled body for extended recording. Popular for run-and-gun and gimbal work.",
     dayRate: 145,
     weekRate: 725,
-    currency: "USD",
+    currency: "GHS",
     availability: "available",
     featured: true,
     specifications: [
@@ -58,7 +58,7 @@ export const products: DemoProduct[] = [
       "A documentary and narrative-friendly cinema camera with electronic variable ND, dual native ISO, and built-in XLR inputs — fewer accessories needed on a fast-moving set.",
     dayRate: 220,
     weekRate: 1100,
-    currency: "USD",
+    currency: "GHS",
     availability: "available",
     featured: true,
     specifications: [
@@ -92,7 +92,7 @@ export const products: DemoProduct[] = [
       "Sony's shoulder-mount full-frame flagship, built around a 6K sensor with 4K oversampled output. A strong fit for narrative and high-end broadcast work.",
     dayRate: 285,
     weekRate: 1425,
-    currency: "USD",
+    currency: "GHS",
     availability: "reserved",
     specifications: [
       { label: "Sensor", value: "Full-Frame 6K Exmor R CMOS", group: "Imaging" },
@@ -125,7 +125,7 @@ export const products: DemoProduct[] = [
       "A compact, RF-mount Super 35 cinema camera with dual gain output sensor technology, built around Canon's Cinema RAW Light workflow.",
     dayRate: 195,
     weekRate: 975,
-    currency: "USD",
+    currency: "GHS",
     availability: "available",
     specifications: [
       { label: "Sensor", value: "Super 35mm Dual Gain Output CMOS", group: "Imaging" },
@@ -152,7 +152,7 @@ export const products: DemoProduct[] = [
       "A large-format cinema camera built around ARRI's color science and highlight roll-off. A common choice for feature film and high-end commercial work.",
     dayRate: 650,
     weekRate: 3250,
-    currency: "USD",
+    currency: "GHS",
     availability: "maintenance",
     featured: true,
     specifications: [
@@ -186,7 +186,7 @@ export const products: DemoProduct[] = [
       "RED's 8K Vista Vision sensor in a lightweight, integrated-ND body, built for high-end narrative and commercial work that needs maximum resolution headroom.",
     dayRate: 595,
     weekRate: 2975,
-    currency: "USD",
+    currency: "GHS",
     availability: "reserved",
     specifications: [
       { label: "Sensor", value: "8K Vista Vision CMOS", group: "Imaging" },
@@ -215,7 +215,7 @@ export const products: DemoProduct[] = [
       "A constant f/2.8 standard zoom covering the most-used focal range, with fast, near-silent autofocus suited to run-and-gun and hybrid work.",
     dayRate: 65,
     weekRate: 325,
-    currency: "USD",
+    currency: "GHS",
     availability: "available",
     specifications: [
       { label: "Focal Length", value: "24–70mm", group: "Optics" },
@@ -241,7 +241,7 @@ export const products: DemoProduct[] = [
       "A constant f/2.8 telephoto zoom with compact, lightweight construction — a common second lens for coverage, interviews and events.",
     dayRate: 70,
     weekRate: 350,
-    currency: "USD",
+    currency: "GHS",
     availability: "available",
     specifications: [
       { label: "Focal Length", value: "70–200mm", group: "Optics" },
@@ -267,7 +267,7 @@ export const products: DemoProduct[] = [
       "A five-lens matched prime set — 25mm, 35mm, 50mm, 85mm, 135mm — with consistent T-stop, color and front diameter across the range. Built for narrative and commercial sets.",
     dayRate: 240,
     weekRate: 1200,
-    currency: "USD",
+    currency: "GHS",
     availability: "reserved",
     featured: true,
     specifications: [
@@ -296,7 +296,7 @@ export const products: DemoProduct[] = [
       "A high-output daylight LED fixture with a Bowens mount, built for punching through diffusion or bouncing off large surfaces as a key light.",
     dayRate: 95,
     weekRate: 475,
-    currency: "USD",
+    currency: "GHS",
     availability: "available",
     featured: true,
     specifications: [
@@ -323,7 +323,7 @@ export const products: DemoProduct[] = [
       "The bi-color counterpart to the 600d — full CCT adjustment from warm tungsten to daylight, at the same 600W output class.",
     dayRate: 105,
     weekRate: 525,
-    currency: "USD",
+    currency: "GHS",
     availability: "available",
     specifications: [
       { label: "Output", value: "600W bi-color LED", group: "Light" },
@@ -349,7 +349,7 @@ export const products: DemoProduct[] = [
       "A lightweight bi-color fixture that punches above its size class — a practical fill or backlight for two- and three-light setups.",
     dayRate: 45,
     weekRate: 225,
-    currency: "USD",
+    currency: "GHS",
     availability: "available",
     specifications: [
       { label: "Output", value: "200W bi-color LED", group: "Light" },
@@ -375,7 +375,7 @@ export const products: DemoProduct[] = [
       "A dependable daylight-balanced LED fixture at a lower price point — useful when a kit needs an extra head without stretching the lighting budget.",
     dayRate: 40,
     weekRate: 200,
-    currency: "USD",
+    currency: "GHS",
     availability: "reserved",
     specifications: [
       { label: "Output", value: "300W daylight-balanced LED", group: "Light" },
@@ -403,7 +403,7 @@ export const products: DemoProduct[] = [
       "A carbon-fiber tripod system with a counterbalanced fluid head, built for smooth handheld-free camera moves and fast set-up between setups.",
     dayRate: 55,
     weekRate: 275,
-    currency: "USD",
+    currency: "GHS",
     availability: "available",
     specifications: [
       { label: "Head Type", value: "Fluid head, 75mm bowl", group: "Support" },
@@ -429,7 +429,7 @@ export const products: DemoProduct[] = [
       "A 3-axis motorized stabilizer with a high payload capacity and automated axis locks — built for handheld moving shots without a Steadicam operator.",
     dayRate: 75,
     weekRate: 375,
-    currency: "USD",
+    currency: "GHS",
     availability: "available",
     featured: true,
     specifications: [
@@ -456,7 +456,7 @@ export const products: DemoProduct[] = [
       "A 40\" C-stand with a turtle base, grip head and extension arm — the standard support for flags, nets, small fixtures and bounce boards on any set.",
     dayRate: 20,
     weekRate: 100,
-    currency: "USD",
+    currency: "GHS",
     availability: "available",
     specifications: [
       { label: "Height Range", value: "40\"–121\"", group: "Support" },
@@ -481,7 +481,7 @@ export const products: DemoProduct[] = [
       "A 4-foot motorized slider with programmable moves and adjustable speed — a compact way to add production value without a full dolly and track setup.",
     dayRate: 65,
     weekRate: 325,
-    currency: "USD",
+    currency: "GHS",
     availability: "reserved",
     specifications: [
       { label: "Track Length", value: "4ft (122cm)", group: "Support" },
@@ -508,7 +508,7 @@ export const products: DemoProduct[] = [
       "A digital wireless lavalier system with a dual-channel receiver and two bodypack transmitters — clean, reliable dialogue capture for interviews and narrative.",
     dayRate: 55,
     weekRate: 275,
-    currency: "USD",
+    currency: "GHS",
     availability: "available",
     featured: true,
     specifications: [
@@ -534,7 +534,7 @@ export const products: DemoProduct[] = [
       "A matched shotgun mic, carbon-fiber boom pole and wind protection blimp — set up for a boom operator to work close to camera on dialogue-heavy scenes.",
     dayRate: 45,
     weekRate: 225,
-    currency: "USD",
+    currency: "GHS",
     availability: "unavailable",
     specifications: [
       { label: "Microphone", value: "Shotgun, supercardioid pattern", group: "Audio" },
@@ -559,7 +559,7 @@ export const products: DemoProduct[] = [
       "An 8-input, timecode-capable field recorder for productions running multiple wireless channels and a boom simultaneously.",
     dayRate: 60,
     weekRate: 300,
-    currency: "USD",
+    currency: "GHS",
     availability: "maintenance",
     specifications: [
       { label: "Inputs", value: "8× XLR/TRS combo", group: "Audio" },
@@ -586,7 +586,7 @@ export const products: DemoProduct[] = [
       "A 7-inch, 1000-nit on-camera monitor with a touchscreen interface, waveform, vectorscope and false-color exposure tools built in.",
     dayRate: 40,
     weekRate: 200,
-    currency: "USD",
+    currency: "GHS",
     availability: "available",
     specifications: [
       { label: "Screen Size", value: "7-inch, 1920×1200", group: "Display" },
@@ -611,7 +611,7 @@ export const products: DemoProduct[] = [
       "A daylight-visible on-camera monitor built to pair with cinema camera bodies, with 3D LUT support and camera control over SDI for compatible bodies.",
     dayRate: 55,
     weekRate: 275,
-    currency: "USD",
+    currency: "GHS",
     availability: "reserved",
     specifications: [
       { label: "Screen Size", value: "7-inch, 2000-nit daylight visible", group: "Display" },
@@ -638,7 +638,7 @@ export const products: DemoProduct[] = [
       "A cinema-grade aerial platform built around a full-frame 8K sensor with dual-operator control — for productions that need aerial coverage matched to ground camera color.",
     dayRate: 450,
     weekRate: 2250,
-    currency: "USD",
+    currency: "GHS",
     availability: "coming_soon",
     specifications: [
       { label: "Sensor", value: "Full-Frame 8K", group: "Imaging" },
@@ -663,7 +663,7 @@ export const products: DemoProduct[] = [
       "A compact, foldable drone with a 4/3 CMOS sensor and Apple ProRes recording — practical for productions that need quick aerial B-roll without a full aerial crew.",
     dayRate: 150,
     weekRate: 750,
-    currency: "USD",
+    currency: "GHS",
     availability: "available",
     specifications: [
       { label: "Sensor", value: "4/3 CMOS", group: "Imaging" },
@@ -690,7 +690,7 @@ export const products: DemoProduct[] = [
       "A pair of high-capacity V-mount batteries with a dual charger — the standard power solution for cameras, monitors and lighting fixtures across a shoot day.",
     dayRate: 25,
     weekRate: 125,
-    currency: "USD",
+    currency: "GHS",
     availability: "available",
     specifications: [
       { label: "Capacity", value: "2× 150Wh V-mount batteries", group: "Power" },
@@ -714,7 +714,7 @@ export const products: DemoProduct[] = [
       "A lightweight clamp-on matte box with a set of 4×5.65 ND filters (0.3 to 1.8 density) — flag off flares and control exposure without stepping down the iris.",
     dayRate: 35,
     weekRate: 175,
-    currency: "USD",
+    currency: "GHS",
     availability: "available",
     specifications: [
       { label: "Format", value: "4×5.65\" filter trays", group: "Filtration" },
@@ -738,7 +738,7 @@ export const products: DemoProduct[] = [
       "Four high-endurance CFexpress Type B cards and a Thunderbolt card reader — enough media to cover a full shoot day across most cinema camera bodies.",
     dayRate: 30,
     weekRate: 150,
-    currency: "USD",
+    currency: "GHS",
     availability: "available",
     specifications: [
       { label: "Capacity", value: "4× 325GB CFexpress Type B", group: "Storage" },

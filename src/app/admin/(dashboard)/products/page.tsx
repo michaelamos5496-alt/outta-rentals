@@ -14,6 +14,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { ProductRowActions } from "@/components/admin/product-row-actions";
+import { formatPrice } from "@/lib/currency";
 
 export const metadata = { title: "Products" };
 
@@ -60,7 +61,7 @@ export default function AdminProductsPage() {
                 </TableCell>
                 <TableCell>{getBrandBySlug(product.brandSlug)?.name ?? product.brandSlug}</TableCell>
                 <TableCell>{getCategoryBySlug(product.categorySlug)?.name ?? product.categorySlug}</TableCell>
-                <TableCell>${product.dayRate}</TableCell>
+                <TableCell>{formatPrice(product.dayRate)}</TableCell>
                 <TableCell>
                   <Badge variant={availabilityVariant[product.availability]}>
                     {availabilityLabels[product.availability]}

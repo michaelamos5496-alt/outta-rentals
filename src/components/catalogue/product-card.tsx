@@ -17,6 +17,7 @@ import {
 } from "@/lib/catalogue";
 import { useKit } from "@/components/kit/kit-provider";
 import { categoryImages } from "@/lib/editorial-images";
+import { formatPrice } from "@/lib/currency";
 
 export interface ProductCardProps {
   product: DemoProduct;
@@ -82,10 +83,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
 
         <div className="mt-auto flex items-center justify-between gap-3 pt-4">
           <p className="text-sm">
-            <span className="font-medium">
-              {product.currency === "USD" ? "$" : ""}
-              {product.dayRate}
-            </span>
+            <span className="font-medium">{formatPrice(product.dayRate)}</span>
             <span className="text-muted-foreground"> / day</span>
           </p>
           <div className="flex gap-2">

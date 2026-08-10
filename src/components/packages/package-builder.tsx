@@ -13,6 +13,7 @@ import { getBrandBySlug, getCategoryIcon, getProductBySlug } from "@/lib/catalog
 import { useKit } from "@/components/kit/kit-provider";
 import type { ProductionPackage } from "@/lib/packages/types";
 import { categoryImages } from "@/lib/editorial-images";
+import { formatPrice } from "@/lib/currency";
 
 interface BuilderLine {
   role: string;
@@ -140,7 +141,7 @@ function PackageBuilder({ pkg }: PackageBuilderProps) {
                     </Button>
                   </div>
                   <p className="text-sm font-medium">
-                    ${(product.dayRate * line.quantity).toLocaleString()}
+                    {formatPrice(product.dayRate * line.quantity)}
                     <span className="text-muted-foreground"> /day</span>
                   </p>
                 </div>
@@ -158,7 +159,7 @@ function PackageBuilder({ pkg }: PackageBuilderProps) {
             {activeCount} item{activeCount === 1 ? "" : "s"} in this package
           </p>
           <p className="text-meta mt-0.5">
-            ${dailyTotal.toLocaleString()}/day — estimate, final quote confirmed by OUTTA.
+            {formatPrice(dailyTotal)}/day — estimate, final quote confirmed by OUTTA.
           </p>
         </div>
         <Button

@@ -2,12 +2,13 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { LoaderCircle, Menu, Package, Search, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { duration, easeOutta } from "@/lib/motion";
-import { primaryNav } from "@/config/site";
+import { primaryNav, siteConfig } from "@/config/site";
 import { availabilityLabels, availabilityVariant } from "@/lib/catalogue";
 import { searchCatalogueAction, type CatalogueSearchResult } from "@/lib/catalogue/actions";
 import { Container } from "@/components/ui/container";
@@ -16,6 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { SearchInput } from "@/components/ui/search-input";
 import { Modal } from "@/components/ui/modal";
 import { useKit } from "@/components/kit/kit-provider";
+import { formatPrice } from "@/lib/currency";
 
 function useDebouncedValue<T>(value: T, delayMs: number): T {
   const [debounced, setDebounced] = React.useState(value);
@@ -89,7 +91,7 @@ function NavbarSearch({ onNavigate }: { onNavigate: () => void }) {
                   </div>
                   <div className="flex shrink-0 items-center gap-2">
                     <span className="text-small whitespace-nowrap">
-                      ${product.dayRate}/day
+                      {formatPrice(product.dayRate)}/day
                     </span>
                     <Badge variant={availabilityVariant[product.availability]}>
                       {availabilityLabels[product.availability]}
@@ -137,12 +139,15 @@ function Navbar() {
     >
       <Container>
         <nav className="flex h-16 items-center justify-between sm:h-20">
-          <Link
-            href="/"
-            className="font-heading text-lg font-semibold tracking-[-0.01em]"
-          >
-            OUTTA
-            <span className="text-brand">.</span>
+          <Link href="/" className="inline-flex items-center">
+            <Image
+              src="/brand/outta-logo-dark.png"
+              alt={siteConfig.name}
+              width={595}
+              height={225}
+              priority
+              className="h-8 w-auto sm:h-9"
+            />
           </Link>
 
           <ul className="hidden items-center gap-8 lg:flex">
@@ -218,9 +223,13 @@ function Navbar() {
           >
             <Container>
               <div className="flex h-16 items-center justify-between sm:h-20">
-                <span className="font-heading text-lg font-semibold">
-                  OUTTA<span className="text-brand">.</span>
-                </span>
+                <Image
+                  src="/brand/outta-logo-dark.png"
+                  alt={siteConfig.name}
+                  width={595}
+                  height={225}
+                  className="h-8 w-auto"
+                />
                 <Button
                   variant="ghost"
                   size="icon"
