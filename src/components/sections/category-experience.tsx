@@ -48,12 +48,16 @@ function CategoryExperience() {
                     : "aspect-4/5 w-full transition-transform duration-700 ease-[var(--ease-outta)] group-hover/cat:scale-105"
                 }
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/10 to-transparent" />
+              {/* Desktop-only fix: the --background token is now white, so
+                  reusing it here washed the category photos out with a white
+                  haze. Pinned to black at lg+ where this card is a full
+                  image tile; mobile keeps its existing look. */}
+              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/10 to-transparent lg:from-black/80 lg:via-black/10 lg:to-transparent" />
               <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5 sm:p-6">
-                <span className="text-h3 transition-transform duration-300 ease-out group-hover/cat:-translate-y-1">
+                <span className="text-h3 transition-transform duration-300 ease-out group-hover/cat:-translate-y-1 lg:text-white">
                   {category.name}
                 </span>
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-foreground/25 transition-all duration-300 ease-out group-hover/cat:-translate-y-1 group-hover/cat:border-brand group-hover/cat:bg-brand group-hover/cat:text-brand-foreground">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-foreground/25 transition-all duration-300 ease-out group-hover/cat:-translate-y-1 group-hover/cat:border-brand group-hover/cat:bg-brand group-hover/cat:text-brand-foreground lg:border-white/30 lg:text-white">
                   <ArrowUpRight className="size-4" />
                 </span>
               </div>

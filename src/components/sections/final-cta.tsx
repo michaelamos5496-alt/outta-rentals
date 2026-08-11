@@ -18,7 +18,9 @@ function FinalCta() {
         tone="hero"
         className="absolute inset-0 h-full w-full rounded-none"
       />
-      <div className="absolute inset-0 bg-background/70" />
+      {/* Desktop-only fix: --background is now white, so reusing it here
+          washed the photo out. Pinned to black at lg+; mobile unchanged. */}
+      <div className="absolute inset-0 bg-background/70 lg:bg-black/70" />
 
       <motion.div
         initial="hidden"
@@ -27,12 +29,15 @@ function FinalCta() {
         variants={staggerContainer(0.08)}
         className="relative mx-auto w-full max-w-(--container-content) px-5 text-center sm:px-8 lg:px-12"
       >
-        <motion.h2 variants={slideUp()} className="text-display text-balance">
+        <motion.h2 variants={slideUp()} className="text-display text-balance lg:text-white">
           READY TO
           <br />
           ROLL?
         </motion.h2>
-        <motion.p variants={slideUp(0.05)} className="text-body mx-auto mt-6 max-w-md">
+        <motion.p
+          variants={slideUp(0.05)}
+          className="text-body mx-auto mt-6 max-w-md lg:text-white/80"
+        >
           Tell us what you&rsquo;re shooting. We&rsquo;ll help you build the
           right kit.
         </motion.p>
@@ -49,7 +54,7 @@ function FinalCta() {
             asChild
             size="lg"
             variant="outline"
-            className="border-foreground/25 bg-transparent uppercase tracking-wide hover:bg-foreground/5"
+            className="border-foreground/25 bg-transparent uppercase tracking-wide hover:bg-foreground/5 lg:border-white/30 lg:text-white lg:hover:bg-white/10"
           >
             <Link href="/contact">
               <MessageCircle /> Talk to OUTTA

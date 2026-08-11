@@ -127,7 +127,12 @@ function Hero({ products }: { products: DemoProduct[] }) {
                 className="object-cover"
               />
             ) : null}
-            <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-background/40" />
+            {/* Fixed dark scrim, independent of the (now white) --background
+                token — this exists to keep light text legible over bright
+                photography, which is unrelated to the site's light/dark
+                theme. Using --background here was what caused a washed-out
+                white haze over the hero photos after the theme swap. */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-black/35" />
           </motion.div>
         </AnimatePresence>
 
@@ -160,7 +165,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
               type="button"
               aria-label="Previous spotlight item"
               onClick={() => setIndex((i) => (i - 1 + products.length) % products.length)}
-              className="absolute top-1/2 left-4 z-10 -translate-y-1/2 text-foreground/70 transition-colors hover:text-foreground sm:left-8"
+              className="absolute top-1/2 left-4 z-10 -translate-y-1/2 text-white/70 transition-colors hover:text-white sm:left-8"
             >
               <ChevronLeft className="size-8" strokeWidth={1.5} />
             </button>
@@ -168,11 +173,11 @@ function Hero({ products }: { products: DemoProduct[] }) {
               type="button"
               aria-label="Next spotlight item"
               onClick={() => setIndex((i) => (i + 1) % products.length)}
-              className="absolute top-1/2 right-4 z-10 -translate-y-1/2 text-foreground/70 transition-colors hover:text-foreground sm:right-8"
+              className="absolute top-1/2 right-4 z-10 -translate-y-1/2 text-white/70 transition-colors hover:text-white sm:right-8"
             >
               <ChevronRight className="size-8" strokeWidth={1.5} />
             </button>
-            <p className="text-meta absolute right-6 bottom-6 z-10 text-foreground/70">
+            <p className="text-meta absolute right-6 bottom-6 z-10 text-white/70">
               {index + 1} / {products.length}
             </p>
           </>
