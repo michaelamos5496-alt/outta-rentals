@@ -51,7 +51,9 @@ export default async function Home() {
     // i.e. visually identical to a plain stacked fragment at ≥lg.
     <div className="flex flex-col">
       <Hero products={spotlightProducts} />
-      <div className="order-2 lg:order-none">
+      {/* Redundant on mobile — the tab bar's Equipment tab and the listing
+          page's own category pills already cover this. Kept on desktop. */}
+      <div className="hidden lg:order-none lg:block">
         <EquipmentStrip />
       </div>
       <div className="order-4 lg:order-none">

@@ -66,7 +66,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
       <Section
         spacing="none"
         bleed
-        className="relative h-[78svh] min-h-[520px] w-full overflow-hidden bg-background lg:hidden"
+        className="relative h-[62svh] min-h-[420px] w-full overflow-hidden bg-background lg:hidden"
       >
         <AnimatePresence mode="wait">
           <motion.div

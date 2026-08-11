@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { LoaderCircle, Menu, Package, Search, X } from "lucide-react";
+import { LoaderCircle, Package, Search, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { duration, easeOutta } from "@/lib/motion";
@@ -220,15 +220,9 @@ function Navbar() {
                 </span>
               ) : null}
             </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label="Open menu"
-              onClick={() => setMobileOpen(true)}
-              className="lg:hidden"
-            >
-              <Menu />
-            </Button>
+            {/* No mobile hamburger here — the mobile tab bar's Menu tab opens
+                the same panel, so a second control in the header would be
+                redundant. */}
           </div>
         </nav>
       </Container>

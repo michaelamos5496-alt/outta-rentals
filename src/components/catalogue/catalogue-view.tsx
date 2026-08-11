@@ -232,7 +232,7 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
         />
         <div className="flex items-center gap-2">
           <Select value={sort} onValueChange={(v) => setSort(v as SortKey)}>
-            <SelectTrigger className="w-full sm:w-52">
+            <SelectTrigger className="hidden lg:flex lg:w-52">
               <SelectValue placeholder="Sort" />
             </SelectTrigger>
             <SelectContent>
@@ -357,6 +357,21 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
             <DrawerTitle>Filters</DrawerTitle>
           </DrawerHeader>
           <div className="px-4 pb-6">
+            <div className="mb-6">
+              <p className="text-label mb-2">Sort by</p>
+              <Select value={sort} onValueChange={(v) => setSort(v as SortKey)}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Sort" />
+                </SelectTrigger>
+                <SelectContent>
+                  {(Object.keys(sortLabels) as SortKey[]).map((key) => (
+                    <SelectItem key={key} value={key}>
+                      {sortLabels[key]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
             <FilterPanel
               filters={filters}
               onChange={(patch) => setFilters((f) => ({ ...f, ...patch }))}
