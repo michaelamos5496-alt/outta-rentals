@@ -9,22 +9,25 @@ function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer data-slot="footer" className="relative overflow-hidden border-t border-border bg-background">
-      {/* Oversized watermark of the real logo, bleeding off the edge — a texture, not a UI element */}
+    <footer
+      data-slot="footer"
+      className="relative overflow-hidden border-t border-border bg-background pb-20 lg:pb-0"
+    >
+      {/* Oversized watermark of the real logo, bleeding off the edge — a texture, not a UI element. Dropped on mobile to keep the footer minimal. */}
       <Image
-        src="/brand/outta-logo-dark.png"
+        src="/brand/outta-logo.png"
         alt=""
         aria-hidden
         width={1190}
         height={450}
-        className="pointer-events-none absolute -right-24 -bottom-20 w-[640px] max-w-none opacity-[0.05] select-none sm:w-[820px]"
+        className="pointer-events-none absolute -right-24 -bottom-20 hidden w-[640px] max-w-none opacity-[0.05] select-none sm:block sm:w-[820px]"
       />
 
       <Container className="relative py-12 sm:py-20">
         <div className="lg:hidden">
           <Link href="/" className="inline-block">
             <Image
-              src="/brand/outta-logo-dark.png"
+              src="/brand/outta-logo.png"
               alt={siteConfig.name}
               width={595}
               height={225}
@@ -52,7 +55,7 @@ function Footer() {
           <div className="col-span-2 sm:col-span-3 lg:col-span-1">
             <Link href="/" className="inline-block">
               <Image
-                src="/brand/outta-logo-dark.png"
+                src="/brand/outta-logo.png"
                 alt={siteConfig.name}
                 width={595}
                 height={225}

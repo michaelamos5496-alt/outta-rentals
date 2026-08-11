@@ -173,7 +173,7 @@ function Navbar() {
         <nav className="flex h-16 items-center justify-between sm:h-20">
           <Link href="/" className="inline-flex items-center">
             <Image
-              src="/brand/outta-logo-dark.png"
+              src="/brand/outta-logo.png"
               alt={siteConfig.name}
               width={595}
               height={225}
@@ -256,7 +256,7 @@ function Navbar() {
             <Container className="flex h-full flex-col overflow-y-auto pb-8">
               <div className="flex h-16 shrink-0 items-center justify-between sm:h-20">
                 <Image
-                  src="/brand/outta-logo-dark.png"
+                  src="/brand/outta-logo.png"
                   alt={siteConfig.name}
                   width={595}
                   height={225}

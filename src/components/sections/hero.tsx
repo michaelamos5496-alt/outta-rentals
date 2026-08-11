@@ -92,18 +92,12 @@ function Hero({ products }: { products: DemoProduct[] }) {
         </AnimatePresence>
 
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-end px-5 pb-10 text-center">
-          <p className="text-label text-brand">Film · Photography · Production Equipment</p>
-          <h1 className="text-h1 mt-3 max-w-xs uppercase">Rent the gear. Make the work.</h1>
-          <div className="mt-6 flex w-full max-w-xs flex-col gap-3">
-            <Button asChild size="lg" className="w-full uppercase tracking-wide">
-              <Link href="/equipment">
-                Browse Equipment <ArrowRight />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="w-full uppercase tracking-wide">
-              <Link href="/work">See What&rsquo;s Been Shot</Link>
-            </Button>
-          </div>
+          <h1 className="text-h1 max-w-xs uppercase">Rent the gear. Make the work.</h1>
+          <Button asChild size="lg" className="mt-6 w-full max-w-xs uppercase tracking-wide">
+            <Link href="/equipment">
+              Browse Equipment <ArrowRight />
+            </Link>
+          </Button>
         </div>
       </Section>
 

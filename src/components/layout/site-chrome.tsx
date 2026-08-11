@@ -8,7 +8,6 @@ import { SmoothScroll } from "@/components/layout/smooth-scroll";
 import { MobileNavProvider } from "@/components/layout/mobile-nav-provider";
 import { MobileTabBar } from "@/components/layout/mobile-tab-bar";
 import { KitDrawer } from "@/components/kit/kit-drawer";
-import { categories } from "@/lib/catalogue";
 
 /**
  * The admin backend has its own header/sidebar chrome (see
@@ -20,16 +19,16 @@ function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin");
   const isHome = pathname === "/";
-  const equipmentSegment = pathname?.startsWith("/equipment/")
-    ? pathname.split("/")[2]
-    : undefined;
-  const isProductPage = equipmentSegment && !categories.some((c) => c.slug === equipmentSegment);
 
   if (isAdmin) return <>{children}</>;
 
+  // The mobile tab bar (or, on product pages, the sticky rent bar) is fixed
+  // to the bottom of the viewport — the footer needs its own clearance so
+  // its last line isn't covered by either, since padding on `main` only
+  // creates space *before* the footer, not after it.
   const page = (
     <>
-      <main className={isProductPage ? "flex-1" : "flex-1 pb-20 lg:pb-0"}>{children}</main>
+      <main className="flex-1">{children}</main>
       <Footer />
     </>
   );
