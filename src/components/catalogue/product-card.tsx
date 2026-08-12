@@ -40,21 +40,28 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
   if (view === "grid") {
     return (
       <>
-        {/* Mobile card — minimalist: plain image, name, price, one action.
-            No borders/badges/dividers. Desktop keeps the fuller card below. */}
+        {/* Mobile card — small, MCB-style: image, name plate, then a green
+            price/Rent bar. Desktop keeps the fuller card below. */}
         <article className={cn("sm:hidden", className)}>
-          <Link href={href} className="block">
+          <Link
+            href={href}
+            className="block overflow-hidden rounded-lg border border-border"
+          >
             <MediaPlaceholder
               src={getProductImage(product.slug, product.categorySlug)}
               alt={product.name}
               icon={icon}
-              className="aspect-square w-full rounded-lg"
+              className="aspect-square w-full"
             />
-            <div className="mt-2 flex items-start justify-between gap-1.5">
-              <div className="min-w-0">
-                <p className="truncate text-sm font-medium">{product.name}</p>
-                <p className="text-small mt-0.5">{formatPrice(product.dayRate)}/day</p>
-              </div>
+            <p className="truncate px-2 pt-1.5 text-xs font-medium">{product.name}</p>
+            <div
+              className={cn(
+                "mt-1.5 flex items-center justify-between gap-1 px-2 py-1.5 text-xs font-semibold transition-colors",
+                added ? "bg-secondary text-secondary-foreground" : "bg-brand text-brand-foreground"
+              )}
+            >
+              <span className="truncate">{formatPrice(product.dayRate)}/d</span>
+              <span className="h-3 w-px shrink-0 bg-current opacity-30" />
               <button
                 type="button"
                 aria-label={added ? "Added to kit" : "Add to kit"}
@@ -63,12 +70,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
                   addItem(product.slug);
                   setAdded(true);
                 }}
-                className={cn(
-                  "text-label shrink-0 rounded-full px-2.5 py-1.5 transition-colors",
-                  added
-                    ? "bg-secondary text-secondary-foreground"
-                    : "bg-brand text-brand-foreground"
-                )}
+                className="shrink-0 uppercase"
               >
                 {added ? "Added" : "Rent"}
               </button>

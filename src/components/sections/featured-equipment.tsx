@@ -35,17 +35,21 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
 
   return (
     <motion.article variants={slideUp()} className="group/product sm:hidden">
-      <Link href={href} className="block">
+      <Link href={href} className="block overflow-hidden rounded-lg border border-border">
         <MediaPlaceholder
           src={getProductImage(product.slug, product.categorySlug)}
           alt={product.name}
-          className="aspect-square w-full rounded-lg"
+          className="aspect-square w-full"
         />
-        <div className="mt-2 flex items-start justify-between gap-1.5">
-          <div className="min-w-0">
-            <p className="truncate text-sm font-medium">{product.name}</p>
-            <p className="text-small mt-0.5">{formatPrice(product.dayRate)}/day</p>
-          </div>
+        <p className="truncate px-2 pt-1.5 text-xs font-medium">{product.name}</p>
+        <div
+          className={cn(
+            "mt-1.5 flex items-center justify-between gap-1 px-2 py-1.5 text-xs font-semibold transition-colors",
+            added ? "bg-secondary text-secondary-foreground" : "bg-brand text-brand-foreground"
+          )}
+        >
+          <span className="truncate">{formatPrice(product.dayRate)}/d</span>
+          <span className="h-3 w-px shrink-0 bg-current opacity-30" />
           <button
             type="button"
             aria-label={added ? "Added to kit" : "Add to kit"}
@@ -54,10 +58,7 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
               addItem(product.slug);
               setAdded(true);
             }}
-            className={cn(
-              "text-label shrink-0 rounded-full px-2.5 py-1.5 transition-colors",
-              added ? "bg-secondary text-secondary-foreground" : "bg-brand text-brand-foreground"
-            )}
+            className="shrink-0 uppercase"
           >
             {added ? "Added" : "Rent"}
           </button>
@@ -147,7 +148,7 @@ function FeaturedEquipment({ products }: { products: DemoProduct[] }) {
         whileInView="visible"
         viewport={viewportOnce}
         variants={staggerContainer(0.06)}
-        className="mt-10 grid grid-cols-2 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4"
+        className="mt-10 grid grid-cols-2 gap-x-3 gap-y-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4"
       >
         {products.map((product) => (
           <React.Fragment key={product.id}>

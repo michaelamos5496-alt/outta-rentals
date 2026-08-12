@@ -182,18 +182,19 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
       </div>
 
       {!lockedCategory ? (
-        <div className="scrollbar-none -mx-4 mt-6 flex gap-2 overflow-x-auto px-4 pb-1 lg:hidden">
+        <div className="scrollbar-none -mx-4 mt-6 flex gap-1.5 overflow-x-auto px-4 pb-1 lg:hidden">
           <button
             type="button"
             onClick={() => setFilters((f) => ({ ...f, categories: [] }))}
             className={cn(
-              "text-label shrink-0 rounded-full border px-4 py-2 whitespace-nowrap transition-colors",
+              "flex shrink-0 flex-col items-center gap-0.5 rounded-lg px-2.5 py-1.5 transition-colors",
               filters.categories.length === 0
-                ? "border-brand bg-brand text-brand-foreground"
-                : "border-border text-foreground/70"
+                ? "bg-brand-muted text-brand"
+                : "text-foreground/70"
             )}
           >
-            All
+            <LayoutGrid className="size-4" strokeWidth={1.75} />
+            <span className="text-[0.5625rem] font-semibold tracking-wide uppercase">All</span>
           </button>
           {categories.map((c) => {
             const active = filters.categories.includes(c.slug);
@@ -209,14 +210,14 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
                   }))
                 }
                 className={cn(
-                  "text-label flex shrink-0 items-center gap-1.5 rounded-full border px-4 py-2 whitespace-nowrap transition-colors",
-                  active
-                    ? "border-brand bg-brand text-brand-foreground"
-                    : "border-border text-foreground/70"
+                  "flex shrink-0 flex-col items-center gap-0.5 rounded-lg px-2.5 py-1.5 whitespace-nowrap transition-colors",
+                  active ? "bg-brand-muted text-brand" : "text-foreground/70"
                 )}
               >
-                <Icon className="size-3.5" strokeWidth={1.75} />
-                {c.name}
+                <Icon className="size-4" strokeWidth={1.75} />
+                <span className="text-[0.5625rem] font-semibold tracking-wide uppercase">
+                  {c.name}
+                </span>
               </button>
             );
           })}
@@ -263,10 +264,11 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
           </div>
           <Button
             variant="outline"
+            size="sm"
             className="lg:hidden"
             onClick={() => setMobileFiltersOpen(true)}
           >
-            <SlidersHorizontal /> Filters
+            <SlidersHorizontal className="size-3.5" /> Filters
             {hasActiveFilters ? (
               <Badge variant="brand" className="ml-1">
                 {filters.categories.length +
@@ -328,7 +330,7 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
               <div
                 className={
                   view === "grid"
-                    ? "grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 sm:gap-y-10 sm:grid-cols-2 xl:grid-cols-3"
+                    ? "grid grid-cols-2 gap-x-3 gap-y-4 sm:gap-x-6 sm:gap-y-10 sm:grid-cols-2 xl:grid-cols-3"
                     : "flex flex-col gap-8"
                 }
               >
