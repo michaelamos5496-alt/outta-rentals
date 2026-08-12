@@ -10,8 +10,13 @@ import { Heading } from "@/components/ui/heading";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { equipmentCategories } from "@/lib/placeholder-data";
 import { categoryImages } from "@/lib/editorial-images";
+import type { DemoProduct } from "@/lib/catalogue";
 
-function CategoryExperience() {
+interface CategoryExperienceProps {
+  products: DemoProduct[];
+}
+
+function CategoryExperience({ products }: CategoryExperienceProps) {
   return (
     <Section spacing="compact" className="border-t border-border">
       <div className="py-8">
@@ -20,12 +25,46 @@ function CategoryExperience() {
         </Heading>
       </div>
 
+      {/* Mobile — MCB-style compact tile: icon, name, real item count, a
+          small brand-colored corner accent. Desktop keeps the full-bleed
+          photo teasers below, unchanged. */}
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnce}
         variants={staggerContainer(0.06)}
-        className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        className="grid grid-cols-2 gap-3 sm:hidden"
+      >
+        {equipmentCategories.map((category) => {
+          const count = products.filter((p) => p.categorySlug === category.slug).length;
+          return (
+            <motion.div key={category.slug} variants={slideUp()}>
+              <Link
+                href={`/equipment/${category.slug}`}
+                className="relative block overflow-hidden rounded-xl border border-border p-4"
+              >
+                <span className="bg-brand-muted text-brand flex size-10 items-center justify-center rounded-lg">
+                  <category.icon className="size-5" strokeWidth={1.75} />
+                </span>
+                <p className="mt-3 text-sm font-semibold">{category.name}</p>
+                <p className="text-small mt-0.5">{count} items</p>
+                <span
+                  aria-hidden
+                  className="bg-brand/50 absolute right-0 bottom-0 size-4"
+                  style={{ clipPath: "polygon(100% 0, 100% 100%, 0 100%)" }}
+                />
+              </Link>
+            </motion.div>
+          );
+        })}
+      </motion.div>
+
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportOnce}
+        variants={staggerContainer(0.06)}
+        className="hidden sm:grid sm:grid-cols-2 sm:gap-4 lg:grid-cols-3"
       >
         {equipmentCategories.map((category, i) => (
           <motion.div

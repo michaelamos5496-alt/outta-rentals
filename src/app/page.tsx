@@ -42,12 +42,12 @@ export default async function Home() {
         <FeaturedEquipment products={fallbackGrid} />
       </div>
       <div className="order-3 lg:order-none">
-        <CategoryExperience />
-      </div>
-      <div className="order-6 lg:order-none">
-        <BuildYourKit />
+        <CategoryExperience products={products} />
       </div>
       <div className="order-7 lg:order-none">
+        <BuildYourKit />
+      </div>
+      <div className="order-8 lg:order-none">
         <WhyOutta />
       </div>
       <div className="order-5 lg:order-none">
@@ -56,10 +56,10 @@ export default async function Home() {
       <div className="hidden lg:block">
         <Services />
       </div>
-      <div className="hidden lg:block">
+      <div className="order-6 lg:order-none">
         <Testimonials />
       </div>
-      <div className="order-8 lg:order-none">
+      <div className="order-9 lg:order-none">
         <FinalCta />
       </div>
     </div>
