@@ -92,7 +92,7 @@ function NavbarSearch({ onNavigate }: { onNavigate: () => void }) {
                   </div>
                   <div className="flex shrink-0 items-center gap-2">
                     <span className="text-small font-mono whitespace-nowrap">
-                      {formatPrice(product.dayRate)}/day
+                      {formatPrice(product.dayRate, product.currency)}/day
                     </span>
                     <Badge variant={availabilityVariant[product.availability]}>
                       {availabilityLabels[product.availability]}

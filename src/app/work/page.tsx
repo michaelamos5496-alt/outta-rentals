@@ -47,7 +47,7 @@ function EquipmentUsedItem({
           {product.name}
           {quantity > 1 ? <span className="text-muted-foreground"> ×{quantity}</span> : null}
         </p>
-        <p className="text-meta">{formatPrice(product.dayRate)}/day</p>
+        <p className="text-meta">{formatPrice(product.dayRate, product.currency)}/day</p>
       </Link>
       <Button
         variant={added ? "secondary" : "outline"}

@@ -44,7 +44,7 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
         <p className="mt-1.5 truncate text-xs font-medium sm:mt-2 sm:text-sm">{product.name}</p>
         <div className="mt-0.5 flex items-center justify-between gap-2">
           <p className="truncate text-xs font-semibold tabular-nums sm:text-sm">
-            <span className="font-mono">{formatPrice(product.dayRate)}</span>
+            <span className="font-mono">{formatPrice(product.dayRate, product.currency)}</span>
             <span className="font-sans font-normal text-muted-foreground"> /day</span>
           </p>
           <button

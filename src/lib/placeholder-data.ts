@@ -4,9 +4,13 @@ import {
   Camera,
   Clapperboard,
   Drone,
+  Frame,
+  Layers,
   Mic2,
   MonitorPlay,
+  Settings2,
   Spotlight,
+  Sun,
   Wrench,
 } from "lucide-react";
 
@@ -33,6 +37,10 @@ export const equipmentCategories: EquipmentCategoryTeaser[] = [
   { name: "Monitors", slug: "monitors", icon: MonitorPlay },
   { name: "Drones", slug: "drones", icon: Drone },
   { name: "Accessories", slug: "accessories", icon: Clapperboard },
+  { name: "Camera Accessories", slug: "camera-accessories", icon: Settings2 },
+  { name: "Filters", slug: "filters", icon: Layers },
+  { name: "Matte Boxes", slug: "matte-boxes", icon: Frame },
+  { name: "Lighting Modifiers", slug: "lighting-modifiers", icon: Sun },
 ];
 
 export interface FeaturedProductTeaser {

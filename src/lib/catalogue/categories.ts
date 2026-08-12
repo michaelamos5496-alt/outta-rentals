@@ -4,17 +4,24 @@ import {
   Camera,
   Clapperboard,
   Drone,
+  Frame,
+  Layers,
   Mic2,
   MonitorPlay,
+  Settings2,
   Spotlight,
+  Sun,
   Wrench,
 } from "lucide-react";
 
 import type { Category } from "@/types";
 
 /**
- * The eight top-level equipment categories. Each has a matching literal
- * route at `/equipment/[slug]` (see `src/app/equipment/*`).
+ * The top-level equipment categories. Each has a matching literal route at
+ * `/equipment/[slug]` (see `src/app/equipment/*`). camera-accessories,
+ * filters, matte-boxes and lighting-modifiers were added alongside the real
+ * inventory import — they mirror how OUTTA actually groups this gear,
+ * rather than folding it into the generic "accessories"/"grip" buckets.
  */
 export const categories: Category[] = [
   {
@@ -65,6 +72,30 @@ export const categories: Category[] = [
     slug: "accessories",
     description: "Power, media, filtration and cabling.",
   },
+  {
+    id: "cat-camera-accessories",
+    name: "Camera Accessories",
+    slug: "camera-accessories",
+    description: "Wireless focus, monitors, jibs and on-set camera support.",
+  },
+  {
+    id: "cat-filters",
+    name: "Filters",
+    slug: "filters",
+    description: "ND, diffusion and polarizing filters.",
+  },
+  {
+    id: "cat-matte-boxes",
+    name: "Matte Boxes",
+    slug: "matte-boxes",
+    description: "Lens shading and filter-mounting systems.",
+  },
+  {
+    id: "cat-lighting-modifiers",
+    name: "Lighting Modifiers",
+    slug: "lighting-modifiers",
+    description: "Bounce, diffusion, flags and grip for lighting.",
+  },
 ];
 
 export const categoryIcons: Record<string, LucideIcon> = {
@@ -76,6 +107,10 @@ export const categoryIcons: Record<string, LucideIcon> = {
   monitors: MonitorPlay,
   drones: Drone,
   accessories: Clapperboard,
+  "camera-accessories": Settings2,
+  filters: Layers,
+  "matte-boxes": Frame,
+  "lighting-modifiers": Sun,
 };
 
 export function getCategoryBySlug(slug: string): Category | undefined {

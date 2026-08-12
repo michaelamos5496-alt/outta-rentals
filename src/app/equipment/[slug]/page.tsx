@@ -192,7 +192,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               <div>
                 <p className="text-meta">Daily rate</p>
                 <p className="text-h3 mt-1 font-mono">
-                  {formatPrice(product.dayRate)}
+                  {formatPrice(product.dayRate, product.currency)}
                   <span className="font-sans text-sm font-normal text-muted-foreground"> / day</span>
                 </p>
               </div>
@@ -200,7 +200,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               <div>
                 <p className="text-meta">Weekly rate</p>
                 <p className="text-h3 mt-1 font-mono">
-                  {formatPrice(product.weekRate)}
+                  {formatPrice(product.weekRate, product.currency)}
                   <span className="font-sans text-sm font-normal text-muted-foreground"> / week</span>
                 </p>
               </div>
@@ -297,7 +297,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
         ) : null}
       </Container>
 
-      <MobileStickyRent productSlug={product.slug} dayRate={product.dayRate} />
+      <MobileStickyRent
+        productSlug={product.slug}
+        dayRate={product.dayRate}
+        currency={product.currency}
+      />
 
       <Container>
         <ProductShelf

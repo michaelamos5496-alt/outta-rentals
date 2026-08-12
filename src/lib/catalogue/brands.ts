@@ -13,6 +13,18 @@ export const brands: Brand[] = [
   { id: "brand-dji", name: "DJI", slug: "dji" },
   { id: "brand-sachtler", name: "Sachtler", slug: "sachtler" },
   { id: "brand-sennheiser", name: "Sennheiser", slug: "sennheiser" },
+  { id: "brand-blackmagic", name: "Blackmagic Design", slug: "blackmagic" },
+  { id: "brand-dzofilm", name: "DZOFilm", slug: "dzofilm" },
+  { id: "brand-laowa", name: "Laowa", slug: "laowa" },
+  { id: "brand-wooden-camera", name: "Wooden Camera", slug: "wooden-camera" },
+  { id: "brand-tilta", name: "Tilta", slug: "tilta" },
+  { id: "brand-tiffen", name: "Tiffen", slug: "tiffen" },
+  { id: "brand-nanlux", name: "Nanlux", slug: "nanlux" },
+  { id: "brand-infinibar", name: "Infinibar", slug: "infinibar" },
+  { id: "brand-nanlite", name: "Nanlite", slug: "nanlite" },
+  { id: "brand-atomos", name: "Atomos", slug: "atomos" },
+  { id: "brand-teradek", name: "Teradek", slug: "teradek" },
+  { id: "brand-freefly", name: "Freefly", slug: "freefly" },
   { id: "brand-outta", name: "OUTTA Essentials", slug: "outta-essentials" },
 ];
 

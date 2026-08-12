@@ -17,6 +17,12 @@ export const categoryImages: Record<string, string> = {
   monitors: pexelsUrl(11234306),
   drones: pexelsUrl(9977848),
   accessories: pexelsUrl(1738643),
+  // Added alongside the real inventory import — reuse the closest existing
+  // category photo rather than sourcing new stock for a first pass.
+  "camera-accessories": pexelsUrl(11234306), // shares the monitors/support photo
+  filters: pexelsUrl(2335052), // shares the lenses photo
+  "matte-boxes": pexelsUrl(20101684), // shares the grip photo
+  "lighting-modifiers": pexelsUrl(4417017), // shares the lighting photo
 };
 
 /** Shared by the homepage "Build Your Kit" presets and the /packages grid — same 8 themes. */
