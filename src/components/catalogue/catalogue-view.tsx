@@ -177,7 +177,7 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
         </Heading>
         <p className="text-small max-w-sm">
           {category?.description ??
-            "Demo equipment for illustration — not confirmed OUTTA inventory."}
+            "OUTTA's real rental inventory — rates confirmed at quote stage."}
         </p>
       </div>
 

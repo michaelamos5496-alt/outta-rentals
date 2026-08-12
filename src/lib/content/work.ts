@@ -30,8 +30,8 @@ export const workProjects: WorkProject[] = [
     description:
       "A brand campaign shot over three days with a full lighting package, built around a single hero product and a fast turnaround.",
     equipmentUsed: [
-      { productSlug: "sony-fx6", quantity: 1 },
-      { productSlug: "sony-24-70mm-gm-ii", quantity: 1 },
+      { productSlug: "blackmagic-6k-pro", quantity: 1 },
+      { productSlug: "canon-24-105mm", quantity: 1 },
       { productSlug: "aputure-600d", quantity: 2 },
     ],
     story:
@@ -46,8 +46,7 @@ export const workProjects: WorkProject[] = [
       "A long-form documentary supported with a lightweight, run-and-gun travel kit across multiple locations.",
     equipmentUsed: [
       { productSlug: "sony-fx3", quantity: 1 },
-      { productSlug: "sigma-cine-prime-set", quantity: 1 },
-      { productSlug: "sennheiser-ew-wireless-lav", quantity: 1 },
+      { productSlug: "sigma-18-35mm", quantity: 1 },
     ],
     story:
       "With a small crew covering several locations over consecutive shoot days, the kit prioritized weight and battery life over size — a compact body, a matched prime set, and wireless audio that could be handed off between subjects quickly.",
@@ -60,8 +59,8 @@ export const workProjects: WorkProject[] = [
     description:
       "A single-location shoot built around specialty lenses, haze, and a bold, saturated lighting design.",
     equipmentUsed: [
-      { productSlug: "red-v-raptor", quantity: 1 },
-      { productSlug: "sigma-cine-prime-set", quantity: 1 },
+      { productSlug: "red-helium", quantity: 1 },
+      { productSlug: "dzofilm-vespid-prime-set-16-125mm", quantity: 1 },
       { productSlug: "aputure-600x", quantity: 3 },
     ],
     story:
@@ -75,9 +74,9 @@ export const workProjects: WorkProject[] = [
     description:
       "A full crew production supplied with camera, grip and lighting across a multi-week shoot.",
     equipmentUsed: [
-      { productSlug: "arri-alexa-mini-lf", quantity: 1 },
-      { productSlug: "sigma-cine-prime-set", quantity: 1 },
-      { productSlug: "sachtler-flowtech-75", quantity: 1 },
+      { productSlug: "arri-alexa-mini", quantity: 1 },
+      { productSlug: "dzofilm-vespid-prime-set-16-125mm", quantity: 1 },
+      { productSlug: "heavy-duty-tripod", quantity: 1 },
     ],
     story:
       "A longer shoot meant equipment needed to hold up over weeks, not days — a large-format body and matched primes for a consistent look across the cut, with support gear built for repeated rigging and de-rigging on a moving unit.",
@@ -90,9 +89,8 @@ export const workProjects: WorkProject[] = [
     description:
       "A multi-camera live event setup with dedicated audio capture and on-camera monitoring throughout.",
     equipmentUsed: [
-      { productSlug: "sony-fx6", quantity: 2 },
-      { productSlug: "smallhd-702-touch", quantity: 1 },
-      { productSlug: "zoom-field-recorder", quantity: 1 },
+      { productSlug: "blackmagic-6k-pro", quantity: 2 },
+      { productSlug: "smallhd-dir-monitor", quantity: 1 },
     ],
     story:
       "Live coverage left no room for a second take, so redundancy mattered: two matched camera bodies, on-camera monitoring for framing checks in real time, and multitrack audio capture running independently of either camera.",

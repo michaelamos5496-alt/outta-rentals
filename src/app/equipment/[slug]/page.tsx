@@ -206,7 +206,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               </div>
             </div>
             <p className="text-small mt-2">
-              Rates shown are indicative demo pricing, confirmed at quote stage.
+              Rates shown are OUTTA&rsquo;s real rates, confirmed at quote stage.
             </p>
 
             <div className="mt-6 hidden lg:block">
