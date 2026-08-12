@@ -60,7 +60,7 @@ function KitSummary({ compact = false, showDates = true, emptyAction, footer }: 
             {items.reduce((n, i) => n + i.quantity, 0)} item
             {items.reduce((n, i) => n + i.quantity, 0) === 1 ? "" : "s"}
           </span>
-          <span className="font-medium">
+          <span className="font-mono font-medium">
             {canPrice ? formatPrice(total) : "—"}
           </span>
         </div>

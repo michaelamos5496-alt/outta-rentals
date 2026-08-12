@@ -7,6 +7,7 @@ import { Check, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { CornerAccent } from "@/components/ui/corner-accent";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import {
   availabilityLabels,
@@ -47,17 +48,20 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
   return (
     <article className={className}>
       <Link href={href} className="block active:opacity-80">
-        <MediaPlaceholder
-          src={getProductImage(product.slug, product.categorySlug)}
-          alt={product.name}
-          icon={icon}
-          className="aspect-4/3 w-full rounded-lg transition-transform duration-500 ease-[var(--ease-outta)]"
-        />
+        <div className="relative overflow-hidden rounded-lg">
+          <MediaPlaceholder
+            src={getProductImage(product.slug, product.categorySlug)}
+            alt={product.name}
+            icon={icon}
+            className="aspect-4/3 w-full transition-transform duration-500 ease-[var(--ease-outta)]"
+          />
+          <CornerAccent />
+        </div>
         <p className="mt-1.5 truncate text-xs font-medium sm:mt-2 sm:text-sm">{product.name}</p>
         <div className="mt-0.5 flex items-center justify-between gap-2">
           <p className="truncate text-xs font-semibold tabular-nums sm:text-sm">
-            {formatPrice(product.dayRate)}
-            <span className="font-normal text-muted-foreground"> /day</span>
+            <span className="font-mono">{formatPrice(product.dayRate)}</span>
+            <span className="font-sans font-normal text-muted-foreground"> /day</span>
           </p>
           <button
             type="button"

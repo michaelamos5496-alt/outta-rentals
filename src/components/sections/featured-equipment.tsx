@@ -8,6 +8,7 @@ import { Check, Plus } from "lucide-react";
 import { slideUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
+import { CornerAccent } from "@/components/ui/corner-accent";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { type DemoProduct } from "@/lib/catalogue";
 import { cn } from "@/lib/utils";
@@ -32,16 +33,19 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
   return (
     <motion.article variants={slideUp()} className="group/product">
       <Link href={href} className="block active:opacity-80">
-        <MediaPlaceholder
-          src={getProductImage(product.slug, product.categorySlug)}
-          alt={product.name}
-          className="aspect-4/3 w-full rounded-lg transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
-        />
+        <div className="relative overflow-hidden rounded-lg">
+          <MediaPlaceholder
+            src={getProductImage(product.slug, product.categorySlug)}
+            alt={product.name}
+            className="aspect-4/3 w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
+          />
+          <CornerAccent />
+        </div>
         <p className="mt-1.5 truncate text-xs font-medium sm:mt-2 sm:text-sm">{product.name}</p>
         <div className="mt-0.5 flex items-center justify-between gap-2">
           <p className="truncate text-xs font-semibold tabular-nums sm:text-sm">
-            {formatPrice(product.dayRate)}
-            <span className="font-normal text-muted-foreground"> /day</span>
+            <span className="font-mono">{formatPrice(product.dayRate)}</span>
+            <span className="font-sans font-normal text-muted-foreground"> /day</span>
           </p>
           <button
             type="button"

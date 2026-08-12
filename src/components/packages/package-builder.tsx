@@ -141,8 +141,8 @@ function PackageBuilder({ pkg }: PackageBuilderProps) {
                     </Button>
                   </div>
                   <p className="text-sm font-medium">
-                    {formatPrice(product.dayRate * line.quantity)}
-                    <span className="text-muted-foreground"> /day</span>
+                    <span className="font-mono">{formatPrice(product.dayRate * line.quantity)}</span>
+                    <span className="font-sans text-muted-foreground"> /day</span>
                   </p>
                 </div>
               </div>

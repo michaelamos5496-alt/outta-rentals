@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { slideUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
+import { CornerAccent } from "@/components/ui/corner-accent";
 import { equipmentCategories } from "@/lib/placeholder-data";
 import type { DemoProduct } from "@/lib/catalogue";
 
@@ -44,12 +45,8 @@ function CategoryExperience({ products }: CategoryExperienceProps) {
                   <category.icon className="size-5 sm:size-6" strokeWidth={1.75} />
                 </span>
                 <p className="mt-3 text-sm font-semibold sm:mt-4 sm:text-base">{category.name}</p>
-                <p className="text-small mt-0.5">{count} items</p>
-                <span
-                  aria-hidden
-                  className="bg-brand/50 absolute right-0 bottom-0 size-4 sm:size-5"
-                  style={{ clipPath: "polygon(100% 0, 100% 100%, 0 100%)" }}
-                />
+                <p className="text-small mt-0.5 font-mono">{count} items</p>
+                <CornerAccent className="size-4 sm:size-5" />
               </Link>
             </motion.div>
           );

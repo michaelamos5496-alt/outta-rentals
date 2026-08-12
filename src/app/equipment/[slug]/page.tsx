@@ -191,17 +191,17 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <div className="mt-6 flex items-baseline gap-6 rounded-xl border border-border p-5">
               <div>
                 <p className="text-meta">Daily rate</p>
-                <p className="text-h3 mt-1">
+                <p className="text-h3 mt-1 font-mono">
                   {formatPrice(product.dayRate)}
-                  <span className="text-sm font-normal text-muted-foreground"> / day</span>
+                  <span className="font-sans text-sm font-normal text-muted-foreground"> / day</span>
                 </p>
               </div>
               <Divider orientation="vertical" className="h-10" />
               <div>
                 <p className="text-meta">Weekly rate</p>
-                <p className="text-h3 mt-1">
+                <p className="text-h3 mt-1 font-mono">
                   {formatPrice(product.weekRate)}
-                  <span className="text-sm font-normal text-muted-foreground"> / week</span>
+                  <span className="font-sans text-sm font-normal text-muted-foreground"> / week</span>
                 </p>
               </div>
             </div>

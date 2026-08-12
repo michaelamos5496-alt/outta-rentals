@@ -153,14 +153,14 @@ export default function KitPage() {
                 <span className="text-muted-foreground">
                   {line.product.name} × {line.quantity}
                 </span>
-                <span>{canPrice ? formatPrice(line.lineTotal) : "—"}</span>
+                <span className="font-mono">{canPrice ? formatPrice(line.lineTotal) : "—"}</span>
               </div>
             ))}
           </div>
           <Divider className="my-4" />
           <div className="flex items-baseline justify-between">
             <span className="font-medium">Estimated total</span>
-            <span className="text-h3">{canPrice ? formatPrice(total) : "—"}</span>
+            <span className="text-h3 font-mono">{canPrice ? formatPrice(total) : "—"}</span>
           </div>
           <p className="text-meta mt-2">
             {canPrice

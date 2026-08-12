@@ -78,7 +78,7 @@ function ConfirmationStep({
             <SummaryRow
               key={line.product.slug}
               label={`${line.product.name} × ${line.quantity}`}
-              value={formatPrice(line.lineTotal)}
+              value={<span className="font-mono">{formatPrice(line.lineTotal)}</span>}
             />
           ))}
         </div>
@@ -90,7 +90,10 @@ function ConfirmationStep({
         <p className="text-label mb-2">Dates</p>
         <SummaryRow label="Rental period" value={`${startDate} → ${endDate}`} />
         <SummaryRow label="Rental days" value={rentalDays} />
-        <SummaryRow label="Estimated rental" value={<span className="font-medium">{formatPrice(total)}</span>} />
+        <SummaryRow
+          label="Estimated rental"
+          value={<span className="font-mono font-medium">{formatPrice(total)}</span>}
+        />
         <p className="text-meta mt-1">Estimate — final quote confirmed by OUTTA.</p>
       </section>
 
