@@ -39,11 +39,11 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
         <MediaPlaceholder
           src={getProductImage(product.slug, product.categorySlug)}
           alt={product.name}
-          className="aspect-[4/5] w-full rounded-xl"
+          className="aspect-4/3 w-full rounded-lg"
         />
-        <p className="mt-2 truncate text-[0.8125rem] font-medium">{product.name}</p>
+        <p className="mt-1.5 truncate text-xs font-medium">{product.name}</p>
         <div className="mt-0.5 flex items-center justify-between gap-2">
-          <p className="truncate text-[0.8125rem] font-semibold tabular-nums">
+          <p className="truncate text-xs font-semibold tabular-nums">
             {formatPrice(product.dayRate)}
             <span className="font-normal text-muted-foreground"> /day</span>
           </p>
@@ -56,11 +56,11 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
               setAdded(true);
             }}
             className={cn(
-              "flex size-8 shrink-0 items-center justify-center rounded-full transition-colors active:scale-90",
+              "flex size-6 shrink-0 items-center justify-center rounded-full transition-colors active:scale-90",
               added ? "bg-secondary text-secondary-foreground" : "bg-brand text-brand-foreground"
             )}
           >
-            {added ? <Check className="size-3.5" /> : <Plus className="size-3.5" />}
+            {added ? <Check className="size-3" /> : <Plus className="size-3" />}
           </button>
         </div>
       </Link>
@@ -148,7 +148,7 @@ function FeaturedEquipment({ products }: { products: DemoProduct[] }) {
         whileInView="visible"
         viewport={viewportOnce}
         variants={staggerContainer(0.06)}
-        className="mt-10 grid grid-cols-2 gap-x-3 gap-y-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4"
+        className="mt-10 grid grid-cols-2 gap-x-2.5 gap-y-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4"
       >
         {products.map((product) => (
           <React.Fragment key={product.id}>

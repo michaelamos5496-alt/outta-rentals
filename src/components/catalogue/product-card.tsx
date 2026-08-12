@@ -49,11 +49,11 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
               src={getProductImage(product.slug, product.categorySlug)}
               alt={product.name}
               icon={icon}
-              className="aspect-[4/5] w-full rounded-xl"
+              className="aspect-4/3 w-full rounded-lg"
             />
-            <p className="mt-2 truncate text-[0.8125rem] font-medium">{product.name}</p>
+            <p className="mt-1.5 truncate text-xs font-medium">{product.name}</p>
             <div className="mt-0.5 flex items-center justify-between gap-2">
-              <p className="truncate text-[0.8125rem] font-semibold tabular-nums">
+              <p className="truncate text-xs font-semibold tabular-nums">
                 {formatPrice(product.dayRate)}
                 <span className="font-normal text-muted-foreground"> /day</span>
               </p>
@@ -66,11 +66,11 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
                   setAdded(true);
                 }}
                 className={cn(
-                  "flex size-8 shrink-0 items-center justify-center rounded-full transition-colors active:scale-90",
+                  "flex size-6 shrink-0 items-center justify-center rounded-full transition-colors active:scale-90",
                   added ? "bg-secondary text-secondary-foreground" : "bg-brand text-brand-foreground"
                 )}
               >
-                {added ? <Check className="size-3.5" /> : <Plus className="size-3.5" />}
+                {added ? <Check className="size-3" /> : <Plus className="size-3" />}
               </button>
             </div>
           </Link>
