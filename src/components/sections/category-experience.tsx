@@ -2,20 +2,20 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
 
 import { slideUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
-import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { equipmentCategories } from "@/lib/placeholder-data";
-import { categoryImages } from "@/lib/editorial-images";
 import type { DemoProduct } from "@/lib/catalogue";
 
 interface CategoryExperienceProps {
   products: DemoProduct[];
 }
 
+// Same compact tile at every breakpoint — icon, name, real item count, a
+// small brand-colored corner accent. Matches the mobile design; desktop no
+// longer has a separate full-bleed photo-teaser variant.
 function CategoryExperience({ products }: CategoryExperienceProps) {
   return (
     <Section spacing="compact" className="border-t border-border">
@@ -25,15 +25,12 @@ function CategoryExperience({ products }: CategoryExperienceProps) {
         </Heading>
       </div>
 
-      {/* Mobile — MCB-style compact tile: icon, name, real item count, a
-          small brand-colored corner accent. Desktop keeps the full-bleed
-          photo teasers below, unchanged. */}
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnce}
         variants={staggerContainer(0.06)}
-        className="grid grid-cols-2 gap-3 sm:hidden"
+        className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4"
       >
         {equipmentCategories.map((category) => {
           const count = products.filter((p) => p.categorySlug === category.slug).length;
@@ -41,68 +38,22 @@ function CategoryExperience({ products }: CategoryExperienceProps) {
             <motion.div key={category.slug} variants={slideUp()}>
               <Link
                 href={`/equipment/${category.slug}`}
-                className="relative block overflow-hidden rounded-xl border border-border p-4"
+                className="group/cat relative block overflow-hidden rounded-xl border border-border p-4 transition-colors hover:border-brand/50 sm:p-5"
               >
-                <span className="bg-brand-muted text-brand flex size-10 items-center justify-center rounded-lg">
-                  <category.icon className="size-5" strokeWidth={1.75} />
+                <span className="bg-brand-muted text-brand flex size-10 items-center justify-center rounded-lg transition-transform duration-300 ease-out group-hover/cat:-translate-y-0.5 sm:size-12">
+                  <category.icon className="size-5 sm:size-6" strokeWidth={1.75} />
                 </span>
-                <p className="mt-3 text-sm font-semibold">{category.name}</p>
+                <p className="mt-3 text-sm font-semibold sm:mt-4 sm:text-base">{category.name}</p>
                 <p className="text-small mt-0.5">{count} items</p>
                 <span
                   aria-hidden
-                  className="bg-brand/50 absolute right-0 bottom-0 size-4"
+                  className="bg-brand/50 absolute right-0 bottom-0 size-4 sm:size-5"
                   style={{ clipPath: "polygon(100% 0, 100% 100%, 0 100%)" }}
                 />
               </Link>
             </motion.div>
           );
         })}
-      </motion.div>
-
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportOnce}
-        variants={staggerContainer(0.06)}
-        className="hidden sm:grid sm:grid-cols-2 sm:gap-4 lg:grid-cols-3"
-      >
-        {equipmentCategories.map((category, i) => (
-          <motion.div
-            key={category.slug}
-            variants={slideUp()}
-            className={i === 0 ? "lg:col-span-2" : undefined}
-          >
-            <Link
-              href={`/equipment/${category.slug}`}
-              className="group/cat relative block overflow-hidden rounded-xl"
-            >
-              <MediaPlaceholder
-                src={categoryImages[category.slug]}
-                alt={category.name}
-                icon={category.icon}
-                tone={i === 0 ? "hero" : "default"}
-                className={
-                  i === 0
-                    ? "aspect-21/9 w-full transition-transform duration-700 ease-[var(--ease-outta)] group-hover/cat:scale-105"
-                    : "aspect-4/5 w-full transition-transform duration-700 ease-[var(--ease-outta)] group-hover/cat:scale-105"
-                }
-              />
-              {/* Desktop-only fix: the --background token is now white, so
-                  reusing it here washed the category photos out with a white
-                  haze. Pinned to black at lg+ where this card is a full
-                  image tile; mobile keeps its existing look. */}
-              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/10 to-transparent lg:from-black/80 lg:via-black/10 lg:to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5 sm:p-6">
-                <span className="text-h3 transition-transform duration-300 ease-out group-hover/cat:-translate-y-1 lg:text-white">
-                  {category.name}
-                </span>
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-foreground/25 transition-all duration-300 ease-out group-hover/cat:-translate-y-1 group-hover/cat:border-brand group-hover/cat:bg-brand group-hover/cat:text-brand-foreground lg:border-white/30 lg:text-white">
-                  <ArrowUpRight className="size-4" />
-                </span>
-              </div>
-            </Link>
-          </motion.div>
-        ))}
       </motion.div>
     </Section>
   );
