@@ -40,28 +40,23 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
   if (view === "grid") {
     return (
       <>
-        {/* Mobile card — small, MCB-style: image, name plate, then a green
-            price/Rent bar. Desktop keeps the fuller card below. */}
+        {/* Mobile card — quiet editorial: no color bar/border, a single
+            small green icon button as the only accent. Desktop keeps the
+            fuller card below. */}
         <article className={cn("sm:hidden", className)}>
-          <Link
-            href={href}
-            className="block overflow-hidden rounded-lg border border-border"
-          >
+          <Link href={href} className="block active:opacity-80">
             <MediaPlaceholder
               src={getProductImage(product.slug, product.categorySlug)}
               alt={product.name}
               icon={icon}
-              className="aspect-square w-full"
+              className="aspect-[4/5] w-full rounded-xl"
             />
-            <p className="truncate px-2 pt-1.5 text-xs font-medium">{product.name}</p>
-            <div
-              className={cn(
-                "mt-1.5 flex items-center justify-between gap-1 px-2 py-1.5 text-xs font-semibold transition-colors",
-                added ? "bg-secondary text-secondary-foreground" : "bg-brand text-brand-foreground"
-              )}
-            >
-              <span className="truncate">{formatPrice(product.dayRate)}/d</span>
-              <span className="h-3 w-px shrink-0 bg-current opacity-30" />
+            <p className="mt-2 truncate text-[0.8125rem] font-medium">{product.name}</p>
+            <div className="mt-0.5 flex items-center justify-between gap-2">
+              <p className="truncate text-[0.8125rem] font-semibold tabular-nums">
+                {formatPrice(product.dayRate)}
+                <span className="font-normal text-muted-foreground"> /day</span>
+              </p>
               <button
                 type="button"
                 aria-label={added ? "Added to kit" : "Add to kit"}
@@ -70,9 +65,12 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
                   addItem(product.slug);
                   setAdded(true);
                 }}
-                className="shrink-0 uppercase"
+                className={cn(
+                  "flex size-8 shrink-0 items-center justify-center rounded-full transition-colors active:scale-90",
+                  added ? "bg-secondary text-secondary-foreground" : "bg-brand text-brand-foreground"
+                )}
               >
-                {added ? "Added" : "Rent"}
+                {added ? <Check className="size-3.5" /> : <Plus className="size-3.5" />}
               </button>
             </div>
           </Link>

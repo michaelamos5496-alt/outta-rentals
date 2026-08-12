@@ -18,7 +18,6 @@ import { KitDrawer } from "@/components/kit/kit-drawer";
 function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin");
-  const isHome = pathname === "/";
 
   if (isAdmin) return <>{children}</>;
 
@@ -36,7 +35,7 @@ function SiteChrome({ children }: { children: React.ReactNode }) {
   return (
     <MobileNavProvider>
       <Navbar />
-      {isHome ? page : <SmoothScroll>{page}</SmoothScroll>}
+      <SmoothScroll>{page}</SmoothScroll>
       <KitDrawer />
       <MobileTabBar />
     </MobileNavProvider>
