@@ -8,20 +8,16 @@ import { Check, Plus } from "lucide-react";
 import { slideUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
-import {
-  getBrandBySlug,
-  availabilityLabels,
-  availabilityVariant,
-  type DemoProduct,
-} from "@/lib/catalogue";
+import { type DemoProduct } from "@/lib/catalogue";
 import { cn } from "@/lib/utils";
 import { getProductImage } from "@/lib/editorial-images";
 import { formatPrice } from "@/lib/currency";
 import { useKit } from "@/components/kit/kit-provider";
 
+// Quiet editorial card — same anatomy at every breakpoint: image, name,
+// tabular price, one small green accent button. Matches the catalogue
+// grid's ProductCard.
 function FeaturedCard({ product }: { product: DemoProduct }) {
   const { addItem } = useKit();
   const [added, setAdded] = React.useState(false);
@@ -34,16 +30,16 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
   }, [added]);
 
   return (
-    <motion.article variants={slideUp()} className="group/product sm:hidden">
+    <motion.article variants={slideUp()} className="group/product">
       <Link href={href} className="block active:opacity-80">
         <MediaPlaceholder
           src={getProductImage(product.slug, product.categorySlug)}
           alt={product.name}
-          className="aspect-4/3 w-full rounded-lg"
+          className="aspect-4/3 w-full rounded-lg transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
         />
-        <p className="mt-1.5 truncate text-xs font-medium">{product.name}</p>
+        <p className="mt-1.5 truncate text-xs font-medium sm:mt-2 sm:text-sm">{product.name}</p>
         <div className="mt-0.5 flex items-center justify-between gap-2">
-          <p className="truncate text-xs font-semibold tabular-nums">
+          <p className="truncate text-xs font-semibold tabular-nums sm:text-sm">
             {formatPrice(product.dayRate)}
             <span className="font-normal text-muted-foreground"> /day</span>
           </p>
@@ -56,77 +52,14 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
               setAdded(true);
             }}
             className={cn(
-              "flex size-6 shrink-0 items-center justify-center rounded-full transition-colors active:scale-90",
+              "flex size-6 shrink-0 items-center justify-center rounded-full transition-colors active:scale-90 sm:size-7",
               added ? "bg-secondary text-secondary-foreground" : "bg-brand text-brand-foreground"
             )}
           >
-            {added ? <Check className="size-3" /> : <Plus className="size-3" />}
+            {added ? <Check className="size-3 sm:size-3.5" /> : <Plus className="size-3 sm:size-3.5" />}
           </button>
         </div>
       </Link>
-    </motion.article>
-  );
-}
-
-function DesktopFeaturedCard({ product }: { product: DemoProduct }) {
-  const { addItem } = useKit();
-  const [added, setAdded] = React.useState(false);
-  const brand = getBrandBySlug(product.brandSlug)?.name ?? product.brandSlug;
-  const href = `/equipment/${product.slug}`;
-
-  React.useEffect(() => {
-    if (!added) return;
-    const t = setTimeout(() => setAdded(false), 1600);
-    return () => clearTimeout(t);
-  }, [added]);
-
-  return (
-    <motion.article variants={slideUp()} className="group/product hidden sm:block">
-      <Link href={href} className="block overflow-hidden rounded-xl">
-        <MediaPlaceholder
-          src={getProductImage(product.slug, product.categorySlug)}
-          alt={product.name}
-          meta={product.sku}
-          className="aspect-4/3 w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
-        />
-      </Link>
-      <div className="mt-4 flex items-start justify-between gap-2">
-        <div>
-          <p className="text-label text-muted-foreground">{brand}</p>
-          <Link href={href}>
-            <h3 className="mt-1 font-medium leading-snug hover:text-brand">{product.name}</h3>
-          </Link>
-        </div>
-        <Badge
-          variant={availabilityVariant[product.availability]}
-          className="hidden shrink-0 sm:inline-flex"
-        >
-          {availabilityLabels[product.availability]}
-        </Badge>
-      </div>
-      <p className="text-small mt-2 hidden line-clamp-2 sm:block">{product.shortDescription}</p>
-      <div className="mt-4 flex items-center justify-between gap-3">
-        <p className="text-sm">
-          <span className="font-medium">{formatPrice(product.dayRate)}</span>
-          <span className="text-muted-foreground"> / day</span>
-        </p>
-        <div className="flex gap-2">
-          <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
-            <Link href={href}>View</Link>
-          </Button>
-          <Button
-            variant={added ? "secondary" : "outline"}
-            size="sm"
-            onClick={() => {
-              addItem(product.slug);
-              setAdded(true);
-            }}
-          >
-            {added ? <Check /> : <Plus />}
-            {added ? "Added" : "Add to Kit"}
-          </Button>
-        </div>
-      </div>
     </motion.article>
   );
 }
@@ -148,13 +81,10 @@ function FeaturedEquipment({ products }: { products: DemoProduct[] }) {
         whileInView="visible"
         viewport={viewportOnce}
         variants={staggerContainer(0.06)}
-        className="mt-10 grid grid-cols-2 gap-x-2.5 gap-y-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4"
+        className="mt-10 grid grid-cols-2 gap-x-2.5 gap-y-3 sm:gap-x-4 sm:gap-y-6 sm:grid-cols-2 lg:grid-cols-4"
       >
         {products.map((product) => (
-          <React.Fragment key={product.id}>
-            <FeaturedCard product={product} />
-            <DesktopFeaturedCard product={product} />
-          </React.Fragment>
+          <FeaturedCard key={product.id} product={product} />
         ))}
       </motion.div>
     </Section>

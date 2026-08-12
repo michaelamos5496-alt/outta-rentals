@@ -37,58 +37,56 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
     return () => clearTimeout(timeout);
   }, [added]);
 
-  if (view === "grid") {
-    return (
-      <>
-        {/* Mobile card — quiet editorial: no color bar/border, a single
-            small green icon button as the only accent. Desktop keeps the
-            fuller card below. */}
-        <article className={cn("sm:hidden", className)}>
-          <Link href={href} className="block active:opacity-80">
-            <MediaPlaceholder
-              src={getProductImage(product.slug, product.categorySlug)}
-              alt={product.name}
-              icon={icon}
-              className="aspect-4/3 w-full rounded-lg"
-            />
-            <p className="mt-1.5 truncate text-xs font-medium">{product.name}</p>
-            <div className="mt-0.5 flex items-center justify-between gap-2">
-              <p className="truncate text-xs font-semibold tabular-nums">
-                {formatPrice(product.dayRate)}
-                <span className="font-normal text-muted-foreground"> /day</span>
-              </p>
-              <button
-                type="button"
-                aria-label={added ? "Added to kit" : "Add to kit"}
-                onClick={(e) => {
-                  e.preventDefault();
-                  addItem(product.slug);
-                  setAdded(true);
-                }}
-                className={cn(
-                  "flex size-6 shrink-0 items-center justify-center rounded-full transition-colors active:scale-90",
-                  added ? "bg-secondary text-secondary-foreground" : "bg-brand text-brand-foreground"
-                )}
-              >
-                {added ? <Check className="size-3" /> : <Plus className="size-3" />}
-              </button>
-            </div>
-          </Link>
-        </article>
-
-        <DesktopProductCard
-          product={product}
-          view={view}
-          className={cn("hidden sm:flex", className)}
-        />
-      </>
-    );
+  if (view === "list") {
+    return <ListProductCard product={product} className={className} />;
   }
 
-  return <DesktopProductCard product={product} view={view} className={className} />;
+  // Quiet editorial grid card — same anatomy at every breakpoint: image,
+  // name, tabular price, one small green accent button. No badge,
+  // description, or secondary button.
+  return (
+    <article className={className}>
+      <Link href={href} className="block active:opacity-80">
+        <MediaPlaceholder
+          src={getProductImage(product.slug, product.categorySlug)}
+          alt={product.name}
+          icon={icon}
+          className="aspect-4/3 w-full rounded-lg transition-transform duration-500 ease-[var(--ease-outta)]"
+        />
+        <p className="mt-1.5 truncate text-xs font-medium sm:mt-2 sm:text-sm">{product.name}</p>
+        <div className="mt-0.5 flex items-center justify-between gap-2">
+          <p className="truncate text-xs font-semibold tabular-nums sm:text-sm">
+            {formatPrice(product.dayRate)}
+            <span className="font-normal text-muted-foreground"> /day</span>
+          </p>
+          <button
+            type="button"
+            aria-label={added ? "Added to kit" : "Add to kit"}
+            onClick={(e) => {
+              e.preventDefault();
+              addItem(product.slug);
+              setAdded(true);
+            }}
+            className={cn(
+              "flex size-6 shrink-0 items-center justify-center rounded-full transition-colors active:scale-90 sm:size-7",
+              added ? "bg-secondary text-secondary-foreground" : "bg-brand text-brand-foreground"
+            )}
+          >
+            {added ? <Check className="size-3 sm:size-3.5" /> : <Plus className="size-3 sm:size-3.5" />}
+          </button>
+        </div>
+      </Link>
+    </article>
+  );
 }
 
-function DesktopProductCard({ product, view = "grid", className }: ProductCardProps) {
+function ListProductCard({
+  product,
+  className,
+}: {
+  product: DemoProduct;
+  className?: string;
+}) {
   const { addItem } = useKit();
   const [added, setAdded] = React.useState(false);
   const brand = getBrandBySlug(product.brandSlug)?.name ?? product.brandSlug;
@@ -102,52 +100,30 @@ function DesktopProductCard({ product, view = "grid", className }: ProductCardPr
   }, [added]);
 
   return (
-    <article
-      className={cn(
-        "group/product flex",
-        view === "list" ? "flex-row gap-5" : "flex-col",
-        className
-      )}
-    >
-      <Link
-        href={href}
-        className={cn(
-          "block shrink-0 overflow-hidden rounded-xl",
-          view === "list" ? "w-32 sm:w-48" : "w-full"
-        )}
-      >
+    <article className={cn("group/product flex flex-row gap-5", className)}>
+      <Link href={href} className="block w-32 shrink-0 overflow-hidden rounded-xl sm:w-48">
         <MediaPlaceholder
           src={getProductImage(product.slug, product.categorySlug)}
           alt={product.name}
           icon={icon}
           meta={product.sku}
-          className={cn(
-            "w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105",
-            view === "list" ? "aspect-square h-full" : "aspect-4/3"
-          )}
+          className="aspect-square h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
         />
       </Link>
 
-      <div className={cn("flex flex-1 flex-col", view === "grid" && "mt-4")}>
+      <div className="flex flex-1 flex-col">
         <div className="flex items-start justify-between gap-2">
           <div>
             <p className="text-label text-muted-foreground">{brand}</p>
             <Link href={href}>
-              <h3 className="mt-1 font-medium leading-snug hover:text-brand">
-                {product.name}
-              </h3>
+              <h3 className="mt-1 font-medium leading-snug hover:text-brand">{product.name}</h3>
             </Link>
           </div>
-          <Badge
-            variant={availabilityVariant[product.availability]}
-            className="hidden shrink-0 sm:inline-flex"
-          >
+          <Badge variant={availabilityVariant[product.availability]} className="shrink-0">
             {availabilityLabels[product.availability]}
           </Badge>
         </div>
-        <p className="text-small mt-2 hidden line-clamp-2 sm:block">
-          {product.shortDescription}
-        </p>
+        <p className="text-small mt-2 line-clamp-2">{product.shortDescription}</p>
 
         <div className="mt-auto flex items-center justify-between gap-3 pt-4">
           <p className="text-sm">
@@ -155,7 +131,7 @@ function DesktopProductCard({ product, view = "grid", className }: ProductCardPr
             <span className="text-muted-foreground"> / day</span>
           </p>
           <div className="flex gap-2">
-            <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+            <Button asChild variant="ghost" size="sm">
               <Link href={href}>View Details</Link>
             </Button>
             <Button

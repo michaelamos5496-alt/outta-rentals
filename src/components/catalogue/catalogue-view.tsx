@@ -330,7 +330,7 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
               <div
                 className={
                   view === "grid"
-                    ? "grid grid-cols-2 gap-x-2.5 gap-y-3 sm:gap-x-6 sm:gap-y-10 sm:grid-cols-2 xl:grid-cols-3"
+                    ? "grid grid-cols-2 gap-x-2.5 gap-y-3 sm:gap-x-4 sm:gap-y-6 sm:grid-cols-2 xl:grid-cols-3"
                     : "flex flex-col gap-8"
                 }
               >
