@@ -159,16 +159,15 @@ function Navbar() {
   const { itemCount, openDrawer, hydrated } = useKit();
 
   return (
-    <header
-      data-slot="navbar"
-      className={cn(
-        "sticky top-0 z-40 w-full bg-brand transition-shadow",
-        scrolled ? "shadow-[var(--shadow-outta-sm)]" : ""
-      )}
-      style={{ transitionDuration: `${duration.fast * 1000}ms` }}
-    >
+    <header data-slot="navbar" className="sticky top-0 z-40 w-full px-3 pt-3 sm:px-4 sm:pt-4">
       <Container>
-        <nav className="flex h-16 items-center justify-between sm:h-20">
+        <nav
+          className={cn(
+            "flex h-14 items-center justify-between rounded-full bg-brand px-5 shadow-[var(--shadow-outta-md)] transition-shadow sm:h-16 sm:px-7",
+            scrolled ? "shadow-[var(--shadow-outta-lg)]" : ""
+          )}
+          style={{ transitionDuration: `${duration.fast * 1000}ms` }}
+        >
           <Link href="/" className="inline-flex items-center">
             <Image
               src="/brand/outta-logo-dark.png"

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 import { Section } from "@/components/ui/section";
-import { Heading } from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { slideUp, viewportOnce } from "@/lib/motion";
@@ -14,11 +13,12 @@ import { serviceImages } from "@/lib/editorial-images";
 export default function ServicesPage() {
   return (
     <>
-      <Section spacing="compact" className="pt-16 sm:pt-20">
-        <Heading level="display" eyebrow="Services">
+      <Section spacing="none" bleed className="bg-brand py-16 sm:py-24">
+        <p className="text-label text-brand-foreground/70">Services</p>
+        <h1 className="text-display mt-4 max-w-2xl text-brand-foreground">
           More than equipment.
-        </Heading>
-        <p className="text-body mt-6 max-w-xl">
+        </h1>
+        <p className="text-body mt-6 max-w-xl text-brand-foreground/80">
           Renting gear is the easy part. OUTTA is built around everything
           around the rental — support, delivery, prep and the technical
           judgment to get a kit right the first time.
