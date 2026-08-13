@@ -42,7 +42,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
       <Section
         spacing="none"
         bleed
-        className="relative flex h-[100svh] min-h-[640px] w-full items-center justify-center overflow-hidden bg-background text-center"
+        className="relative flex h-[46svh] min-h-[340px] w-full items-center justify-center overflow-hidden bg-background text-center lg:h-[54vh] lg:min-h-[440px]"
       >
         <div className="px-5">
           <p className="text-label text-brand">Film · Photography · Production Equipment</p>
@@ -66,7 +66,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
       <Section
         spacing="none"
         bleed
-        className="relative h-[62svh] min-h-[420px] w-full overflow-hidden bg-background lg:hidden"
+        className="relative h-[46svh] min-h-[320px] w-full overflow-hidden bg-background lg:hidden"
       >
         <AnimatePresence mode="wait">
           <motion.div
@@ -104,7 +104,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
       <Section
         spacing="none"
         bleed
-        className="relative hidden h-[100svh] min-h-[640px] w-full overflow-hidden bg-background lg:block"
+        className="relative hidden h-[54vh] min-h-[440px] max-h-[620px] w-full overflow-hidden bg-background lg:block"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
