@@ -50,36 +50,91 @@ export const serviceImages: Record<string, string> = {
 export const finalCtaImage = pexelsUrl(30697927, 1920);
 
 /**
- * Best-effort per-product photos, keyed by catalogue slug. Free stock photo
- * libraries don't carry verified, model-specific photography for niche pro
- * cinema gear (a "Sony camera" stock photo can't be confirmed to actually be
- * an FX3 vs FX6, and brand-specific searches for Aputure/Godox/Sigma gear
- * turned up nothing usable) — these are the closest visually-plausible match
- * found per product, not verified exact-unit photos. Products without an
- * entry here fall back to their category photo (see `categoryImages`).
+ * Best-effort per-product photos for OUTTA's real inventory, keyed by
+ * catalogue slug. Free stock libraries don't carry verified, model-specific
+ * photography for pro cinema gear, so several visually-similar products
+ * (e.g. every Amaran fixture) intentionally share one photo rather than
+ * being paired with an unrelated stock shot for the sake of uniqueness —
+ * these are the closest visually-plausible match, not confirmed exact-unit
+ * photos. Products without an entry here fall back to their category photo
+ * (see `categoryImages`).
  */
 export const productImages: Record<string, string> = {
+  "arri-alexa-mini": pexelsUrl(37593303),
+  "arri-alexa-mini-foreign": pexelsUrl(37593303),
+  "red-helium": pexelsUrl(6794832),
+  "blackmagic-6k-pro": pexelsUrl(26628428),
+  "blackmagic-6k": pexelsUrl(8456847),
+  "dzofilm-arles-prime-set-25-35-50-75-100mm": pexelsUrl(2335052),
+  "dzofilm-arles-prime-single": pexelsUrl(34956918),
+  "dzofilm-vespid-prime-set-16-125mm": pexelsUrl(1231171),
+  "dzofilm-pictor-zoom-12-25mm-t2-8": pexelsUrl(17345664),
+  "dzofilm-pictor-zoom-20-55mm-t2-8": pexelsUrl(217380),
+  "dzofilm-pictor-zoom-50-125mm-t2-8": pexelsUrl(2335052),
+  "arri-distagon-12mm": pexelsUrl(34956918),
+  "laowa-12mm-ef": pexelsUrl(1231171),
+  "sigma-18-35mm": pexelsUrl(17345664),
+  "canon-24-105mm": pexelsUrl(217380),
+  "heavy-duty-tripod": pexelsUrl(10147377),
+  "wireless-focus-system": pexelsUrl(2773541),
+  "lidar-focus-pro": pexelsUrl(21773663),
+  "teradek-wireless-video-transmitter": pexelsUrl(37893958),
+  "smallhd-dir-monitor": pexelsUrl(36786132),
+  "atomos-sumo-19-monitor": pexelsUrl(36786133),
+  "smallhd-dop-monitor": pexelsUrl(6685888),
+  "freefly-movi-pro": pexelsUrl(12205955),
+  "mini-jib-12ft": pexelsUrl(10809861),
+  "retractable-jib": pexelsUrl(10809888),
+  "camera-cart": pexelsUrl(34955426),
+  "tiffen-nd-filter-single": pexelsUrl(2226387),
+  "tiffen-black-pro-mist": pexelsUrl(4088245),
+  "tiffen-hollywood-black-magic": pexelsUrl(20017027),
+  "tiffen-black-satin": pexelsUrl(35346700),
+  "circular-polarizer": pexelsUrl(2226387),
+  "rota-polarizer": pexelsUrl(4088245),
+  "wooden-camera-universal-matte-box": pexelsUrl(6664783),
+  "tilta-mirage-matte-box-w-vnd": pexelsUrl(31616828),
+  "tilta-3-way-matte-box": pexelsUrl(14672296),
+  "tilta-mini-matte-box": pexelsUrl(6664785),
+  "arri-4k-hmi-m40": pexelsUrl(17266853),
+  "nanlux-evoke-2400b": pexelsUrl(34171439),
+  "aputure-ls-1200x": pexelsUrl(13884538),
+  "aputure-ls-1000c": pexelsUrl(14388173),
+  "aputure-ls-1200d": pexelsUrl(13884541),
+  "aputure-ls-600c": pexelsUrl(12497812),
+  "aputure-ls-300d-ii": pexelsUrl(13884540),
+  "aputure-ls-120d-ii": pexelsUrl(19659899),
+  "aputure-nova-p300c": pexelsUrl(36502332),
+  "aputure-mc-ls-mini": pexelsUrl(34171441),
+  "amaran-f22c": pexelsUrl(20142962),
+  "amaran-300c": pexelsUrl(20142962),
+  "amaran-150c": pexelsUrl(20142962),
+  "godox-knowled-mat-light-4x4": pexelsUrl(28772529),
+  "godox-mat-light-4x2": pexelsUrl(28772538),
+  "godox-mat-light-2x2": pexelsUrl(28772532),
+  "godox-airtube-light": pexelsUrl(28772536),
+  "infinibar-full-set": pexelsUrl(8774458),
+  "nanlite-pavotube-4ft": pexelsUrl(14388173),
+  "nanlite-pavotube-1ft": pexelsUrl(34171439),
+  "12x12ft-butterfly": pexelsUrl(13710681),
+  "12x12ft-checkerboard": pexelsUrl(9396401),
+  "12x12ft-ultrabounce": pexelsUrl(13710681),
+  "8x8ft-checkerboard": pexelsUrl(9396401),
+  "8x8ft-butterfly": pexelsUrl(13710681),
+  "8x8ft-ultrabounce": pexelsUrl(9396401),
+  "8x8ft-black-out": pexelsUrl(26743060),
+  "6x6ft-ultrabounce": pexelsUrl(13710681),
+  "6x6ft-checkerboard": pexelsUrl(9396401),
+  "4x4ft-checkerboard": pexelsUrl(9396401),
+  "flags-set": pexelsUrl(16566210),
+  "floppy": pexelsUrl(16566210),
+  "american-stand": pexelsUrl(3426679),
+  "haze-machine": pexelsUrl(9694182),
+  "smoke-machine": pexelsUrl(9694198),
   "sony-fx3": pexelsUrl(30697927),
-  "sony-fx6": pexelsUrl(17333518),
-  "sony-fx9": pexelsUrl(34623018),
-  "canon-c70": pexelsUrl(2335048),
-  "arri-alexa-mini-lf": pexelsUrl(17145214),
-  "red-v-raptor": pexelsUrl(6794832),
-
-  "sony-24-70mm-gm-ii": pexelsUrl(2179865),
-  "sony-70-200mm-gm-ii": pexelsUrl(35790629),
-  "sigma-cine-prime-set": pexelsUrl(4164088),
-
-  "sachtler-flowtech-75": pexelsUrl(30670957),
-  "dji-rs-3-pro": pexelsUrl(20101684),
-  "camera-slider": pexelsUrl(28532580),
-
-  "zoom-field-recorder": pexelsUrl(14358512),
-
-  "dji-inspire-3": pexelsUrl(8821970),
-  "dji-mavic-3-cine": pexelsUrl(13310698),
-
-  "nd-filter-matte-box-kit": pexelsUrl(1114126),
+  "aputure-600d": pexelsUrl(12497812),
+  "aputure-600x": pexelsUrl(13884540),
+  "amaran-200x-s": pexelsUrl(20142962),
 };
 
 /** Resolves a product's best-effort photo, falling back to its category photo. */
