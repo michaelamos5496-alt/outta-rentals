@@ -7,7 +7,6 @@ import { Check, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { CornerAccent } from "@/components/ui/corner-accent";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import {
   availabilityLabels,
@@ -42,27 +41,26 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
     return <ListProductCard product={product} className={className} />;
   }
 
-  // Quiet editorial grid card — same anatomy at every breakpoint: image,
-  // name, tabular price, one small green accent button. No badge,
-  // description, or secondary button.
+  // Green-tile card: photo matted on a solid brand-green tile (rounded
+  // mat, not a full-bleed photo card), an optional "New" badge, and a
+  // name/price row below — name in the display serif, price muted.
   return (
     <article className={className}>
       <Link href={href} className="block active:opacity-80">
-        <div className="relative overflow-hidden rounded-lg">
-          <MediaPlaceholder
-            src={getProductImage(product.slug, product.categorySlug)}
-            alt={product.name}
-            icon={icon}
-            className="aspect-4/3 w-full transition-transform duration-500 ease-[var(--ease-outta)]"
-          />
-          <CornerAccent />
-        </div>
-        <p className="mt-1.5 truncate text-xs font-medium sm:mt-2 sm:text-sm">{product.name}</p>
-        <div className="mt-0.5 flex items-center justify-between gap-2">
-          <p className="truncate text-xs font-semibold tabular-nums sm:text-sm">
-            <span className="font-mono">{formatPrice(product.dayRate, product.currency)}</span>
-            <span className="font-sans font-normal text-muted-foreground"> /day</span>
-          </p>
+        <div className="relative aspect-square rounded-2xl bg-brand p-3">
+          {product.isNew ? (
+            <span className="text-label absolute top-3 left-3 z-10 rounded-full bg-background px-2.5 py-1 text-brand">
+              New
+            </span>
+          ) : null}
+          <div className="relative h-full w-full overflow-hidden rounded-lg">
+            <MediaPlaceholder
+              src={getProductImage(product.slug, product.categorySlug)}
+              alt={product.name}
+              icon={icon}
+              className="h-full w-full transition-transform duration-500 ease-[var(--ease-outta)]"
+            />
+          </div>
           <button
             type="button"
             aria-label={added ? "Added to kit" : "Add to kit"}
@@ -72,12 +70,21 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
               setAdded(true);
             }}
             className={cn(
-              "flex size-6 shrink-0 items-center justify-center rounded-full transition-colors active:scale-90 sm:size-7",
-              added ? "bg-secondary text-secondary-foreground" : "bg-brand text-brand-foreground"
+              "absolute right-4 bottom-4 z-10 flex size-8 shrink-0 items-center justify-center rounded-full shadow-[var(--shadow-outta-sm)] transition-all active:scale-90",
+              added ? "bg-secondary text-secondary-foreground" : "bg-background text-brand"
             )}
           >
-            {added ? <Check className="size-3 sm:size-3.5" /> : <Plus className="size-3 sm:size-3.5" />}
+            {added ? <Check className="size-3.5" /> : <Plus className="size-3.5" />}
           </button>
+        </div>
+        <div className="mt-3 flex items-center justify-between gap-2">
+          <p className="font-heading truncate text-sm font-semibold text-brand sm:text-base">
+            {product.name}
+          </p>
+          <p className="shrink-0 text-xs text-muted-foreground sm:text-sm">
+            <span className="font-mono">{formatPrice(product.dayRate, product.currency)}</span>
+            <span className="font-sans"> /day</span>
+          </p>
         </div>
       </Link>
     </article>
