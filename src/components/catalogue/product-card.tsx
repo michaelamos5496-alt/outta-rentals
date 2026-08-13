@@ -49,7 +49,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
   return (
     <article className={className}>
       <Link href={href} className="block active:opacity-80">
-        <div className="overflow-hidden rounded-xl border border-border">
+        <div className="overflow-hidden border-2 border-foreground">
           <MediaPlaceholder
             src={getProductImage(product.slug, product.categorySlug)}
             alt={product.name}
@@ -76,7 +76,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
               setAdded(true);
             }}
             className={cn(
-              "mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full transition-colors active:scale-90 sm:size-8",
+              "mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full border-2 border-foreground transition-colors active:scale-90 sm:size-8",
               added ? "bg-secondary text-secondary-foreground" : "bg-brand text-brand-foreground"
             )}
           >
@@ -109,7 +109,7 @@ function ListProductCard({
 
   return (
     <article className={cn("group/product flex flex-row gap-5", className)}>
-      <Link href={href} className="block w-32 shrink-0 overflow-hidden rounded-xl sm:w-48">
+      <Link href={href} className="block w-32 shrink-0 overflow-hidden border-2 border-foreground sm:w-48">
         <MediaPlaceholder
           src={getProductImage(product.slug, product.categorySlug)}
           alt={product.name}

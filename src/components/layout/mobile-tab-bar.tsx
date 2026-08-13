@@ -33,7 +33,7 @@ function MobileTabBar() {
   return (
     <nav
       aria-label="Mobile"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 backdrop-blur-md lg:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 border-t-2 border-foreground bg-background/95 backdrop-blur-md lg:hidden"
     >
       <div className="grid grid-cols-5 items-end px-1 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))]">
         <Link
@@ -63,7 +63,7 @@ function MobileTabBar() {
           rel={whatsappLink ? "noopener noreferrer" : undefined}
           className="-mt-5 flex flex-col items-center gap-1"
         >
-          <span className="flex size-12 items-center justify-center rounded-full bg-brand text-brand-foreground shadow-[var(--shadow-outta-lg)]">
+          <span className="flex size-12 items-center justify-center rounded-full border-2 border-foreground bg-brand text-brand-foreground shadow-[var(--shadow-outta-lg)]">
             <MessageCircle className="size-5" strokeWidth={1.75} />
           </span>
         </a>
@@ -77,7 +77,7 @@ function MobileTabBar() {
           <Package className="size-5" strokeWidth={1.75} />
           Kit
           {hydrated && itemCount > 0 ? (
-            <span className="absolute -top-0.5 right-1/2 translate-x-3.5 flex size-3.5 items-center justify-center rounded-full bg-brand text-[0.5625rem] font-medium text-brand-foreground">
+            <span className="absolute -top-0.5 right-1/2 translate-x-3.5 flex size-3.5 items-center justify-center rounded-full border border-foreground bg-brand text-[0.5625rem] font-medium text-brand-foreground">
               {itemCount > 9 ? "9+" : itemCount}
             </span>
           ) : null}

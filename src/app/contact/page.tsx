@@ -37,7 +37,7 @@ export default function ContactPage() {
       <div className="mt-14 grid grid-cols-1 gap-12 lg:grid-cols-[1fr_380px]">
         <ContactForm />
 
-        <aside className="flex h-fit flex-col gap-6 rounded-xl border border-border p-6 lg:sticky lg:top-24">
+        <aside className="flex h-fit flex-col gap-6 border-2 border-foreground p-6 lg:sticky lg:top-24">
           <div>
             <p className="text-label mb-3">Prefer WhatsApp?</p>
             <WhatsAppButton

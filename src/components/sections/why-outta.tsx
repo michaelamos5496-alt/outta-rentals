@@ -10,7 +10,7 @@ import { whyOutta } from "@/lib/placeholder-data";
 
 function WhyOutta() {
   return (
-    <Section className="border-t border-border">
+    <Section className="border-t-2 border-foreground">
       <Heading level="h2" eyebrow="Why OUTTA">
         Why OUTTA?
       </Heading>

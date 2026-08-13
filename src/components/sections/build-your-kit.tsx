@@ -18,7 +18,7 @@ function slugifyPresetName(name: string): string {
 
 function BuildYourKit() {
   return (
-    <Section id="build-your-kit" className="scroll-mt-20 border-t border-border">
+    <Section id="build-your-kit" className="scroll-mt-20 border-t-2 border-foreground">
       <div className="max-w-2xl">
         <Heading level="h2" eyebrow="Build Your Kit">
           Build your kit.
@@ -44,7 +44,7 @@ function BuildYourKit() {
             <motion.div
               key={preset.name}
               variants={slideUp()}
-              className="group/preset flex flex-col overflow-hidden rounded-xl border border-border"
+              className="group/preset flex flex-col overflow-hidden border-2 border-foreground"
             >
               <MediaPlaceholder
                 src={themeImages[slug]}

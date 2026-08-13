@@ -159,18 +159,19 @@ function Navbar() {
   const { itemCount, openDrawer, hydrated } = useKit();
 
   return (
-    <header data-slot="navbar" className="sticky top-0 z-40 w-full px-3 pt-3 sm:px-4 sm:pt-4">
+    <header
+      data-slot="navbar"
+      className={cn(
+        "sticky top-0 z-40 w-full border-b-2 border-foreground bg-background transition-shadow",
+        scrolled ? "shadow-[var(--shadow-outta-sm)]" : ""
+      )}
+      style={{ transitionDuration: `${duration.fast * 1000}ms` }}
+    >
       <Container>
-        <nav
-          className={cn(
-            "flex h-14 items-center justify-between rounded-full bg-brand px-5 shadow-[var(--shadow-outta-md)] transition-shadow sm:h-16 sm:px-7",
-            scrolled ? "shadow-[var(--shadow-outta-lg)]" : ""
-          )}
-          style={{ transitionDuration: `${duration.fast * 1000}ms` }}
-        >
+        <nav className="flex h-14 items-center justify-between sm:h-16">
           <Link href="/" className="inline-flex items-center">
             <Image
-              src="/brand/outta-logo-dark.png"
+              src="/brand/outta-logo.png"
               alt={siteConfig.name}
               width={595}
               height={225}
@@ -184,10 +185,10 @@ function Navbar() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="group/link text-label relative text-brand-foreground/80 transition-colors hover:text-brand-foreground"
+                  className="group/link text-label relative text-foreground/70 transition-colors hover:text-foreground"
                 >
                   {item.label}
-                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-brand-foreground transition-all duration-200 ease-out group-hover/link:w-full" />
+                  <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-brand transition-all duration-200 ease-out group-hover/link:w-full" />
                 </Link>
               </li>
             ))}
@@ -199,7 +200,7 @@ function Navbar() {
               size="icon"
               aria-label="Search"
               onClick={() => setSearchOpen(true)}
-              className="hidden text-brand-foreground hover:bg-brand-foreground/10 hover:text-brand-foreground sm:inline-flex"
+              className="hidden sm:inline-flex"
             >
               <Search />
             </Button>
@@ -208,11 +209,11 @@ function Navbar() {
               size="icon"
               aria-label="Kit list"
               onClick={openDrawer}
-              className="relative hidden text-brand-foreground hover:bg-brand-foreground/10 hover:text-brand-foreground sm:inline-flex"
+              className="relative hidden sm:inline-flex"
             >
               <Package />
               {hydrated && itemCount > 0 ? (
-                <span className="absolute top-1 right-1 flex size-3.5 items-center justify-center rounded-full bg-brand-foreground text-[0.5625rem] font-medium text-brand">
+                <span className="absolute top-1 right-1 flex size-3.5 items-center justify-center rounded-full border border-foreground bg-brand text-[0.5625rem] font-medium text-brand-foreground">
                   {itemCount > 9 ? "9+" : itemCount}
                 </span>
               ) : null}
@@ -312,7 +313,7 @@ function Navbar() {
                 >
                   <Package /> Kit
                   {hydrated && itemCount > 0 ? (
-                    <span className="absolute -top-2 -right-2 flex size-5 items-center justify-center rounded-full bg-brand text-[0.6875rem] font-medium text-brand-foreground">
+                    <span className="absolute -top-2 -right-2 flex size-5 items-center justify-center rounded-full border border-foreground bg-brand text-[0.6875rem] font-medium text-brand-foreground">
                       {itemCount > 9 ? "9+" : itemCount}
                     </span>
                   ) : null}

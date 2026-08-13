@@ -24,7 +24,7 @@ function ProductGallery({ productSlug, categorySlug, sku, name, frameCount = 4 }
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="overflow-hidden rounded-xl">
+      <div className="overflow-hidden border-2 border-foreground">
         <MediaPlaceholder
           src={image}
           alt={name}
@@ -42,10 +42,10 @@ function ProductGallery({ productSlug, categorySlug, sku, name, frameCount = 4 }
             aria-pressed={active === i}
             onClick={() => setActive(i)}
             className={cn(
-              "overflow-hidden rounded-lg ring-1 ring-inset transition-all",
+              "overflow-hidden border-2 transition-all",
               active === i
-                ? "ring-2 ring-brand"
-                : "ring-border hover:ring-foreground/30"
+                ? "border-brand"
+                : "border-foreground/70 hover:border-foreground"
             )}
           >
             <MediaPlaceholder src={image} alt={`${name} ${i + 1}`} icon={icon} className="aspect-square w-full" />

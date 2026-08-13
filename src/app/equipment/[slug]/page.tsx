@@ -188,7 +188,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
             <p className="text-body mt-4">{product.description}</p>
 
-            <div className="mt-6 flex items-baseline gap-6 rounded-xl border border-border p-5">
+            <div className="mt-6 flex items-baseline gap-6 border-2 border-foreground p-5">
               <div>
                 <p className="text-meta">Daily rate</p>
                 <p className="text-h3 mt-1 font-mono">
@@ -216,7 +216,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             {shotWithThis ? (
               <Link
                 href={`/work#${shotWithThis.slug}`}
-                className="mt-6 flex items-center gap-3 rounded-xl border border-border p-4 transition-colors hover:border-brand lg:hidden"
+                className="mt-6 flex items-center gap-3 border-2 border-foreground p-4 transition-colors hover:border-brand lg:hidden"
               >
                 <Clapperboard className="size-8 shrink-0 text-brand" strokeWidth={1.5} />
                 <div className="min-w-0">
@@ -243,7 +243,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </div>
 
         {specGroups.length > 0 ? (
-          <div className="mt-16 border-t border-border pt-14 sm:mt-20 sm:pt-16">
+          <div className="mt-16 border-t-2 border-foreground pt-14 sm:mt-20 sm:pt-16">
             <p className="text-label mb-8">Specifications</p>
 
             {/* Desktop: always-expanded grid, unchanged. */}

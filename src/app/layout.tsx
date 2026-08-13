@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
+import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 import { KitProvider } from "@/components/kit/kit-provider";
@@ -16,13 +16,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Display serif for headlines only — body copy, nav and UI stay on Geist
-// Sans, so this reads as one deliberate character choice rather than a
-// full typographic overhaul.
-const playfairDisplay = Playfair_Display({
-  variable: "--font-playfair",
+// Bold geometric display face for headlines — body copy, nav and UI stay
+// on Geist Sans. Reads technical/editorial rather than soft or classical.
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
-  weight: ["600", "700"],
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -58,7 +57,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${playfairDisplay.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <script
