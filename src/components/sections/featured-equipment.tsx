@@ -8,6 +8,7 @@ import { Check, Plus } from "lucide-react";
 import { slideUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
+import { CornerAccent } from "@/components/ui/corner-accent";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { type DemoProduct } from "@/lib/catalogue";
 import { cn } from "@/lib/utils";
@@ -32,19 +33,20 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
   return (
     <motion.article variants={slideUp()} className="group/product">
       <Link href={href} className="block active:opacity-80">
-        <div className="relative aspect-square rounded-2xl bg-brand p-3">
-          {product.isNew ? (
-            <span className="text-label absolute top-3 left-3 z-10 rounded-full bg-background px-2.5 py-1 text-brand">
-              New
-            </span>
-          ) : null}
-          <div className="relative h-full w-full overflow-hidden rounded-lg">
-            <MediaPlaceholder
-              src={getProductImage(product.slug, product.categorySlug)}
-              alt={product.name}
-              className="h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
-            />
-          </div>
+        <div className="relative overflow-hidden rounded-lg">
+          <MediaPlaceholder
+            src={getProductImage(product.slug, product.categorySlug)}
+            alt={product.name}
+            className="aspect-4/3 w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
+          />
+          <CornerAccent />
+        </div>
+        <p className="mt-1.5 truncate text-xs font-medium sm:mt-2 sm:text-sm">{product.name}</p>
+        <div className="mt-0.5 flex items-center justify-between gap-2">
+          <p className="truncate text-xs font-semibold tabular-nums sm:text-sm">
+            <span className="font-mono">{formatPrice(product.dayRate, product.currency)}</span>
+            <span className="font-sans font-normal text-muted-foreground"> /day</span>
+          </p>
           <button
             type="button"
             aria-label={added ? "Added to kit" : "Add to kit"}
@@ -54,21 +56,12 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
               setAdded(true);
             }}
             className={cn(
-              "absolute right-4 bottom-4 z-10 flex size-8 shrink-0 items-center justify-center rounded-full shadow-[var(--shadow-outta-sm)] transition-all active:scale-90",
-              added ? "bg-secondary text-secondary-foreground" : "bg-background text-brand"
+              "flex size-6 shrink-0 items-center justify-center rounded-full transition-colors active:scale-90 sm:size-7",
+              added ? "bg-secondary text-secondary-foreground" : "bg-brand text-brand-foreground"
             )}
           >
-            {added ? <Check className="size-3.5" /> : <Plus className="size-3.5" />}
+            {added ? <Check className="size-3 sm:size-3.5" /> : <Plus className="size-3 sm:size-3.5" />}
           </button>
-        </div>
-        <div className="mt-3 flex items-center justify-between gap-2">
-          <p className="font-heading truncate text-sm font-semibold text-brand sm:text-base">
-            {product.name}
-          </p>
-          <p className="shrink-0 text-xs text-muted-foreground sm:text-sm">
-            <span className="font-mono">{formatPrice(product.dayRate, product.currency)}</span>
-            <span className="font-sans"> /day</span>
-          </p>
         </div>
       </Link>
     </motion.article>
