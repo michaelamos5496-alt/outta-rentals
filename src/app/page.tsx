@@ -1,5 +1,4 @@
 import { Hero } from "@/components/sections/hero";
-import { FactStrip } from "@/components/sections/fact-strip";
 import { EquipmentStrip } from "@/components/sections/equipment-strip";
 import { FeaturedEquipment } from "@/components/sections/featured-equipment";
 import { CategoryExperience } from "@/components/sections/category-experience";
@@ -10,7 +9,6 @@ import { Services } from "@/components/sections/services";
 import { Testimonials } from "@/components/sections/testimonials";
 import { FinalCta } from "@/components/sections/final-cta";
 import { fetchAllProducts } from "@/lib/catalogue/db";
-import { categories } from "@/lib/catalogue";
 
 // Statically imported (not next/dynamic) — this tree is passed as `children`
 // into SmoothScroll (a "use client" wrapper) now that the homepage has
@@ -35,7 +33,6 @@ export default async function Home() {
     // i.e. visually identical to a plain stacked fragment at ≥lg.
     <div className="flex flex-col">
       <Hero products={spotlightProducts} />
-      <FactStrip equipmentCount={products.length} categoryCount={categories.length} />
       {/* Redundant on mobile — the tab bar's Equipment tab and the listing
           page's own category pills already cover this. Kept on desktop. */}
       <div className="hidden lg:order-none lg:block">
