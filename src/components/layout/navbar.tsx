@@ -18,6 +18,7 @@ import { SearchInput } from "@/components/ui/search-input";
 import { Modal } from "@/components/ui/modal";
 import { useMobileNav } from "@/components/layout/mobile-nav-provider";
 import { useKit } from "@/components/kit/kit-provider";
+import { WhatsAppButton } from "@/components/quote/whatsapp-button";
 import { formatPrice } from "@/lib/currency";
 
 function useDebouncedValue<T>(value: T, delayMs: number): T {
@@ -194,7 +195,14 @@ function Navbar() {
             ))}
           </ul>
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-2">
+            <WhatsAppButton
+              label="WhatsApp Us"
+              variant="default"
+              size="sm"
+              closingLine="I'd like to talk about an upcoming shoot."
+              className="hidden lg:inline-flex"
+            />
             <Button
               variant="ghost"
               size="icon"
