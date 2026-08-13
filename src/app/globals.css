@@ -5,14 +5,11 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ============================================================
-   OUTTA RENTALS — DESIGN SYSTEM v3 "CINEMA TRADE / MASHUP"
-   A mashup of two references: 711rent's full-bleed dark rotating hero
-   photography (kept as-is) and MCB Rental's warm cream minimalism,
-   bold condensed headline energy and WhatsApp-first booking pattern.
-   Bold black borders, hard offset shadows and sharp corners carry over
-   from the "Cinema Trade" rebuild — only the base tone and a few
-   MCB-style touches (fact strip, nav WhatsApp CTA) change. OUTTA Green
-   stays the one accent, standing in for MCB's orange.
+   OUTTA RENTALS — DESIGN SYSTEM v3 "CINEMA TRADE"
+   Bold black borders, hard offset shadows and sharp corners, a full
+   viewport-height 711rent-style dark rotating hero. White base — kept
+   simple and deliberately undecorated rather than reading like any one
+   reference site. OUTTA Green is the one accent throughout.
    ============================================================ */
 
 @theme inline {
@@ -86,29 +83,27 @@
 }
 
 :root {
-  /* Warm cream base (MCB) + near-black ink — the boldness still comes
-     from borders/shadows/type, but the page now has MCB's warmth
-     instead of stark white. Cards stay a touch lighter than the page
-     so content areas read as "paper" on the cream ground. */
-  --background: oklch(0.97 0.012 85);
+  /* White + near-black ink. No tint, no cream — the boldness comes from
+     borders/shadows/type, not from the page color. */
+  --background: oklch(1 0 0);
   --foreground: oklch(0.11 0 0);
 
-  --card: oklch(0.99 0.006 85);
+  --card: oklch(1 0 0);
   --card-foreground: oklch(0.11 0 0);
-  --popover: oklch(0.99 0.006 85);
+  --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.11 0 0);
 
   /* Primary actions carry the brand accent */
   --primary: oklch(0.52 0.20 143);
   --primary-foreground: oklch(0.99 0 0);
 
-  --secondary: oklch(0.93 0.012 85);
+  --secondary: oklch(0.95 0 0);
   --secondary-foreground: oklch(0.11 0 0);
 
-  --muted: oklch(0.93 0.012 85);
-  --muted-foreground: oklch(0.4 0.006 85);
+  --muted: oklch(0.95 0 0);
+  --muted-foreground: oklch(0.4 0 0);
 
-  --accent: oklch(0.91 0.014 85);
+  --accent: oklch(0.94 0 0);
   --accent-foreground: oklch(0.11 0 0);
 
   --destructive: oklch(0.55 0.22 27);
