@@ -91,7 +91,7 @@
   --popover-foreground: oklch(0.12 0 0);
 
   /* Primary actions carry the brand accent */
-  --primary: oklch(0.58 0.20 143);
+  --primary: oklch(0.52 0.20 143);
   --primary-foreground: oklch(0.99 0 0);
 
   --secondary: oklch(0.94 0.012 95);
@@ -108,14 +108,14 @@
 
   --border: oklch(0.12 0 0 / 10%);
   --input: oklch(0.12 0 0 / 12%);
-  --ring: oklch(0.58 0.20 143 / 50%);
+  --ring: oklch(0.52 0.20 143 / 50%);
 
   /* OUTTA Green — sampled from the real logo. Used for CTAs, focus, highlights only. */
-  --brand: oklch(0.58 0.20 143);
+  --brand: oklch(0.52 0.20 143);
   --brand-foreground: oklch(0.99 0 0);
-  --brand-muted: oklch(0.58 0.20 143 / 18%);
+  --brand-muted: oklch(0.52 0.20 143 / 18%);
 
-  --chart-1: oklch(0.58 0.20 143);
+  --chart-1: oklch(0.52 0.20 143);
   --chart-2: oklch(0.6 0 0);
   --chart-3: oklch(0.48 0 0);
   --chart-4: oklch(0.36 0 0);
@@ -125,12 +125,12 @@
 
   --sidebar: oklch(0.98 0 0);
   --sidebar-foreground: oklch(0.12 0 0);
-  --sidebar-primary: oklch(0.58 0.20 143);
+  --sidebar-primary: oklch(0.52 0.20 143);
   --sidebar-primary-foreground: oklch(0.99 0 0);
   --sidebar-accent: oklch(0.95 0 0);
   --sidebar-accent-foreground: oklch(0.12 0 0);
   --sidebar-border: oklch(0.12 0 0 / 10%);
-  --sidebar-ring: oklch(0.58 0.20 143 / 50%);
+  --sidebar-ring: oklch(0.52 0.20 143 / 50%);
 }
 
 /* Reserved for a future dark-mode toggle. Not wired up. */
