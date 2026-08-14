@@ -111,24 +111,27 @@ function Hero({ products, totalCount }: { products: DemoProduct[]; totalCount: n
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -12 }}
           transition={{ duration: duration.base, ease: easeOutta }}
-          className="absolute right-6 bottom-6 hidden w-72 border border-border bg-card p-5 shadow-lg lg:block"
+          className="absolute right-6 bottom-6 hidden w-72 bg-brand p-5 shadow-lg lg:block"
         >
           <div className="flex items-center justify-between">
-            <span className="text-meta">Featured Gear</span>
-            <Aperture className="size-4 text-muted-foreground" strokeWidth={1.75} />
+            <span className="text-meta !text-brand-foreground/70">Featured Gear</span>
+            <Aperture className="size-4 text-brand-foreground/70" strokeWidth={1.75} />
           </div>
-          <p className="text-h3 mt-2">{product.name}</p>
+          <p className="text-h3 mt-2 text-brand-foreground">{product.name}</p>
           <dl className="mt-4 flex flex-col gap-2.5 text-sm">
             {cardRows.map((row) => (
               <div key={row.label} className="flex items-baseline justify-between gap-3">
-                <dt className="text-muted-foreground">{row.label}</dt>
-                <dd className="font-mono font-semibold">{row.value}</dd>
+                <dt className="text-brand-foreground/70">{row.label}</dt>
+                <dd className="font-mono font-semibold text-brand-foreground">{row.value}</dd>
               </div>
             ))}
             <div className="flex items-baseline justify-between gap-3">
-              <dt className="text-muted-foreground">Availability</dt>
+              <dt className="text-brand-foreground/70">Availability</dt>
               <dd>
-                <Badge variant={availabilityVariant[product.availability]}>
+                <Badge
+                  variant={availabilityVariant[product.availability]}
+                  className="border-brand-foreground/40 !text-brand-foreground bg-transparent"
+                >
                   {availabilityLabels[product.availability]}
                 </Badge>
               </dd>
