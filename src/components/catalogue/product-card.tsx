@@ -51,14 +51,15 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
       <Link href={href} className="block active:opacity-80">
         <div className="flex items-start justify-between gap-2 p-3 pb-1.5 sm:p-3.5 sm:pb-1.5">
           <div className="min-w-0">
-            <p className="truncate text-sm font-bold lowercase leading-none text-brand-foreground">
-              {brand?.name.toLowerCase() ?? product.brandSlug}
+            <p className="truncate text-sm font-bold leading-tight text-brand-foreground">
+              {product.name}
             </p>
-            {category ? (
-              <p className="mt-1 text-[0.6875rem] text-brand-foreground/70">{category.name.toLowerCase()}</p>
-            ) : null}
+            <p className="mt-1 text-[0.6875rem] text-brand-foreground/70">
+              {brand?.name ?? product.brandSlug}
+              {category ? ` · ${category.name}` : ""}
+            </p>
           </div>
-          <p className="hidden max-w-[45%] text-right text-[0.625rem] leading-snug text-brand-foreground/70 sm:line-clamp-2 sm:block">
+          <p className="hidden max-w-[40%] text-right text-[0.625rem] leading-snug text-brand-foreground/70 sm:line-clamp-2 sm:block">
             {product.shortDescription}
           </p>
         </div>

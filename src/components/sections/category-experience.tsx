@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { slideUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
-import { CornerAccent } from "@/components/ui/corner-accent";
 import { equipmentCategories } from "@/lib/placeholder-data";
 import type { DemoProduct } from "@/lib/catalogue";
 
@@ -14,9 +13,10 @@ interface CategoryExperienceProps {
   products: DemoProduct[];
 }
 
-// Same compact tile at every breakpoint — icon, name, real item count, a
-// small brand-colored corner accent. Matches the mobile design; desktop no
-// longer has a separate full-bleed photo-teaser variant.
+// A row of tall vertical "stripes" — one per category, name set in rotated
+// vertical type, icon at top and real item count at the bottom. Reads like
+// a filmstrip, which fits a cinema-equipment brand better than a grid of
+// square tiles.
 function CategoryExperience({ products }: CategoryExperienceProps) {
   return (
     <Section spacing="compact" className="border-t border-border">
@@ -30,23 +30,27 @@ function CategoryExperience({ products }: CategoryExperienceProps) {
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnce}
-        variants={staggerContainer(0.06)}
-        className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4"
+        variants={staggerContainer(0.05)}
+        className="scrollbar-none flex gap-2 overflow-x-auto pb-2 sm:gap-3"
       >
         {equipmentCategories.map((category) => {
           const count = products.filter((p) => p.categorySlug === category.slug).length;
           return (
-            <motion.div key={category.slug} variants={slideUp()}>
+            <motion.div key={category.slug} variants={slideUp()} className="shrink-0">
               <Link
                 href={`/equipment/${category.slug}`}
-                className="group/cat relative block overflow-hidden border border-border p-4 transition-colors duration-150 ease-out hover:border-foreground/40 sm:p-5"
+                className="group/cat relative flex h-72 w-24 flex-col items-center justify-between overflow-hidden rounded-2xl bg-brand p-4 transition-transform duration-300 ease-out hover:-translate-y-1 sm:h-80 sm:w-28"
               >
-                <span className="bg-brand-muted text-brand flex size-10 items-center justify-center rounded-lg transition-transform duration-300 ease-out group-hover/cat:-translate-y-0.5 sm:size-12">
-                  <category.icon className="size-5 sm:size-6" strokeWidth={1.75} />
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-foreground/15 text-brand-foreground transition-transform duration-300 ease-out group-hover/cat:-translate-y-0.5">
+                  <category.icon className="size-4" strokeWidth={1.75} />
                 </span>
-                <p className="mt-3 text-sm font-semibold sm:mt-4 sm:text-base">{category.name}</p>
-                <p className="text-small mt-0.5 font-mono">{count} items</p>
-                <CornerAccent className="size-4 sm:size-5" />
+                <span
+                  className="flex-1 py-4 text-sm font-bold tracking-wide text-brand-foreground [writing-mode:vertical-rl]"
+                  style={{ transform: "rotate(180deg)" }}
+                >
+                  {category.name}
+                </span>
+                <span className="text-meta !text-brand-foreground/70">{count} items</span>
               </Link>
             </motion.div>
           );

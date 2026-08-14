@@ -20,11 +20,17 @@ export default async function Home() {
   const products = await fetchAllProducts();
   const featured = products.filter((p) => p.featured);
   // Hero rotates through a handful of flagship items; the grid below gets
-  // the rest of the featured set (falls back to top of catalogue if fewer
-  // than 8 products are marked featured).
+  // the rest of the featured set, topped up with other real catalogue items
+  // (not already in the hero) so it always shows a full row of 4 rather than
+  // shrinking whenever fewer than a handful of products are marked featured.
   const spotlightProducts = featured.slice(0, 5);
-  const gridProducts = (featured.length > 5 ? featured.slice(5) : featured).slice(0, 4);
-  const fallbackGrid = gridProducts.length > 0 ? gridProducts : products.slice(0, 4);
+  const spotlightSlugs = new Set(spotlightProducts.map((p) => p.slug));
+  const gridProducts = featured.filter((p) => !spotlightSlugs.has(p.slug)).slice(0, 4);
+  if (gridProducts.length < 4) {
+    const gridSlugs = new Set(gridProducts.map((p) => p.slug));
+    const filler = products.filter((p) => !spotlightSlugs.has(p.slug) && !gridSlugs.has(p.slug));
+    gridProducts.push(...filler.slice(0, 4 - gridProducts.length));
+  }
 
   return (
     // flex-col + per-item `order` lets mobile show a more concise, reordered
@@ -39,7 +45,7 @@ export default async function Home() {
         <EquipmentStrip />
       </div>
       <div className="order-4 lg:order-none">
-        <FeaturedEquipment products={fallbackGrid} />
+        <FeaturedEquipment products={gridProducts} />
       </div>
       <div className="order-3 lg:order-none">
         <CategoryExperience products={products} />

@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { LoaderCircle, Package, Search, X } from "lucide-react";
+import { ChevronDown, LoaderCircle, Package, Search, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { duration, easeOutta } from "@/lib/motion";
@@ -170,7 +170,7 @@ function Navbar() {
     >
       <Container>
         <nav className="group/navreveal flex h-14 items-center gap-8 sm:h-16">
-          <Link href="/" className="inline-flex shrink-0 items-center">
+          <Link href="/" className="inline-flex shrink-0 items-center gap-1.5">
             <Image
               src="/brand/outta-logo-dark.png"
               alt={siteConfig.name}
@@ -178,6 +178,13 @@ function Navbar() {
               height={225}
               priority
               className="h-8 w-auto sm:h-9"
+            />
+            {/* Desktop-only hint that hovering/focusing here reveals the rest
+                of the nav — fades out once it's actually revealed. */}
+            <ChevronDown
+              className="hidden size-3.5 shrink-0 animate-bounce text-brand-foreground/60 transition-opacity duration-200 ease-out lg:block lg:group-hover/navreveal:opacity-0 lg:group-focus-within/navreveal:opacity-0"
+              strokeWidth={2}
+              aria-hidden
             />
           </Link>
 
