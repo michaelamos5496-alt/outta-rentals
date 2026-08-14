@@ -39,18 +39,18 @@ function CategoryExperience({ products }: CategoryExperienceProps) {
             <motion.div key={category.slug} variants={slideUp()} className="shrink-0">
               <Link
                 href={`/equipment/${category.slug}`}
-                className="group/cat relative flex h-72 w-24 flex-col items-center justify-between overflow-hidden rounded-2xl bg-brand p-4 transition-transform duration-300 ease-out hover:-translate-y-1 sm:h-80 sm:w-28"
+                className="group/cat relative flex h-72 w-24 flex-col items-center justify-between overflow-hidden rounded-2xl border-2 border-brand bg-background p-4 transition-transform duration-300 ease-out hover:-translate-y-1 sm:h-80 sm:w-28"
               >
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-foreground/15 text-brand-foreground transition-transform duration-300 ease-out group-hover/cat:-translate-y-0.5">
+                <span className="bg-brand-muted text-brand flex size-9 shrink-0 items-center justify-center rounded-full transition-transform duration-300 ease-out group-hover/cat:-translate-y-0.5">
                   <category.icon className="size-4" strokeWidth={1.75} />
                 </span>
                 <span
-                  className="flex-1 py-4 text-sm font-bold tracking-wide text-brand-foreground [writing-mode:vertical-rl]"
+                  className="flex-1 py-4 text-sm font-bold tracking-wide text-foreground [writing-mode:vertical-rl]"
                   style={{ transform: "rotate(180deg)" }}
                 >
                   {category.name}
                 </span>
-                <span className="text-meta !text-brand-foreground/70">{count} items</span>
+                <span className="text-meta">{count} items</span>
               </Link>
             </motion.div>
           );
