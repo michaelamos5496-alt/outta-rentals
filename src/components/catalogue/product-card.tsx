@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Check, Plus } from "lucide-react";
+import { ArrowUpRight, Check, Plus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,7 @@ import {
   availabilityLabels,
   availabilityVariant,
   getBrandBySlug,
+  getCategoryBySlug,
   getCategoryIcon,
   type DemoProduct,
 } from "@/lib/catalogue";
@@ -28,8 +29,9 @@ export interface ProductCardProps {
 function ProductCard({ product, view = "grid", className }: ProductCardProps) {
   const { addItem } = useKit();
   const [added, setAdded] = React.useState(false);
-  const icon = getCategoryIcon(product.categorySlug);
   const href = `/equipment/${product.slug}`;
+  const brand = getBrandBySlug(product.brandSlug);
+  const category = getCategoryBySlug(product.categorySlug);
 
   React.useEffect(() => {
     if (!added) return;
@@ -41,49 +43,53 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
     return <ListProductCard product={product} className={className} />;
   }
 
-  // Quiet editorial grid card — same anatomy at every breakpoint: a plain,
-  // thin-bordered photo, the name set in the display serif (the site's one
-  // "character" typeface) for a touch of warmth without adding color, and
-  // a price/action row. Green is used exactly once, on the small action
-  // button — the brand accent stays an accent, not a background.
+  // Same rounded "product tile" as the homepage Featured Equipment cards —
+  // one consistent card look sitewide: green header (brand + category +
+  // description), large photo, price tag, circular quick-add button.
   return (
-    <article className={className}>
+    <article className={cn("group/product relative overflow-hidden rounded-[28px] bg-brand", className)}>
       <Link href={href} className="block active:opacity-80">
-        <div className="overflow-hidden border border-border">
+        <div className="flex items-start justify-between gap-3 p-4 pb-2 sm:p-5 sm:pb-2">
+          <div className="min-w-0">
+            <p className="truncate text-base font-bold lowercase leading-none text-brand-foreground sm:text-lg">
+              {brand?.name.toLowerCase() ?? product.brandSlug}
+            </p>
+            {category ? (
+              <p className="mt-1.5 text-xs text-brand-foreground/70">{category.name.toLowerCase()}</p>
+            ) : null}
+          </div>
+          <p className="hidden max-w-[45%] text-right text-[0.6875rem] leading-snug text-brand-foreground/70 sm:line-clamp-3 sm:block">
+            {product.shortDescription}
+          </p>
+        </div>
+
+        <div className="relative mt-1">
           <MediaPlaceholder
             src={getProductImage(product.slug, product.categorySlug)}
             alt={product.name}
-            icon={icon}
-            className="aspect-square w-full transition-transform duration-500 ease-[var(--ease-outta)]"
+            className="aspect-[4/3] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
           />
-        </div>
-        <div className="mt-3 flex items-start justify-between gap-2">
-          <div className="min-w-0">
-            <p className="font-heading truncate text-sm font-semibold sm:text-base">
-              {product.name}
-            </p>
-            <p className="mt-0.5 text-xs text-muted-foreground sm:text-sm">
-              <span className="font-mono">{formatPrice(product.dayRate, product.currency)}</span>
-              <span className="font-sans"> /day</span>
-            </p>
-          </div>
-          <button
-            type="button"
-            aria-label={added ? "Added to kit" : "Add to kit"}
-            onClick={(e) => {
-              e.preventDefault();
-              addItem(product.slug);
-              setAdded(true);
-            }}
-            className={cn(
-              "mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full border border-border transition-colors active:scale-90 sm:size-8",
-              added ? "bg-secondary text-secondary-foreground" : "bg-brand text-brand-foreground"
-            )}
-          >
-            {added ? <Check className="size-3.5" /> : <Plus className="size-3.5" />}
-          </button>
+          <span className="absolute right-3 bottom-3 bg-background px-2 py-1 font-mono text-[0.6875rem] font-semibold">
+            {formatPrice(product.dayRate, product.currency)}/day
+          </span>
         </div>
       </Link>
+
+      <button
+        type="button"
+        aria-label={added ? "Added to kit" : "Add to kit"}
+        onClick={(e) => {
+          e.preventDefault();
+          addItem(product.slug);
+          setAdded(true);
+        }}
+        className={cn(
+          "absolute bottom-3 left-3 flex size-9 items-center justify-center rounded-full transition-colors active:scale-90",
+          added ? "bg-brand-foreground text-brand" : "bg-foreground text-background"
+        )}
+      >
+        {added ? <Check className="size-4" /> : <ArrowUpRight className="size-4" />}
+      </button>
     </article>
   );
 }
