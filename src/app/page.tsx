@@ -32,7 +32,7 @@ export default async function Home() {
     // `lg:order-none` resets every item to plain source order on desktop —
     // i.e. visually identical to a plain stacked fragment at ≥lg.
     <div className="flex flex-col">
-      <Hero products={spotlightProducts} />
+      <Hero products={spotlightProducts} totalCount={products.length} />
       {/* Redundant on mobile — the tab bar's Equipment tab and the listing
           page's own category pills already cover this. Kept on desktop. */}
       <div className="hidden lg:order-none lg:block">

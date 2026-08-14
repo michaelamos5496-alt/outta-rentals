@@ -4,214 +4,180 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Aperture, MessageCircle } from "lucide-react";
 
 import { duration, easeOutta } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
-import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { getProductImage } from "@/lib/editorial-images";
+import { availabilityLabels, availabilityVariant, getCategoryBySlug } from "@/lib/catalogue";
+import { formatPrice } from "@/lib/currency";
+import { getWhatsAppLink } from "@/lib/quote/whatsapp";
+import { siteConfig } from "@/config/site";
 import type { DemoProduct } from "@/lib/catalogue";
 
 const ROTATE_MS = 6000;
 
 /**
- * Full-bleed rotating product-spotlight hero — modeled directly on
- * 711rent.com's homepage banner: large dramatic product photography fills
- * the frame, the product name is set in bold brand-color type directly over
- * the image, a single solid CTA button sits below it, arrow controls sit at
- * the left/right edges, a slide counter sits in the corner, and a thumbnail
- * strip below lets viewers jump straight to any item — all on OUTTA's own
- * dark/green brand rather than 711rent's light theme.
+ * Editorial two-column hero: headline + CTAs + a real live-inventory status
+ * row on the left, a rotating product photo with a floating "Featured Gear"
+ * spec card on the right. Every figure on the card (specs, rate, category,
+ * availability) is pulled from real catalogue data — nothing here is
+ * invented copy.
  */
-function Hero({ products }: { products: DemoProduct[] }) {
+function Hero({ products, totalCount }: { products: DemoProduct[]; totalCount: number }) {
   const [index, setIndex] = React.useState(0);
-  const [paused, setPaused] = React.useState(false);
   const product = products[index];
 
   React.useEffect(() => {
-    if (paused || products.length <= 1) return;
+    if (products.length <= 1) return;
     const timer = setInterval(() => {
       setIndex((i) => (i + 1) % products.length);
     }, ROTATE_MS);
     return () => clearInterval(timer);
-  }, [paused, products.length]);
+  }, [products.length]);
+
+  const whatsappLink = getWhatsAppLink({
+    closingLine: "I'd like help finding the right kit for my shoot.",
+  });
 
   if (!product) {
     return (
-      <Section
-        spacing="none"
-        bleed
-        className="relative flex h-[calc(100svh-56px)] min-h-[480px] w-full items-center justify-center overflow-hidden bg-background text-center lg:h-[calc(100vh-64px)] lg:min-h-[560px]"
-      >
-        <div className="px-5">
-          <p className="text-label text-brand">Film · Photography · Production Equipment</p>
-          <h1 className="text-display mt-4">THE KIT BEHIND THE VISION.</h1>
-          <Button asChild size="lg" className="mt-8 uppercase tracking-wide">
-            <Link href="/equipment">
-              Explore Equipment <ArrowRight />
-            </Link>
-          </Button>
-        </div>
+      <Section className="border-b border-border text-center">
+        <p className="text-label text-brand">Film · Photography · Production Equipment</p>
+        <h1 className="text-display mt-4">THE KIT BEHIND THE VISION.</h1>
+        <Button asChild size="lg" className="mt-8 uppercase tracking-wide">
+          <Link href="/equipment">
+            Explore Equipment <ArrowRight />
+          </Link>
+        </Button>
       </Section>
     );
   }
 
   const image = getProductImage(product.slug, product.categorySlug);
+  const category = getCategoryBySlug(product.categorySlug);
+
+  // Real specs when the product has them; otherwise fall back to other real
+  // fields (rate, category) rather than leaving the card half-empty.
+  const cardRows: { label: string; value: string }[] =
+    product.specifications.length > 0
+      ? product.specifications.slice(0, 2).map((s) => ({ label: s.label, value: s.value }))
+      : [
+          { label: "Day Rate", value: `${formatPrice(product.dayRate, product.currency)}/day` },
+          { label: "Category", value: category?.name ?? product.categorySlug },
+        ];
 
   return (
-    <>
-      {/* Mobile hero — compact brand statement over rotating gear photography.
-          Desktop keeps the full-bleed 711rent-style spotlight below untouched. */}
-      <Section
-        spacing="none"
-        bleed
-        className="relative h-[calc(100svh-56px)] min-h-[480px] w-full overflow-hidden bg-background lg:hidden"
-      >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={product.slug}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: duration.base, ease: easeOutta }}
-            className="absolute inset-0"
-          >
-            {image ? (
-              <Image
-                src={image}
-                alt={product.name}
-                fill
-                priority
-                sizes="100vw"
-                className="object-cover"
-              />
-            ) : null}
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-background/50" />
-          </motion.div>
-        </AnimatePresence>
+    <Section className="relative overflow-hidden border-b border-border">
+      <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+        <div>
+          {whatsappLink ? (
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mb-8 flex max-w-md items-start gap-3"
+            >
+              <span className="flex size-9 shrink-0 items-center justify-center border border-border bg-brand-muted text-brand">
+                <MessageCircle className="size-4" strokeWidth={1.75} />
+              </span>
+              <span className="border border-border px-4 py-3 text-sm text-muted-foreground">
+                Need help sourcing the right kit? We reply fast on WhatsApp.
+              </span>
+            </a>
+          ) : null}
 
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-end px-5 pb-10 text-center">
-          <h1 className="text-h1 max-w-xs uppercase">Rent the gear. Make the work.</h1>
-          <Button asChild size="lg" className="mt-6 w-full max-w-xs uppercase tracking-wide">
-            <Link href="/equipment">
-              Browse Equipment <ArrowRight />
-            </Link>
-          </Button>
+          <h1 className="text-display leading-[0.95] uppercase">
+            <span className="block">The Kit Behind</span>
+            <span className="block text-brand">The Vision.</span>
+          </h1>
+          <p className="text-body mt-6 max-w-md">{siteConfig.description}</p>
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Button asChild size="lg">
+              <Link href="/equipment">
+                Explore Inventory <ArrowRight />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link href={`/equipment/${product.slug}`}>View Specs</Link>
+            </Button>
+          </div>
+
+          <div className="mt-10 flex flex-wrap items-center gap-8 border-t border-border pt-6">
+            <div className="flex items-center gap-2">
+              <span className="size-2 rounded-full bg-brand" />
+              <span className="text-meta">Live Inventory</span>
+            </div>
+            <div>
+              <span className="font-mono text-sm font-semibold">{totalCount}+</span>
+              <span className="text-meta ml-1.5">Equipment Items</span>
+            </div>
+          </div>
         </div>
-      </Section>
 
-      <Section
-        spacing="none"
-        bleed
-        className="relative hidden h-[calc(100vh-64px)] min-h-[560px] w-full overflow-hidden bg-background lg:block"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-      >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={product.slug}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: duration.base, ease: easeOutta }}
-            className="absolute inset-0"
-          >
-            {image ? (
-              <Image
-                src={image}
-                alt={product.name}
-                fill
-                priority
-                sizes="100vw"
-                className="object-cover"
-              />
-            ) : null}
-            {/* Fixed dark scrim, independent of the (now white) --background
-                token — this exists to keep light text legible over bright
-                photography, which is unrelated to the site's light/dark
-                theme. Using --background here was what caused a washed-out
-                white haze over the hero photos after the theme swap. */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-black/35" />
-          </motion.div>
-        </AnimatePresence>
+        <div className="relative hidden lg:block">
+          <div className="relative aspect-[4/5] overflow-hidden border border-border">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={product.slug}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: duration.base, ease: easeOutta }}
+                className="absolute inset-0"
+              >
+                {image ? (
+                  <Image
+                    src={image}
+                    alt={product.name}
+                    fill
+                    priority
+                    sizes="50vw"
+                    className="object-cover"
+                  />
+                ) : null}
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-        <div className="absolute inset-0 z-10 flex items-center justify-center">
           <AnimatePresence mode="wait">
             <motion.div
-              key={`${product.slug}-text`}
-              initial={{ opacity: 0, y: 16 }}
+              key={`${product.slug}-card`}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
+              exit={{ opacity: 0, y: -12 }}
               transition={{ duration: duration.base, ease: easeOutta }}
-              className="px-5 text-center"
+              className="absolute -right-6 bottom-6 w-72 border border-border bg-card p-5 shadow-lg"
             >
-              <h1
-                className="text-display text-brand max-w-4xl uppercase"
-                style={{ textShadow: "0 4px 32px rgb(0 0 0 / 0.6)" }}
-              >
-                {product.name}
-              </h1>
-              <Button asChild size="lg" className="mt-6 uppercase tracking-wide">
-                <Link href={`/equipment/${product.slug}`}>Rent Now</Link>
-              </Button>
+              <div className="flex items-center justify-between">
+                <span className="text-meta">Featured Gear</span>
+                <Aperture className="size-4 text-muted-foreground" strokeWidth={1.75} />
+              </div>
+              <p className="text-h3 mt-2">{product.name}</p>
+              <dl className="mt-4 flex flex-col gap-2.5 text-sm">
+                {cardRows.map((row) => (
+                  <div key={row.label} className="flex items-baseline justify-between gap-3">
+                    <dt className="text-muted-foreground">{row.label}</dt>
+                    <dd className="font-mono font-semibold">{row.value}</dd>
+                  </div>
+                ))}
+                <div className="flex items-baseline justify-between gap-3">
+                  <dt className="text-muted-foreground">Availability</dt>
+                  <dd>
+                    <Badge variant={availabilityVariant[product.availability]}>
+                      {availabilityLabels[product.availability]}
+                    </Badge>
+                  </dd>
+                </div>
+              </dl>
             </motion.div>
           </AnimatePresence>
         </div>
-
-        {products.length > 1 ? (
-          <>
-            <button
-              type="button"
-              aria-label="Previous spotlight item"
-              onClick={() => setIndex((i) => (i - 1 + products.length) % products.length)}
-              className="absolute top-1/2 left-4 z-10 -translate-y-1/2 text-white/70 transition-colors hover:text-white sm:left-8"
-            >
-              <ChevronLeft className="size-8" strokeWidth={1.5} />
-            </button>
-            <button
-              type="button"
-              aria-label="Next spotlight item"
-              onClick={() => setIndex((i) => (i + 1) % products.length)}
-              className="absolute top-1/2 right-4 z-10 -translate-y-1/2 text-white/70 transition-colors hover:text-white sm:right-8"
-            >
-              <ChevronRight className="size-8" strokeWidth={1.5} />
-            </button>
-            <p className="text-meta absolute right-6 bottom-6 z-10 text-white/70">
-              {index + 1} / {products.length}
-            </p>
-          </>
-        ) : null}
-      </Section>
-
-      {products.length > 1 ? (
-        <div className="hidden border-b border-border bg-background lg:block">
-          <Container>
-            <div className="scrollbar-none flex gap-2 overflow-x-auto py-3">
-              {products.map((p, i) => {
-                const thumb = getProductImage(p.slug, p.categorySlug);
-                return (
-                  <button
-                    key={p.slug}
-                    type="button"
-                    aria-label={`Show ${p.name}`}
-                    aria-pressed={i === index}
-                    onClick={() => setIndex(i)}
-                    className={`relative size-16 shrink-0 overflow-hidden border transition-all sm:size-20 ${
-                      i === index ? "border-brand" : "border-border hover:border-foreground/40"
-                    }`}
-                  >
-                    {thumb ? (
-                      <Image src={thumb} alt={p.name} fill sizes="80px" className="object-cover" />
-                    ) : null}
-                  </button>
-                );
-              })}
-            </div>
-          </Container>
-        </div>
-      ) : null}
-    </>
+      </div>
+    </Section>
   );
 }
 
