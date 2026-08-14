@@ -169,8 +169,8 @@ function Navbar() {
       style={{ transitionDuration: `${duration.fast * 1000}ms` }}
     >
       <Container>
-        <nav className="flex h-14 items-center justify-between sm:h-16">
-          <Link href="/" className="inline-flex items-center">
+        <nav className="group/navreveal flex h-14 items-center gap-8 sm:h-16">
+          <Link href="/" className="inline-flex shrink-0 items-center">
             <Image
               src="/brand/outta-logo.png"
               alt={siteConfig.name}
@@ -181,28 +181,61 @@ function Navbar() {
             />
           </Link>
 
-          <ul className="hidden items-center gap-8 lg:flex">
-            {primaryNav.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="group/link text-label relative text-foreground/70 transition-colors hover:text-foreground"
-                >
-                  {item.label}
-                  <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-brand transition-all duration-200 ease-out group-hover/link:w-full" />
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {/* Desktop-only: collapsed to nothing by default — hovering (or
+              keyboard-focusing into) the nav reveals links + WhatsApp CTA +
+              search/kit icons. Logo is the only thing shown at rest. */}
+          <div className="hidden max-w-0 items-center gap-8 overflow-hidden opacity-0 transition-[max-width,opacity] duration-300 ease-out lg:flex lg:group-hover/navreveal:max-w-[700px] lg:group-hover/navreveal:opacity-100 lg:group-focus-within/navreveal:max-w-[700px] lg:group-focus-within/navreveal:opacity-100">
+            <ul className="flex items-center gap-8 whitespace-nowrap">
+              {primaryNav.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="group/link text-label relative text-foreground/70 transition-colors hover:text-foreground"
+                  >
+                    {item.label}
+                    <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-brand transition-all duration-200 ease-out group-hover/link:w-full" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
 
-          <div className="flex items-center gap-2">
-            <WhatsAppButton
-              label="WhatsApp Us"
-              variant="default"
-              size="sm"
-              closingLine="I'd like to talk about an upcoming shoot."
-              className="hidden lg:inline-flex"
-            />
+            <div className="ml-auto flex items-center gap-2">
+              <WhatsAppButton
+                label="WhatsApp Us"
+                variant="default"
+                size="sm"
+                closingLine="I'd like to talk about an upcoming shoot."
+                className="shrink-0"
+              />
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Search"
+                onClick={() => setSearchOpen(true)}
+                className="shrink-0"
+              >
+                <Search />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Kit list"
+                onClick={openDrawer}
+                className="relative shrink-0"
+              >
+                <Package />
+                {hydrated && itemCount > 0 ? (
+                  <span className="absolute top-1 right-1 flex size-3.5 items-center justify-center rounded-full border border-background bg-brand text-[0.5625rem] font-medium text-brand-foreground">
+                    {itemCount > 9 ? "9+" : itemCount}
+                  </span>
+                ) : null}
+              </Button>
+            </div>
+          </div>
+
+          {/* Tablet-only (below the hover-reveal breakpoint): search/kit stay
+              directly visible since there's no hover affordance on touch. */}
+          <div className="ml-auto flex items-center gap-2 lg:hidden">
             <Button
               variant="ghost"
               size="icon"
