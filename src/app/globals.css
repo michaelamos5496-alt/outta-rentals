@@ -122,8 +122,8 @@
   --chart-4: oklch(0.36 0 0);
   --chart-5: oklch(0.26 0 0);
 
-  /* Square corners — no radius, plain-paper rather than soft or boxed. */
-  --radius: 0rem;
+  /* Curved corners across all cards/tiles. */
+  --radius: 0.75rem;
 
   --sidebar: oklch(0.99 0 0);
   --sidebar-foreground: oklch(0.11 0 0);

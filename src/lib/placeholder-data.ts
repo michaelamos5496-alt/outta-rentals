@@ -297,4 +297,9 @@ export const testimonials: TestimonialItem[] = [
       "Placeholder testimonial — real feedback from productions will replace this once OUTTA is live.",
     role: "Creative Director, Content Studio",
   },
+  {
+    quote:
+      "Placeholder testimonial — real feedback from productions will replace this once OUTTA is live.",
+    role: "Line Producer, Broadcast Series",
+  },
 ];

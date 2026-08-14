@@ -25,6 +25,14 @@ export const categoryImages: Record<string, string> = {
   "lighting-modifiers": pexelsUrl(4417017), // shares the lighting photo
 };
 
+/** Stock headshots for the testimonials hover-carousel — paired by index with `testimonials` in placeholder-data.ts. */
+export const testimonialImages: string[] = [
+  pexelsUrl(27086922, 700),
+  pexelsUrl(37148308, 700),
+  pexelsUrl(34381971, 700),
+  pexelsUrl(12396627, 700),
+];
+
 /** Shared by the homepage "Build Your Kit" presets and the /packages grid — same 8 themes. */
 export const themeImages: Record<string, string> = {
   commercial: pexelsUrl(1114126),
