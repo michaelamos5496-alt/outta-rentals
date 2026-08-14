@@ -34,19 +34,19 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
   return (
     <motion.article
       variants={slideUp()}
-      className="group/product relative overflow-hidden rounded-[28px] bg-secondary"
+      className="group/product relative overflow-hidden rounded-[28px] bg-brand"
     >
       <Link href={href} className="block active:opacity-80">
         <div className="flex items-start justify-between gap-3 p-4 pb-2 sm:p-5 sm:pb-2">
           <div className="min-w-0">
-            <p className="truncate text-base font-bold lowercase leading-none sm:text-lg">
+            <p className="truncate text-base font-bold lowercase leading-none text-brand-foreground sm:text-lg">
               {brand?.name.toLowerCase() ?? product.brandSlug}
             </p>
             {category ? (
-              <p className="mt-1.5 text-xs text-muted-foreground">{category.name.toLowerCase()}</p>
+              <p className="mt-1.5 text-xs text-brand-foreground/70">{category.name.toLowerCase()}</p>
             ) : null}
           </div>
-          <p className="hidden max-w-[45%] text-right text-[0.6875rem] leading-snug text-muted-foreground sm:line-clamp-3 sm:block">
+          <p className="hidden max-w-[45%] text-right text-[0.6875rem] leading-snug text-brand-foreground/70 sm:line-clamp-3 sm:block">
             {product.shortDescription}
           </p>
         </div>
