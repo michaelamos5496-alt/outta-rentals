@@ -101,7 +101,7 @@ function Hero({ products, totalCount }: { products: DemoProduct[]; totalCount: n
             ) : null}
           </motion.div>
         </AnimatePresence>
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background/60 lg:bg-gradient-to-r lg:from-background lg:via-background/85 lg:to-background/25" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/75 via-background/45 to-background/20 lg:bg-gradient-to-r lg:from-background/70 lg:via-background/45 lg:to-background/10" />
       </div>
 
       <AnimatePresence mode="wait">
