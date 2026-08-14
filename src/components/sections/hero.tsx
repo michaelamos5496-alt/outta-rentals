@@ -8,6 +8,7 @@ import { ArrowRight, Aperture, MessageCircle } from "lucide-react";
 
 import { duration, easeOutta } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
+import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getProductImage } from "@/lib/editorial-images";
@@ -70,9 +71,73 @@ function Hero({ products, totalCount }: { products: DemoProduct[]; totalCount: n
         ];
 
   return (
-    <Section className="relative overflow-hidden border-b border-border">
-      <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-        <div>
+    <Section
+      spacing="none"
+      bleed
+      className="relative overflow-hidden border-b border-border lg:min-h-[calc(100vh-64px)]"
+    >
+      {/* Right half — full viewport height, bleeding to the browser edge.
+          Absolutely positioned so the left text column can sit in a normal
+          centered Container without fighting it for width. */}
+      <div className="absolute inset-y-0 right-0 hidden w-1/2 lg:block">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={product.slug}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: duration.base, ease: easeOutta }}
+            className="absolute inset-0"
+          >
+            {image ? (
+              <Image
+                src={image}
+                alt={product.name}
+                fill
+                priority
+                sizes="50vw"
+                className="object-cover"
+              />
+            ) : null}
+          </motion.div>
+        </AnimatePresence>
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`${product.slug}-card`}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: duration.base, ease: easeOutta }}
+            className="absolute right-6 bottom-6 w-72 border border-border bg-card p-5 shadow-lg"
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-meta">Featured Gear</span>
+              <Aperture className="size-4 text-muted-foreground" strokeWidth={1.75} />
+            </div>
+            <p className="text-h3 mt-2">{product.name}</p>
+            <dl className="mt-4 flex flex-col gap-2.5 text-sm">
+              {cardRows.map((row) => (
+                <div key={row.label} className="flex items-baseline justify-between gap-3">
+                  <dt className="text-muted-foreground">{row.label}</dt>
+                  <dd className="font-mono font-semibold">{row.value}</dd>
+                </div>
+              ))}
+              <div className="flex items-baseline justify-between gap-3">
+                <dt className="text-muted-foreground">Availability</dt>
+                <dd>
+                  <Badge variant={availabilityVariant[product.availability]}>
+                    {availabilityLabels[product.availability]}
+                  </Badge>
+                </dd>
+              </div>
+            </dl>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      <Container className="relative py-16 sm:py-20 lg:flex lg:min-h-[calc(100vh-64px)] lg:items-center lg:py-0">
+        <div className="lg:w-1/2 lg:max-w-xl lg:pr-12">
           {whatsappLink ? (
             <a
               href={whatsappLink}
@@ -117,66 +182,7 @@ function Hero({ products, totalCount }: { products: DemoProduct[]; totalCount: n
             </div>
           </div>
         </div>
-
-        <div className="relative hidden lg:block">
-          <div className="relative aspect-[4/5] overflow-hidden border border-border">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={product.slug}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: duration.base, ease: easeOutta }}
-                className="absolute inset-0"
-              >
-                {image ? (
-                  <Image
-                    src={image}
-                    alt={product.name}
-                    fill
-                    priority
-                    sizes="50vw"
-                    className="object-cover"
-                  />
-                ) : null}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`${product.slug}-card`}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: duration.base, ease: easeOutta }}
-              className="absolute -right-6 bottom-6 w-72 border border-border bg-card p-5 shadow-lg"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-meta">Featured Gear</span>
-                <Aperture className="size-4 text-muted-foreground" strokeWidth={1.75} />
-              </div>
-              <p className="text-h3 mt-2">{product.name}</p>
-              <dl className="mt-4 flex flex-col gap-2.5 text-sm">
-                {cardRows.map((row) => (
-                  <div key={row.label} className="flex items-baseline justify-between gap-3">
-                    <dt className="text-muted-foreground">{row.label}</dt>
-                    <dd className="font-mono font-semibold">{row.value}</dd>
-                  </div>
-                ))}
-                <div className="flex items-baseline justify-between gap-3">
-                  <dt className="text-muted-foreground">Availability</dt>
-                  <dd>
-                    <Badge variant={availabilityVariant[product.availability]}>
-                      {availabilityLabels[product.availability]}
-                    </Badge>
-                  </dd>
-                </div>
-              </dl>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </div>
+      </Container>
     </Section>
   );
 }
