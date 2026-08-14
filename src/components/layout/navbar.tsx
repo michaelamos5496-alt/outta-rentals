@@ -190,7 +190,7 @@ function Navbar() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="group/link text-label relative text-brand-foreground/75 transition-colors hover:text-brand-foreground"
+                    className="group/link text-label relative text-brand-foreground transition-colors hover:text-brand-foreground"
                   >
                     {item.label}
                     <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-brand-foreground transition-all duration-200 ease-out group-hover/link:w-full" />
