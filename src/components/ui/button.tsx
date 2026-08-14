@@ -5,19 +5,16 @@ import { Slot } from "radix-ui"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-md border-2 border-transparent bg-clip-padding text-sm font-semibold whitespace-nowrap outline-none select-none transition-[transform,box-shadow,background-color,color] duration-100 ease-out focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none disabled:translate-x-0 disabled:translate-y-0 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 items-center justify-center rounded-md border border-transparent bg-clip-padding text-sm font-semibold whitespace-nowrap outline-none select-none transition-[background-color,color,border-color,opacity] duration-150 ease-out focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
-        // Hard offset shadow at rest; pressing/hovering "pushes" the
-        // button into the page by collapsing the shadow — the signature
-        // interaction of this design direction.
-        default:
-          "border-foreground bg-primary text-primary-foreground shadow-[3px_3px_0_0_var(--foreground)] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
+        // Flat fill, no shadow — a quiet color/opacity shift is the only
+        // feedback, in keeping with the hairline-rule "worksheet" system.
+        default: "bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary/80",
         outline:
-          "border-foreground bg-background text-foreground shadow-[3px_3px_0_0_var(--foreground)] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
-        secondary:
-          "border-foreground bg-secondary text-secondary-foreground shadow-[3px_3px_0_0_var(--foreground)] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
+          "border-input bg-background text-foreground hover:bg-muted active:bg-muted/70",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/70",
         ghost:
           "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground",
         destructive:

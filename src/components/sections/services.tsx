@@ -9,7 +9,7 @@ import { services } from "@/lib/placeholder-data";
 
 function Services() {
   return (
-    <Section className="border-t-2 border-foreground">
+    <Section className="border-t border-border">
       <Heading level="h2" eyebrow="Services">
         More than equipment.
       </Heading>

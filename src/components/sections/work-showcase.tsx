@@ -23,7 +23,7 @@ function slugifyTitle(value: string): string {
 
 function WorkShowcase() {
   return (
-    <Section className="border-t-2 border-foreground">
+    <Section className="border-t border-border">
       <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
         <Heading level="h2" eyebrow="Work">
           Built for the set.

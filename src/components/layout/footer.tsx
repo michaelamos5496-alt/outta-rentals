@@ -11,7 +11,7 @@ function Footer() {
   return (
     <footer
       data-slot="footer"
-      className="relative overflow-hidden border-t-2 border-foreground bg-background pb-20 lg:pb-0"
+      className="relative overflow-hidden border-t border-border bg-background pb-20 lg:pb-0"
     >
       {/* Oversized watermark of the real logo, bleeding off the edge — a texture, not a UI element. Dropped on mobile to keep the footer minimal. */}
       <Image

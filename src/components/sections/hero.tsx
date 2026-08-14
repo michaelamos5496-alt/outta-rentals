@@ -185,7 +185,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
       </Section>
 
       {products.length > 1 ? (
-        <div className="hidden border-b-2 border-foreground bg-background lg:block">
+        <div className="hidden border-b border-border bg-background lg:block">
           <Container>
             <div className="scrollbar-none flex gap-2 overflow-x-auto py-3">
               {products.map((p, i) => {
@@ -197,8 +197,8 @@ function Hero({ products }: { products: DemoProduct[] }) {
                     aria-label={`Show ${p.name}`}
                     aria-pressed={i === index}
                     onClick={() => setIndex(i)}
-                    className={`relative size-16 shrink-0 overflow-hidden border-2 transition-all sm:size-20 ${
-                      i === index ? "border-brand" : "border-foreground/70 hover:border-foreground"
+                    className={`relative size-16 shrink-0 overflow-hidden border transition-all sm:size-20 ${
+                      i === index ? "border-brand" : "border-border hover:border-foreground/40"
                     }`}
                   >
                     {thumb ? (

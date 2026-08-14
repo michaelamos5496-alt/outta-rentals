@@ -24,7 +24,7 @@ function ProductGallery({ productSlug, categorySlug, sku, name, frameCount = 4 }
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="overflow-hidden border-2 border-foreground">
+      <div className="overflow-hidden border border-border">
         <MediaPlaceholder
           src={image}
           alt={name}
@@ -42,10 +42,10 @@ function ProductGallery({ productSlug, categorySlug, sku, name, frameCount = 4 }
             aria-pressed={active === i}
             onClick={() => setActive(i)}
             className={cn(
-              "overflow-hidden border-2 transition-all",
+              "overflow-hidden border transition-all",
               active === i
                 ? "border-brand"
-                : "border-foreground/70 hover:border-foreground"
+                : "border-border hover:border-foreground/40"
             )}
           >
             <MediaPlaceholder src={image} alt={`${name} ${i + 1}`} icon={icon} className="aspect-square w-full" />

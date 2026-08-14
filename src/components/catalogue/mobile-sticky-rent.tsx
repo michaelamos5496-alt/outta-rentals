@@ -28,7 +28,7 @@ function MobileStickyRent({ productSlug, dayRate, currency }: MobileStickyRentPr
   }, [added]);
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-30 border-t-2 border-foreground bg-background/95 px-5 py-3 backdrop-blur-md lg:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-background/95 px-5 py-3 backdrop-blur-md lg:hidden">
       <div className="flex items-center justify-between gap-4">
         <div>
           <p className="text-h3 font-mono leading-none">{formatPrice(dayRate, currency)}</p>

@@ -5,11 +5,15 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ============================================================
-   OUTTA RENTALS — DESIGN SYSTEM v3 "CINEMA TRADE"
-   Bold black borders, hard offset shadows and sharp corners, a full
-   viewport-height 711rent-style dark rotating hero. White base — kept
-   simple and deliberately undecorated rather than reading like any one
-   reference site. OUTTA Green is the one accent throughout.
+   OUTTA RENTALS — DESIGN SYSTEM v4 "WORKSHEET"
+   A blank-slate reset from the bold-border "Cinema Trade" look. Reads
+   like production paperwork — a call sheet or camera log — rather than
+   a boxed trade catalog: hairline rules instead of thick borders, flat
+   buttons instead of hard offset shadows, square corners (no radius),
+   monospace for technical figures (rates, SKUs), generous whitespace.
+   White base, near-black ink, OUTTA Green as the one accent. The
+   full-viewport rotating gear-photography hero stays — it's the one
+   piece of the last two directions that worked outright.
    ============================================================ */
 
 @theme inline {
@@ -72,14 +76,6 @@
   /* Editorial container widths */
   --container-content: 1440px;
   --container-narrow: 880px;
-
-  /* Hard, unblurred offset shadows — the signature "trade card" depth cue,
-     paired with a press-in interaction (see button.tsx) instead of a soft
-     hover glow. */
-  --shadow-outta-sm: 2px 2px 0 0 var(--foreground);
-  --shadow-outta-md: 4px 4px 0 0 var(--foreground);
-  --shadow-outta-lg: 6px 6px 0 0 var(--foreground);
-  --shadow-outta-glow: 4px 4px 0 0 var(--brand);
 }
 
 :root {
@@ -109,10 +105,10 @@
   --destructive: oklch(0.55 0.22 27);
   --destructive-foreground: oklch(0.99 0 0);
 
-  /* Bold, visible borders — a defining trait of this direction, not a
-     hairline afterthought. */
-  --border: oklch(0.11 0 0 / 100%);
-  --input: oklch(0.11 0 0 / 100%);
+  /* Hairline rules — visible but quiet, like ruled paper rather than a
+     boxed card. */
+  --border: oklch(0.11 0 0 / 16%);
+  --input: oklch(0.11 0 0 / 22%);
   --ring: oklch(0.52 0.20 143 / 60%);
 
   /* OUTTA Green — sampled from the real logo. Used for CTAs, focus, highlights only. */
@@ -126,8 +122,8 @@
   --chart-4: oklch(0.36 0 0);
   --chart-5: oklch(0.26 0 0);
 
-  /* Sharp, near-square corners — crisp rather than soft/pill. */
-  --radius: 0.1875rem;
+  /* Square corners — no radius, plain-paper rather than soft or boxed. */
+  --radius: 0rem;
 
   --sidebar: oklch(0.99 0 0);
   --sidebar-foreground: oklch(0.11 0 0);
@@ -135,7 +131,7 @@
   --sidebar-primary-foreground: oklch(0.99 0 0);
   --sidebar-accent: oklch(0.95 0 0);
   --sidebar-accent-foreground: oklch(0.11 0 0);
-  --sidebar-border: oklch(0.11 0 0 / 100%);
+  --sidebar-border: oklch(0.11 0 0 / 16%);
   --sidebar-ring: oklch(0.52 0.20 143 / 60%);
 }
 

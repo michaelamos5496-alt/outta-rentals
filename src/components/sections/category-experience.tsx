@@ -19,7 +19,7 @@ interface CategoryExperienceProps {
 // longer has a separate full-bleed photo-teaser variant.
 function CategoryExperience({ products }: CategoryExperienceProps) {
   return (
-    <Section spacing="compact" className="border-t-2 border-foreground">
+    <Section spacing="compact" className="border-t border-border">
       <div className="py-8">
         <Heading level="h2" eyebrow="The Range">
           Built by category.
@@ -39,7 +39,7 @@ function CategoryExperience({ products }: CategoryExperienceProps) {
             <motion.div key={category.slug} variants={slideUp()}>
               <Link
                 href={`/equipment/${category.slug}`}
-                className="group/cat relative block overflow-hidden border-2 border-foreground p-4 shadow-[var(--shadow-outta-sm)] transition-[transform,box-shadow] duration-100 ease-out hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none sm:p-5"
+                className="group/cat relative block overflow-hidden border border-border p-4 transition-colors duration-150 ease-out hover:border-foreground/40 sm:p-5"
               >
                 <span className="bg-brand-muted text-brand flex size-10 items-center justify-center rounded-lg transition-transform duration-300 ease-out group-hover/cat:-translate-y-0.5 sm:size-12">
                   <category.icon className="size-5 sm:size-6" strokeWidth={1.75} />

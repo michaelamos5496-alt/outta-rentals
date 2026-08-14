@@ -145,7 +145,7 @@ export default function KitPage() {
           </div>
         </div>
 
-        <aside className="h-fit border-2 border-foreground p-6 lg:sticky lg:top-24">
+        <aside className="h-fit border border-border p-6 lg:sticky lg:top-24">
           <SectionLabel>Estimated pricing</SectionLabel>
           <div className="flex flex-col gap-2">
             {lines.map((line) => (

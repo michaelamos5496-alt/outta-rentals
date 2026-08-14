@@ -244,7 +244,7 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
               ))}
             </SelectContent>
           </Select>
-          <div className="hidden items-center gap-1 border-2 border-foreground p-1 sm:flex">
+          <div className="hidden items-center gap-1 border border-border p-1 sm:flex">
             <Button
               variant={view === "grid" ? "secondary" : "ghost"}
               size="icon-sm"

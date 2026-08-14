@@ -32,7 +32,7 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
   return (
     <motion.article variants={slideUp()} className="group/product">
       <Link href={href} className="block active:opacity-80">
-        <div className="overflow-hidden border-2 border-foreground">
+        <div className="overflow-hidden border border-border">
           <MediaPlaceholder
             src={getProductImage(product.slug, product.categorySlug)}
             alt={product.name}
@@ -58,7 +58,7 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
               setAdded(true);
             }}
             className={cn(
-              "mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full border-2 border-foreground transition-colors active:scale-90 sm:size-8",
+              "mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full border border-border transition-colors active:scale-90 sm:size-8",
               added ? "bg-secondary text-secondary-foreground" : "bg-brand text-brand-foreground"
             )}
           >

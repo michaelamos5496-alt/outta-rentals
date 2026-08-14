@@ -38,7 +38,7 @@ export default function PackagesPage() {
           return (
             <div
               key={pkg.slug}
-              className="flex flex-col overflow-hidden border-2 border-foreground"
+              className="flex flex-col overflow-hidden border border-border"
             >
               <MediaPlaceholder
                 src={themeImages[pkg.slug]}

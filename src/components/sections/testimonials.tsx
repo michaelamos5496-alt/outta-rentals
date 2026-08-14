@@ -11,7 +11,7 @@ import { testimonials } from "@/lib/placeholder-data";
 
 function Testimonials() {
   return (
-    <Section className="border-t-2 border-foreground">
+    <Section className="border-t border-border">
       <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
         <Heading level="h2" eyebrow="Testimonials">
           What productions say.
@@ -30,7 +30,7 @@ function Testimonials() {
           <motion.figure
             key={testimonial.role}
             variants={slideUp()}
-            className="flex flex-col border-2 border-foreground p-6"
+            className="flex flex-col border border-border p-6"
           >
             <Quote className="size-5 text-brand" strokeWidth={1.5} />
             <blockquote className="text-body mt-4 flex-1 text-balance italic">

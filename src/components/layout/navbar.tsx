@@ -163,8 +163,8 @@ function Navbar() {
     <header
       data-slot="navbar"
       className={cn(
-        "sticky top-0 z-40 w-full border-b-2 border-foreground bg-background transition-shadow",
-        scrolled ? "shadow-[var(--shadow-outta-sm)]" : ""
+        "sticky top-0 z-40 w-full border-b border-border bg-background transition-shadow",
+        scrolled ? "shadow-sm" : ""
       )}
       style={{ transitionDuration: `${duration.fast * 1000}ms` }}
     >
@@ -221,7 +221,7 @@ function Navbar() {
             >
               <Package />
               {hydrated && itemCount > 0 ? (
-                <span className="absolute top-1 right-1 flex size-3.5 items-center justify-center rounded-full border border-foreground bg-brand text-[0.5625rem] font-medium text-brand-foreground">
+                <span className="absolute top-1 right-1 flex size-3.5 items-center justify-center rounded-full border border-background bg-brand text-[0.5625rem] font-medium text-brand-foreground">
                   {itemCount > 9 ? "9+" : itemCount}
                 </span>
               ) : null}
@@ -321,7 +321,7 @@ function Navbar() {
                 >
                   <Package /> Kit
                   {hydrated && itemCount > 0 ? (
-                    <span className="absolute -top-2 -right-2 flex size-5 items-center justify-center rounded-full border border-foreground bg-brand text-[0.6875rem] font-medium text-brand-foreground">
+                    <span className="absolute -top-2 -right-2 flex size-5 items-center justify-center rounded-full border border-background bg-brand text-[0.6875rem] font-medium text-brand-foreground">
                       {itemCount > 9 ? "9+" : itemCount}
                     </span>
                   ) : null}

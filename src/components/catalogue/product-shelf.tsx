@@ -12,7 +12,7 @@ function ProductShelf({ title, eyebrow, products }: ProductShelfProps) {
   if (products.length === 0) return null;
 
   return (
-    <section className="border-t-2 border-foreground py-14 sm:py-16">
+    <section className="border-t border-border py-14 sm:py-16">
       <Heading level="h3" eyebrow={eyebrow}>
         {title}
       </Heading>

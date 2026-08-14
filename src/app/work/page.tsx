@@ -41,7 +41,7 @@ function EquipmentUsedItem({
   if (!product) return null;
 
   return (
-    <div className="flex items-center justify-between gap-3 border-2 border-foreground py-2.5 pr-2.5 pl-3.5">
+    <div className="flex items-center justify-between gap-3 border border-border py-2.5 pr-2.5 pl-3.5">
       <Link href={`/equipment/${product.slug}`} className="min-w-0 hover:text-brand">
         <p className="truncate text-sm font-medium">
           {product.name}
@@ -78,7 +78,7 @@ export default function WorkPage() {
         </p>
       </Section>
 
-      <div className="border-t-2 border-foreground">
+      <div className="border-t border-border">
         {workProjects.map((project, i) => {
           const themeSlug = slugifyProductionType(project.productionType);
           return (
@@ -89,7 +89,7 @@ export default function WorkPage() {
               whileInView="visible"
               viewport={viewportOnce}
               variants={slideUp()}
-              className="scroll-mt-20 border-b-2 border-foreground"
+              className="scroll-mt-20 border-b border-border"
             >
               <Section spacing="compact">
                 <div
