@@ -33,9 +33,14 @@ function CategoryExperience({ products }: CategoryExperienceProps) {
         variants={staggerContainer(0.05)}
         className="scrollbar-none flex gap-2 overflow-x-auto pb-2 sm:gap-3"
       >
-        {equipmentCategories.map((category) => {
-          const count = products.filter((p) => p.categorySlug === category.slug).length;
-          return (
+        {equipmentCategories
+          .map((category) => ({
+            category,
+            count: products.filter((p) => p.categorySlug === category.slug).length,
+          }))
+          .filter(({ count }) => count > 0)
+          .map(({ category, count }) => {
+            return (
             <motion.div key={category.slug} variants={slideUp()} className="shrink-0">
               <Link
                 href={`/equipment/${category.slug}`}

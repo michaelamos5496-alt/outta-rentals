@@ -34,12 +34,46 @@ function WorkShowcase() {
         </p>
       </div>
 
+      {/* Mobile: a swipeable slide-to-slide carousel (scroll-snap, one
+          project per screen). Desktop keeps the two-column grid below. */}
+      <div className="scrollbar-none mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 sm:hidden">
+        {workShowcase.map((project) => {
+          const slug = slugifyProductionType(project.productionType);
+          return (
+            <article key={project.title} className="w-full shrink-0 snap-center">
+              <div className="overflow-hidden rounded-xl">
+                <AutoplayVideo
+                  src="/video/about.mp4"
+                  poster={themeImages[slug]}
+                  alt={project.title}
+                  className="aspect-video w-full"
+                />
+              </div>
+              <div className="mt-4 flex items-start justify-between gap-3">
+                <div>
+                  <h3 className="font-medium">{project.title}</h3>
+                  <p className="text-small mt-1">{project.description}</p>
+                </div>
+                <Badge variant="technical" className="shrink-0">
+                  {project.productionType}
+                </Badge>
+              </div>
+              <Button asChild variant="link" className="mt-2 h-auto p-0">
+                <Link href={`/work#${slugifyTitle(project.title)}`}>
+                  View Project <ArrowRight />
+                </Link>
+              </Button>
+            </article>
+          );
+        })}
+      </div>
+
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnce}
         variants={staggerContainer(0.08)}
-        className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2"
+        className="mt-10 hidden grid-cols-2 gap-6 sm:grid"
       >
         {workShowcase.map((project) => {
           const slug = slugifyProductionType(project.productionType);
