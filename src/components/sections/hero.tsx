@@ -74,12 +74,12 @@ function Hero({ products, totalCount }: { products: DemoProduct[]; totalCount: n
     <Section
       spacing="none"
       bleed
-      className="relative overflow-hidden border-b border-border lg:min-h-[calc(100vh-64px)]"
+      className="relative overflow-hidden border-b border-border min-h-[calc(100svh-56px)] lg:min-h-[calc(100vh-64px)]"
     >
-      {/* Right half — full viewport height, bleeding to the browser edge.
-          Absolutely positioned so the left text column can sit in a normal
-          centered Container without fighting it for width. */}
-      <div className="absolute inset-y-0 right-0 hidden w-1/2 lg:block">
+      {/* Photo fills the entire hero — full width, full viewport height —
+          washed with a background-tinted gradient so the dark text stays
+          legible directly on top of it, no dark scrim/white-text switch. */}
+      <div className="absolute inset-0">
         <AnimatePresence mode="wait">
           <motion.div
             key={product.slug}
@@ -95,49 +95,50 @@ function Hero({ products, totalCount }: { products: DemoProduct[]; totalCount: n
                 alt={product.name}
                 fill
                 priority
-                sizes="50vw"
+                sizes="100vw"
                 className="object-cover"
               />
             ) : null}
           </motion.div>
         </AnimatePresence>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`${product.slug}-card`}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: duration.base, ease: easeOutta }}
-            className="absolute right-6 bottom-6 w-72 border border-border bg-card p-5 shadow-lg"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-meta">Featured Gear</span>
-              <Aperture className="size-4 text-muted-foreground" strokeWidth={1.75} />
-            </div>
-            <p className="text-h3 mt-2">{product.name}</p>
-            <dl className="mt-4 flex flex-col gap-2.5 text-sm">
-              {cardRows.map((row) => (
-                <div key={row.label} className="flex items-baseline justify-between gap-3">
-                  <dt className="text-muted-foreground">{row.label}</dt>
-                  <dd className="font-mono font-semibold">{row.value}</dd>
-                </div>
-              ))}
-              <div className="flex items-baseline justify-between gap-3">
-                <dt className="text-muted-foreground">Availability</dt>
-                <dd>
-                  <Badge variant={availabilityVariant[product.availability]}>
-                    {availabilityLabels[product.availability]}
-                  </Badge>
-                </dd>
-              </div>
-            </dl>
-          </motion.div>
-        </AnimatePresence>
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background/60 lg:bg-gradient-to-r lg:from-background lg:via-background/85 lg:to-background/25" />
       </div>
 
-      <Container className="relative py-16 sm:py-20 lg:flex lg:min-h-[calc(100vh-64px)] lg:items-center lg:py-0">
-        <div className="lg:w-1/2 lg:max-w-xl lg:pr-12">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`${product.slug}-card`}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
+          transition={{ duration: duration.base, ease: easeOutta }}
+          className="absolute right-6 bottom-6 hidden w-72 border border-border bg-card p-5 shadow-lg lg:block"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-meta">Featured Gear</span>
+            <Aperture className="size-4 text-muted-foreground" strokeWidth={1.75} />
+          </div>
+          <p className="text-h3 mt-2">{product.name}</p>
+          <dl className="mt-4 flex flex-col gap-2.5 text-sm">
+            {cardRows.map((row) => (
+              <div key={row.label} className="flex items-baseline justify-between gap-3">
+                <dt className="text-muted-foreground">{row.label}</dt>
+                <dd className="font-mono font-semibold">{row.value}</dd>
+              </div>
+            ))}
+            <div className="flex items-baseline justify-between gap-3">
+              <dt className="text-muted-foreground">Availability</dt>
+              <dd>
+                <Badge variant={availabilityVariant[product.availability]}>
+                  {availabilityLabels[product.availability]}
+                </Badge>
+              </dd>
+            </div>
+          </dl>
+        </motion.div>
+      </AnimatePresence>
+
+      <Container className="relative flex min-h-[calc(100svh-56px)] items-center py-16 sm:py-20 lg:min-h-[calc(100vh-64px)] lg:py-0">
+        <div className="max-w-xl">
           {whatsappLink ? (
             <a
               href={whatsappLink}
