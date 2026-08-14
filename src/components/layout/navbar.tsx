@@ -163,7 +163,7 @@ function Navbar() {
     <header
       data-slot="navbar"
       className={cn(
-        "sticky top-0 z-40 w-full border-b border-border bg-background transition-shadow",
+        "sticky top-0 z-40 w-full bg-brand transition-shadow",
         scrolled ? "shadow-sm" : ""
       )}
       style={{ transitionDuration: `${duration.fast * 1000}ms` }}
@@ -172,7 +172,7 @@ function Navbar() {
         <nav className="group/navreveal flex h-14 items-center gap-8 sm:h-16">
           <Link href="/" className="inline-flex shrink-0 items-center">
             <Image
-              src="/brand/outta-logo.png"
+              src="/brand/outta-logo-dark.png"
               alt={siteConfig.name}
               width={595}
               height={225}
@@ -190,10 +190,10 @@ function Navbar() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="group/link text-label relative text-foreground/70 transition-colors hover:text-foreground"
+                    className="group/link text-label relative text-brand-foreground/75 transition-colors hover:text-brand-foreground"
                   >
                     {item.label}
-                    <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-brand transition-all duration-200 ease-out group-hover/link:w-full" />
+                    <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-brand-foreground transition-all duration-200 ease-out group-hover/link:w-full" />
                   </Link>
                 </li>
               ))}
@@ -205,14 +205,14 @@ function Navbar() {
                 variant="default"
                 size="sm"
                 closingLine="I'd like to talk about an upcoming shoot."
-                className="shrink-0"
+                className="shrink-0 border-brand-foreground bg-brand-foreground text-brand hover:bg-brand-foreground/90 active:bg-brand-foreground/80"
               />
               <Button
                 variant="ghost"
                 size="icon"
                 aria-label="Search"
                 onClick={() => setSearchOpen(true)}
-                className="shrink-0"
+                className="shrink-0 text-brand-foreground hover:bg-brand-foreground/10 hover:text-brand-foreground"
               >
                 <Search />
               </Button>
@@ -221,11 +221,11 @@ function Navbar() {
                 size="icon"
                 aria-label="Kit list"
                 onClick={openDrawer}
-                className="relative shrink-0"
+                className="relative shrink-0 text-brand-foreground hover:bg-brand-foreground/10 hover:text-brand-foreground"
               >
                 <Package />
                 {hydrated && itemCount > 0 ? (
-                  <span className="absolute top-1 right-1 flex size-3.5 items-center justify-center rounded-full border border-background bg-brand text-[0.5625rem] font-medium text-brand-foreground">
+                  <span className="absolute top-1 right-1 flex size-3.5 items-center justify-center rounded-full border border-brand bg-brand-foreground text-[0.5625rem] font-medium text-brand">
                     {itemCount > 9 ? "9+" : itemCount}
                   </span>
                 ) : null}
@@ -241,7 +241,7 @@ function Navbar() {
               size="icon"
               aria-label="Search"
               onClick={() => setSearchOpen(true)}
-              className="hidden sm:inline-flex"
+              className="hidden text-brand-foreground hover:bg-brand-foreground/10 hover:text-brand-foreground sm:inline-flex"
             >
               <Search />
             </Button>
@@ -250,11 +250,11 @@ function Navbar() {
               size="icon"
               aria-label="Kit list"
               onClick={openDrawer}
-              className="relative hidden sm:inline-flex"
+              className="relative hidden text-brand-foreground hover:bg-brand-foreground/10 hover:text-brand-foreground sm:inline-flex"
             >
               <Package />
               {hydrated && itemCount > 0 ? (
-                <span className="absolute top-1 right-1 flex size-3.5 items-center justify-center rounded-full border border-background bg-brand text-[0.5625rem] font-medium text-brand-foreground">
+                <span className="absolute top-1 right-1 flex size-3.5 items-center justify-center rounded-full border border-brand bg-brand-foreground text-[0.5625rem] font-medium text-brand">
                   {itemCount > 9 ? "9+" : itemCount}
                 </span>
               ) : null}
