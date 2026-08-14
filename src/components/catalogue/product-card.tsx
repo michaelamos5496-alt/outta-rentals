@@ -47,18 +47,18 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
   // one consistent card look sitewide: green header (brand + category +
   // description), large photo, price tag, circular quick-add button.
   return (
-    <article className={cn("group/product relative overflow-hidden rounded-[28px] bg-brand", className)}>
+    <article className={cn("group/product relative overflow-hidden rounded-2xl bg-brand", className)}>
       <Link href={href} className="block active:opacity-80">
-        <div className="flex items-start justify-between gap-3 p-4 pb-2 sm:p-5 sm:pb-2">
+        <div className="flex items-start justify-between gap-2 p-3 pb-1.5 sm:p-3.5 sm:pb-1.5">
           <div className="min-w-0">
-            <p className="truncate text-base font-bold lowercase leading-none text-brand-foreground sm:text-lg">
+            <p className="truncate text-sm font-bold lowercase leading-none text-brand-foreground">
               {brand?.name.toLowerCase() ?? product.brandSlug}
             </p>
             {category ? (
-              <p className="mt-1.5 text-xs text-brand-foreground/70">{category.name.toLowerCase()}</p>
+              <p className="mt-1 text-[0.6875rem] text-brand-foreground/70">{category.name.toLowerCase()}</p>
             ) : null}
           </div>
-          <p className="hidden max-w-[45%] text-right text-[0.6875rem] leading-snug text-brand-foreground/70 sm:line-clamp-3 sm:block">
+          <p className="hidden max-w-[45%] text-right text-[0.625rem] leading-snug text-brand-foreground/70 sm:line-clamp-2 sm:block">
             {product.shortDescription}
           </p>
         </div>
@@ -67,9 +67,9 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
           <MediaPlaceholder
             src={getProductImage(product.slug, product.categorySlug)}
             alt={product.name}
-            className="aspect-[4/3] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
+            className="aspect-[16/11] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
           />
-          <span className="absolute right-3 bottom-3 bg-background px-2 py-1 font-mono text-[0.6875rem] font-semibold">
+          <span className="absolute right-2 bottom-2 bg-background px-1.5 py-0.5 font-mono text-[0.625rem] font-semibold">
             {formatPrice(product.dayRate, product.currency)}/day
           </span>
         </div>
@@ -84,11 +84,11 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
           setAdded(true);
         }}
         className={cn(
-          "absolute bottom-3 left-3 flex size-9 items-center justify-center rounded-full transition-colors active:scale-90",
+          "absolute bottom-2 left-2 flex size-7 items-center justify-center rounded-full transition-colors active:scale-90",
           added ? "bg-brand-foreground text-brand" : "bg-foreground text-background"
         )}
       >
-        {added ? <Check className="size-4" /> : <ArrowUpRight className="size-4" />}
+        {added ? <Check className="size-3.5" /> : <ArrowUpRight className="size-3.5" />}
       </button>
     </article>
   );
