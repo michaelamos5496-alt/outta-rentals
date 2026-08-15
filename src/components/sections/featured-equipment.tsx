@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Check, Plus } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
 
 import { slideUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
@@ -34,9 +34,9 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
   return (
     <motion.article
       variants={slideUp()}
-      className="group/product relative flex h-full flex-col overflow-hidden rounded-2xl bg-brand"
+      className="group/product relative overflow-hidden rounded-2xl bg-brand"
     >
-      <Link href={href} className="flex flex-1 flex-col active:opacity-80">
+      <Link href={href} className="block active:opacity-80">
         <div className="flex items-start justify-between gap-2 p-3 pb-1.5 sm:p-3.5 sm:pb-1.5">
           <div className="min-w-0">
             <p className="truncate text-sm font-bold leading-tight text-brand-foreground">
@@ -52,11 +52,11 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
           </p>
         </div>
 
-        <div className="relative mt-1 min-h-[7rem] flex-1">
+        <div className="relative mt-1">
           <MediaPlaceholder
             src={getProductImage(product.slug, product.categorySlug)}
             alt={product.name}
-            className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
+            className="aspect-[16/11] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
           />
           <span className="absolute right-2 bottom-2 bg-background px-1.5 py-0.5 font-mono text-[0.625rem] font-semibold">
             {formatPrice(product.dayRate, product.currency)}/day
@@ -77,7 +77,7 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
           added ? "bg-brand text-brand-foreground" : "bg-foreground text-background"
         )}
       >
-        {added ? <Check className="size-3.5" /> : <Plus className="size-3.5" />}
+        {added ? <Check className="size-3.5" /> : <ArrowUpRight className="size-3.5" />}
       </button>
     </motion.article>
   );
