@@ -60,9 +60,9 @@ function BuildYourKit() {
             <motion.article
               key={preset.name}
               variants={slideUp()}
-              className="group/preset relative overflow-hidden rounded-2xl bg-brand"
+              className="group/preset relative flex h-full flex-col overflow-hidden rounded-2xl bg-brand"
             >
-              <Link href={href} className="block active:opacity-80">
+              <Link href={href} className="flex flex-1 flex-col active:opacity-80">
                 <div className="flex items-start justify-between gap-2 p-3 pb-1.5 sm:p-3.5 sm:pb-1.5">
                   <div className="min-w-0">
                     <p className="truncate text-sm font-bold leading-tight text-brand-foreground">
@@ -75,12 +75,12 @@ function BuildYourKit() {
                   </p>
                 </div>
 
-                <div className="relative mt-1">
+                <div className="relative mt-1 min-h-[7rem] flex-1">
                   <MediaPlaceholder
                     src={themeImages[slug]}
                     alt={preset.name}
                     icon={preset.icon}
-                    className="aspect-[16/11] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/preset:scale-105"
+                    className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/preset:scale-105"
                   />
                   {pkg && dayRate > 0 ? (
                     <span className="absolute right-2 bottom-2 bg-background px-1.5 py-0.5 font-mono text-[0.625rem] font-semibold">

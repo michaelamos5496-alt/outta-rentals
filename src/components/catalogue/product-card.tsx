@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowUpRight, Check, Plus } from "lucide-react";
+import { Check, Plus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -47,8 +47,8 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
   // one consistent card look sitewide: green header (brand + category +
   // description), large photo, price tag, circular quick-add button.
   return (
-    <article className={cn("group/product relative overflow-hidden rounded-2xl bg-brand", className)}>
-      <Link href={href} className="block active:opacity-80">
+    <article className={cn("group/product relative flex h-full flex-col overflow-hidden rounded-2xl bg-brand", className)}>
+      <Link href={href} className="flex flex-1 flex-col active:opacity-80">
         <div className="flex items-start justify-between gap-2 p-3 pb-1.5 sm:p-3.5 sm:pb-1.5">
           <div className="min-w-0">
             <p className="truncate text-sm font-bold leading-tight text-brand-foreground">
@@ -64,11 +64,11 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
           </p>
         </div>
 
-        <div className="relative mt-1">
+        <div className="relative mt-1 min-h-[7rem] flex-1">
           <MediaPlaceholder
             src={getProductImage(product.slug, product.categorySlug)}
             alt={product.name}
-            className="aspect-[16/11] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
+            className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
           />
           <span className="absolute right-2 bottom-2 bg-background px-1.5 py-0.5 font-mono text-[0.625rem] font-semibold">
             {formatPrice(product.dayRate, product.currency)}/day
@@ -89,7 +89,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
           added ? "bg-brand-foreground text-brand" : "bg-foreground text-background"
         )}
       >
-        {added ? <Check className="size-3.5" /> : <ArrowUpRight className="size-3.5" />}
+        {added ? <Check className="size-3.5" /> : <Plus className="size-3.5" />}
       </button>
     </article>
   );
