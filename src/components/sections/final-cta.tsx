@@ -28,7 +28,7 @@ function FinalCta() {
         </motion.h2>
         <motion.p
           variants={slideUp(0.05)}
-          className="text-body mx-auto mt-6 max-w-md text-brand-foreground/80"
+          className="text-body mx-auto mt-6 max-w-md !text-brand-foreground/80"
         >
           Tell us what you&rsquo;re shooting. We&rsquo;ll help you build the
           right kit.

@@ -14,11 +14,11 @@ export default function ServicesPage() {
   return (
     <>
       <Section spacing="none" bleed className="bg-brand py-16 sm:py-24">
-        <p className="text-label text-brand-foreground/70">Services</p>
+        <p className="text-label !text-brand-foreground/70">Services</p>
         <h1 className="text-display mt-4 max-w-2xl text-brand-foreground">
           More than equipment.
         </h1>
-        <p className="text-body mt-6 max-w-xl text-brand-foreground/80">
+        <p className="text-body mt-6 max-w-xl !text-brand-foreground/80">
           Renting gear is the easy part. OUTTA is built around everything
           around the rental — support, delivery, prep and the technical
           judgment to get a kit right the first time.

@@ -56,7 +56,7 @@ function MediaPlaceholder({
         />
         <div className="absolute inset-0 ring-1 ring-inset ring-foreground/10" />
         {meta ? (
-          <span className="text-meta absolute bottom-3 left-3 text-white/80 drop-shadow-sm">
+          <span className="text-meta absolute bottom-3 left-3 !text-white/80 drop-shadow-sm">
             {meta}
           </span>
         ) : null}
