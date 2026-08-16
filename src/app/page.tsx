@@ -1,8 +1,6 @@
 import { Hero } from "@/components/sections/hero";
-import { EquipmentStrip } from "@/components/sections/equipment-strip";
 import { FeaturedEquipment } from "@/components/sections/featured-equipment";
 import { CategoryExperience } from "@/components/sections/category-experience";
-import { BuildYourKit } from "@/components/sections/build-your-kit";
 import { WhyOutta } from "@/components/sections/why-outta";
 import { WorkShowcase } from "@/components/sections/work-showcase";
 import { Services } from "@/components/sections/services";
@@ -33,41 +31,20 @@ export default async function Home() {
   }
 
   return (
-    // flex-col + per-item `order` lets mobile show a more concise, reordered
-    // flow (categories surfaced earlier, Services/Testimonials dropped) while
-    // `lg:order-none` resets every item to plain source order on desktop —
-    // i.e. visually identical to a plain stacked fragment at ≥lg.
+    // The homepage stays focused on the rental itself — browse-by-category
+    // right under the hero, featured picks further down. Kit-building lives
+    // on its own page (/packages) rather than being duplicated here, and
+    // category browsing now lives in the navbar's Equipment mega menu
+    // instead of a second chip row on the homepage.
     <div className="flex flex-col">
       <Hero products={spotlightProducts} totalCount={products.length} />
-      {/* Redundant on mobile — the tab bar's Equipment tab and the listing
-          page's own category pills already cover this. Kept on desktop. */}
-      <div className="hidden lg:order-none lg:block">
-        <EquipmentStrip />
-      </div>
-      <div className="order-4 lg:order-none">
-        <FeaturedEquipment products={gridProducts} />
-      </div>
-      <div className="order-3 lg:order-none">
-        <CategoryExperience products={products} />
-      </div>
-      <div className="order-7 lg:order-none">
-        <BuildYourKit />
-      </div>
-      <div className="order-8 lg:order-none">
-        <WhyOutta />
-      </div>
-      <div className="order-5 lg:order-none">
-        <WorkShowcase />
-      </div>
-      <div className="hidden lg:block">
-        <Services />
-      </div>
-      <div className="order-6 lg:order-none">
-        <Testimonials />
-      </div>
-      <div className="order-9 lg:order-none">
-        <FinalCta />
-      </div>
+      <CategoryExperience products={products} />
+      <FeaturedEquipment products={gridProducts} />
+      <WorkShowcase />
+      <WhyOutta />
+      <Services />
+      <Testimonials />
+      <FinalCta />
     </div>
   );
 }

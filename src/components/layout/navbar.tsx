@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, LoaderCircle, Package, Search, X } from "lucide-react";
+import { ChevronDown, ChevronRight, LoaderCircle, Package, Search, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { duration, easeOutta } from "@/lib/motion";
@@ -109,6 +109,41 @@ function NavbarSearch({ onNavigate }: { onNavigate: () => void }) {
   );
 }
 
+// The real equipment taxonomy (all 12 real categories, every one reachable)
+// collapsed into the client's requested tab set — Camera and Light each
+// group a few closely related real categories under one tab, matching the
+// 711rent-style dropdown nav; everything else is a single real category.
+interface EquipmentTab extends NavItem {
+  children?: NavItem[];
+}
+
+const equipmentTabs: EquipmentTab[] = [
+  {
+    label: "Camera",
+    href: "/equipment/cameras",
+    children: [
+      { label: "Body", href: "/equipment/cameras" },
+      { label: "Monitoring", href: "/equipment/monitors" },
+      { label: "Wireless Video & Lens Control", href: "/equipment/camera-accessories" },
+      { label: "Matte Boxes", href: "/equipment/matte-boxes" },
+      { label: "Filters", href: "/equipment/filters" },
+    ],
+  },
+  { label: "Lens", href: "/equipment/lenses" },
+  {
+    label: "Light",
+    href: "/equipment/lighting",
+    children: [
+      { label: "Lighting", href: "/equipment/lighting" },
+      { label: "Modifiers", href: "/equipment/lighting-modifiers" },
+    ],
+  },
+  { label: "Grip", href: "/equipment/grip" },
+  { label: "Accessories", href: "/equipment/accessories" },
+  { label: "Audio", href: "/equipment/audio" },
+  { label: "Drone", href: "/equipment/drones" },
+];
+
 // Mobile-only grouping of the nav — desktop keeps the flat `primaryNav` list
 // (rendered separately below) untouched. Grouped headers give the mobile
 // panel MCB-style scannability without changing what routes exist.
@@ -117,10 +152,7 @@ const mobileNavGroups: { title: string; items: NavItem[] }[] = [
     title: "Equipment",
     items: [
       { label: "All Equipment", href: "/equipment" },
-      { label: "Cameras", href: "/equipment/cameras" },
-      { label: "Lenses", href: "/equipment/lenses" },
-      { label: "Lighting", href: "/equipment/lighting" },
-      { label: "Grip", href: "/equipment/grip" },
+      ...equipmentTabs.map((tab) => ({ label: tab.label, href: tab.href })),
     ],
   },
   {
@@ -191,19 +223,66 @@ function Navbar() {
           {/* Desktop-only: collapsed to nothing by default — hovering (or
               keyboard-focusing into) the nav reveals links + WhatsApp CTA +
               search/kit icons. Logo is the only thing shown at rest. */}
-          <div className="hidden max-w-0 items-center gap-8 overflow-hidden opacity-0 transition-[max-width,opacity] duration-300 ease-out lg:flex lg:group-hover/navreveal:max-w-[700px] lg:group-hover/navreveal:opacity-100 lg:group-focus-within/navreveal:max-w-[700px] lg:group-focus-within/navreveal:opacity-100">
+          <div className="hidden max-w-0 items-center gap-8 overflow-hidden opacity-0 transition-[max-width,opacity] duration-300 ease-out lg:flex lg:group-hover/navreveal:max-w-[700px] lg:group-hover/navreveal:overflow-visible lg:group-hover/navreveal:opacity-100 lg:group-focus-within/navreveal:max-w-[700px] lg:group-focus-within/navreveal:overflow-visible lg:group-focus-within/navreveal:opacity-100">
             <ul className="flex items-center gap-8 whitespace-nowrap">
-              {primaryNav.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="group/link text-label relative !text-brand-foreground transition-colors hover:!text-brand-foreground"
-                  >
-                    {item.label}
-                    <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-brand-foreground transition-all duration-200 ease-out group-hover/link:w-full" />
-                  </Link>
-                </li>
-              ))}
+              {primaryNav.map((item) =>
+                item.label === "Equipment" ? (
+                  <li key={item.href} className="group/equipmentmenu relative">
+                    <Link
+                      href={item.href}
+                      className="group/link text-label relative flex items-center gap-1 !text-brand-foreground transition-colors hover:!text-brand-foreground"
+                    >
+                      {item.label}
+                      <ChevronDown className="size-3" strokeWidth={2.5} aria-hidden />
+                      <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-brand-foreground transition-all duration-200 ease-out group-hover/link:w-full" />
+                    </Link>
+
+                    <div className="invisible absolute top-full left-0 z-50 w-[520px] translate-y-1 pt-3 opacity-0 transition-[opacity,transform] duration-150 ease-out group-hover/equipmentmenu:visible group-hover/equipmentmenu:translate-y-0 group-hover/equipmentmenu:opacity-100">
+                      <div className="grid grid-cols-2 gap-x-6 gap-y-1 border border-border bg-background p-4 text-foreground shadow-lg">
+                        {equipmentTabs.map((tab) => (
+                          <div key={tab.label} className="group/subtab relative">
+                            <Link
+                              href={tab.href}
+                              className="flex items-center justify-between gap-2 py-2 text-sm font-semibold whitespace-nowrap hover:text-brand"
+                            >
+                              {tab.label}
+                              {tab.children ? (
+                                <ChevronRight className="size-3.5 text-muted-foreground" aria-hidden />
+                              ) : null}
+                            </Link>
+
+                            {tab.children ? (
+                              <div className="invisible absolute top-0 left-full z-50 w-64 pl-2 opacity-0 transition-[opacity,transform] duration-150 ease-out group-hover/subtab:visible group-hover/subtab:opacity-100">
+                                <div className="flex flex-col border border-border bg-background p-3 shadow-lg">
+                                  {tab.children.map((child) => (
+                                    <Link
+                                      key={child.href}
+                                      href={child.href}
+                                      className="rounded-sm px-2 py-2 text-sm whitespace-nowrap hover:bg-muted hover:text-brand"
+                                    >
+                                      {child.label}
+                                    </Link>
+                                  ))}
+                                </div>
+                              </div>
+                            ) : null}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </li>
+                ) : (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="group/link text-label relative !text-brand-foreground transition-colors hover:!text-brand-foreground"
+                    >
+                      {item.label}
+                      <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-brand-foreground transition-all duration-200 ease-out group-hover/link:w-full" />
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
 
             <div className="ml-auto flex items-center gap-2">

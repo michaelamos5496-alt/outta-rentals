@@ -42,7 +42,7 @@ function FinalCta() {
             size="lg"
             className="bg-brand-foreground text-brand uppercase tracking-wide hover:bg-brand-foreground/90"
           >
-            <Link href="#build-your-kit">
+            <Link href="/packages">
               <Package /> Build Your Kit
             </Link>
           </Button>
