@@ -177,6 +177,25 @@
   }
 }
 
+/* GSAP ScrollSmoother pins #smooth-wrapper to `inset: 0` (full viewport,
+   from y=0) via inline styles — since the sticky Navbar is a sibling
+   outside this wrapper rather than inside it, that left smooth-content
+   starting behind the navbar instead of below it, clipping the first
+   ~8px of whatever sits at the top of the page (e.g. the equipment
+   breadcrumb). Overriding the top/height here (needs !important to beat
+   GSAP's inline styles) so content starts right below the navbar's real
+   height on every breakpoint. */
+#smooth-wrapper {
+  top: 56px !important;
+  height: calc(100% - 56px) !important;
+}
+@media (min-width: 640px) {
+  #smooth-wrapper {
+    top: 64px !important;
+    height: calc(100% - 64px) !important;
+  }
+}
+
 @layer utilities {
   /* Editorial typography scale — the canonical OUTTA hierarchy */
   .text-display {
