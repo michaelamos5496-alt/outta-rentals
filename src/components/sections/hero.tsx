@@ -57,7 +57,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
       <Section
         spacing="none"
         bleed
-        className="relative overflow-hidden border-b border-border min-h-[58svh] lg:min-h-[58vh]"
+        className="relative overflow-hidden border-b border-border min-h-[66svh] lg:min-h-[66vh]"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
@@ -90,7 +90,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/60" />
         </div>
 
-        <Container className="relative flex min-h-[58svh] items-end pb-14 sm:pb-16 lg:min-h-[58vh]">
+        <Container className="relative flex min-h-[66svh] items-end pb-14 sm:pb-16 lg:min-h-[66vh]">
           <AnimatePresence mode="wait">
             <motion.div
               key={`${product.slug}-text`}
@@ -138,8 +138,8 @@ function Hero({ products }: { products: DemoProduct[] }) {
       </Section>
 
       {products.length > 1 ? (
-        <div className="overflow-hidden border-b border-border bg-background py-3">
-          <div className="animate-marquee flex w-max gap-3">
+        <div className="h-[34svh] overflow-hidden border-b border-border bg-background lg:h-[34vh]">
+          <div className="animate-marquee flex h-full w-max">
             {[0, 1].map((copy) =>
               products.map((p, i) => {
                 const thumb = getProductImage(p.slug, p.categorySlug);
@@ -151,14 +151,18 @@ function Hero({ products }: { products: DemoProduct[] }) {
                     aria-pressed={copy === 0 && i === index}
                     tabIndex={copy === 0 ? 0 : -1}
                     onClick={() => setIndex(i)}
-                    className={`relative size-14 shrink-0 overflow-hidden border transition-all sm:size-16 ${
-                      copy === 0 && i === index
-                        ? "border-brand"
-                        : "border-border hover:border-foreground/40"
+                    className={`relative aspect-square h-full shrink-0 overflow-hidden border-r border-border transition-all ${
+                      copy === 0 && i === index ? "ring-brand ring-2 ring-inset" : ""
                     }`}
                   >
                     {thumb ? (
-                      <Image src={thumb} alt={p.name} fill sizes="64px" className="object-cover" />
+                      <Image
+                        src={thumb}
+                        alt={p.name}
+                        fill
+                        sizes="34vh"
+                        className="object-cover"
+                      />
                     ) : null}
                   </button>
                 );
