@@ -57,7 +57,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
       <Section
         spacing="none"
         bleed
-        className="relative overflow-hidden border-b border-border min-h-[50svh] lg:min-h-[50vh]"
+        className="relative overflow-hidden border-b border-border min-h-[58svh] lg:min-h-[58vh]"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
@@ -90,7 +90,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/60" />
         </div>
 
-        <Container className="relative flex min-h-[50svh] items-end pb-14 sm:pb-16 lg:min-h-[50vh]">
+        <Container className="relative flex min-h-[58svh] items-end pb-14 sm:pb-16 lg:min-h-[58vh]">
           <AnimatePresence mode="wait">
             <motion.div
               key={`${product.slug}-text`}
@@ -138,33 +138,32 @@ function Hero({ products }: { products: DemoProduct[] }) {
       </Section>
 
       {products.length > 1 ? (
-        <div className="border-b border-border bg-background">
-          <div className="scrollbar-none flex overflow-x-auto">
-            {products.map((p, i) => {
-              const thumb = getProductImage(p.slug, p.categorySlug);
-              return (
-                <button
-                  key={p.slug}
-                  type="button"
-                  aria-label={`Show ${p.name}`}
-                  aria-pressed={i === index}
-                  onClick={() => setIndex(i)}
-                  className={`relative aspect-square w-1/4 shrink-0 overflow-hidden border-r border-border transition-all sm:w-[12.5%] ${
-                    i === index ? "ring-brand -ring-offset-1 ring-2 ring-inset" : ""
-                  }`}
-                >
-                  {thumb ? (
-                    <Image
-                      src={thumb}
-                      alt={p.name}
-                      fill
-                      sizes="(min-width: 640px) 12.5vw, 25vw"
-                      className="object-cover"
-                    />
-                  ) : null}
-                </button>
-              );
-            })}
+        <div className="overflow-hidden border-b border-border bg-background py-3">
+          <div className="animate-marquee flex w-max gap-3">
+            {[0, 1].map((copy) =>
+              products.map((p, i) => {
+                const thumb = getProductImage(p.slug, p.categorySlug);
+                return (
+                  <button
+                    key={`${copy}-${p.slug}`}
+                    type="button"
+                    aria-label={`Show ${p.name}`}
+                    aria-pressed={copy === 0 && i === index}
+                    tabIndex={copy === 0 ? 0 : -1}
+                    onClick={() => setIndex(i)}
+                    className={`relative size-14 shrink-0 overflow-hidden border transition-all sm:size-16 ${
+                      copy === 0 && i === index
+                        ? "border-brand"
+                        : "border-border hover:border-foreground/40"
+                    }`}
+                  >
+                    {thumb ? (
+                      <Image src={thumb} alt={p.name} fill sizes="64px" className="object-cover" />
+                    ) : null}
+                  </button>
+                );
+              })
+            )}
           </div>
         </div>
       ) : null}
