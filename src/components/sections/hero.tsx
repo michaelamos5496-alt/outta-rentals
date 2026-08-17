@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
 
 import { duration, easeOutta } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
@@ -12,6 +14,10 @@ import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { getProductImage } from "@/lib/editorial-images";
 import type { DemoProduct } from "@/lib/catalogue";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(SplitText);
+}
 
 const ROTATE_MS = 6000;
 
@@ -27,6 +33,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
   const [index, setIndex] = React.useState(0);
   const [paused, setPaused] = React.useState(false);
   const product = products[index];
+  const headingRef = React.useRef<HTMLHeadingElement>(null);
 
   React.useEffect(() => {
     if (paused || products.length <= 1) return;
@@ -35,6 +42,42 @@ function Hero({ products }: { products: DemoProduct[] }) {
     }, ROTATE_MS);
     return () => clearInterval(timer);
   }, [paused, products.length]);
+
+  // Masked per-line reveal on the headline every time the slide changes —
+  // re-split on the new product name each time rather than relying on
+  // React remounting the node.
+  React.useEffect(() => {
+    const el = headingRef.current;
+    if (!el) return;
+
+    let cancelled = false;
+    let split: SplitText | null = null;
+    gsap.set(el, { opacity: 0 });
+
+    document.fonts.ready.then(() => {
+      if (cancelled || !headingRef.current) return;
+      gsap.set(headingRef.current, { opacity: 1 });
+      split = SplitText.create(headingRef.current, {
+        type: "lines",
+        linesClass: "line",
+        mask: "lines",
+        autoSplit: true,
+        onSplit: (self) =>
+          gsap.from(self.lines, {
+            duration: 0.6,
+            yPercent: 100,
+            opacity: 0,
+            stagger: 0.08,
+            ease: "expo.out",
+          }),
+      });
+    });
+
+    return () => {
+      cancelled = true;
+      split?.revert();
+    };
+  }, [product?.slug]);
 
   if (!product) {
     return (
@@ -91,25 +134,19 @@ function Hero({ products }: { products: DemoProduct[] }) {
         </div>
 
         <Container className="relative flex min-h-[78svh] items-end pb-14 sm:pb-16 lg:min-h-[78vh]">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`${product.slug}-text`}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: duration.base, ease: easeOutta }}
-              className="max-w-xl"
+          <div className="max-w-xl">
+            <h1
+              ref={headingRef}
+              className="text-display leading-[0.92] font-bold text-brand uppercase opacity-0"
             >
-              <h1 className="text-display leading-[0.92] font-bold text-brand uppercase">
-                {product.name}
-              </h1>
-              <Button asChild size="lg" className="mt-6 uppercase tracking-wide">
-                <Link href={`/equipment/${product.slug}`}>
-                  Rent Now <ArrowRight />
-                </Link>
-              </Button>
-            </motion.div>
-          </AnimatePresence>
+              {product.name}
+            </h1>
+            <Button asChild size="lg" className="mt-6 uppercase tracking-wide">
+              <Link href={`/equipment/${product.slug}`}>
+                Rent Now <ArrowRight />
+              </Link>
+            </Button>
+          </div>
         </Container>
 
         {products.length > 1 ? (
