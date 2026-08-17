@@ -186,13 +186,13 @@
    GSAP's inline styles) so content starts right below the navbar's real
    height on every breakpoint. */
 #smooth-wrapper {
-  top: 56px !important;
-  height: calc(100% - 56px) !important;
+  top: 84px !important;
+  height: calc(100% - 84px) !important;
 }
 @media (min-width: 640px) {
   #smooth-wrapper {
-    top: 64px !important;
-    height: calc(100% - 64px) !important;
+    top: 96px !important;
+    height: calc(100% - 96px) !important;
   }
 }
 
