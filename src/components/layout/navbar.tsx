@@ -4,11 +4,11 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, ChevronRight, LoaderCircle, Package, Search, X } from "lucide-react";
+import { ChevronDown, LoaderCircle, Package, Search, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { duration, easeOutta } from "@/lib/motion";
-import { primaryNav, siteConfig, type NavItem } from "@/config/site";
+import { siteConfig, type NavItem } from "@/config/site";
 import { availabilityLabels, availabilityVariant } from "@/lib/catalogue";
 import { searchCatalogueAction, type CatalogueSearchResult } from "@/lib/catalogue/actions";
 import { Container } from "@/components/ui/container";
@@ -111,8 +111,9 @@ function NavbarSearch({ onNavigate }: { onNavigate: () => void }) {
 
 // The real equipment taxonomy (all 12 real categories, every one reachable)
 // collapsed into the client's requested tab set — Camera and Light each
-// group a few closely related real categories under one tab, matching the
-// 711rent-style dropdown nav; everything else is a single real category.
+// group a few closely related real categories under one tab. Rendered as
+// flat, always-visible tabs in the main nav row (711rent-style), not
+// hidden behind a single "Equipment" trigger.
 interface EquipmentTab extends NavItem {
   children?: NavItem[];
 }
@@ -144,9 +145,17 @@ const equipmentTabs: EquipmentTab[] = [
   { label: "Drone", href: "/equipment/drones" },
 ];
 
-// Mobile-only grouping of the nav — desktop keeps the flat `primaryNav` list
-// (rendered separately below) untouched. Grouped headers give the mobile
-// panel MCB-style scannability without changing what routes exist.
+// Thin utility row up top — mirrors 711rent's Home/Rent/Contact/Service/
+// News/Creative List row above the main logo+tabs bar.
+const utilityLinks: NavItem[] = [
+  { label: "Services", href: "/services" },
+  { label: "Work", href: "/work" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
+
+// Mobile-only grouping of the nav. Grouped headers give the mobile panel
+// scannability without changing what routes exist.
 const mobileNavGroups: { title: string; items: NavItem[] }[] = [
   {
     title: "Equipment",
@@ -200,105 +209,87 @@ function Navbar() {
       )}
       style={{ transitionDuration: `${duration.fast * 1000}ms` }}
     >
+      {/* Row 1 — thin utility bar, desktop only, always visible */}
+      <div className="hidden border-b border-brand-foreground/15 lg:block">
+        <Container>
+          <div className="flex h-9 items-center justify-between">
+            <ul className="flex items-center gap-6">
+              {utilityLinks.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-[0.6875rem] font-medium tracking-[0.1em] whitespace-nowrap !text-brand-foreground/75 uppercase transition-colors hover:!text-brand-foreground"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <WhatsAppButton
+              label="WhatsApp Us"
+              variant="ghost"
+              size="sm"
+              closingLine="I'd like to talk about an upcoming shoot."
+              className="h-auto shrink-0 gap-1.5 px-0 py-0 text-[0.6875rem] font-medium tracking-[0.1em] !text-brand-foreground/75 uppercase hover:!text-brand-foreground hover:bg-transparent"
+            />
+          </div>
+        </Container>
+      </div>
+
+      {/* Row 2 — logo + flat, always-visible category tabs + icons */}
       <Container>
-        <nav className="group/navreveal flex h-14 items-center gap-8 sm:h-16">
-          <Link href="/" className="inline-flex shrink-0 items-center gap-1.5">
-            <Image
-              src="/brand/outta-logo-dark.png"
-              alt={siteConfig.name}
-              width={595}
-              height={225}
-              priority
-              className="h-8 w-auto sm:h-9"
-            />
-            {/* Desktop-only hint that hovering/focusing here reveals the rest
-                of the nav — fades out once it's actually revealed. */}
-            <ChevronDown
-              className="hidden size-3.5 shrink-0 animate-bounce text-brand-foreground/60 transition-opacity duration-200 ease-out lg:block lg:group-hover/navreveal:opacity-0 lg:group-focus-within/navreveal:opacity-0"
-              strokeWidth={2}
-              aria-hidden
-            />
-          </Link>
+        <div className="relative">
+          <nav className="flex h-14 items-center justify-between gap-6 sm:h-16">
+            <Link href="/" className="inline-flex shrink-0 items-center">
+              <Image
+                src="/brand/outta-logo-dark.png"
+                alt={siteConfig.name}
+                width={595}
+                height={225}
+                priority
+                className="h-8 w-auto sm:h-9"
+              />
+            </Link>
 
-          {/* Desktop-only: collapsed to nothing by default — hovering (or
-              keyboard-focusing into) the nav reveals links + WhatsApp CTA +
-              search/kit icons. Logo is the only thing shown at rest. */}
-          <div className="hidden max-w-0 items-center gap-8 overflow-hidden opacity-0 transition-[max-width,opacity] duration-300 ease-out lg:flex lg:group-hover/navreveal:max-w-[700px] lg:group-hover/navreveal:overflow-visible lg:group-hover/navreveal:opacity-100 lg:group-focus-within/navreveal:max-w-[700px] lg:group-focus-within/navreveal:overflow-visible lg:group-focus-within/navreveal:opacity-100">
-            <ul className="flex items-center gap-8 whitespace-nowrap">
-              {primaryNav.map((item) =>
-                item.label === "Equipment" ? (
-                  <li key={item.href} className="group/equipmentmenu relative">
-                    <Link
-                      href={item.href}
-                      className="group/link text-label relative flex items-center gap-1 !text-brand-foreground transition-colors hover:!text-brand-foreground"
-                    >
-                      {item.label}
+            <ul className="hidden items-center gap-6 lg:flex">
+              {equipmentTabs.map((tab) => (
+                <li key={tab.href} className="group/tab static">
+                  <Link
+                    href={tab.href}
+                    className="text-label relative flex items-center gap-1 !text-brand-foreground whitespace-nowrap transition-colors hover:!text-brand-foreground"
+                  >
+                    {tab.label}
+                    {tab.children ? (
                       <ChevronDown className="size-3" strokeWidth={2.5} aria-hidden />
-                      <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-brand-foreground transition-all duration-200 ease-out group-hover/link:w-full" />
-                    </Link>
+                    ) : null}
+                  </Link>
 
-                    <div className="invisible absolute top-full left-0 z-50 w-[520px] translate-y-1 pt-3 opacity-0 transition-[opacity,transform] duration-150 ease-out group-hover/equipmentmenu:visible group-hover/equipmentmenu:translate-y-0 group-hover/equipmentmenu:opacity-100">
-                      <div className="grid grid-cols-2 gap-x-6 gap-y-1 border border-border bg-background p-4 text-foreground shadow-lg">
-                        {equipmentTabs.map((tab) => (
-                          <div key={tab.label} className="group/subtab relative">
-                            <Link
-                              href={tab.href}
-                              className="flex items-center justify-between gap-2 py-2 text-sm font-semibold whitespace-nowrap hover:text-brand"
-                            >
-                              {tab.label}
-                              {tab.children ? (
-                                <ChevronRight className="size-3.5 text-muted-foreground" aria-hidden />
-                              ) : null}
-                            </Link>
-
-                            {tab.children ? (
-                              <div className="invisible absolute top-0 left-full z-50 w-64 pl-2 opacity-0 transition-[opacity,transform] duration-150 ease-out group-hover/subtab:visible group-hover/subtab:opacity-100">
-                                <div className="flex flex-col border border-border bg-background p-3 shadow-lg">
-                                  {tab.children.map((child) => (
-                                    <Link
-                                      key={child.href}
-                                      href={child.href}
-                                      className="rounded-sm px-2 py-2 text-sm whitespace-nowrap hover:bg-muted hover:text-brand"
-                                    >
-                                      {child.label}
-                                    </Link>
-                                  ))}
-                                </div>
-                              </div>
-                            ) : null}
-                          </div>
+                  {tab.children ? (
+                    <div className="invisible absolute inset-x-0 top-full z-50 translate-y-1 pt-3 opacity-0 transition-[opacity,transform] duration-150 ease-out group-hover/tab:visible group-hover/tab:translate-y-0 group-hover/tab:opacity-100">
+                      <div className="flex flex-wrap gap-x-10 gap-y-1 border border-border bg-background p-5 text-foreground shadow-lg">
+                        {tab.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            className="rounded-sm px-1 py-2 text-sm font-medium whitespace-nowrap hover:text-brand"
+                          >
+                            {child.label}
+                          </Link>
                         ))}
                       </div>
                     </div>
-                  </li>
-                ) : (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className="group/link text-label relative !text-brand-foreground transition-colors hover:!text-brand-foreground"
-                    >
-                      {item.label}
-                      <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-brand-foreground transition-all duration-200 ease-out group-hover/link:w-full" />
-                    </Link>
-                  </li>
-                )
-              )}
+                  ) : null}
+                </li>
+              ))}
             </ul>
 
-            <div className="ml-auto flex items-center gap-2">
-              <WhatsAppButton
-                label="WhatsApp Us"
-                variant="default"
-                size="sm"
-                closingLine="I'd like to talk about an upcoming shoot."
-                className="shrink-0 border-brand-foreground bg-brand-foreground text-brand hover:bg-brand-foreground/90 active:bg-brand-foreground/80"
-              />
+            <div className="flex items-center gap-1">
               <Button
                 variant="ghost"
                 size="icon"
                 aria-label="Search"
                 onClick={() => setSearchOpen(true)}
-                className="shrink-0 text-brand-foreground hover:bg-brand-foreground/10 hover:text-brand-foreground"
+                className="text-brand-foreground hover:bg-brand-foreground/10 hover:text-brand-foreground"
               >
                 <Search />
               </Button>
@@ -307,7 +298,7 @@ function Navbar() {
                 size="icon"
                 aria-label="Kit list"
                 onClick={openDrawer}
-                className="relative shrink-0 text-brand-foreground hover:bg-brand-foreground/10 hover:text-brand-foreground"
+                className="relative text-brand-foreground hover:bg-brand-foreground/10 hover:text-brand-foreground"
               >
                 <Package />
                 {hydrated && itemCount > 0 ? (
@@ -316,40 +307,12 @@ function Navbar() {
                   </span>
                 ) : null}
               </Button>
+              {/* No mobile hamburger here — the mobile tab bar's Menu tab opens
+                  the same panel, so a second control in the header would be
+                  redundant. */}
             </div>
-          </div>
-
-          {/* Tablet-only (below the hover-reveal breakpoint): search/kit stay
-              directly visible since there's no hover affordance on touch. */}
-          <div className="ml-auto flex items-center gap-2 lg:hidden">
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label="Search"
-              onClick={() => setSearchOpen(true)}
-              className="hidden text-brand-foreground hover:bg-brand-foreground/10 hover:text-brand-foreground sm:inline-flex"
-            >
-              <Search />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label="Kit list"
-              onClick={openDrawer}
-              className="relative hidden text-brand-foreground hover:bg-brand-foreground/10 hover:text-brand-foreground sm:inline-flex"
-            >
-              <Package />
-              {hydrated && itemCount > 0 ? (
-                <span className="absolute top-1 right-1 flex size-3.5 items-center justify-center rounded-full border border-brand bg-brand-foreground text-[0.5625rem] font-medium text-brand">
-                  {itemCount > 9 ? "9+" : itemCount}
-                </span>
-              ) : null}
-            </Button>
-            {/* No mobile hamburger here — the mobile tab bar's Menu tab opens
-                the same panel, so a second control in the header would be
-                redundant. */}
-          </div>
-        </nav>
+          </nav>
+        </div>
       </Container>
 
       <Modal
