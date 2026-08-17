@@ -4,11 +4,16 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { Camera, LoaderCircle, Menu, Package, Search, X } from "lucide-react";
+import { Camera, LoaderCircle, Menu, Package, Search, SlidersHorizontal, X } from "lucide-react";
 
 import { duration, easeOutta } from "@/lib/motion";
 import { siteConfig, type NavItem } from "@/config/site";
-import { availabilityLabels, availabilityVariant } from "@/lib/catalogue";
+import {
+  availabilityLabels,
+  availabilityVariant,
+  categories,
+  getCategoryIcon,
+} from "@/lib/catalogue";
 import { searchCatalogueAction, type CatalogueSearchResult } from "@/lib/catalogue/actions";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
@@ -148,6 +153,7 @@ const navGroups: { title: string; items: NavItem[] }[] = [
 function Navbar() {
   const { open: mobileOpen, setOpen: setMobileOpen } = useMobileNav();
   const [searchOpen, setSearchOpen] = React.useState(false);
+  const [filterOpen, setFilterOpen] = React.useState(false);
   const { itemCount, openDrawer, hydrated } = useKit();
 
   return (
@@ -158,26 +164,28 @@ function Navbar() {
               the left, the brand mark centered, About + Contact on the
               right. Deliberately minimal; category browsing lives in the
               drawer instead of an always-visible tab row. */}
-          <nav className="flex w-full max-w-2xl items-center justify-between rounded-full bg-brand py-2 pr-2 pl-5 sm:pl-6">
+          <nav className="border-border flex w-full max-w-2xl items-center justify-between rounded-full border bg-background py-2 pr-2 pl-5 shadow-lg sm:pl-6">
             <div className="flex items-center gap-5 sm:gap-8">
               <button
                 type="button"
                 onClick={() => setMobileOpen(true)}
-                className="text-label flex items-center gap-1.5 whitespace-nowrap !text-brand-foreground transition-colors hover:!text-brand-foreground/80"
+                className="text-label flex items-center gap-1.5 whitespace-nowrap text-foreground transition-colors hover:text-brand"
               >
                 <Menu className="size-3.5" strokeWidth={2} aria-hidden />
                 Menu
               </button>
-              <Link
-                href="/equipment"
-                className="text-label hidden whitespace-nowrap !text-brand-foreground transition-colors hover:!text-brand-foreground/80 sm:inline"
+              <button
+                type="button"
+                onClick={() => setFilterOpen(true)}
+                className="text-label hidden items-center gap-1.5 whitespace-nowrap text-foreground transition-colors hover:text-brand sm:flex"
               >
-                Equipment
-              </Link>
+                <SlidersHorizontal className="size-3.5" strokeWidth={2} aria-hidden />
+                Filter
+              </button>
             </div>
 
             <Link href="/" aria-label={siteConfig.name} className="shrink-0">
-              <span className="flex size-11 items-center justify-center rounded-full bg-brand-foreground text-brand sm:size-12">
+              <span className="flex size-11 items-center justify-center rounded-full bg-brand text-brand-foreground sm:size-12">
                 <Camera className="size-5" strokeWidth={1.75} />
               </span>
             </Link>
@@ -185,13 +193,13 @@ function Navbar() {
             <div className="flex items-center gap-5 sm:gap-8">
               <Link
                 href="/about"
-                className="text-label hidden whitespace-nowrap !text-brand-foreground transition-colors hover:!text-brand-foreground/80 sm:inline"
+                className="text-label hidden whitespace-nowrap text-foreground transition-colors hover:text-brand sm:inline"
               >
                 About Us
               </Link>
               <Link
                 href="/contact"
-                className="text-label whitespace-nowrap !text-brand-foreground transition-colors hover:!text-brand-foreground/80"
+                className="text-label whitespace-nowrap text-foreground transition-colors hover:text-brand"
               >
                 Contact
               </Link>
@@ -222,6 +230,31 @@ function Navbar() {
         className="sm:max-w-lg"
       >
         <NavbarSearch onNavigate={() => setSearchOpen(false)} />
+      </Modal>
+
+      <Modal
+        open={filterOpen}
+        onOpenChange={setFilterOpen}
+        title="Filter by category"
+        description="Jump straight into any category's real inventory."
+        className="sm:max-w-lg"
+      >
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          {categories.map((category) => {
+            const Icon = getCategoryIcon(category.slug);
+            return (
+              <Link
+                key={category.slug}
+                href={`/equipment/${category.slug}`}
+                onClick={() => setFilterOpen(false)}
+                className="border-border flex flex-col items-center gap-2 border p-4 text-center transition-colors hover:border-brand hover:text-brand"
+              >
+                <Icon className="size-5" strokeWidth={1.75} />
+                <span className="text-sm font-medium">{category.name}</span>
+              </Link>
+            );
+          })}
+        </div>
       </Modal>
 
       {/* Full nav drawer — opened from the pill's "Menu" trigger, on every
