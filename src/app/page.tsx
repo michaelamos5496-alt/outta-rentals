@@ -7,6 +7,8 @@ import { Services } from "@/components/sections/services";
 import { Testimonials } from "@/components/sections/testimonials";
 import { FinalCta } from "@/components/sections/final-cta";
 import { fetchAllProducts } from "@/lib/catalogue/db";
+import { getProductImage } from "@/lib/editorial-images";
+import type { DemoProduct } from "@/lib/catalogue";
 
 // Statically imported (not next/dynamic) — this tree is passed as `children`
 // into SmoothScroll (a "use client" wrapper) now that the homepage has
@@ -14,28 +16,55 @@ import { fetchAllProducts } from "@/lib/catalogue/db";
 // client component duplicate on the server→client boundary in this Next.js
 // version (confirmed: 9 children resolved as 17). Static imports sidestep it.
 
+/**
+ * Picks up to `count` products from `pool`, skipping any already in
+ * `usedSlugs` and any whose real photo (several grip/lighting size-variant
+ * SKUs legitimately share one reference photo) is already showing
+ * elsewhere — the hero's thumbnail strip and the featured grid should
+ * never repeat the same image twice.
+ */
+function pickWithUniqueImages(
+  pool: DemoProduct[],
+  usedSlugs: Set<string>,
+  usedImages: Set<string>,
+  count: number
+): DemoProduct[] {
+  const picked: DemoProduct[] = [];
+  for (const p of pool) {
+    if (picked.length >= count) break;
+    if (usedSlugs.has(p.slug)) continue;
+    const image = getProductImage(p.slug, p.categorySlug);
+    if (image && usedImages.has(image)) continue;
+    picked.push(p);
+    usedSlugs.add(p.slug);
+    if (image) usedImages.add(image);
+  }
+  return picked;
+}
+
 export default async function Home() {
   const products = await fetchAllProducts();
   const featured = products.filter((p) => p.featured);
+  const usedSlugs = new Set<string>();
+  const usedImages = new Set<string>();
+
   // Hero rotates through the featured set, topped up with other real
   // catalogue items so the thumbnail strip beneath it always fills a full
-  // row of 8 (711rent-style) rather than leaving most of it blank whenever
-  // only a couple of products happen to be flagged featured.
-  const spotlightProducts = featured.slice(0, 8);
+  // row of 8 (711rent-style) with 8 visually distinct photos, rather than
+  // repeating a photo shared by size-variant SKUs (e.g. the 4/6/8/12ft grip
+  // frames) or leaving most of the row blank.
+  const spotlightProducts = pickWithUniqueImages(featured, usedSlugs, usedImages, 8);
   if (spotlightProducts.length < 8) {
-    const spotlightSlugsSoFar = new Set(spotlightProducts.map((p) => p.slug));
-    const filler = products.filter((p) => !spotlightSlugsSoFar.has(p.slug));
-    spotlightProducts.push(...filler.slice(0, 8 - spotlightProducts.length));
+    spotlightProducts.push(
+      ...pickWithUniqueImages(products, usedSlugs, usedImages, 8 - spotlightProducts.length)
+    );
   }
+
   // The grid below gets the rest of the featured set, topped up with other
-  // real catalogue items (not already in the hero) so it always shows a
-  // full row of 4.
-  const spotlightSlugs = new Set(spotlightProducts.map((p) => p.slug));
-  const gridProducts = featured.filter((p) => !spotlightSlugs.has(p.slug)).slice(0, 4);
+  // real catalogue items — same real-photo, no-repeats rule.
+  const gridProducts = pickWithUniqueImages(featured, usedSlugs, usedImages, 4);
   if (gridProducts.length < 4) {
-    const gridSlugs = new Set(gridProducts.map((p) => p.slug));
-    const filler = products.filter((p) => !spotlightSlugs.has(p.slug) && !gridSlugs.has(p.slug));
-    gridProducts.push(...filler.slice(0, 4 - gridProducts.length));
+    gridProducts.push(...pickWithUniqueImages(products, usedSlugs, usedImages, 4 - gridProducts.length));
   }
 
   return (
