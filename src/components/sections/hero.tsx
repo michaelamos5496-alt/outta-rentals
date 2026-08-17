@@ -138,8 +138,8 @@ function Hero({ products }: { products: DemoProduct[] }) {
       </Section>
 
       {products.length > 1 ? (
-        <div className="overflow-hidden border-b border-border bg-background py-6 sm:py-8">
-          <div className="animate-marquee flex w-max gap-8 px-8 sm:gap-12 sm:px-12">
+        <div className="overflow-hidden border-b border-border bg-background">
+          <div className="animate-marquee flex w-max">
             {[0, 1].map((copy) =>
               products.map((p, i) => {
                 const thumb = getProductImage(p.slug, p.categorySlug);
@@ -151,10 +151,8 @@ function Hero({ products }: { products: DemoProduct[] }) {
                     aria-pressed={copy === 0 && i === index}
                     tabIndex={copy === 0 ? 0 : -1}
                     onClick={() => setIndex(i)}
-                    className={`relative size-20 shrink-0 overflow-hidden border transition-all sm:size-24 ${
-                      copy === 0 && i === index
-                        ? "border-brand"
-                        : "border-border hover:border-foreground/40"
+                    className={`relative size-20 shrink-0 overflow-hidden border-r border-border transition-all sm:size-24 ${
+                      copy === 0 && i === index ? "ring-brand ring-2 ring-inset" : ""
                     }`}
                   >
                     {thumb ? (
