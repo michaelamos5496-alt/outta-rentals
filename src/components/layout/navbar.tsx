@@ -125,9 +125,9 @@ const equipmentTabs: EquipmentTab[] = [
     children: [
       { label: "Body", href: "/equipment/cameras" },
       { label: "Monitoring", href: "/equipment/monitors" },
-      { label: "Wireless Video & Lens Control", href: "/equipment/camera-accessories" },
-      { label: "Matte Boxes", href: "/equipment/matte-boxes" },
-      { label: "Filters", href: "/equipment/filters" },
+      { label: "Lens Control", href: "/equipment/camera-accessories" },
+      { label: "Wireless Video", href: "/equipment/camera-accessories" },
+      { label: "Matte Box & Filter", href: "/equipment/matte-boxes" },
     ],
   },
   { label: "Lens", href: "/equipment/lenses" },
@@ -269,7 +269,7 @@ function Navbar() {
                       <div className="flex flex-wrap gap-x-10 gap-y-1 border border-border bg-background p-5 text-foreground shadow-lg">
                         {tab.children.map((child) => (
                           <Link
-                            key={child.href}
+                            key={child.label}
                             href={child.href}
                             className="rounded-sm px-1 py-2 text-sm font-medium whitespace-nowrap hover:text-brand"
                           >
