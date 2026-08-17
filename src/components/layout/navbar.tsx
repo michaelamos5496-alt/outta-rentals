@@ -4,8 +4,9 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { Camera, LoaderCircle, Menu, Package, Search, X } from "lucide-react";
+import { ChevronDown, LoaderCircle, Package, Search, X } from "lucide-react";
 
+import { cn } from "@/lib/utils";
 import { duration, easeOutta } from "@/lib/motion";
 import { siteConfig, type NavItem } from "@/config/site";
 import { availabilityLabels, availabilityVariant } from "@/lib/catalogue";
@@ -17,6 +18,7 @@ import { SearchInput } from "@/components/ui/search-input";
 import { Modal } from "@/components/ui/modal";
 import { useMobileNav } from "@/components/layout/mobile-nav-provider";
 import { useKit } from "@/components/kit/kit-provider";
+import { WhatsAppButton } from "@/components/quote/whatsapp-button";
 import { formatPrice } from "@/lib/currency";
 
 function useDebouncedValue<T>(value: T, delayMs: number): T {
@@ -107,26 +109,60 @@ function NavbarSearch({ onNavigate }: { onNavigate: () => void }) {
   );
 }
 
-// The real equipment taxonomy (all 12 real categories, every one reachable),
-// grouped the same way as before — now surfaced through the "Menu" drawer
-// (see below) rather than an always-visible tab row, since the client wants
-// a minimal floating pill nav instead.
-const equipmentTabs: NavItem[] = [
-  { label: "Camera", href: "/equipment/cameras" },
+// The real equipment taxonomy (all 12 real categories, every one reachable)
+// collapsed into the client's requested tab set — Camera and Light each
+// group a few closely related real categories under one tab. Rendered as
+// flat, always-visible tabs in the main nav row (711rent-style), not
+// hidden behind a single "Equipment" trigger.
+interface EquipmentTab extends NavItem {
+  children?: NavItem[];
+}
+
+const equipmentTabs: EquipmentTab[] = [
+  {
+    label: "Camera",
+    href: "/equipment/cameras",
+    children: [
+      { label: "Body", href: "/equipment/cameras" },
+      { label: "Monitoring", href: "/equipment/monitors" },
+      { label: "Lens Control", href: "/equipment/camera-accessories" },
+      { label: "Wireless Video", href: "/equipment/camera-accessories" },
+      { label: "Matte Box & Filter", href: "/equipment/matte-boxes" },
+    ],
+  },
   { label: "Lens", href: "/equipment/lenses" },
-  { label: "Light", href: "/equipment/lighting" },
+  {
+    label: "Light",
+    href: "/equipment/lighting",
+    children: [
+      { label: "Lighting", href: "/equipment/lighting" },
+      { label: "Modifiers", href: "/equipment/lighting-modifiers" },
+    ],
+  },
   { label: "Grip", href: "/equipment/grip" },
   { label: "Accessories", href: "/equipment/accessories" },
   { label: "Audio", href: "/equipment/audio" },
   { label: "Drone", href: "/equipment/drones" },
 ];
 
-// Grouped nav for the "Menu" drawer — opened from the pill on every
-// breakpoint now, not just mobile.
-const navGroups: { title: string; items: NavItem[] }[] = [
+// Thin utility row up top — mirrors 711rent's Home/Rent/Contact/Service/
+// News/Creative List row above the main logo+tabs bar.
+const utilityLinks: NavItem[] = [
+  { label: "Services", href: "/services" },
+  { label: "Work", href: "/work" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
+
+// Mobile-only grouping of the nav. Grouped headers give the mobile panel
+// scannability without changing what routes exist.
+const mobileNavGroups: { title: string; items: NavItem[] }[] = [
   {
     title: "Equipment",
-    items: [{ label: "All Equipment", href: "/equipment" }, ...equipmentTabs],
+    items: [
+      { label: "All Equipment", href: "/equipment" },
+      ...equipmentTabs.map((tab) => ({ label: tab.label, href: tab.href })),
+    ],
   },
   {
     title: "Explore",
@@ -145,72 +181,137 @@ const navGroups: { title: string; items: NavItem[] }[] = [
   },
 ];
 
+function useScrolled(threshold = 8) {
+  const [scrolled, setScrolled] = React.useState(false);
+
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > threshold);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [threshold]);
+
+  return scrolled;
+}
+
 function Navbar() {
+  const scrolled = useScrolled();
   const { open: mobileOpen, setOpen: setMobileOpen } = useMobileNav();
   const [searchOpen, setSearchOpen] = React.useState(false);
   const { itemCount, openDrawer, hydrated } = useKit();
 
   return (
-    <header data-slot="navbar" className="sticky top-0 z-40 w-full bg-background py-3 sm:py-4">
-      <Container>
-        <div className="flex items-center justify-center gap-2">
-          {/* Floating pill nav — Menu (opens the full drawer) + Equipment on
-              the left, the brand mark centered, About + Contact on the
-              right. Deliberately minimal; category browsing lives in the
-              drawer instead of an always-visible tab row. */}
-          <nav className="flex w-full max-w-2xl items-center justify-between rounded-full bg-brand py-2 pr-2 pl-5 sm:pl-6">
-            <div className="flex items-center gap-5 sm:gap-8">
-              <button
-                type="button"
-                onClick={() => setMobileOpen(true)}
-                className="text-label flex items-center gap-1.5 whitespace-nowrap !text-brand-foreground transition-colors hover:!text-brand-foreground/80"
-              >
-                <Menu className="size-3.5" strokeWidth={2} aria-hidden />
-                Menu
-              </button>
-              <Link
-                href="/equipment"
-                className="text-label hidden whitespace-nowrap !text-brand-foreground transition-colors hover:!text-brand-foreground/80 sm:inline"
-              >
-                Equipment
-              </Link>
-            </div>
+    <header
+      data-slot="navbar"
+      className={cn(
+        "sticky top-0 z-40 w-full bg-brand transition-shadow",
+        scrolled ? "shadow-sm" : ""
+      )}
+      style={{ transitionDuration: `${duration.fast * 1000}ms` }}
+    >
+      {/* Row 1 — thin utility bar, desktop only, always visible */}
+      <div className="hidden border-b border-brand-foreground/15 lg:block">
+        <Container>
+          <div className="flex h-9 items-center justify-between">
+            <ul className="flex items-center gap-6">
+              {utilityLinks.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-[0.6875rem] font-medium tracking-[0.1em] whitespace-nowrap !text-brand-foreground/75 uppercase transition-colors hover:!text-brand-foreground"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <WhatsAppButton
+              label="WhatsApp Us"
+              variant="ghost"
+              size="sm"
+              closingLine="I'd like to talk about an upcoming shoot."
+              className="h-auto shrink-0 gap-1.5 px-0 py-0 text-[0.6875rem] font-medium tracking-[0.1em] !text-brand-foreground/75 uppercase hover:!text-brand-foreground hover:bg-transparent"
+            />
+          </div>
+        </Container>
+      </div>
 
-            <Link href="/" aria-label={siteConfig.name} className="shrink-0">
-              <span className="flex size-11 items-center justify-center rounded-full bg-brand-foreground text-brand sm:size-12">
-                <Camera className="size-5" strokeWidth={1.75} />
-              </span>
+      {/* Row 2 — logo + flat, always-visible category tabs + icons */}
+      <Container>
+        <div className="relative">
+          <nav className="flex h-14 items-center justify-between gap-6 sm:h-16">
+            <Link href="/" className="inline-flex shrink-0 items-center">
+              <Image
+                src="/brand/outta-logo-dark.png"
+                alt={siteConfig.name}
+                width={595}
+                height={225}
+                priority
+                className="h-8 w-auto sm:h-9"
+              />
             </Link>
 
-            <div className="flex items-center gap-5 sm:gap-8">
-              <Link
-                href="/about"
-                className="text-label hidden whitespace-nowrap !text-brand-foreground transition-colors hover:!text-brand-foreground/80 sm:inline"
+            <ul className="hidden h-full items-stretch gap-6 lg:flex">
+              {equipmentTabs.map((tab) => (
+                <li key={tab.href} className="group/tab static flex h-full items-center">
+                  <Link
+                    href={tab.href}
+                    className="text-label relative flex items-center gap-1 !text-brand-foreground whitespace-nowrap transition-colors hover:!text-brand-foreground"
+                  >
+                    {tab.label}
+                    {tab.children ? (
+                      <ChevronDown className="size-3" strokeWidth={2.5} aria-hidden />
+                    ) : null}
+                  </Link>
+
+                  {tab.children ? (
+                    <div className="invisible absolute inset-x-0 top-full z-50 opacity-0 transition-opacity duration-150 ease-out group-hover/tab:visible group-hover/tab:opacity-100">
+                      <div className="flex flex-wrap gap-x-10 gap-y-1 border border-border bg-background p-5 text-foreground shadow-lg">
+                        {tab.children.map((child) => (
+                          <Link
+                            key={child.label}
+                            href={child.href}
+                            className="rounded-sm px-1 py-2 text-sm font-medium whitespace-nowrap hover:text-brand"
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+
+            <div className="flex items-center gap-1">
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Search"
+                onClick={() => setSearchOpen(true)}
+                className="text-brand-foreground hover:bg-brand-foreground/10 hover:text-brand-foreground"
               >
-                About Us
-              </Link>
-              <Link
-                href="/contact"
-                className="text-label whitespace-nowrap !text-brand-foreground transition-colors hover:!text-brand-foreground/80"
+                <Search />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Kit list"
+                onClick={openDrawer}
+                className="relative text-brand-foreground hover:bg-brand-foreground/10 hover:text-brand-foreground"
               >
-                Contact
-              </Link>
+                <Package />
+                {hydrated && itemCount > 0 ? (
+                  <span className="absolute top-1 right-1 flex size-3.5 items-center justify-center rounded-full border border-brand bg-brand-foreground text-[0.5625rem] font-medium text-brand">
+                    {itemCount > 9 ? "9+" : itemCount}
+                  </span>
+                ) : null}
+              </Button>
+              {/* No mobile hamburger here — the mobile tab bar's Menu tab opens
+                  the same panel, so a second control in the header would be
+                  redundant. */}
             </div>
           </nav>
-
-          <div className="flex shrink-0 items-center gap-1">
-            <Button variant="ghost" size="icon" aria-label="Search" onClick={() => setSearchOpen(true)}>
-              <Search />
-            </Button>
-            <Button variant="ghost" size="icon" aria-label="Kit list" onClick={openDrawer} className="relative">
-              <Package />
-              {hydrated && itemCount > 0 ? (
-                <span className="absolute top-1 right-1 flex size-3.5 items-center justify-center rounded-full border border-background bg-brand text-[0.5625rem] font-medium text-brand-foreground">
-                  {itemCount > 9 ? "9+" : itemCount}
-                </span>
-              ) : null}
-            </Button>
-          </div>
         </div>
       </Container>
 
@@ -224,8 +325,7 @@ function Navbar() {
         <NavbarSearch onNavigate={() => setSearchOpen(false)} />
       </Modal>
 
-      {/* Full nav drawer — opened from the pill's "Menu" trigger, on every
-          breakpoint. */}
+      {/* Mobile navigation */}
       <AnimatePresence>
         {mobileOpen ? (
           <motion.div
@@ -233,7 +333,7 @@ function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: duration.fast, ease: easeOutta }}
-            className="fixed inset-0 z-50 bg-background"
+            className="fixed inset-0 z-50 bg-background lg:hidden"
           >
             <Container className="flex h-full flex-col overflow-y-auto pb-8">
               <div className="flex h-16 shrink-0 items-center justify-between sm:h-20">
@@ -253,8 +353,8 @@ function Navbar() {
                   <X />
                 </Button>
               </div>
-              <nav className="mt-6 grid grid-cols-1 gap-7 sm:grid-cols-3">
-                {navGroups.map((group, gi) => (
+              <nav className="mt-6 flex flex-col gap-7">
+                {mobileNavGroups.map((group, gi) => (
                   <motion.div
                     key={group.title}
                     initial={{ opacity: 0, y: 12 }}
