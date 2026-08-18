@@ -175,8 +175,8 @@ function Hero({ products }: { products: DemoProduct[] }) {
       </Section>
 
       {products.length > 1 ? (
-        <div className="overflow-hidden border-b border-border bg-background">
-          <div className="animate-marquee flex w-max">
+        <div className="h-[calc(22svh-56px)] overflow-hidden border-b border-border bg-background lg:h-[calc(22vh-101px)]">
+          <div className="animate-marquee flex h-full w-max">
             {[0, 1].map((copy) =>
               products.map((p, i) => {
                 const thumb = getProductImage(p.slug, p.categorySlug);
@@ -188,12 +188,12 @@ function Hero({ products }: { products: DemoProduct[] }) {
                     aria-pressed={copy === 0 && i === index}
                     tabIndex={copy === 0 ? 0 : -1}
                     onClick={() => setIndex(i)}
-                    className={`relative size-20 shrink-0 overflow-hidden border-r border-border transition-all sm:size-24 ${
+                    className={`relative aspect-square h-full shrink-0 overflow-hidden border-r border-border transition-all ${
                       copy === 0 && i === index ? "ring-brand ring-2 ring-inset" : ""
                     }`}
                   >
                     {thumb ? (
-                      <Image src={thumb} alt={p.name} fill sizes="96px" className="object-cover" />
+                      <Image src={thumb} alt={p.name} fill sizes="120px" className="object-cover" />
                     ) : null}
                   </button>
                 );
