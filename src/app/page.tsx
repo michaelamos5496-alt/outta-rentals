@@ -49,14 +49,17 @@ export default async function Home() {
   const usedImages = new Set<string>();
 
   // Hero rotates through the featured set, topped up with other real
-  // catalogue items so the thumbnail strip beneath it always fills a full
-  // row of 8 (711rent-style) with 8 visually distinct photos, rather than
+  // catalogue items so the thumbnail strip beneath it fills a wide, varied
+  // row (711rent-style) with visually distinct photos, rather than
   // repeating a photo shared by size-variant SKUs (e.g. the 4/6/8/12ft grip
-  // frames) or leaving most of the row blank.
-  const spotlightProducts = pickWithUniqueImages(featured, usedSlugs, usedImages, 8);
-  if (spotlightProducts.length < 8) {
+  // frames). 20 rather than 8 — at 8 items, two looped copies (~1,500px)
+  // didn't cover very wide viewports, leaving blank space at the end of
+  // the marquee track before it looped.
+  const SPOTLIGHT_COUNT = 20;
+  const spotlightProducts = pickWithUniqueImages(featured, usedSlugs, usedImages, SPOTLIGHT_COUNT);
+  if (spotlightProducts.length < SPOTLIGHT_COUNT) {
     spotlightProducts.push(
-      ...pickWithUniqueImages(products, usedSlugs, usedImages, 8 - spotlightProducts.length)
+      ...pickWithUniqueImages(products, usedSlugs, usedImages, SPOTLIGHT_COUNT - spotlightProducts.length)
     );
   }
 
