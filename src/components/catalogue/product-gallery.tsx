@@ -5,7 +5,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { getCategoryIcon } from "@/lib/catalogue";
-import { getProductImage } from "@/lib/editorial-images";
+import { getProductImage, isolatedProductPhotos } from "@/lib/editorial-images";
 
 export interface ProductGalleryProps {
   productSlug: string;
@@ -19,6 +19,7 @@ export interface ProductGalleryProps {
 function ProductGallery({ productSlug, categorySlug, sku, name, frameCount = 4 }: ProductGalleryProps) {
   const icon = getCategoryIcon(categorySlug);
   const image = getProductImage(productSlug, categorySlug);
+  const fit = isolatedProductPhotos.has(productSlug) ? "contain" : "cover";
   const [active, setActive] = React.useState(0);
   const frames = Array.from({ length: frameCount });
 
@@ -30,6 +31,7 @@ function ProductGallery({ productSlug, categorySlug, sku, name, frameCount = 4 }
           alt={name}
           icon={icon}
           meta={`${sku} · ${active + 1}/${frameCount}`}
+          fit={fit}
           className="aspect-square w-full sm:aspect-4/3"
         />
       </div>
@@ -48,7 +50,13 @@ function ProductGallery({ productSlug, categorySlug, sku, name, frameCount = 4 }
                 : "border-border hover:border-foreground/40"
             )}
           >
-            <MediaPlaceholder src={image} alt={`${name} ${i + 1}`} icon={icon} className="aspect-square w-full" />
+            <MediaPlaceholder
+              src={image}
+              alt={`${name} ${i + 1}`}
+              icon={icon}
+              fit={fit}
+              className="aspect-square w-full"
+            />
           </button>
         ))}
       </div>

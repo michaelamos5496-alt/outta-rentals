@@ -17,7 +17,7 @@ import {
   type DemoProduct,
 } from "@/lib/catalogue";
 import { useKit } from "@/components/kit/kit-provider";
-import { getProductImage } from "@/lib/editorial-images";
+import { getProductImage, isolatedProductPhotos } from "@/lib/editorial-images";
 import { formatPrice } from "@/lib/currency";
 
 export interface ProductCardProps {
@@ -68,6 +68,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
           <MediaPlaceholder
             src={getProductImage(product.slug, product.categorySlug)}
             alt={product.name}
+            fit={isolatedProductPhotos.has(product.slug) ? "contain" : "cover"}
             className="aspect-[16/11] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
           />
           <span className="absolute right-2 bottom-2 bg-background px-1.5 py-0.5 font-mono text-[0.625rem] font-semibold">
@@ -122,6 +123,7 @@ function ListProductCard({
           alt={product.name}
           icon={icon}
           meta={product.sku}
+          fit={isolatedProductPhotos.has(product.slug) ? "contain" : "cover"}
           className="aspect-square h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
         />
       </Link>

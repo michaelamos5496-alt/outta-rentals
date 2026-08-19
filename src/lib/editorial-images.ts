@@ -68,7 +68,7 @@ export const finalCtaImage = pexelsUrl(30697927, 1920);
  * (see `categoryImages`).
  */
 export const productImages: Record<string, string> = {
-  "arri-alexa-mini": pexelsUrl(37593303),
+  "arri-alexa-mini": "/equipment/arri-alexa-mini.webp",
   "arri-alexa-mini-foreign": pexelsUrl(37593303),
   "red-helium": pexelsUrl(6794832),
   "blackmagic-6k-pro": pexelsUrl(26628428),
@@ -149,3 +149,11 @@ export const productImages: Record<string, string> = {
 export function getProductImage(productSlug: string, categorySlug: string): string | undefined {
   return productImages[productSlug] ?? categoryImages[categorySlug];
 }
+
+/**
+ * Products with real OUTTA-supplied photography: an isolated shot on a
+ * plain white background, rather than the Pexels lifestyle/location stock
+ * used everywhere else. Cards render these with object-contain on a white
+ * card (the whole unit visible, nothing cropped) instead of object-cover.
+ */
+export const isolatedProductPhotos = new Set<string>(["arri-alexa-mini"]);

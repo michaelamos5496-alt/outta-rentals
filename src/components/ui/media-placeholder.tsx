@@ -27,6 +27,13 @@ export interface MediaPlaceholderProps extends React.ComponentProps<"div"> {
   src?: string;
   alt?: string;
   priority?: boolean;
+  /**
+   * "cover" (default) fills the frame, cropping as needed — right for the
+   * Pexels lifestyle/location stock used across most of the catalogue.
+   * "contain" shows the whole item on a plain white ground, nothing
+   * cropped — for real OUTTA-supplied isolated product photography.
+   */
+  fit?: "cover" | "contain";
 }
 
 function MediaPlaceholder({
@@ -36,14 +43,16 @@ function MediaPlaceholder({
   src,
   alt = "",
   priority,
+  fit = "cover",
   className,
   ...props
 }: MediaPlaceholderProps) {
   if (src) {
+    const isContain = fit === "contain";
     return (
       <div
         data-slot="media-placeholder"
-        className={cn("relative isolate overflow-hidden bg-card", className)}
+        className={cn("relative isolate overflow-hidden", isContain ? "bg-white" : "bg-card", className)}
         {...props}
       >
         <Image
@@ -52,11 +61,16 @@ function MediaPlaceholder({
           fill
           priority={priority}
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          className="object-cover"
+          className={isContain ? "object-contain p-6" : "object-cover"}
         />
         <div className="absolute inset-0 ring-1 ring-inset ring-foreground/10" />
         {meta ? (
-          <span className="text-meta absolute bottom-3 left-3 !text-white/80 drop-shadow-sm">
+          <span
+            className={cn(
+              "text-meta absolute bottom-3 left-3 drop-shadow-sm",
+              isContain ? "!text-foreground/60" : "!text-white/80"
+            )}
+          >
             {meta}
           </span>
         ) : null}

@@ -4,7 +4,20 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, LoaderCircle, Package, Search, X } from "lucide-react";
+import {
+  Briefcase,
+  ChevronDown,
+  Clapperboard,
+  Info,
+  LoaderCircle,
+  Mail,
+  MessageCircle,
+  Package,
+  Plus,
+  Search,
+  X,
+} from "lucide-react";
+import gsap from "gsap";
 
 import { cn } from "@/lib/utils";
 import { duration, easeOutta } from "@/lib/motion";
@@ -18,7 +31,7 @@ import { SearchInput } from "@/components/ui/search-input";
 import { Modal } from "@/components/ui/modal";
 import { useMobileNav } from "@/components/layout/mobile-nav-provider";
 import { useKit } from "@/components/kit/kit-provider";
-import { WhatsAppButton } from "@/components/quote/whatsapp-button";
+import { getWhatsAppLink } from "@/lib/quote/whatsapp";
 import { formatPrice } from "@/lib/currency";
 
 function useDebouncedValue<T>(value: T, delayMs: number): T {
@@ -145,14 +158,129 @@ const equipmentTabs: EquipmentTab[] = [
   { label: "Drone", href: "/equipment/drones" },
 ];
 
-// Thin utility row up top — mirrors 711rent's Home/Rent/Contact/Service/
-// News/Creative List row above the main logo+tabs bar.
-const utilityLinks: NavItem[] = [
-  { label: "Services", href: "/services" },
-  { label: "Work", href: "/work" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+// Thin utility row up top, now a radial FAB instead of a plain link list —
+// mirrors 711rent's Home/Rent/Contact/Service/News row in what it links to,
+// fanned out from a single button instead. Row 2 (logo + category tabs)
+// below is untouched.
+const fabItems: (NavItem & { icon: React.ComponentType<{ className?: string; strokeWidth?: number }> })[] = [
+  { label: "Services", href: "/services", icon: Briefcase },
+  { label: "Work", href: "/work", icon: Clapperboard },
+  { label: "About", href: "/about", icon: Info },
+  { label: "Contact", href: "/contact", icon: Mail },
 ];
+
+/**
+ * Radial fan-out menu — a single FAB button that expands the utility links
+ * along an arc with a staggered elastic timeline, built once and just
+ * played forward/reversed on toggle (cheaper than rebuilding per click).
+ * Angles point right-and-down (0°→80°) rather than the more typical
+ * up-and-left sweep, since this sits in a thin top bar with nothing above
+ * it to fan into — items would go off-screen otherwise.
+ */
+function NavFab() {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const iconWrapRef = React.useRef<HTMLSpanElement>(null);
+  const timelineRef = React.useRef<gsap.core.Timeline | null>(null);
+  const [open, setOpen] = React.useState(false);
+  const whatsappLink = getWhatsAppLink({
+    closingLine: "I'd like to talk about an upcoming shoot.",
+  });
+
+  const items = whatsappLink
+    ? [...fabItems, { label: "WhatsApp", href: whatsappLink, icon: MessageCircle, external: true }]
+    : fabItems;
+
+  const toggle = React.useCallback(() => {
+    const tl = timelineRef.current;
+    if (!tl) return;
+    setOpen((wasOpen) => {
+      if (wasOpen) {
+        tl.reverse();
+      } else {
+        tl.play();
+      }
+      return !wasOpen;
+    });
+  }, []);
+
+  React.useLayoutEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const els = Array.from(container.querySelectorAll<HTMLElement>(".fab-item"));
+    const radius = 52;
+    const startAngle = 0;
+    const endAngle = 80;
+    const angleStep = els.length > 1 ? (endAngle - startAngle) / (els.length - 1) : 0;
+
+    gsap.set(els, { x: 0, y: 0, scale: 0, opacity: 0 });
+    const tl = gsap.timeline({ paused: true });
+
+    els.forEach((el, i) => {
+      const angle = (startAngle + angleStep * i) * (Math.PI / 180);
+      const tx = Math.cos(angle) * radius;
+      const ty = Math.sin(angle) * radius;
+      tl.to(
+        el,
+        { x: tx, y: ty, scale: 1, opacity: 1, duration: 0.5, ease: "elastic.out(1, 0.6)" },
+        i * 0.05
+      );
+    });
+
+    if (iconWrapRef.current) {
+      tl.to(iconWrapRef.current, { rotation: 135, duration: 0.3, ease: "back.out(1.7)" }, 0);
+    }
+
+    timelineRef.current = tl;
+    return () => {
+      tl.kill();
+    };
+  }, [items.length]);
+
+  React.useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") toggle();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open, toggle]);
+
+  return (
+    <div ref={containerRef} className="relative flex items-center">
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-label={open ? "Close menu" : "Open menu"}
+        onClick={toggle}
+        className="relative z-10 flex size-7 items-center justify-center text-brand-foreground"
+      >
+        <span ref={iconWrapRef} className="flex items-center justify-center">
+          <Plus className="size-4" strokeWidth={2} aria-hidden />
+        </span>
+      </button>
+
+      {items.map((item) => {
+        const Icon = item.icon;
+        const external = "external" in item && item.external;
+        return (
+          <Link
+            key={item.label}
+            href={item.href}
+            {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            title={item.label}
+            aria-label={item.label}
+            onClick={() => {
+              if (open) toggle();
+            }}
+            className="fab-item bg-brand-foreground text-brand absolute top-1/2 left-1/2 z-0 flex size-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full opacity-0 shadow-md"
+          >
+            <Icon className="size-3.5" strokeWidth={2} />
+          </Link>
+        );
+      })}
+    </div>
+  );
+}
 
 // Mobile-only grouping of the nav. Grouped headers give the mobile panel
 // scannability without changing what routes exist.
@@ -209,29 +337,12 @@ function Navbar() {
       )}
       style={{ transitionDuration: `${duration.fast * 1000}ms` }}
     >
-      {/* Row 1 — thin utility bar, desktop only, always visible */}
+      {/* Row 1 — thin bar, desktop only, always visible. A radial FAB
+          replaces the old plain link list; row 2 below is untouched. */}
       <div className="hidden border-b border-brand-foreground/15 lg:block">
         <Container>
-          <div className="flex h-9 items-center justify-between">
-            <ul className="flex items-center gap-6">
-              {utilityLinks.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-[0.6875rem] font-medium tracking-[0.1em] whitespace-nowrap !text-brand-foreground/75 uppercase transition-colors hover:!text-brand-foreground"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <WhatsAppButton
-              label="WhatsApp Us"
-              variant="ghost"
-              size="sm"
-              closingLine="I'd like to talk about an upcoming shoot."
-              className="h-auto shrink-0 gap-1.5 px-0 py-0 text-[0.6875rem] font-medium tracking-[0.1em] !text-brand-foreground/75 uppercase hover:!text-brand-foreground hover:bg-transparent"
-            />
+          <div className="flex h-9 items-center">
+            <NavFab />
           </div>
         </Container>
       </div>
