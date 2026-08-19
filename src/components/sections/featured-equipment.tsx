@@ -24,6 +24,7 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
   const href = `/equipment/${product.slug}`;
   const brand = getBrandBySlug(product.brandSlug);
   const category = getCategoryBySlug(product.categorySlug);
+  const isolated = isolatedProductPhotos.has(product.slug);
 
   React.useEffect(() => {
     if (!added) return;
@@ -34,20 +35,38 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
   return (
     <motion.article
       variants={slideUp()}
-      className="group/product relative overflow-hidden rounded-2xl bg-brand"
+      className={cn(
+        "group/product relative overflow-hidden rounded-2xl",
+        isolated ? "border border-border bg-background" : "bg-brand"
+      )}
     >
       <Link href={href} className="block active:opacity-80">
         <div className="flex items-start justify-between gap-2 p-3 pb-1.5 sm:p-3.5 sm:pb-1.5">
           <div className="min-w-0">
-            <p className="line-clamp-2 text-sm font-bold leading-tight text-brand-foreground">
+            <p
+              className={cn(
+                "line-clamp-2 text-sm font-bold leading-tight",
+                isolated ? "text-foreground" : "text-brand-foreground"
+              )}
+            >
               {product.name}
             </p>
-            <p className="mt-1 text-[0.6875rem] text-brand-foreground/70">
+            <p
+              className={cn(
+                "mt-1 text-[0.6875rem]",
+                isolated ? "text-muted-foreground" : "text-brand-foreground/70"
+              )}
+            >
               {brand?.name ?? product.brandSlug}
               {category ? ` · ${category.name}` : ""}
             </p>
           </div>
-          <p className="hidden max-w-[40%] text-right text-[0.625rem] leading-snug text-brand-foreground/70 sm:line-clamp-2 sm:block">
+          <p
+            className={cn(
+              "hidden max-w-[40%] text-right text-[0.625rem] leading-snug sm:line-clamp-2 sm:block",
+              isolated ? "text-muted-foreground" : "text-brand-foreground/70"
+            )}
+          >
             {product.shortDescription}
           </p>
         </div>
@@ -56,10 +75,15 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
           <MediaPlaceholder
             src={getProductImage(product.slug, product.categorySlug)}
             alt={product.name}
-            fit={isolatedProductPhotos.has(product.slug) ? "contain" : "cover"}
+            fit={isolated ? "contain" : "cover"}
             className="aspect-[16/11] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
           />
-          <span className="absolute right-2 bottom-2 bg-background px-1.5 py-0.5 font-mono text-[0.625rem] font-semibold">
+          <span
+            className={cn(
+              "absolute right-2 bottom-2 px-1.5 py-0.5 font-mono text-[0.625rem] font-semibold",
+              isolated ? "bg-foreground text-background" : "bg-background text-foreground"
+            )}
+          >
             {formatPrice(product.dayRate, product.currency)}/day
           </span>
         </div>
