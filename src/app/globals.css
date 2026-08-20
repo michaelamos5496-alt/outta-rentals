@@ -191,8 +191,8 @@
 }
 @media (min-width: 1024px) {
   #smooth-wrapper {
-    top: 101px !important;
-    height: calc(100% - 101px) !important;
+    top: 64px !important;
+    height: calc(100% - 64px) !important;
   }
 }
 

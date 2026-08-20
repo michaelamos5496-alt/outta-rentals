@@ -170,12 +170,13 @@ const fabItems: (NavItem & { icon: React.ComponentType<{ className?: string; str
 ];
 
 /**
- * Radial fan-out menu — a single FAB button that expands the utility links
- * along an arc with a staggered elastic timeline, built once and just
- * played forward/reversed on toggle (cheaper than rebuilding per click).
- * Angles point right-and-down (0°→80°) rather than the more typical
- * up-and-left sweep, since this sits in a thin top bar with nothing above
- * it to fan into — items would go off-screen otherwise.
+ * Radial fan-out menu — a genuinely floating FAB (fixed position, its own
+ * shadow and pill shape, detached from the sticky header entirely) rather
+ * than a control stacked flush inside a full-width bar on top of the
+ * category tabs. Expands the utility links along an arc with a staggered
+ * elastic timeline, built once and just played forward/reversed on toggle.
+ * Angles sweep up-and-left (190°→270°) since it sits bottom-right of the
+ * viewport with open space above and to the left to fan into.
  */
 function NavFab() {
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -207,9 +208,9 @@ function NavFab() {
     const container = containerRef.current;
     if (!container) return;
     const els = Array.from(container.querySelectorAll<HTMLElement>(".fab-item"));
-    const radius = 52;
-    const startAngle = 0;
-    const endAngle = 80;
+    const radius = 64;
+    const startAngle = 190;
+    const endAngle = 270;
     const angleStep = els.length > 1 ? (endAngle - startAngle) / (els.length - 1) : 0;
 
     gsap.set(els, { x: 0, y: 0, scale: 0, opacity: 0 });
@@ -246,16 +247,19 @@ function NavFab() {
   }, [open, toggle]);
 
   return (
-    <div ref={containerRef} className="relative flex items-center">
+    <div
+      ref={containerRef}
+      className="fixed right-6 bottom-6 z-40 hidden lg:block"
+    >
       <button
         type="button"
         aria-expanded={open}
         aria-label={open ? "Close menu" : "Open menu"}
         onClick={toggle}
-        className="relative z-10 flex size-7 items-center justify-center text-brand-foreground"
+        className="bg-brand text-brand-foreground relative z-10 flex size-12 items-center justify-center rounded-full shadow-xl"
       >
         <span ref={iconWrapRef} className="flex items-center justify-center">
-          <Plus className="size-4" strokeWidth={2} aria-hidden />
+          <Plus className="size-5" strokeWidth={2} aria-hidden />
         </span>
       </button>
 
@@ -272,9 +276,9 @@ function NavFab() {
             onClick={() => {
               if (open) toggle();
             }}
-            className="fab-item bg-brand-foreground text-brand absolute top-1/2 left-1/2 z-0 flex size-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full opacity-0 shadow-md"
+            className="fab-item bg-brand-foreground text-brand absolute top-1/2 left-1/2 z-0 flex size-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full opacity-0 shadow-lg"
           >
-            <Icon className="size-3.5" strokeWidth={2} />
+            <Icon className="size-4" strokeWidth={2} />
           </Link>
         );
       })}
@@ -337,17 +341,11 @@ function Navbar() {
       )}
       style={{ transitionDuration: `${duration.fast * 1000}ms` }}
     >
-      {/* Row 1 — thin bar, desktop only, always visible. A radial FAB
-          replaces the old plain link list; row 2 below is untouched. */}
-      <div className="hidden border-b border-brand-foreground/15 lg:block">
-        <Container>
-          <div className="flex h-9 items-center">
-            <NavFab />
-          </div>
-        </Container>
-      </div>
+      {/* Floating FAB — fixed to the viewport, detached from the header
+          entirely (not stacked in a bar on top of the tabs below). */}
+      <NavFab />
 
-      {/* Row 2 — logo + flat, always-visible category tabs + icons */}
+      {/* Category tabs bar — logo + flat, always-visible category tabs + icons */}
       <Container>
         <div className="relative">
           <nav className="flex h-14 items-center justify-between gap-6 sm:h-16">
