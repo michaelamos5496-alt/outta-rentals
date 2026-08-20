@@ -170,18 +170,19 @@ const fabItems: (NavItem & { icon: React.ComponentType<{ className?: string; str
 ];
 
 /**
- * Radial fan-out menu — a genuinely floating FAB (fixed position, its own
- * shadow and pill shape, detached from the sticky header entirely) rather
- * than a control stacked flush inside a full-width bar on top of the
- * category tabs. Expands the utility links along an arc with a staggered
- * elastic timeline, built once and just played forward/reversed on toggle.
- * Angles sweep up-and-left (190°→270°) since it sits bottom-right of the
- * viewport with open space above and to the left to fan into.
+ * Floating FAB — fixed position, its own shadow and pill shape, detached
+ * from the sticky header entirely. Hovering (or clicking, for keyboard/touch)
+ * pops up a labeled list of the utility links above the button, animated in
+ * with a GSAP stagger — panel scales/lifts in, list rows slide up in
+ * sequence — rather than the harder-to-read icon-only radial fan this
+ * replaced.
  */
 function NavFab() {
   const containerRef = React.useRef<HTMLDivElement>(null);
+  const panelRef = React.useRef<HTMLDivElement>(null);
   const iconWrapRef = React.useRef<HTMLSpanElement>(null);
   const timelineRef = React.useRef<gsap.core.Timeline | null>(null);
+  const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const [open, setOpen] = React.useState(false);
   const whatsappLink = getWhatsAppLink({
     closingLine: "I'd like to talk about an upcoming shoot.",
@@ -191,41 +192,38 @@ function NavFab() {
     ? [...fabItems, { label: "WhatsApp", href: whatsappLink, icon: MessageCircle, external: true }]
     : fabItems;
 
-  const toggle = React.useCallback(() => {
-    const tl = timelineRef.current;
-    if (!tl) return;
-    setOpen((wasOpen) => {
-      if (wasOpen) {
-        tl.reverse();
-      } else {
-        tl.play();
-      }
-      return !wasOpen;
-    });
+  const open_ = React.useCallback(() => {
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    timelineRef.current?.play();
+    setOpen(true);
   }, []);
 
+  const close = React.useCallback(() => {
+    timelineRef.current?.reverse();
+    setOpen(false);
+  }, []);
+
+  const toggle = React.useCallback(() => {
+    if (open) close();
+    else open_();
+  }, [open, close, open_]);
+
+  const scheduleClose = React.useCallback(() => {
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    closeTimeoutRef.current = setTimeout(close, 200);
+  }, [close]);
+
   React.useLayoutEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-    const els = Array.from(container.querySelectorAll<HTMLElement>(".fab-item"));
-    const radius = 64;
-    const startAngle = 190;
-    const endAngle = 270;
-    const angleStep = els.length > 1 ? (endAngle - startAngle) / (els.length - 1) : 0;
+    const panel = panelRef.current;
+    if (!panel) return;
+    const rows = Array.from(panel.querySelectorAll<HTMLElement>(".fab-row"));
 
-    gsap.set(els, { x: 0, y: 0, scale: 0, opacity: 0 });
+    gsap.set(panel, { opacity: 0, scale: 0.92, y: 12, transformOrigin: "bottom right" });
+    gsap.set(rows, { opacity: 0, y: 10 });
+
     const tl = gsap.timeline({ paused: true });
-
-    els.forEach((el, i) => {
-      const angle = (startAngle + angleStep * i) * (Math.PI / 180);
-      const tx = Math.cos(angle) * radius;
-      const ty = Math.sin(angle) * radius;
-      tl.to(
-        el,
-        { x: tx, y: ty, scale: 1, opacity: 1, duration: 0.5, ease: "elastic.out(1, 0.6)" },
-        i * 0.05
-      );
-    });
+    tl.to(panel, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "back.out(1.7)" });
+    tl.to(rows, { opacity: 1, y: 0, duration: 0.3, stagger: 0.05, ease: "power2.out" }, 0.08);
 
     if (iconWrapRef.current) {
       tl.to(iconWrapRef.current, { rotation: 135, duration: 0.3, ease: "back.out(1.7)" }, 0);
@@ -240,48 +238,52 @@ function NavFab() {
   React.useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") toggle();
+      if (e.key === "Escape") close();
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [open, toggle]);
+  }, [open, close]);
 
   return (
     <div
       ref={containerRef}
       className="fixed right-6 bottom-6 z-40 hidden lg:block"
+      onMouseEnter={open_}
+      onMouseLeave={scheduleClose}
     >
+      <div
+        ref={panelRef}
+        className="pointer-events-none absolute right-0 bottom-full z-0 mb-3 flex w-56 flex-col gap-1 rounded-2xl bg-brand p-2 opacity-0 shadow-xl"
+      >
+        {items.map((item) => {
+          const Icon = item.icon;
+          const external = "external" in item && item.external;
+          return (
+            <Link
+              key={item.label}
+              href={item.href}
+              {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              onClick={close}
+              className="fab-row text-brand-foreground pointer-events-auto flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-brand-foreground/10"
+            >
+              <Icon className="size-4 shrink-0" strokeWidth={2} />
+              <span className="text-sm font-medium">{item.label}</span>
+            </Link>
+          );
+        })}
+      </div>
+
       <button
         type="button"
         aria-expanded={open}
         aria-label={open ? "Close menu" : "Open menu"}
         onClick={toggle}
-        className="bg-brand text-brand-foreground relative z-10 flex size-12 items-center justify-center rounded-full shadow-xl"
+        className="bg-brand text-brand-foreground relative z-10 flex size-16 items-center justify-center rounded-full shadow-xl"
       >
         <span ref={iconWrapRef} className="flex items-center justify-center">
-          <Plus className="size-5" strokeWidth={2} aria-hidden />
+          <Plus className="size-6" strokeWidth={2} aria-hidden />
         </span>
       </button>
-
-      {items.map((item) => {
-        const Icon = item.icon;
-        const external = "external" in item && item.external;
-        return (
-          <Link
-            key={item.label}
-            href={item.href}
-            {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            title={item.label}
-            aria-label={item.label}
-            onClick={() => {
-              if (open) toggle();
-            }}
-            className="fab-item bg-brand-foreground text-brand absolute top-1/2 left-1/2 z-0 flex size-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full opacity-0 shadow-lg"
-          >
-            <Icon className="size-4" strokeWidth={2} />
-          </Link>
-        );
-      })}
     </div>
   );
 }
