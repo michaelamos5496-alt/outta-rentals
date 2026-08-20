@@ -64,7 +64,7 @@ function MediaPlaceholder({
           fill
           priority={priority}
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          className={isContain ? "object-contain p-6" : "object-cover"}
+          className={isContain ? "object-contain p-1" : "object-cover"}
         />
         {!isContain ? <div className="absolute inset-0 ring-1 ring-inset ring-foreground/10" /> : null}
         {meta ? (

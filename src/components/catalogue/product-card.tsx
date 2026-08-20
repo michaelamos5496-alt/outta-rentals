@@ -17,7 +17,7 @@ import {
   type DemoProduct,
 } from "@/lib/catalogue";
 import { useKit } from "@/components/kit/kit-provider";
-import { getProductImage, isolatedProductPhotos } from "@/lib/editorial-images";
+import { getProductImage } from "@/lib/editorial-images";
 import { formatPrice } from "@/lib/currency";
 
 export interface ProductCardProps {
@@ -32,7 +32,6 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
   const href = `/equipment/${product.slug}`;
   const brand = getBrandBySlug(product.brandSlug);
   const category = getCategoryBySlug(product.categorySlug);
-  const isolated = isolatedProductPhotos.has(product.slug);
 
   React.useEffect(() => {
     if (!added) return;
@@ -46,10 +45,10 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
 
   // Two-tone card sitewide: white header (name + brand + category +
   // description) on top, green photo panel below with the price tag and
-  // circular quick-add button. Products with real isolated photography (a
-  // genuine transparent-background cutout, not a flat white fill) render
-  // straight onto that same green panel — no separate white box, the
-  // cutout composites directly onto it.
+  // circular quick-add button. Every card (including real isolated
+  // photography like the ARRI Alexa Mini) uses the same cover-fit
+  // treatment here — the dedicated contain/uncropped view lives on the
+  // product detail page instead.
   return (
     <article
       className={cn(
@@ -77,7 +76,6 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
           <MediaPlaceholder
             src={getProductImage(product.slug, product.categorySlug)}
             alt={product.name}
-            fit={isolated ? "contain" : "cover"}
             className="aspect-[16/11] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
           />
           <span className="absolute right-2 bottom-2 bg-background px-1.5 py-0.5 font-mono text-[0.625rem] font-semibold">
@@ -132,7 +130,6 @@ function ListProductCard({
           alt={product.name}
           icon={icon}
           meta={product.sku}
-          fit={isolatedProductPhotos.has(product.slug) ? "contain" : "cover"}
           className="aspect-square h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
         />
       </Link>
