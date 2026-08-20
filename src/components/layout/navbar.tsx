@@ -247,13 +247,13 @@ function NavFab() {
   return (
     <div
       ref={containerRef}
-      className="fixed right-6 bottom-6 z-40 hidden lg:block"
+      className="fixed right-4 bottom-24 z-40 lg:right-6 lg:bottom-6"
       onMouseEnter={open_}
       onMouseLeave={scheduleClose}
     >
       <div
         ref={panelRef}
-        className="pointer-events-none absolute right-0 bottom-full z-0 mb-3 flex w-56 flex-col gap-1 rounded-2xl bg-brand p-2 opacity-0 shadow-xl"
+        className="pointer-events-none absolute right-0 bottom-full z-0 mb-3 flex w-48 flex-col gap-1 rounded-2xl bg-brand p-2 opacity-0 shadow-xl sm:w-56"
       >
         {items.map((item) => {
           const Icon = item.icon;
@@ -278,10 +278,10 @@ function NavFab() {
         aria-expanded={open}
         aria-label={open ? "Close menu" : "Open menu"}
         onClick={toggle}
-        className="bg-brand text-brand-foreground relative z-10 flex size-16 items-center justify-center rounded-full shadow-xl"
+        className="bg-brand text-brand-foreground relative z-10 flex size-14 items-center justify-center rounded-full shadow-xl lg:size-16"
       >
         <span ref={iconWrapRef} className="flex items-center justify-center">
-          <Plus className="size-6" strokeWidth={2} aria-hidden />
+          <Plus className="size-5 lg:size-6" strokeWidth={2} aria-hidden />
         </span>
       </button>
     </div>
