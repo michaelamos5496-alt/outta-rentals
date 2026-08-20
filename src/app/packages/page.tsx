@@ -48,24 +48,24 @@ export default function PackagesPage() {
           return (
             <article
               key={pkg.slug}
-              className="group/pkg relative flex h-full flex-col overflow-hidden rounded-2xl bg-brand"
+              className="group/pkg relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-background"
             >
               <Link href={`/packages/${pkg.slug}`} className="flex flex-1 flex-col active:opacity-80">
                 <div className="flex items-start justify-between gap-2 p-3 pb-1.5 sm:p-3.5 sm:pb-1.5">
                   <div className="min-w-0">
-                    <p className="line-clamp-2 text-sm font-bold leading-tight text-brand-foreground">
+                    <p className="line-clamp-2 text-sm font-bold leading-tight text-foreground">
                       {pkg.name}
                     </p>
-                    <p className="mt-1 text-[0.6875rem] text-brand-foreground/70">
+                    <p className="mt-1 text-[0.6875rem] text-muted-foreground">
                       {pkg.items.length} roles included
                     </p>
                   </div>
-                  <p className="hidden max-w-[45%] text-right text-[0.625rem] leading-snug text-brand-foreground/70 sm:line-clamp-2 sm:block">
+                  <p className="hidden max-w-[45%] text-right text-[0.625rem] leading-snug text-muted-foreground sm:line-clamp-2 sm:block">
                     {pkg.description}
                   </p>
                 </div>
 
-                <div className="relative mt-1 min-h-[7rem] flex-1">
+                <div className="relative mt-1 min-h-[7rem] flex-1 bg-brand">
                   <MediaPlaceholder
                     src={themeImages[pkg.slug]}
                     alt={pkg.name}

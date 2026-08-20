@@ -44,31 +44,36 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
     return <ListProductCard product={product} className={className} />;
   }
 
-  // Same rounded "product tile" sitewide: green card (brand + category +
-  // description), large photo, price tag, circular quick-add button.
-  // Products with real isolated photography (a genuine transparent-
-  // background cutout, not a flat white fill) render straight onto this
-  // same green — no white box, the cutout composites directly onto the
-  // card.
+  // Two-tone card sitewide: white header (name + brand + category +
+  // description) on top, green photo panel below with the price tag and
+  // circular quick-add button. Products with real isolated photography (a
+  // genuine transparent-background cutout, not a flat white fill) render
+  // straight onto that same green panel — no separate white box, the
+  // cutout composites directly onto it.
   return (
-    <article className={cn("group/product relative overflow-hidden rounded-2xl bg-brand", className)}>
+    <article
+      className={cn(
+        "group/product relative overflow-hidden rounded-2xl border border-border bg-background",
+        className
+      )}
+    >
       <Link href={href} className="block active:opacity-80">
         <div className="flex items-start justify-between gap-2 p-3 pb-1.5 sm:p-3.5 sm:pb-1.5">
           <div className="min-w-0">
-            <p className="line-clamp-2 text-sm font-bold leading-tight text-brand-foreground">
+            <p className="line-clamp-2 text-sm font-bold leading-tight text-foreground">
               {product.name}
             </p>
-            <p className="mt-1 text-[0.6875rem] text-brand-foreground/70">
+            <p className="mt-1 text-[0.6875rem] text-muted-foreground">
               {brand?.name ?? product.brandSlug}
               {category ? ` · ${category.name}` : ""}
             </p>
           </div>
-          <p className="hidden max-w-[40%] text-right text-[0.625rem] leading-snug text-brand-foreground/70 sm:line-clamp-2 sm:block">
+          <p className="hidden max-w-[40%] text-right text-[0.625rem] leading-snug text-muted-foreground sm:line-clamp-2 sm:block">
             {product.shortDescription}
           </p>
         </div>
 
-        <div className="relative mt-1">
+        <div className="relative mt-1 bg-brand">
           <MediaPlaceholder
             src={getProductImage(product.slug, product.categorySlug)}
             alt={product.name}
