@@ -44,48 +44,26 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
     return <ListProductCard product={product} className={className} />;
   }
 
-  // Same rounded "product tile" as the homepage Featured Equipment cards —
-  // one consistent card look sitewide: green header (brand + category +
+  // Same rounded "product tile" sitewide: green card (brand + category +
   // description), large photo, price tag, circular quick-add button.
-  // Products with real isolated (white-background) photography flip the
-  // card itself to white instead — a green fill around a white product
-  // shot looked like two unrelated treatments stacked on top of each
-  // other, not one card.
+  // Products with real isolated photography (a genuine transparent-
+  // background cutout, not a flat white fill) render straight onto this
+  // same green — no white box, the cutout composites directly onto the
+  // card.
   return (
-    <article
-      className={cn(
-        "group/product relative overflow-hidden rounded-2xl",
-        isolated ? "border border-border bg-background" : "bg-brand",
-        className
-      )}
-    >
+    <article className={cn("group/product relative overflow-hidden rounded-2xl bg-brand", className)}>
       <Link href={href} className="block active:opacity-80">
         <div className="flex items-start justify-between gap-2 p-3 pb-1.5 sm:p-3.5 sm:pb-1.5">
           <div className="min-w-0">
-            <p
-              className={cn(
-                "line-clamp-2 text-sm font-bold leading-tight",
-                isolated ? "text-foreground" : "text-brand-foreground"
-              )}
-            >
+            <p className="line-clamp-2 text-sm font-bold leading-tight text-brand-foreground">
               {product.name}
             </p>
-            <p
-              className={cn(
-                "mt-1 text-[0.6875rem]",
-                isolated ? "text-muted-foreground" : "text-brand-foreground/70"
-              )}
-            >
+            <p className="mt-1 text-[0.6875rem] text-brand-foreground/70">
               {brand?.name ?? product.brandSlug}
               {category ? ` · ${category.name}` : ""}
             </p>
           </div>
-          <p
-            className={cn(
-              "hidden max-w-[40%] text-right text-[0.625rem] leading-snug sm:line-clamp-2 sm:block",
-              isolated ? "text-muted-foreground" : "text-brand-foreground/70"
-            )}
-          >
+          <p className="hidden max-w-[40%] text-right text-[0.625rem] leading-snug text-brand-foreground/70 sm:line-clamp-2 sm:block">
             {product.shortDescription}
           </p>
         </div>
@@ -97,12 +75,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
             fit={isolated ? "contain" : "cover"}
             className="aspect-[16/11] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
           />
-          <span
-            className={cn(
-              "absolute right-2 bottom-2 px-1.5 py-0.5 font-mono text-[0.625rem] font-semibold",
-              isolated ? "bg-foreground text-background" : "bg-background text-foreground"
-            )}
-          >
+          <span className="absolute right-2 bottom-2 bg-background px-1.5 py-0.5 font-mono text-[0.625rem] font-semibold">
             {formatPrice(product.dayRate, product.currency)}/day
           </span>
         </div>
@@ -118,11 +91,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
         }}
         className={cn(
           "absolute bottom-2 left-2 flex size-7 items-center justify-center rounded-full transition-colors active:scale-90",
-          added
-            ? isolated
-              ? "bg-brand text-brand-foreground"
-              : "bg-brand-foreground text-brand"
-            : "bg-foreground text-background"
+          added ? "bg-brand-foreground text-brand" : "bg-foreground text-background"
         )}
       >
         {added ? <Check className="size-3.5" /> : <ArrowUpRight className="size-3.5" />}
