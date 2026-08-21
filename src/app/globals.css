@@ -194,13 +194,13 @@
    relative offset, not an absolute position, so it shoved the wrapper an
    extra 56/64px below the navbar and left a blank gap above it. */
 #smooth-wrapper[style*="position: fixed"] {
-  top: 68px !important;
-  height: calc(100% - 68px) !important;
+  top: 56px !important;
+  height: calc(100% - 56px) !important;
 }
 @media (min-width: 1024px) {
   #smooth-wrapper[style*="position: fixed"] {
-    top: 80px !important;
-    height: calc(100% - 80px) !important;
+    top: 64px !important;
+    height: calc(100% - 64px) !important;
   }
 }
 
