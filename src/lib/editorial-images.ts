@@ -139,7 +139,7 @@ export const productImages: Record<string, string> = {
   "american-stand": pexelsUrl(3426679),
   "haze-machine": pexelsUrl(9694182),
   "smoke-machine": pexelsUrl(9694198),
-  "sony-fx3": pexelsUrl(30697927),
+  "sony-fx3": "/equipment/sony-fx3.webp",
   "aputure-600d": pexelsUrl(12497812),
   "aputure-600x": pexelsUrl(13884540),
   "amaran-200x-s": pexelsUrl(20142962),
@@ -151,9 +151,10 @@ export function getProductImage(productSlug: string, categorySlug: string): stri
 }
 
 /**
- * Products with real OUTTA-supplied photography: an isolated shot on a
- * plain white background, rather than the Pexels lifestyle/location stock
- * used everywhere else. Cards render these with object-contain on a white
- * card (the whole unit visible, nothing cropped) instead of object-cover.
+ * Products with real OUTTA-supplied photography: an isolated studio shot
+ * (transparent or plain-white background) rather than the Pexels
+ * lifestyle/location stock used everywhere else. The PDP gallery renders
+ * these with object-contain (the whole unit visible, nothing cropped)
+ * instead of object-cover.
  */
-export const isolatedProductPhotos = new Set<string>(["arri-alexa-mini"]);
+export const isolatedProductPhotos = new Set<string>(["arri-alexa-mini", "sony-fx3"]);
