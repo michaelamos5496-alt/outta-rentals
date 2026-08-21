@@ -136,6 +136,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
         <Container className="relative flex min-h-[78svh] items-end pb-14 sm:pb-16 lg:min-h-[78vh]">
           <div className="max-w-xl">
             <h1
+              key={product.slug}
               ref={headingRef}
               className="text-display leading-[0.92] font-bold text-brand uppercase opacity-0"
             >
