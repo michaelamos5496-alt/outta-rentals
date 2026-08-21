@@ -71,8 +71,8 @@ export const productImages: Record<string, string> = {
   "arri-alexa-mini": "/equipment/arri-alexa-mini.webp",
   "arri-alexa-mini-foreign": pexelsUrl(37593303),
   "red-helium": pexelsUrl(6794832),
-  "blackmagic-6k-pro": pexelsUrl(26628428),
-  "blackmagic-6k": pexelsUrl(8456847),
+  "blackmagic-6k-pro": "/equipment/blackmagic-6k-pro.jpg",
+  "blackmagic-6k": "/equipment/blackmagic-6k.jpg",
   "dzofilm-arles-prime-set-25-35-50-75-100mm": pexelsUrl(2335052),
   "dzofilm-arles-prime-single": pexelsUrl(34956918),
   "dzofilm-vespid-prime-set-16-125mm": pexelsUrl(1231171),
@@ -157,4 +157,9 @@ export function getProductImage(productSlug: string, categorySlug: string): stri
  * these with object-contain (the whole unit visible, nothing cropped)
  * instead of object-cover.
  */
-export const isolatedProductPhotos = new Set<string>(["arri-alexa-mini", "sony-fx3"]);
+export const isolatedProductPhotos = new Set<string>([
+  "arri-alexa-mini",
+  "sony-fx3",
+  "blackmagic-6k-pro",
+  "blackmagic-6k",
+]);
