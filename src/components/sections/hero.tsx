@@ -138,7 +138,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
             <h1
               key={product.slug}
               ref={headingRef}
-              className="text-display leading-[0.92] font-bold text-brand uppercase opacity-0"
+              className="text-display !leading-[1.05] font-bold text-brand uppercase opacity-0"
             >
               {product.name}
             </h1>
