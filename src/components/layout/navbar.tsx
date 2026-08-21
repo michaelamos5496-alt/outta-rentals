@@ -367,7 +367,7 @@ function Navbar() {
 
             <ul className="hidden h-full items-stretch gap-6 lg:flex">
               {equipmentTabs.map((tab) => (
-                <li key={tab.href} className="group/tab static flex h-full items-center">
+                <li key={tab.href} className="group/tab relative flex h-full items-center">
                   <Link
                     href={tab.href}
                     className="text-label relative flex items-center gap-1 !text-brand-foreground whitespace-nowrap transition-colors hover:!text-brand-foreground"
@@ -379,7 +379,7 @@ function Navbar() {
                   </Link>
 
                   {tab.children ? (
-                    <div className="invisible absolute top-full left-1/2 z-50 w-72 -translate-x-1/2 pt-3 opacity-0 transition-opacity duration-150 ease-out group-hover/tab:visible group-hover/tab:opacity-100">
+                    <div className="pointer-events-none absolute top-full left-0 z-50 w-72 translate-y-1 pt-3 opacity-0 transition-[opacity,transform] duration-150 ease-out group-hover/tab:pointer-events-auto group-hover/tab:translate-y-0 group-hover/tab:opacity-100">
                       <div className="flex flex-col gap-1 rounded-2xl border border-border bg-background p-3 text-foreground shadow-lg">
                         {tab.children.map((child) => (
                           <Link
