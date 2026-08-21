@@ -337,7 +337,7 @@ function Navbar() {
   const { itemCount, openDrawer, hydrated } = useKit();
 
   return (
-    <header data-slot="navbar" className="sticky top-0 z-40 w-full py-3 sm:py-4">
+    <header data-slot="navbar" className="sticky top-0 z-40 w-full pt-3 sm:pt-4">
       {/* Floating FAB — fixed to the viewport, detached from the header
           entirely (not stacked in a bar on top of the tabs below). */}
       <NavFab />
