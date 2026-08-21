@@ -70,7 +70,7 @@ export const finalCtaImage = pexelsUrl(30697927, 1920);
 export const productImages: Record<string, string> = {
   "arri-alexa-mini": "/equipment/arri-alexa-mini.webp",
   "arri-alexa-mini-foreign": pexelsUrl(37593303),
-  "red-helium": pexelsUrl(6794832),
+  "red-helium": "/equipment/red-helium.jpg",
   "blackmagic-6k-pro": "/equipment/blackmagic-6k-pro.jpg",
   "blackmagic-6k": "/equipment/blackmagic-6k.jpg",
   "dzofilm-arles-prime-set-25-35-50-75-100mm": pexelsUrl(2335052),
@@ -162,4 +162,5 @@ export const isolatedProductPhotos = new Set<string>([
   "sony-fx3",
   "blackmagic-6k-pro",
   "blackmagic-6k",
+  "red-helium",
 ]);
