@@ -337,22 +337,23 @@ function Navbar() {
   const { itemCount, openDrawer, hydrated } = useKit();
 
   return (
-    <header
-      data-slot="navbar"
-      className={cn(
-        "sticky top-0 z-40 w-full bg-brand transition-shadow",
-        scrolled ? "shadow-sm" : ""
-      )}
-      style={{ transitionDuration: `${duration.fast * 1000}ms` }}
-    >
+    <header data-slot="navbar" className="sticky top-0 z-40 w-full py-3 sm:py-4">
       {/* Floating FAB — fixed to the viewport, detached from the header
           entirely (not stacked in a bar on top of the tabs below). */}
       <NavFab />
 
-      {/* Category tabs bar — logo + flat, always-visible category tabs + icons */}
+      {/* Category tabs bar — a floating rounded pill, detached from the
+          viewport edge on every side (page background visible around it)
+          rather than a full-width bar flush against the top. */}
       <Container>
         <div className="relative">
-          <nav className="flex h-14 items-center justify-between gap-6 sm:h-16">
+          <nav
+            className={cn(
+              "flex h-14 items-center justify-between gap-6 rounded-full bg-brand px-4 shadow-lg transition-shadow sm:h-16 sm:px-6",
+              scrolled ? "shadow-xl" : ""
+            )}
+            style={{ transitionDuration: `${duration.fast * 1000}ms` }}
+          >
             <Link href="/" className="inline-flex shrink-0 items-center">
               <Image
                 src="/brand/outta-logo-dark.png"
@@ -378,13 +379,13 @@ function Navbar() {
                   </Link>
 
                   {tab.children ? (
-                    <div className="invisible absolute inset-x-0 top-full z-50 opacity-0 transition-opacity duration-150 ease-out group-hover/tab:visible group-hover/tab:opacity-100">
-                      <div className="flex flex-wrap gap-x-10 gap-y-1 border border-border bg-background p-5 text-foreground shadow-lg">
+                    <div className="invisible absolute top-full left-1/2 z-50 w-72 -translate-x-1/2 pt-3 opacity-0 transition-opacity duration-150 ease-out group-hover/tab:visible group-hover/tab:opacity-100">
+                      <div className="flex flex-col gap-1 rounded-2xl border border-border bg-background p-3 text-foreground shadow-lg">
                         {tab.children.map((child) => (
                           <Link
                             key={child.label}
                             href={child.href}
-                            className="rounded-sm px-1 py-2 text-sm font-medium whitespace-nowrap hover:text-brand"
+                            className="rounded-xl px-3 py-2 text-sm font-medium whitespace-nowrap hover:bg-muted hover:text-brand"
                           >
                             {child.label}
                           </Link>
