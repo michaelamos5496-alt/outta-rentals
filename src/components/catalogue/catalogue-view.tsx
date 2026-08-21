@@ -188,9 +188,7 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
             onClick={() => setFilters((f) => ({ ...f, categories: [] }))}
             className={cn(
               "flex shrink-0 flex-col items-center gap-0.5 rounded-lg px-2.5 py-1.5 transition-colors",
-              filters.categories.length === 0
-                ? "bg-brand-muted text-brand"
-                : "text-foreground/70"
+              filters.categories.length === 0 ? "bg-brand-muted text-brand" : "text-brand/70"
             )}
           >
             <LayoutGrid className="size-4" strokeWidth={1.75} />
@@ -211,7 +209,7 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
                 }
                 className={cn(
                   "flex shrink-0 flex-col items-center gap-0.5 rounded-lg px-2.5 py-1.5 whitespace-nowrap transition-colors",
-                  active ? "bg-brand-muted text-brand" : "text-foreground/70"
+                  active ? "bg-brand-muted text-brand" : "text-brand/70"
                 )}
               >
                 <Icon className="size-4" strokeWidth={1.75} />

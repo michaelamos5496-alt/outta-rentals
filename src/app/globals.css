@@ -184,13 +184,21 @@
    ~8px of whatever sits at the top of the page (e.g. the equipment
    breadcrumb). Overriding the top/height here (needs !important to beat
    GSAP's inline styles) so content starts right below the navbar's real
-   height on every breakpoint. */
-#smooth-wrapper {
+   height on every breakpoint.
+
+   Scoped to `[style*="position: fixed"]` — only true once ScrollSmoother
+   has actually pinned the wrapper. Without this, the same `top` value
+   also applied to the wrapper's un-smoothed fallback state (reduced-motion
+   users, or the brief pre-hydration flash before GSAP runs), where the
+   wrapper sits in normal flow at `position: relative` — there `top` is a
+   relative offset, not an absolute position, so it shoved the wrapper an
+   extra 56/64px below the navbar and left a blank gap above it. */
+#smooth-wrapper[style*="position: fixed"] {
   top: 56px !important;
   height: calc(100% - 56px) !important;
 }
 @media (min-width: 1024px) {
-  #smooth-wrapper {
+  #smooth-wrapper[style*="position: fixed"] {
     top: 64px !important;
     height: calc(100% - 64px) !important;
   }

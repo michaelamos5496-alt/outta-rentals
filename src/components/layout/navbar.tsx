@@ -245,15 +245,15 @@ function NavFab() {
   }, [open, close]);
 
   return (
-    <div
-      ref={containerRef}
-      className="fixed right-4 bottom-24 z-40 lg:right-6 lg:bottom-6"
-      onMouseEnter={open_}
-      onMouseLeave={scheduleClose}
-    >
+    <div ref={containerRef} className="fixed right-4 bottom-24 z-40 lg:right-6 lg:bottom-6">
       <div
         ref={panelRef}
-        className="pointer-events-none absolute right-0 bottom-full z-0 mb-3 flex w-48 flex-col gap-1 rounded-2xl bg-brand p-2 opacity-0 shadow-xl sm:w-56"
+        onMouseEnter={open_}
+        onMouseLeave={scheduleClose}
+        className={cn(
+          "absolute right-0 bottom-full z-0 mb-3 flex w-48 flex-col gap-1 rounded-2xl bg-brand p-2 opacity-0 shadow-xl sm:w-56",
+          open ? "pointer-events-auto" : "pointer-events-none"
+        )}
       >
         {items.map((item) => {
           const Icon = item.icon;
@@ -264,7 +264,7 @@ function NavFab() {
               href={item.href}
               {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               onClick={close}
-              className="fab-row text-brand-foreground pointer-events-auto flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-brand-foreground/10"
+              className="fab-row text-brand-foreground flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-brand-foreground/10"
             >
               <Icon className="size-4 shrink-0" strokeWidth={2} />
               <span className="text-sm font-medium">{item.label}</span>
@@ -278,6 +278,8 @@ function NavFab() {
         aria-expanded={open}
         aria-label={open ? "Close menu" : "Open menu"}
         onClick={toggle}
+        onMouseEnter={open_}
+        onMouseLeave={scheduleClose}
         className="bg-brand text-brand-foreground relative z-10 flex size-14 items-center justify-center rounded-full shadow-xl lg:size-16"
       >
         <span ref={iconWrapRef} className="flex items-center justify-center">
