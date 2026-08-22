@@ -204,6 +204,22 @@
   }
 }
 
+/* Homepage-only: the navbar floats with real padding around it there (see
+   Navbar's `isHome` branch), so it's taller than the flush header on every
+   other page — needs its own offset. Scoped via a `data-floating-nav`
+   attribute Navbar sets on <html> rather than a route-specific stylesheet,
+   since this CSS has no router awareness of its own. */
+html[data-floating-nav="true"] #smooth-wrapper[style*="position: fixed"] {
+  top: 80px !important;
+  height: calc(100% - 80px) !important;
+}
+@media (min-width: 1024px) {
+  html[data-floating-nav="true"] #smooth-wrapper[style*="position: fixed"] {
+    top: 96px !important;
+    height: calc(100% - 96px) !important;
+  }
+}
+
 @layer utilities {
   /* Editorial typography scale — the canonical OUTTA hierarchy */
   .text-display {

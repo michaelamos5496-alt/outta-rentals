@@ -3,6 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Briefcase,
@@ -335,9 +336,32 @@ function Navbar() {
   const { open: mobileOpen, setOpen: setMobileOpen } = useMobileNav();
   const [searchOpen, setSearchOpen] = React.useState(false);
   const { itemCount, openDrawer, hydrated } = useKit();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  // The homepage's hero is near-black full-bleed photography, so the pill
+  // can float with real margin above/below it without an ugly white gap —
+  // the header's own background covers that margin with a matching dark
+  // tone. Every other page has plain white content right under the nav,
+  // where the same margin would read as a stray white strip, so those stay
+  // flush (no padding, no background) as established separately.
+  React.useEffect(() => {
+    if (isHome) {
+      document.documentElement.setAttribute("data-floating-nav", "true");
+    } else {
+      document.documentElement.removeAttribute("data-floating-nav");
+    }
+    return () => document.documentElement.removeAttribute("data-floating-nav");
+  }, [isHome]);
 
   return (
-    <header data-slot="navbar" className="sticky top-0 z-40 w-full">
+    <header
+      data-slot="navbar"
+      className={cn(
+        "sticky top-0 z-40 w-full",
+        isHome ? "bg-black pt-3 pb-3 sm:pt-4 sm:pb-4" : ""
+      )}
+    >
       {/* Floating FAB — fixed to the viewport, detached from the header
           entirely (not stacked in a bar on top of the tabs below). */}
       <NavFab />
