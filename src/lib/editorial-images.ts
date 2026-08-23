@@ -80,8 +80,8 @@ export const productImages: Record<string, string> = {
   "dzofilm-pictor-zoom-20-55mm-t2-8": pexelsUrl(217380),
   "dzofilm-pictor-zoom-50-125mm-t2-8": pexelsUrl(2335052),
   "arri-distagon-12mm": "/equipment/arri-distagon-12mm.webp",
-  "laowa-12mm-ef": pexelsUrl(1231171),
-  "sigma-18-35mm": pexelsUrl(17345664),
+  "laowa-12mm-ef": "/equipment/laowa-12mm-ef.jpg",
+  "sigma-18-35mm": "/equipment/sigma-18-35mm.webp",
   "canon-24-105mm": pexelsUrl(217380),
   "heavy-duty-tripod": pexelsUrl(10147377),
   "wireless-focus-system": pexelsUrl(2773541),
@@ -165,4 +165,5 @@ export const isolatedProductPhotos = new Set<string>([
   "red-helium",
   "dzofilm-vespid-prime-set-16-125mm",
   "arri-distagon-12mm",
+  "sigma-18-35mm",
 ]);
