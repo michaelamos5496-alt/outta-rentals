@@ -104,7 +104,7 @@ export const productImages: Record<string, string> = {
   "tilta-mirage-matte-box-w-vnd": pexelsUrl(31616828),
   "tilta-3-way-matte-box": pexelsUrl(14672296),
   "tilta-mini-matte-box": pexelsUrl(6664785),
-  "arri-4k-hmi-m40": pexelsUrl(17266853),
+  "arri-4k-hmi-m40": "/equipment/arri-4k-hmi-m40.jpg",
   "nanlux-evoke-2400b": pexelsUrl(34171439),
   "aputure-ls-1200x": pexelsUrl(13884538),
   "aputure-ls-1000c": pexelsUrl(14388173),
