@@ -76,10 +76,10 @@ export const productImages: Record<string, string> = {
   "dzofilm-arles-prime-set-25-35-50-75-100mm": pexelsUrl(2335052),
   "dzofilm-arles-prime-single": pexelsUrl(34956918),
   "dzofilm-vespid-prime-set-16-125mm": "/equipment/dzofilm-vespid-prime-set-16-125mm.jpg",
-  "dzofilm-pictor-zoom-12-25mm-t2-8": pexelsUrl(17345664),
+  "dzofilm-pictor-zoom-12-25mm-t2-8": "/equipment/dzofilm-pictor-zoom-12-25mm-t2-8.jpg",
   "dzofilm-pictor-zoom-20-55mm-t2-8": pexelsUrl(217380),
   "dzofilm-pictor-zoom-50-125mm-t2-8": pexelsUrl(2335052),
-  "arri-distagon-12mm": pexelsUrl(34956918),
+  "arri-distagon-12mm": "/equipment/arri-distagon-12mm.webp",
   "laowa-12mm-ef": pexelsUrl(1231171),
   "sigma-18-35mm": pexelsUrl(17345664),
   "canon-24-105mm": pexelsUrl(217380),
@@ -164,4 +164,5 @@ export const isolatedProductPhotos = new Set<string>([
   "blackmagic-6k",
   "red-helium",
   "dzofilm-vespid-prime-set-16-125mm",
+  "arri-distagon-12mm",
 ]);
