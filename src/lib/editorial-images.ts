@@ -82,7 +82,7 @@ export const productImages: Record<string, string> = {
   "arri-distagon-12mm": "/equipment/arri-distagon-12mm.webp",
   "laowa-12mm-ef": "/equipment/laowa-12mm-ef.jpg",
   "sigma-18-35mm": "/equipment/sigma-18-35mm.webp",
-  "canon-24-105mm": pexelsUrl(217380),
+  "canon-24-105mm": "/equipment/canon-24-105mm.png",
   "heavy-duty-tripod": pexelsUrl(10147377),
   "wireless-focus-system": pexelsUrl(2773541),
   "lidar-focus-pro": pexelsUrl(21773663),
