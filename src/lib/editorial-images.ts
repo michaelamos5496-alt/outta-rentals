@@ -75,7 +75,7 @@ export const productImages: Record<string, string> = {
   "blackmagic-6k": "/equipment/blackmagic-6k.jpg",
   "dzofilm-arles-prime-set-25-35-50-75-100mm": pexelsUrl(2335052),
   "dzofilm-arles-prime-single": pexelsUrl(34956918),
-  "dzofilm-vespid-prime-set-16-125mm": pexelsUrl(1231171),
+  "dzofilm-vespid-prime-set-16-125mm": "/equipment/dzofilm-vespid-prime-set-16-125mm.jpg",
   "dzofilm-pictor-zoom-12-25mm-t2-8": pexelsUrl(17345664),
   "dzofilm-pictor-zoom-20-55mm-t2-8": pexelsUrl(217380),
   "dzofilm-pictor-zoom-50-125mm-t2-8": pexelsUrl(2335052),
@@ -163,4 +163,5 @@ export const isolatedProductPhotos = new Set<string>([
   "blackmagic-6k-pro",
   "blackmagic-6k",
   "red-helium",
+  "dzofilm-vespid-prime-set-16-125mm",
 ]);
