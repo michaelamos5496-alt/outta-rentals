@@ -176,7 +176,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
       </Section>
 
       {products.length > 1 ? (
-        <div className="h-[calc(22svh-80px)] overflow-hidden border-b border-border bg-background lg:h-[calc(22vh-96px)]">
+        <div className="h-[22svh] overflow-hidden border-b border-border bg-background lg:h-[22vh]">
           <div className="animate-marquee flex h-full w-max">
             {[0, 1].map((copy) =>
               products.map((p, i) => {

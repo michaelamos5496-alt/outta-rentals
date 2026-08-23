@@ -339,12 +339,13 @@ function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
-  // The homepage's hero is near-black full-bleed photography, so the pill
-  // can float with real margin above/below it without an ugly white gap —
-  // the header's own background covers that margin with a matching dark
-  // tone. Every other page has plain white content right under the nav,
-  // where the same margin would read as a stray white strip, so those stay
-  // flush (no padding, no background) as established separately.
+  // The homepage's hero is a full-bleed photo — the pill floats directly
+  // over it (header taken out of flow entirely, hero starting at the true
+  // top) so the actual hero image shows through the margin around the
+  // pill, not a flat color standing in for it. Every other page has plain
+  // white content right under the nav, where a floating header would
+  // either show white through the gap or need its own opaque fill sitting
+  // oddly on top of content, so those stay flush/sticky/in-flow instead.
   React.useEffect(() => {
     if (isHome) {
       document.documentElement.setAttribute("data-floating-nav", "true");
@@ -358,8 +359,9 @@ function Navbar() {
     <header
       data-slot="navbar"
       className={cn(
-        "sticky top-0 z-40 w-full",
-        isHome ? "bg-black pt-3 pb-3 sm:pt-4 sm:pb-4" : ""
+        isHome
+          ? "fixed top-0 inset-x-0 z-40 pt-3 pb-3 sm:pt-4 sm:pb-4"
+          : "sticky top-0 z-40 w-full"
       )}
     >
       {/* Floating FAB — fixed to the viewport, detached from the header
