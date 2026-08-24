@@ -107,9 +107,9 @@ export const productImages: Record<string, string> = {
   "arri-4k-hmi-m40": "/equipment/arri-4k-hmi-m40.jpg",
   "nanlux-evoke-2400b": "/equipment/nanlux-evoke-2400b.jpg",
   "aputure-ls-1200x": "/equipment/aputure-ls-1200x.jpg",
-  "aputure-ls-1000c": pexelsUrl(14388173),
-  "aputure-ls-1200d": pexelsUrl(13884541),
-  "aputure-ls-600c": pexelsUrl(12497812),
+  "aputure-ls-1000c": "/equipment/aputure-ls-1000c.jpg",
+  "aputure-ls-1200d": "/equipment/aputure-ls-1200d.jpg",
+  "aputure-ls-600c": "/equipment/aputure-ls-600c.jpg",
   "aputure-ls-300d-ii": pexelsUrl(13884540),
   "aputure-ls-120d-ii": pexelsUrl(19659899),
   "aputure-nova-p300c": pexelsUrl(36502332),
@@ -141,7 +141,7 @@ export const productImages: Record<string, string> = {
   "smoke-machine": pexelsUrl(9694198),
   "sony-fx3": "/equipment/sony-fx3.webp",
   "aputure-600d": pexelsUrl(12497812),
-  "aputure-600x": pexelsUrl(13884540),
+  "aputure-600x": "/equipment/aputure-600x.jpg",
   "amaran-200x-s": pexelsUrl(20142962),
 };
 
