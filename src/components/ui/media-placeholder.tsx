@@ -30,11 +30,9 @@ export interface MediaPlaceholderProps extends React.ComponentProps<"div"> {
   /**
    * "cover" (default) fills the frame, cropping as needed — right for the
    * Pexels lifestyle/location stock used across most of the catalogue.
-   * "contain" is for real OUTTA-supplied product cutouts with an actual
-   * transparent background (alpha channel, not a flat white fill) — the
-   * whole item shows uncropped, composited straight onto whatever
-   * background the card already has (e.g. the brand-green card fill),
-   * no white box around it.
+   * "contain" is for real OUTTA-supplied product cutouts (PNG/WebP with
+   * an alpha channel) — the whole item shows uncropped on a flat white
+   * background, regardless of what's behind the card.
    */
   fit?: "cover" | "contain";
 }
@@ -55,7 +53,7 @@ function MediaPlaceholder({
     return (
       <div
         data-slot="media-placeholder"
-        className={cn("relative isolate overflow-hidden", !isContain && "bg-card", className)}
+        className={cn("relative isolate overflow-hidden", isContain ? "bg-white" : "bg-card", className)}
         {...props}
       >
         <Image
