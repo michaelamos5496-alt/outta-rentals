@@ -12,7 +12,7 @@ import { duration, easeOutta } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { getProductImage } from "@/lib/editorial-images";
+import { getProductImage, heroProductImages } from "@/lib/editorial-images";
 import type { DemoProduct } from "@/lib/catalogue";
 
 if (typeof window !== "undefined") {
@@ -93,7 +93,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
     );
   }
 
-  const image = getProductImage(product.slug, product.categorySlug);
+  const image = heroProductImages[product.slug] ?? getProductImage(product.slug, product.categorySlug);
 
   return (
     <>

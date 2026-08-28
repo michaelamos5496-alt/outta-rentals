@@ -58,6 +58,16 @@ export const serviceImages: Record<string, string> = {
 export const finalCtaImage = pexelsUrl(30697927, 1920);
 
 /**
+ * Dedicated hero-banner photography, keyed by product slug — a different,
+ * more dramatic shot than the product's regular listing/PDP photo (see
+ * `productImages`), for products we've shot one for. Falls back to the
+ * regular product photo via `getProductImage` for everything else.
+ */
+export const heroProductImages: Record<string, string> = {
+  "sony-fx3": "/equipment/sony-fx3-rig.jpg",
+};
+
+/**
  * Best-effort per-product photos for OUTTA's real inventory, keyed by
  * catalogue slug. Free stock libraries don't carry verified, model-specific
  * photography for pro cinema gear, so several visually-similar products
