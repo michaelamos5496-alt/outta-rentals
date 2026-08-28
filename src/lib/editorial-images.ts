@@ -66,6 +66,7 @@ export const finalCtaImage = pexelsUrl(30697927, 1920);
 export const heroProductImages: Record<string, string> = {
   "sony-fx3": "/equipment/sony-fx3-rig.jpg",
   "aputure-600d": "/equipment/aputure-600d-rig.jpg",
+  "blackmagic-6k-pro": "/equipment/blackmagic-6k-pro-rig.jpg",
 };
 
 /**
