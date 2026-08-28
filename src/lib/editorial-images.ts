@@ -70,6 +70,7 @@ export const heroProductImages: Record<string, string> = {
   "sigma-18-35mm": "/equipment/sigma-18-35mm-rig.jpg",
   "heavy-duty-tripod": "/equipment/heavy-duty-tripod-rig.webp",
   "aputure-600x": "/equipment/aputure-600x-rig.jpg",
+  "amaran-200x-s": "/equipment/amaran-200x-s-rig.jpg",
 };
 
 /**
