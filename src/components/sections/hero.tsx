@@ -12,7 +12,7 @@ import { duration, easeOutta } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { getProductImage, heroSetupImages } from "@/lib/editorial-images";
+import { getProductImage } from "@/lib/editorial-images";
 import type { DemoProduct } from "@/lib/catalogue";
 
 if (typeof window !== "undefined") {
@@ -93,11 +93,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
     );
   }
 
-  // The big background shot is a real gear-in-use setup photo (by category)
-  // rather than the isolated per-product photo — that isolated shot already
-  // appears below in the thumbnail strip and on the PDP, so reusing it here
-  // made every slide feel like the same product photo.
-  const image = heroSetupImages[product.categorySlug] ?? getProductImage(product.slug, product.categorySlug);
+  const image = getProductImage(product.slug, product.categorySlug);
 
   return (
     <>

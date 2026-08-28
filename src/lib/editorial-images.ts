@@ -58,29 +58,6 @@ export const serviceImages: Record<string, string> = {
 export const finalCtaImage = pexelsUrl(30697927, 1920);
 
 /**
- * Homepage hero background — practical, real-world gear setups (a camera
- * rigged on a tripod, a lighting rig standing ready, a dolly-mounted rig, a
- * boom op working), by category. Deliberately distinct from `categoryImages`
- * (single-item category tile shots) and from `productImages` (isolated
- * per-unit photos used in the thumbnail strip and PDP) so the hero doesn't
- * repeat either.
- */
-export const heroSetupImages: Record<string, string> = {
-  cameras: pexelsUrl(32719031, 1920), // telephoto camera rigged on a tripod, outdoors
-  lenses: pexelsUrl(14728496, 1920), // camera + lens on tripod, outdoor shoot
-  lighting: pexelsUrl(53265, 1920), // two studio lights on stands, rigged and ready
-  grip: pexelsUrl(28532580, 1920), // camera rig on a dolly track, outdoors
-  audio: pexelsUrl(23657253, 1920), // boom operator working a mic on location
-  monitors: pexelsUrl(26628634, 1920), // camera with flip-out monitor, rigged indoors
-  drones: pexelsUrl(3013944, 1920), // drone set down in the grass, ready for takeoff
-  accessories: pexelsUrl(4164088, 1920), // camera body with a set of lenses laid out
-  "camera-accessories": pexelsUrl(26628634, 1920),
-  filters: pexelsUrl(14728496, 1920),
-  "matte-boxes": pexelsUrl(28532580, 1920),
-  "lighting-modifiers": pexelsUrl(53265, 1920),
-};
-
-/**
  * Best-effort per-product photos for OUTTA's real inventory, keyed by
  * catalogue slug. Free stock libraries don't carry verified, model-specific
  * photography for pro cinema gear, so several visually-similar products
