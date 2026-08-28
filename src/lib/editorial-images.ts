@@ -69,6 +69,7 @@ export const heroProductImages: Record<string, string> = {
   "blackmagic-6k-pro": "/equipment/blackmagic-6k-pro-rig.jpg",
   "sigma-18-35mm": "/equipment/sigma-18-35mm-rig.jpg",
   "heavy-duty-tripod": "/equipment/heavy-duty-tripod-rig.webp",
+  "aputure-600x": "/equipment/aputure-600x-rig.jpg",
 };
 
 /**
