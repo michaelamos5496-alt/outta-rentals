@@ -72,6 +72,7 @@ export const heroProductImages: Record<string, string> = {
   "aputure-600x": "/equipment/aputure-600x-rig.jpg",
   "amaran-200x-s": "/equipment/amaran-200x-s-rig.jpg",
   "c-stand-kit": "/equipment/c-stand-kit-rig.jpg",
+  "red-helium": "/equipment/red-helium-rig.jpg",
 };
 
 /**
