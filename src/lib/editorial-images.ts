@@ -74,6 +74,7 @@ export const heroProductImages: Record<string, string> = {
   "c-stand-kit": "/equipment/c-stand-kit-rig.jpg",
   "red-helium": "/equipment/red-helium-rig.jpg",
   "blackmagic-6k": "/equipment/blackmagic-6k-rig.jpg",
+  "dzofilm-vespid-prime-set-16-125mm": "/equipment/dzofilm-vespid-prime-set-16-125mm-rig.jpg",
 };
 
 /**
