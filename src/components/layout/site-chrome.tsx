@@ -8,6 +8,7 @@ import { SmoothScroll } from "@/components/layout/smooth-scroll";
 import { MobileNavProvider } from "@/components/layout/mobile-nav-provider";
 import { MobileTabBar } from "@/components/layout/mobile-tab-bar";
 import { KitDrawer } from "@/components/kit/kit-drawer";
+import { ConsultationPopup } from "@/components/consultation/consultation-popup";
 
 /**
  * The admin backend has its own header/sidebar chrome (see
@@ -38,6 +39,7 @@ function SiteChrome({ children }: { children: React.ReactNode }) {
       <SmoothScroll>{page}</SmoothScroll>
       <KitDrawer />
       <MobileTabBar />
+      <ConsultationPopup />
     </MobileNavProvider>
   );
 }
