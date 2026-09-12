@@ -33,9 +33,9 @@ function ConsultationPopup() {
           type="button"
           onClick={() => setOpen(true)}
           aria-label="Request a consultation"
-          className="fixed left-4 bottom-24 z-40 flex items-center gap-2 rounded-full bg-brand py-3 pr-4 pl-3 text-brand-foreground shadow-xl transition-transform hover:scale-105 lg:left-6 lg:bottom-6"
+          className="fixed left-4 bottom-24 z-40 flex items-center gap-2 rounded-full border border-white/40 bg-white/35 py-3 pr-4 pl-3 text-foreground shadow-[0_8px_32px_-4px_rgba(0,0,0,0.25)] backdrop-blur-xl backdrop-saturate-150 transition-transform hover:scale-105 lg:left-6 lg:bottom-6"
         >
-          <MessageCircleQuestion className="size-5 shrink-0" strokeWidth={2} aria-hidden />
+          <MessageCircleQuestion className="size-5 shrink-0 text-brand" strokeWidth={2} aria-hidden />
           <span className="text-sm font-medium whitespace-nowrap">Request Consultation</span>
         </button>
       ) : null}
@@ -48,7 +48,7 @@ function ConsultationPopup() {
         }}
         title="Request a consultation"
         description="Talk through your shoot with OUTTA's team before you commit to a kit — no charge, no obligation."
-        className="sm:max-w-lg"
+        className="rounded-[28px] border border-white/50 bg-white/45 shadow-[0_8px_40px_-4px_rgba(0,0,0,0.3)] ring-1 ring-white/60 backdrop-blur-2xl backdrop-saturate-150 sm:max-w-lg"
       >
         <ConsultationRequestForm />
       </Modal>

@@ -13,10 +13,11 @@ interface CategoryExperienceProps {
   products: DemoProduct[];
 }
 
-// A row of tall vertical "stripes" — one per category, name set in rotated
-// vertical type, icon at top and real item count at the bottom. Reads like
-// a filmstrip, which fits a cinema-equipment brand better than a grid of
-// square tiles.
+// A row of compact square tiles — one per category, icon as the symbol and
+// real item count underneath. No spelled-out name on the card (long ones
+// like "Lighting Modifiers" made the old vertical-text stripe very tall) —
+// the name is still available via title/aria-label for hover and screen
+// readers.
 function CategoryExperience({ products }: CategoryExperienceProps) {
   return (
     <Section spacing="compact" className="border-t border-border">
@@ -39,27 +40,21 @@ function CategoryExperience({ products }: CategoryExperienceProps) {
             count: products.filter((p) => p.categorySlug === category.slug).length,
           }))
           .filter(({ count }) => count > 0)
-          .map(({ category, count }) => {
-            return (
+          .map(({ category, count }) => (
             <motion.div key={category.slug} variants={slideUp()} className="shrink-0">
               <Link
                 href={`/equipment/${category.slug}`}
-                className="group/cat relative flex h-72 w-24 flex-col items-center justify-between overflow-hidden rounded-2xl border-2 border-brand bg-background p-4 transition-transform duration-300 ease-out hover:-translate-y-1 sm:h-80 sm:w-28"
+                title={category.name}
+                aria-label={`${category.name} — ${count} items`}
+                className="group/cat relative flex size-24 flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border-2 border-brand bg-background transition-transform duration-300 ease-out hover:-translate-y-1 sm:size-28"
               >
-                <span className="bg-brand-muted text-brand flex size-9 shrink-0 items-center justify-center rounded-full transition-transform duration-300 ease-out group-hover/cat:-translate-y-0.5">
-                  <category.icon className="size-4" strokeWidth={1.75} />
-                </span>
-                <span
-                  className="flex-1 py-4 text-sm font-bold tracking-wide text-foreground [writing-mode:vertical-rl]"
-                  style={{ transform: "rotate(180deg)" }}
-                >
-                  {category.name}
+                <span className="bg-brand-muted text-brand flex size-11 shrink-0 items-center justify-center rounded-full transition-transform duration-300 ease-out group-hover/cat:-translate-y-0.5 sm:size-12">
+                  <category.icon className="size-5" strokeWidth={1.75} />
                 </span>
                 <span className="text-meta">{count} items</span>
               </Link>
             </motion.div>
-          );
-        })}
+          ))}
       </motion.div>
     </Section>
   );
