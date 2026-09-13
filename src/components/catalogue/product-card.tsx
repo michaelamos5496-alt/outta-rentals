@@ -43,53 +43,69 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
     return <ListProductCard product={product} className={className} />;
   }
 
-  // Green card sitewide: brand + category + description on the green fill,
-  // large photo, price tag, circular quick-add button.
+  // The catalogue grid takes its silhouette from a film clapper: a striped
+  // hinged slate on top, with the equipment details and image on the board.
   return (
-    <article className={cn("group/product relative overflow-hidden rounded-2xl bg-brand", className)}>
-      <Link href={href} className="block active:opacity-80">
-        <div className="flex items-start justify-between gap-2 p-3 pb-1.5 sm:p-3.5 sm:pb-1.5">
-          <div className="min-w-0">
-            <p className="line-clamp-2 text-sm font-bold leading-tight text-brand-foreground">
-              {product.name}
-            </p>
-            <p className="mt-1 text-[0.6875rem] text-brand-foreground/70">
-              {brand?.name ?? product.brandSlug}
-              {category ? ` · ${category.name}` : ""}
+    <article className={cn("group/product relative isolate pt-6", className)}>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-2 left-[-2%] z-10 h-7 w-[104%] origin-left -rotate-[3deg] overflow-hidden rounded-sm bg-foreground shadow-sm"
+      >
+        <div
+          className="absolute inset-0 opacity-95"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(135deg, var(--background) 0 16px, transparent 16px 32px)",
+          }}
+        />
+        <span className="absolute bottom-[-5px] left-[12%] size-3 rounded-full border-2 border-background bg-foreground" />
+      </div>
+
+      <div className="relative overflow-hidden rounded-lg bg-foreground shadow-sm ring-1 ring-foreground/15">
+        <Link href={href} className="block active:opacity-80">
+          <div className="flex min-h-20 items-start justify-between gap-2 border-b border-background/30 px-3 pt-3 pb-2.5 sm:px-3.5">
+            <div className="min-w-0">
+              <p className="line-clamp-2 text-sm font-bold leading-tight text-background">
+                {product.name}
+              </p>
+              <p className="mt-1 text-[0.6875rem] text-background/65">
+                {brand?.name ?? product.brandSlug}
+                {category ? ` · ${category.name}` : ""}
+              </p>
+            </div>
+            <p className="hidden max-w-[40%] text-right text-[0.625rem] leading-snug text-background/65 sm:line-clamp-2 sm:block">
+              {product.shortDescription}
             </p>
           </div>
-          <p className="hidden max-w-[40%] text-right text-[0.625rem] leading-snug text-brand-foreground/70 sm:line-clamp-2 sm:block">
-            {product.shortDescription}
-          </p>
-        </div>
 
-        <div className="relative mt-1">
-          <MediaPlaceholder
-            src={getProductImage(product.slug, product.categorySlug)}
-            alt={product.name}
-            className="aspect-[16/11] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
-          />
-          <span className="absolute right-2 bottom-2 bg-background px-1.5 py-0.5 font-mono text-[0.625rem] font-semibold">
-            {formatPrice(product.dayRate, product.currency)}/day
-          </span>
-        </div>
-      </Link>
+          <div className="relative">
+            <MediaPlaceholder
+              src={getProductImage(product.slug, product.categorySlug)}
+              alt={product.name}
+              className="aspect-[16/11] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
+            />
+            <span className="absolute right-2 bottom-2 bg-background px-1.5 py-0.5 font-mono text-[0.625rem] font-semibold">
+              {formatPrice(product.dayRate, product.currency)}/day
+            </span>
+          </div>
+        </Link>
 
-      <button
-        type="button"
-        aria-label={added ? "Added to kit" : "Add to kit"}
-        onClick={(e) => {
-          e.preventDefault();
-          addItem(product.slug);
-          setAdded(true);
-        }}
-        className={cn(
-          "absolute bottom-2 left-2 flex size-7 items-center justify-center rounded-full transition-colors active:scale-90",
-          added ? "bg-brand-foreground text-brand" : "bg-foreground text-background"
-        )}
-      >
-        {added ? <Check className="size-3.5" /> : <ArrowUpRight className="size-3.5" />}
-      </button>
+        <button
+          type="button"
+          aria-label={added ? "Added to kit" : "Add to kit"}
+          onClick={(e) => {
+            e.preventDefault();
+            addItem(product.slug);
+            setAdded(true);
+          }}
+          className={cn(
+            "absolute bottom-2 left-2 flex size-7 items-center justify-center rounded-full transition-colors active:scale-90",
+            added ? "bg-brand text-brand-foreground" : "bg-background text-foreground"
+          )}
+        >
+          {added ? <Check className="size-3.5" /> : <ArrowUpRight className="size-3.5" />}
+        </button>
+      </div>
     </article>
   );
 }
