@@ -37,7 +37,7 @@ function FeaturedCard({ product }: { product: DemoProduct }) {
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute top-2 left-[-2%] z-10 h-7 w-[104%] origin-left -rotate-[3deg] overflow-hidden rounded-sm bg-brand shadow-sm"
+        className="pointer-events-none absolute top-2 left-[-2%] z-10 h-7 w-[104%] origin-[12%_100%] -rotate-[3deg] overflow-hidden rounded-sm bg-brand shadow-sm transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:-rotate-[10deg] motion-reduce:transition-none"
       >
         <div
           className="absolute inset-0 opacity-95"
