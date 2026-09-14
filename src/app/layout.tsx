@@ -31,6 +31,17 @@ export const metadata: Metadata = {
     template: `%s — ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
+  icons: {
+    icon: [
+      {
+        url: "/brand/outta-favicon.png",
+        type: "image/png",
+        sizes: "512x512",
+      },
+    ],
+    shortcut: "/brand/outta-favicon.png",
+    apple: "/brand/outta-favicon.png",
+  },
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
