@@ -45,6 +45,18 @@ export const packages: ProductionPackage[] = [
     ],
   },
   {
+    slug: "short-film",
+    name: "Short Film",
+    description: "Compact narrative kits with room to move fast on a small crew.",
+    items: [
+      { role: "Camera", productSlug: "blackmagic-6k", quantity: 1 },
+      { role: "Lens", productSlug: "dzofilm-pictor-zoom-20-55mm-t2-8", quantity: 1 },
+      { role: "Lighting", productSlug: "aputure-ls-300d-ii", quantity: 1 },
+      { role: "Monitoring", productSlug: "smallhd-dir-monitor", quantity: 1 },
+      { role: "Support", productSlug: "heavy-duty-tripod", quantity: 1 },
+    ],
+  },
+  {
     slug: "wedding",
     name: "Wedding",
     description: "Discreet, reliable gear for once-only moments.",

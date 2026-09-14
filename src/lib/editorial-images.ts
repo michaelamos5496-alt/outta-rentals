@@ -40,6 +40,8 @@ export const themeImages: Record<string, string> = {
   "music-video": pexelsUrl(4889279),
   wedding: pexelsUrl(17057198),
   "feature-film": pexelsUrl(8088372),
+  "short-film": pexelsUrl(8088372), // shares the feature-film photo — closest existing theme shot
+
   interview: pexelsUrl(4662717),
   content: pexelsUrl(9040539),
   "live-production": pexelsUrl(7709688),

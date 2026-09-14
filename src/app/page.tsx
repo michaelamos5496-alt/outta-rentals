@@ -9,6 +9,7 @@ import { FinalCta } from "@/components/sections/final-cta";
 import { fetchAllProducts } from "@/lib/catalogue/db";
 import { getProductImage } from "@/lib/editorial-images";
 import type { DemoProduct } from "@/lib/catalogue";
+import { getPackageBySlug } from "@/lib/packages";
 
 // Statically imported (not next/dynamic) — this tree is passed as `children`
 // into SmoothScroll (a "use client" wrapper) now that the homepage has
@@ -63,12 +64,13 @@ export default async function Home() {
     );
   }
 
-  // The grid below gets the rest of the featured set, topped up with other
-  // real catalogue items — same real-photo, no-repeats rule.
-  const gridProducts = pickWithUniqueImages(featured, usedSlugs, usedImages, 4);
-  if (gridProducts.length < 4) {
-    gridProducts.push(...pickWithUniqueImages(products, usedSlugs, usedImages, 4 - gridProducts.length));
-  }
+  // The grid below is a pull from the preset production packages rather
+  // than individual equipment, so it reads as "the kit for your shoot"
+  // instead of a second product list.
+  const featuredPackageSlugs = ["documentary", "commercial", "music-video", "short-film"];
+  const featuredPackages = featuredPackageSlugs
+    .map((slug) => getPackageBySlug(slug))
+    .filter((pkg): pkg is NonNullable<typeof pkg> => pkg !== undefined);
 
   return (
     // The homepage stays focused on the rental itself — browse-by-category
@@ -79,7 +81,7 @@ export default async function Home() {
     <div className="flex flex-col">
       <Hero products={spotlightProducts} />
       <CategoryExperience products={products} />
-      <FeaturedEquipment products={gridProducts} />
+      <FeaturedEquipment packages={featuredPackages} />
       <WorkShowcase />
       <WhyOutta />
       <Services />
