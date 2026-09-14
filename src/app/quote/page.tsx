@@ -15,7 +15,7 @@ import { useKit } from "@/components/kit/kit-provider";
 import { resolveKitLines, getKitTotal } from "@/lib/kit/pricing";
 import { ReviewKitStep } from "@/components/quote/steps/review-kit-step";
 import { CustomerDetailsStep } from "@/components/quote/steps/customer-details-step";
-import { WhatsAppButton } from "@/components/quote/whatsapp-button";
+import { getWhatsAppLink } from "@/lib/quote/whatsapp";
 import { validateCustomerDetails } from "@/lib/quote/validation";
 import {
   emptyCustomerDetails,
@@ -70,7 +70,8 @@ export default function QuotePage() {
           <CheckCircle2 className="size-10 text-brand" />
           <p className="text-h2 mt-5">YOUR REQUEST IS IN.</p>
           <p className="text-body mt-3 max-w-sm">
-            We&rsquo;ll review your kit and contact you with a confirmed quotation.
+            We opened WhatsApp with your request pre-filled — hit send there to reach OUTTA
+            directly, and we&rsquo;ll follow up with a confirmed quotation.
           </p>
           <div className="mt-8 flex flex-col gap-2 sm:flex-row">
             <Button asChild variant="outline">
@@ -93,6 +94,12 @@ export default function QuotePage() {
     const customerErrors = validateCustomerDetails(customer);
     setErrors(customerErrors);
     if (Object.keys(customerErrors).length > 0) return;
+
+    // Opened synchronously, within the click handler, so browsers still treat
+    // it as a direct result of the user's tap and don't block it — setting
+    // its location after the async submission below would otherwise read as
+    // an unrequested popup.
+    const whatsappTab = window.open("", "_blank");
 
     setSubmitState("loading");
     setSubmitError(null);
@@ -124,9 +131,25 @@ export default function QuotePage() {
     ]);
 
     if (result.ok) {
+      const whatsappLink = getWhatsAppLink({
+        items: lines.map((l) => ({ name: l.product.name, quantity: l.quantity })),
+        startDate,
+        endDate,
+        projectLabel: projectInfo.projectName || projectInfo.productionType,
+        customerName: customer.name,
+        customerPhone: customer.phone,
+        customerEmail: customer.email,
+        notes,
+      });
+      if (whatsappLink && whatsappTab) {
+        whatsappTab.location.href = whatsappLink;
+      } else {
+        whatsappTab?.close();
+      }
       setSubmitState("success");
       clearKit();
     } else {
+      whatsappTab?.close();
       setSubmitState("error");
       setSubmitError(result.error);
     }
@@ -170,33 +193,25 @@ export default function QuotePage() {
           </div>
         ) : null}
 
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Button
-            size="lg"
-            className="flex-1 uppercase tracking-wide"
-            disabled={submitState === "loading"}
-            onClick={handleSubmit}
-          >
-            {submitState === "loading" ? (
-              <>
-                <LoaderCircle className="animate-spin" /> Submitting…
-              </>
-            ) : submitState === "error" ? (
-              "Retry — Request My Quote"
-            ) : (
-              "Request My Quote"
-            )}
-          </Button>
-          <WhatsAppButton
-            items={lines.map((l) => ({ name: l.product.name, quantity: l.quantity }))}
-            startDate={startDate}
-            endDate={endDate}
-            projectLabel={projectInfo.projectName || projectInfo.productionType}
-            size="lg"
-            variant="outline"
-            className="flex-1"
-          />
-        </div>
+        <Button
+          size="lg"
+          className="mt-8 w-full uppercase tracking-wide"
+          disabled={submitState === "loading"}
+          onClick={handleSubmit}
+        >
+          {submitState === "loading" ? (
+            <>
+              <LoaderCircle className="animate-spin" /> Submitting…
+            </>
+          ) : submitState === "error" ? (
+            "Retry — Request My Quote"
+          ) : (
+            "Request My Quote"
+          )}
+        </Button>
+        <p className="text-meta mt-2 text-center">
+          Opens WhatsApp with your request pre-filled — just hit send there.
+        </p>
       </div>
     </Section>
   );

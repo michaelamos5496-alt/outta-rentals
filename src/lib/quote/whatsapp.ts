@@ -5,6 +5,10 @@ export interface WhatsAppMessageInput {
   endDate?: string;
   projectLabel?: string;
   location?: string;
+  customerName?: string;
+  customerPhone?: string;
+  customerEmail?: string;
+  notes?: string;
   /** Defaults to "Please send me a quotation." — override for non-kit messages. */
   closingLine?: string;
 }
@@ -46,6 +50,18 @@ export function buildWhatsAppMessage(input: WhatsAppMessageInput): string {
 
   if (input.location) {
     lines.push("Location:", input.location, "");
+  }
+
+  if (input.customerName || input.customerPhone || input.customerEmail) {
+    lines.push("Contact:");
+    if (input.customerName) lines.push(input.customerName);
+    if (input.customerPhone) lines.push(input.customerPhone);
+    if (input.customerEmail) lines.push(input.customerEmail);
+    lines.push("");
+  }
+
+  if (input.notes) {
+    lines.push("Notes:", input.notes, "");
   }
 
   lines.push(input.closingLine ?? "Please send me a quotation.");
