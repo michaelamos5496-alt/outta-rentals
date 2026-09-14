@@ -2,48 +2,37 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Package } from "lucide-react";
+import { AlertTriangle, CheckCircle2, LoaderCircle, Package } from "lucide-react";
 
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
+import { Divider } from "@/components/ui/divider";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { EmptyState } from "@/components/ui/state";
 import { useKit } from "@/components/kit/kit-provider";
 import { resolveKitLines, getKitTotal } from "@/lib/kit/pricing";
-import { QuoteStepper } from "@/components/quote/quote-stepper";
 import { ReviewKitStep } from "@/components/quote/steps/review-kit-step";
-import { ProjectDetailsStep } from "@/components/quote/steps/project-details-step";
 import { CustomerDetailsStep } from "@/components/quote/steps/customer-details-step";
-import { DeliveryStep } from "@/components/quote/steps/delivery-step";
-import { ConfirmationStep, type SubmitState } from "@/components/quote/steps/confirmation-step";
-import {
-  validateCustomerDetails,
-  validateDeliveryDetails,
-  validateProjectDetails,
-} from "@/lib/quote/validation";
+import { WhatsAppButton } from "@/components/quote/whatsapp-button";
+import { validateCustomerDetails } from "@/lib/quote/validation";
 import {
   emptyCustomerDetails,
   emptyDeliveryDetails,
   emptyProjectDetails,
   type CustomerDetails,
-  type DeliveryDetails,
   type FieldErrors,
-  type ProjectDetails,
 } from "@/lib/quote/types";
 import { submitQuoteRequest } from "@/lib/quote/actions";
+
+type SubmitState = "idle" | "loading" | "success" | "error";
 
 export default function QuotePage() {
   const { items, startDate, endDate, rentalDays, dateError, projectInfo, clearKit } = useKit();
 
-  const [step, setStep] = React.useState(0);
-  const [project, setProject] = React.useState<ProjectDetails>({
-    ...emptyProjectDetails,
-    projectName: projectInfo.projectName,
-    projectType: projectInfo.productionType,
-    additionalNotes: projectInfo.notes,
-  });
   const [customer, setCustomer] = React.useState<CustomerDetails>(emptyCustomerDetails);
-  const [delivery, setDelivery] = React.useState<DeliveryDetails>(emptyDeliveryDetails);
+  const [notes, setNotes] = React.useState("");
   const [errors, setErrors] = React.useState<FieldErrors>({});
   const [submitState, setSubmitState] = React.useState<SubmitState>("idle");
   const [submitError, setSubmitError] = React.useState<string | null>(null);
@@ -74,38 +63,37 @@ export default function QuotePage() {
     );
   }
 
-  function goNext() {
-    if (step === 0) {
-      if (items.length === 0 || !canPrice) {
-        setErrors({ kit: "Add equipment and set valid dates before continuing." });
-        return;
-      }
-    }
-    if (step === 1) {
-      const projectErrors = validateProjectDetails(project);
-      setErrors(projectErrors);
-      if (Object.keys(projectErrors).length > 0) return;
-    }
-    if (step === 2) {
-      const customerErrors = validateCustomerDetails(customer);
-      setErrors(customerErrors);
-      if (Object.keys(customerErrors).length > 0) return;
-    }
-    if (step === 3) {
-      const deliveryErrors = validateDeliveryDetails(delivery);
-      setErrors(deliveryErrors);
-      if (Object.keys(deliveryErrors).length > 0) return;
-    }
-    setErrors({});
-    setStep((s) => Math.min(s + 1, 4));
-  }
-
-  function goBack() {
-    setErrors({});
-    setStep((s) => Math.max(s - 1, 0));
+  if (submitState === "success") {
+    return (
+      <Section>
+        <div className="flex flex-col items-center py-10 text-center">
+          <CheckCircle2 className="size-10 text-brand" />
+          <p className="text-h2 mt-5">YOUR REQUEST IS IN.</p>
+          <p className="text-body mt-3 max-w-sm">
+            We&rsquo;ll review your kit and contact you with a confirmed quotation.
+          </p>
+          <div className="mt-8 flex flex-col gap-2 sm:flex-row">
+            <Button asChild variant="outline">
+              <Link href="/equipment">Continue browsing</Link>
+            </Button>
+            <Button asChild>
+              <Link href="/">Back to home</Link>
+            </Button>
+          </div>
+        </div>
+      </Section>
+    );
   }
 
   async function handleSubmit() {
+    if (items.length === 0 || !canPrice) {
+      setErrors({ kit: "Add equipment and set valid dates before continuing." });
+      return;
+    }
+    const customerErrors = validateCustomerDetails(customer);
+    setErrors(customerErrors);
+    if (Object.keys(customerErrors).length > 0) return;
+
     setSubmitState("loading");
     setSubmitError(null);
 
@@ -122,9 +110,15 @@ export default function QuotePage() {
         endDate,
         rentalDays: rentalDays ?? 0,
         estimatedTotal: total,
-        project,
+        project: {
+          ...emptyProjectDetails,
+          projectName: projectInfo.projectName || "Untitled project",
+          projectType: projectInfo.productionType || "Not specified",
+          shootLocation: "Not specified",
+          additionalNotes: notes,
+        },
         customer,
-        delivery,
+        delivery: { ...emptyDeliveryDetails, method: "pickup" },
       }),
       minDelay,
     ]);
@@ -144,62 +138,65 @@ export default function QuotePage() {
         Request a quote
       </Heading>
 
-      <div className="mt-8 overflow-x-auto pb-2">
-        <QuoteStepper
-          currentStep={step}
-          onStepClick={submitState === "success" ? undefined : setStep}
-        />
-      </div>
-
       <div className="mt-10 max-w-2xl">
-        {step === 0 ? <ReviewKitStep lines={lines} startDate={startDate} endDate={endDate} /> : null}
-        {step === 1 ? (
-          <ProjectDetailsStep value={project} onChange={(p) => setProject((s) => ({ ...s, ...p }))} errors={errors} />
-        ) : null}
-        {step === 2 ? (
-          <CustomerDetailsStep
-            value={customer}
-            onChange={(p) => setCustomer((s) => ({ ...s, ...p }))}
-            errors={errors}
+        <ReviewKitStep lines={lines} startDate={startDate} endDate={endDate} />
+
+        <Divider className="my-8" />
+
+        <CustomerDetailsStep
+          value={customer}
+          onChange={(p) => setCustomer((s) => ({ ...s, ...p }))}
+          errors={errors}
+        />
+
+        <div className="mt-5">
+          <Label htmlFor="notes">Notes</Label>
+          <Textarea
+            id="notes"
+            className="mt-1.5"
+            rows={3}
+            placeholder="Shoot dates, location, anything OUTTA should know…"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
           />
-        ) : null}
-        {step === 3 ? (
-          <DeliveryStep value={delivery} onChange={(p) => setDelivery((s) => ({ ...s, ...p }))} errors={errors} />
-        ) : null}
-        {step === 4 ? (
-          <ConfirmationStep
-            lines={lines}
-            startDate={startDate}
-            endDate={endDate}
-            rentalDays={rentalDays ?? 0}
-            total={total}
-            project={project}
-            customer={customer}
-            delivery={delivery}
-            submitState={submitState}
-            submitError={submitError}
-            onSubmit={handleSubmit}
-          />
-        ) : null}
+        </div>
 
         {errors.kit ? <p className="mt-3 text-sm text-destructive">{errors.kit}</p> : null}
 
-        {step < 4 ? (
-          <div className="mt-8 flex justify-between">
-            <Button variant="ghost" onClick={goBack} disabled={step === 0}>
-              <ArrowLeft /> Back
-            </Button>
-            <Button onClick={goNext}>
-              Next <ArrowRight />
-            </Button>
-          </div>
-        ) : submitState !== "success" ? (
-          <div className="mt-8">
-            <Button variant="ghost" onClick={goBack} disabled={submitState === "loading"}>
-              <ArrowLeft /> Back
-            </Button>
+        {submitState === "error" ? (
+          <div className="mt-6 flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive">
+            <AlertTriangle className="size-4 shrink-0 translate-y-0.5" />
+            <span>{submitError ?? "Something went wrong. Please try again."}</span>
           </div>
         ) : null}
+
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <Button
+            size="lg"
+            className="flex-1 uppercase tracking-wide"
+            disabled={submitState === "loading"}
+            onClick={handleSubmit}
+          >
+            {submitState === "loading" ? (
+              <>
+                <LoaderCircle className="animate-spin" /> Submitting…
+              </>
+            ) : submitState === "error" ? (
+              "Retry — Request My Quote"
+            ) : (
+              "Request My Quote"
+            )}
+          </Button>
+          <WhatsAppButton
+            items={lines.map((l) => ({ name: l.product.name, quantity: l.quantity }))}
+            startDate={startDate}
+            endDate={endDate}
+            projectLabel={projectInfo.projectName || projectInfo.productionType}
+            size="lg"
+            variant="outline"
+            className="flex-1"
+          />
+        </div>
       </div>
     </Section>
   );

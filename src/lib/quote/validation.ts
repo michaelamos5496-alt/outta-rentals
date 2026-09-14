@@ -18,9 +18,6 @@ export function isValidPhone(value: string): boolean {
 
 export function validateProjectDetails(project: ProjectDetails): FieldErrors {
   const errors: FieldErrors = {};
-  if (!project.projectName.trim()) errors.projectName = "Project name is required.";
-  if (!project.projectType.trim()) errors.projectType = "Choose a project type.";
-  if (!project.shootLocation.trim()) errors.shootLocation = "Shoot location is required.";
   if (project.productionDays && (!/^\d+$/.test(project.productionDays) || Number(project.productionDays) < 1)) {
     errors.productionDays = "Enter a whole number of days.";
   }
