@@ -11,7 +11,6 @@ import { Heading } from "@/components/ui/heading";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { getCategoryIcon, getProductBySlug } from "@/lib/catalogue";
 import { themeImages } from "@/lib/editorial-images";
-import { formatPrice } from "@/lib/currency";
 import type { ProductionPackage } from "@/lib/packages";
 
 // Featured packages use the same clapper-board treatment as the catalogue
@@ -22,13 +21,6 @@ function FeaturedCard({ pkg }: { pkg: ProductionPackage }) {
   const heroProduct = heroItem ? getProductBySlug(heroItem.productSlug) : undefined;
   const icon = getCategoryIcon(heroProduct?.categorySlug ?? "cameras");
 
-  // Real total day rate for the package's line items — same "price tag"
-  // pattern as the equipment cards, computed from real product rates.
-  const dayRate = pkg.items.reduce((sum, item) => {
-    const product = getProductBySlug(item.productSlug);
-    return sum + (product ? product.dayRate * item.quantity : 0);
-  }, 0);
-  const currency = getProductBySlug(pkg.items[0]?.productSlug ?? "")?.currency ?? "GHS";
 
   return (
     <motion.article
@@ -72,11 +64,6 @@ function FeaturedCard({ pkg }: { pkg: ProductionPackage }) {
               icon={icon}
               className="aspect-[16/10] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
             />
-            {dayRate > 0 ? (
-              <span className="absolute right-2 bottom-2 bg-background px-1.5 py-0.5 font-mono text-[0.625rem] font-semibold">
-                From {formatPrice(dayRate, currency)}/day
-              </span>
-            ) : null}
           </div>
         </Link>
 

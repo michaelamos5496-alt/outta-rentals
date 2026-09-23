@@ -23,11 +23,10 @@ import { EmptyState } from "@/components/ui/state";
 import { useKit } from "@/components/kit/kit-provider";
 import { KitItemRow } from "@/components/kit/kit-item-row";
 import { RentalDates } from "@/components/kit/rental-dates";
-import { resolveKitLines, getKitTotal } from "@/lib/kit/pricing";
+import { resolveKitLines } from "@/lib/kit/pricing";
 import { kitPresets } from "@/lib/placeholder-data";
 import { WhatsAppButton } from "@/components/quote/whatsapp-button";
 import { checkKitAvailability, type KitAvailabilityResult } from "@/lib/catalogue/actions";
-import { formatPrice } from "@/lib/currency";
 
 function SectionLabel({ children }: { children: ReactNode }) {
   return <p className="text-label mb-4">{children}</p>;
@@ -38,8 +37,7 @@ export default function KitPage() {
     useKit();
 
   const lines = resolveKitLines(items, rentalDays ?? 0);
-  const total = getKitTotal(lines);
-  const canPrice = !dateError && rentalDays !== null;
+  const datesValid = !dateError && rentalDays !== null;
   const itemCount = items.reduce((n, i) => n + i.quantity, 0);
 
   const [checking, setChecking] = React.useState(false);
@@ -105,7 +103,7 @@ export default function KitPage() {
               variant="outline"
               size="sm"
               className="mt-4"
-              disabled={!canPrice || checking}
+              disabled={!datesValid || checking}
               onClick={handleCheckAvailability}
             >
               {checking ? <LoaderCircle className="animate-spin" /> : <SearchCheck />}
@@ -146,26 +144,8 @@ export default function KitPage() {
         </div>
 
         <aside className="h-fit border border-border p-6 lg:sticky lg:top-24">
-          <SectionLabel>Estimated pricing</SectionLabel>
-          <div className="flex flex-col gap-2">
-            {lines.map((line) => (
-              <div key={line.product.slug} className="flex justify-between text-sm">
-                <span className="text-muted-foreground">
-                  {line.product.name} × {line.quantity}
-                </span>
-                <span className="font-mono">{canPrice ? formatPrice(line.lineTotal) : "—"}</span>
-              </div>
-            ))}
-          </div>
-          <Divider className="my-4" />
-          <div className="flex items-baseline justify-between">
-            <span className="font-medium">Estimated total</span>
-            <span className="text-h3 font-mono">{canPrice ? formatPrice(total) : "—"}</span>
-          </div>
-          <p className="text-meta mt-2">
-            {canPrice
-              ? "Estimate — final quote confirmed by OUTTA."
-              : "Set valid rental dates to see an estimate."}
+          <p className="text-meta">
+            Pricing on request — OUTTA will confirm rates in your quote.
           </p>
 
           <Divider className="my-6" />
@@ -212,7 +192,7 @@ export default function KitPage() {
           </div>
 
           <div className="mt-6 flex flex-col gap-2">
-            {canPrice ? (
+            {datesValid ? (
               <Button asChild className="w-full">
                 <Link href="/quote">Continue to Quote</Link>
               </Button>

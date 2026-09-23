@@ -15,7 +15,6 @@ import { workProjects } from "@/lib/content/work";
 import { themeImages } from "@/lib/editorial-images";
 import { getProductBySlug } from "@/lib/catalogue";
 import { useKit } from "@/components/kit/kit-provider";
-import { formatPrice } from "@/lib/currency";
 
 function slugifyProductionType(value: string): string {
   return value.toLowerCase().replace(/\s+/g, "-");
@@ -47,7 +46,6 @@ function EquipmentUsedItem({
           {product.name}
           {quantity > 1 ? <span className="text-muted-foreground"> ×{quantity}</span> : null}
         </p>
-        <p className="text-meta">{formatPrice(product.dayRate, product.currency)}/day</p>
       </Link>
       <Button
         variant={added ? "secondary" : "outline"}

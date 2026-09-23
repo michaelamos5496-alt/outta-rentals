@@ -7,11 +7,10 @@ import { Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
 import { EmptyState } from "@/components/ui/state";
-import { resolveKitLines, getKitTotal } from "@/lib/kit/pricing";
+import { resolveKitLines } from "@/lib/kit/pricing";
 import { useKit } from "@/components/kit/kit-provider";
 import { KitItemRow } from "@/components/kit/kit-item-row";
 import { RentalDates } from "@/components/kit/rental-dates";
-import { formatPrice } from "@/lib/currency";
 
 export interface KitSummaryProps {
   compact?: boolean;
@@ -21,10 +20,8 @@ export interface KitSummaryProps {
 }
 
 function KitSummary({ compact = false, showDates = true, emptyAction, footer }: KitSummaryProps) {
-  const { items, rentalDays, dateError, clearKit } = useKit();
+  const { items, rentalDays, clearKit } = useKit();
   const lines = resolveKitLines(items, rentalDays ?? 0);
-  const total = getKitTotal(lines);
-  const canPrice = !dateError && rentalDays !== null;
 
   if (items.length === 0) {
     return (
@@ -55,20 +52,11 @@ function KitSummary({ compact = false, showDates = true, emptyAction, footer }: 
       <Divider />
 
       <div className="flex flex-col gap-1.5 py-4">
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-muted-foreground">
-            {items.reduce((n, i) => n + i.quantity, 0)} item
-            {items.reduce((n, i) => n + i.quantity, 0) === 1 ? "" : "s"}
-          </span>
-          <span className="font-mono font-medium">
-            {canPrice ? formatPrice(total) : "—"}
-          </span>
-        </div>
-        <p className="text-meta">
-          {canPrice
-            ? "Estimate — final quote confirmed by OUTTA."
-            : "Set valid rental dates to see an estimate."}
-        </p>
+        <span className="text-sm text-muted-foreground">
+          {items.reduce((n, i) => n + i.quantity, 0)} item
+          {items.reduce((n, i) => n + i.quantity, 0) === 1 ? "" : "s"}
+        </span>
+        <p className="text-meta">Pricing confirmed by OUTTA in your quote.</p>
       </div>
 
       <div className="flex items-center justify-between gap-3">

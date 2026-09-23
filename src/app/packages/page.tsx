@@ -8,7 +8,6 @@ import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { getCategoryIcon, getProductBySlug } from "@/lib/catalogue";
 import { getAllPackages } from "@/lib/packages";
 import { themeImages } from "@/lib/editorial-images";
-import { formatPrice } from "@/lib/currency";
 
 export const metadata: Metadata = {
   title: "Production Packages",
@@ -36,14 +35,6 @@ export default function PackagesPage() {
           const heroProduct = heroItem ? getProductBySlug(heroItem.productSlug) : undefined;
           const icon = getCategoryIcon(heroProduct?.categorySlug ?? "cameras");
 
-          // Real total day rate for the package's line items — same "price
-          // tag" pattern as the equipment cards, computed from real product
-          // rates rather than invented.
-          const dayRate = pkg.items.reduce((sum, item) => {
-            const product = getProductBySlug(item.productSlug);
-            return sum + (product ? product.dayRate * item.quantity : 0);
-          }, 0);
-          const currency = getProductBySlug(pkg.items[0]?.productSlug ?? "")?.currency ?? "GHS";
 
           return (
             <article
@@ -72,11 +63,6 @@ export default function PackagesPage() {
                     icon={icon}
                     className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/pkg:scale-105"
                   />
-                  {dayRate > 0 ? (
-                    <span className="absolute right-2 bottom-2 bg-background px-1.5 py-0.5 font-mono text-[0.625rem] font-semibold">
-                      From {formatPrice(dayRate, currency)}/day
-                    </span>
-                  ) : null}
                 </div>
               </Link>
 

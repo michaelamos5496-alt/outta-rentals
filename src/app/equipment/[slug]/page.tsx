@@ -18,14 +18,12 @@ import { absoluteUrl, SITE_NAME } from "@/lib/seo";
 import { workProjects } from "@/lib/content/work";
 import { Container } from "@/components/ui/container";
 import { Badge } from "@/components/ui/badge";
-import { Divider } from "@/components/ui/divider";
 import { EmptyState } from "@/components/ui/state";
 import { Button } from "@/components/ui/button";
 import { ProductGallery } from "@/components/catalogue/product-gallery";
 import { ProductActions } from "@/components/catalogue/product-actions";
 import { ProductShelf } from "@/components/catalogue/product-shelf";
 import { MobileStickyRent } from "@/components/catalogue/mobile-sticky-rent";
-import { formatPrice } from "@/lib/currency";
 
 export const revalidate = 60; // seconds — keep inventory reasonably fresh once a real DB is connected
 
@@ -117,8 +115,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
     url: absoluteUrl(`/equipment/${product.slug}`),
     offers: {
       "@type": "Offer",
-      priceCurrency: product.currency,
-      price: product.dayRate,
       availability: schemaAvailability[product.availability] ?? "https://schema.org/OutOfStock",
       url: absoluteUrl(`/equipment/${product.slug}`),
     },
@@ -188,25 +184,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
             <p className="text-body mt-4">{product.description}</p>
 
-            <div className="mt-6 flex items-baseline gap-6 border border-border p-5">
-              <div>
-                <p className="text-meta">Daily rate</p>
-                <p className="text-h3 mt-1 font-mono">
-                  {formatPrice(product.dayRate, product.currency)}
-                  <span className="font-sans text-sm font-normal text-muted-foreground"> / day</span>
-                </p>
-              </div>
-              <Divider orientation="vertical" className="h-10" />
-              <div>
-                <p className="text-meta">Weekly rate</p>
-                <p className="text-h3 mt-1 font-mono">
-                  {formatPrice(product.weekRate, product.currency)}
-                  <span className="font-sans text-sm font-normal text-muted-foreground"> / week</span>
-                </p>
-              </div>
-            </div>
-            <p className="text-small mt-2">
-              Rates shown are OUTTA&rsquo;s real rates, confirmed at quote stage.
+            <p className="text-small mt-6">
+              Pricing on request — add this to your kit and OUTTA will send you a quote.
             </p>
 
             <div className="mt-6 hidden lg:block">
@@ -297,11 +276,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         ) : null}
       </Container>
 
-      <MobileStickyRent
-        productSlug={product.slug}
-        dayRate={product.dayRate}
-        currency={product.currency}
-      />
+      <MobileStickyRent productSlug={product.slug} />
 
       <Container>
         <ProductShelf

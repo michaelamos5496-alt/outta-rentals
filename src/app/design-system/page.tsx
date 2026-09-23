@@ -21,7 +21,6 @@ import {
 } from "@/components/ui/select";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -33,19 +32,16 @@ const sampleProducts = [
   {
     name: "Cine Prime 35mm T1.5",
     category: "Lenses",
-    day: "$85",
     icon: Camera,
   },
   {
     name: "6K Cinema Camera Body",
     category: "Cameras",
-    day: "$220",
     icon: Camera,
   },
   {
     name: "1200W LED Fresnel Kit",
     category: "Lighting",
-    day: "$140",
     icon: Camera,
   },
 ];
@@ -129,7 +125,7 @@ export default function Home() {
             <div>
               <p className="text-meta mb-2">Small</p>
               <p className="text-small">
-                Rates shown are indicative and confirmed at quote stage.
+                Every quote is confirmed by the OUTTA team.
               </p>
             </div>
             <div>
@@ -247,9 +243,6 @@ export default function Home() {
                   <CardTitle>{product.name}</CardTitle>
                   <CardDescription>{product.category}</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <Badge variant="technical">From {product.day}/day</Badge>
-                </CardContent>
                 <CardFooter>
                   <Button variant="secondary" size="sm" className="w-full">
                     View details

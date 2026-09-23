@@ -2,7 +2,6 @@
 
 import { categories, brands, availabilityLabels, type ProductAvailability } from "@/lib/catalogue";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
 
@@ -10,7 +9,6 @@ export interface CatalogueFilters {
   categories: string[];
   brands: string[];
   availability: ProductAvailability[];
-  priceRange: [number, number];
 }
 
 export interface FilterPanelProps {
@@ -19,7 +17,6 @@ export interface FilterPanelProps {
   onClear: () => void;
   showCategoryFilter?: boolean;
   brandOptions?: typeof brands;
-  priceBounds: [number, number];
   hasActiveFilters: boolean;
 }
 
@@ -41,7 +38,6 @@ function FilterPanel({
   onClear,
   showCategoryFilter = true,
   brandOptions = brands,
-  priceBounds,
   hasActiveFilters,
 }: FilterPanelProps) {
   return (
@@ -106,24 +102,6 @@ function FilterPanel({
             {availabilityLabels[status]}
           </label>
         ))}
-      </div>
-
-      <Divider />
-
-      <div className="flex flex-col gap-4">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-medium">Daily rate</p>
-          <p className="text-small">
-            ${filters.priceRange[0]} – ${filters.priceRange[1]}
-          </p>
-        </div>
-        <Slider
-          min={priceBounds[0]}
-          max={priceBounds[1]}
-          step={5}
-          value={filters.priceRange}
-          onValueChange={(value) => onChange({ priceRange: value as [number, number] })}
-        />
       </div>
     </div>
   );

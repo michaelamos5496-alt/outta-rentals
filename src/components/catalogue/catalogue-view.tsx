@@ -11,7 +11,6 @@ import {
   categories,
   getCategoryBySlug,
   getCategoryIcon,
-  getPriceBounds,
   searchProducts,
   type DemoProduct,
 } from "@/lib/catalogue";
@@ -37,13 +36,11 @@ import {
 import { ProductCard } from "@/components/catalogue/product-card";
 import { FilterPanel, type CatalogueFilters } from "@/components/catalogue/filter-panel";
 
-type SortKey = "featured" | "name-asc" | "price-asc" | "price-desc";
+type SortKey = "featured" | "name-asc";
 
 const sortLabels: Record<SortKey, string> = {
   featured: "Featured",
   "name-asc": "Name (A–Z)",
-  "price-asc": "Price (Low to High)",
-  "price-desc": "Price (High to Low)",
 };
 
 function sortProducts(list: DemoProduct[], sort: SortKey): DemoProduct[] {
@@ -51,10 +48,6 @@ function sortProducts(list: DemoProduct[], sort: SortKey): DemoProduct[] {
   switch (sort) {
     case "name-asc":
       return copy.sort((a, b) => a.name.localeCompare(b.name));
-    case "price-asc":
-      return copy.sort((a, b) => a.dayRate - b.dayRate);
-    case "price-desc":
-      return copy.sort((a, b) => b.dayRate - a.dayRate);
     default:
       return copy.sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
   }
@@ -70,7 +63,6 @@ export interface CatalogueViewProps {
 
 function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
   const categoryPool = products;
-  const priceBounds = React.useMemo(() => getPriceBounds(categoryPool), [categoryPool]);
 
   const [query, setQuery] = React.useState("");
   const debouncedQuery = useDebouncedValue(query, 300);
@@ -80,7 +72,6 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
     categories: [],
     brands: [],
     availability: [],
-    priceRange: priceBounds,
   });
 
   // Only offer brands that actually have equipment in the selected category —
@@ -134,9 +125,6 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
     if (filters.availability.length > 0) {
       list = list.filter((p) => filters.availability.includes(p.availability));
     }
-    list = list.filter(
-      (p) => p.dayRate >= filters.priceRange[0] && p.dayRate <= filters.priceRange[1]
-    );
     return list;
   }, [categoryPool, lockedCategory, filters, debouncedQuery]);
 
@@ -147,14 +135,12 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
     filters.categories.length > 0 ||
     filters.brands.length > 0 ||
     filters.availability.length > 0 ||
-    filters.priceRange[0] !== priceBounds[0] ||
-    filters.priceRange[1] !== priceBounds[1] ||
     query.length > 0;
 
   const clearAll = React.useCallback(() => {
     setQuery("");
-    setFilters({ categories: [], brands: [], availability: [], priceRange: priceBounds });
-  }, [priceBounds]);
+    setFilters({ categories: [], brands: [], availability: [] });
+  }, []);
 
   const category = lockedCategory ? getCategoryBySlug(lockedCategory) : undefined;
   const suggestedCategories = categories.filter((c) => c.slug !== lockedCategory).slice(0, 4);
@@ -287,7 +273,6 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
               onClear={clearAll}
               showCategoryFilter={!lockedCategory}
               brandOptions={brandOptions}
-              priceBounds={priceBounds}
               hasActiveFilters={hasActiveFilters}
             />
           </div>
@@ -378,7 +363,6 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
               onClear={clearAll}
               showCategoryFilter={!lockedCategory}
               brandOptions={brandOptions}
-              priceBounds={priceBounds}
               hasActiveFilters={hasActiveFilters}
             />
             <Button className="mt-8 w-full" onClick={() => setMobileFiltersOpen(false)}>

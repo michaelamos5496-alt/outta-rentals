@@ -62,12 +62,6 @@ export function searchProducts(query: string, pool: DemoProduct[] = products): D
   });
 }
 
-export function getPriceBounds(pool: DemoProduct[] = products): [number, number] {
-  if (pool.length === 0) return [0, 0];
-  const rates = pool.map((p) => p.dayRate);
-  return [Math.min(...rates), Math.max(...rates)];
-}
-
 export const availabilityLabels: Record<DemoProduct["availability"], string> = {
   available: "Available",
   reserved: "Reserved",

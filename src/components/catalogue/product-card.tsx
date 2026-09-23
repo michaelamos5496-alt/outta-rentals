@@ -18,7 +18,6 @@ import {
 } from "@/lib/catalogue";
 import { useKit } from "@/components/kit/kit-provider";
 import { getProductImage } from "@/lib/editorial-images";
-import { formatPrice } from "@/lib/currency";
 
 export interface ProductCardProps {
   product: DemoProduct;
@@ -84,9 +83,6 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
               alt={product.name}
               className="aspect-[16/10] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
             />
-            <span className="absolute right-2 bottom-2 bg-background px-1.5 py-0.5 font-mono text-[0.625rem] font-semibold">
-              {formatPrice(product.dayRate, product.currency)}/day
-            </span>
           </div>
         </Link>
 
@@ -155,11 +151,7 @@ function ListProductCard({
         </div>
         <p className="text-small mt-2 line-clamp-2">{product.shortDescription}</p>
 
-        <div className="mt-auto flex items-center justify-between gap-3 pt-4">
-          <p className="text-sm">
-            <span className="font-medium">{formatPrice(product.dayRate, product.currency)}</span>
-            <span className="text-muted-foreground"> / day</span>
-          </p>
+        <div className="mt-auto flex items-center justify-end gap-3 pt-4">
           <div className="flex gap-2">
             <Button asChild variant="ghost" size="sm">
               <Link href={href}>View Details</Link>
