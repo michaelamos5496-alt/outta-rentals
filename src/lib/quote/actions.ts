@@ -80,3 +80,34 @@ export async function recordKitRequest(input: KitRequestInput): Promise<void> {
 
   if (error) console.error("[kit-request] Failed to record kit request:", error.message);
 }
+
+export interface EnquiryInput {
+  kind: "contact" | "consultation";
+  name?: string;
+  email?: string;
+  phone?: string;
+  message?: string;
+}
+
+/**
+ * Records a Contact form or consultation message so it appears under
+ * Enquiries in admin. Like `recordKitRequest`, runs in the background next to
+ * the WhatsApp hand-off and never surfaces errors to the visitor.
+ */
+export async function recordEnquiry(input: EnquiryInput): Promise<void> {
+  const supabase = getSupabaseServerClient();
+  if (!supabase || !input) return;
+  if (input.kind !== "contact" && input.kind !== "consultation") return;
+
+  const row = {
+    kind: input.kind,
+    name: cleanText(input.name, 120),
+    email: cleanText(input.email, 200),
+    phone: cleanText(input.phone, 40),
+    message: cleanText(input.message, 4000),
+  };
+  if (!row.name && !row.message) return;
+
+  const { error } = await supabase.from("enquiries").insert(row);
+  if (error) console.error("[enquiry] Failed to record enquiry:", error.message);
+}

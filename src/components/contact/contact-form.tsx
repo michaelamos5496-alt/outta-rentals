@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { isValidEmail, isValidPhone } from "@/lib/quote/validation";
 import { getWhatsAppLink } from "@/lib/quote/whatsapp";
+import { recordEnquiry } from "@/lib/quote/actions";
 
 interface FormValues {
   name: string;
@@ -68,6 +69,14 @@ function ContactForm() {
     }
     submittedRef.current = true;
     window.open(link, "_blank", "noopener,noreferrer");
+    // Keep OUTTA's own record in case the WhatsApp chat is lost.
+    recordEnquiry({
+      kind: "contact",
+      name: values.name,
+      email: values.email,
+      phone: values.phone,
+      message: values.message,
+    }).catch(() => {});
     setStatus("success");
   }
 

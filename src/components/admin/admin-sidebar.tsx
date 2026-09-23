@@ -6,6 +6,7 @@ import {
   Boxes,
   ClipboardList,
   FileText,
+  Inbox,
   LayoutDashboard,
   Package,
   Tags,
@@ -20,6 +21,7 @@ const navItems = [
   { href: "/admin/categories", label: "Categories", icon: Tags },
   { href: "/admin/inventory", label: "Inventory", icon: Boxes },
   { href: "/admin/quotes", label: "Quotes", icon: FileText },
+  { href: "/admin/enquiries", label: "Enquiries", icon: Inbox },
   { href: "/admin/customers", label: "Customers", icon: Users },
   { href: "/admin/orders", label: "Orders", icon: ClipboardList },
 ];

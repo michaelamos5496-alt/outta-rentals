@@ -67,7 +67,7 @@ export async function listQuotes(): Promise<AdminQuote[]> {
 
   const { data, error } = await supabase
     .from("quote_requests")
-    .select(QUOTE_COLUMNS)
+    .select(`${QUOTE_COLUMNS}, quote_notes (id, note, created_at)`)
     .order("created_at", { ascending: false })
     .limit(500)
     .returns<QuoteRow[]>();
