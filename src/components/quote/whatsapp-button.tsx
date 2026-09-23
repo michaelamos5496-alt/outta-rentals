@@ -14,7 +14,7 @@ export interface WhatsAppButtonProps extends WhatsAppMessageInput {
 }
 
 function WhatsAppButton({
-  label = "Send Kit to WhatsApp",
+  label = "Send Kit",
   className,
   variant = "outline",
   size = "lg",
