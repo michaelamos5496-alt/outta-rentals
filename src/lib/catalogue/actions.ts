@@ -17,6 +17,8 @@ export interface KitAvailabilityResult {
   source: "database" | "status-only";
 }
 
+const MAX_AVAILABILITY_ITEMS = 100;
+
 /**
  * Checks every kit line against the requested rental dates. Used by the
  * "Check availability" action on `/kit` — the real, callable entry point
@@ -29,8 +31,21 @@ export async function checkKitAvailability(
   endDate: string
 ): Promise<KitAvailabilityResult[]> {
   const results: KitAvailabilityResult[] = [];
+  // Public server action — never trust the payload shape or size.
+  if (!Array.isArray(items) || typeof startDate !== "string" || typeof endDate !== "string") {
+    return results;
+  }
+  const safeItems = items
+    .filter(
+      (item) =>
+        item &&
+        typeof item.productSlug === "string" &&
+        Number.isInteger(item.quantity) &&
+        item.quantity > 0
+    )
+    .slice(0, MAX_AVAILABILITY_ITEMS);
 
-  for (const item of items) {
+  for (const item of safeItems) {
     const product = await fetchProductBySlug(item.productSlug);
     if (!product) continue;
 
@@ -53,8 +68,6 @@ export interface CatalogueSearchResult {
   brandName: string;
   categoryName: string;
   categorySlug: string;
-  dayRate: number;
-  currency: string;
   availability: ProductAvailability;
 }
 
@@ -69,7 +82,8 @@ function normalize(value: string): string {
  * and callable from a client component.
  */
 export async function searchCatalogueAction(query: string): Promise<CatalogueSearchResult[]> {
-  const q = normalize(query);
+  if (typeof query !== "string") return [];
+  const q = normalize(query.slice(0, 100));
   if (!q) return [];
 
   const products = await fetchAllProducts();
@@ -88,8 +102,6 @@ export async function searchCatalogueAction(query: string): Promise<CatalogueSea
       brandName: getBrandBySlug(p.brandSlug)?.name ?? p.brandSlug,
       categoryName: getCategoryBySlug(p.categorySlug)?.name ?? p.categorySlug,
       categorySlug: p.categorySlug,
-      dayRate: p.dayRate,
-      currency: p.currency,
       availability: p.availability,
     }));
 }

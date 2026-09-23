@@ -183,6 +183,7 @@ function NavFab() {
   const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const [open, setOpen] = React.useState(false);
   const whatsappLink = getWhatsAppLink({
+    heading: "OUTTA RENTALS — ENQUIRY",
     closingLine: "I'd like to talk about an upcoming shoot.",
   });
 

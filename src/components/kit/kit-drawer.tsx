@@ -15,7 +15,7 @@ import { WhatsAppButton } from "@/components/quote/whatsapp-button";
 import { resolveKitLines } from "@/lib/kit/pricing";
 
 function KitDrawer() {
-  const { drawerOpen, closeDrawer, openDrawer, itemCount, items, startDate, endDate, rentalDays, projectInfo } =
+  const { drawerOpen, closeDrawer, openDrawer, itemCount, items, startDate, endDate, rentalDays, dateError, projectInfo } =
     useKit();
   const lines = resolveKitLines(items, rentalDays ?? 0);
 
@@ -37,8 +37,8 @@ function KitDrawer() {
               <div className="mt-3 flex flex-col gap-2">
                 <WhatsAppButton
                   items={lines.map((l) => ({ name: l.product.name, quantity: l.quantity }))}
-                  startDate={startDate}
-                  endDate={endDate}
+                  startDate={dateError ? undefined : startDate}
+                  endDate={dateError ? undefined : endDate}
                   projectLabel={projectInfo.projectName || projectInfo.productionType}
                   notes={projectInfo.notes}
                   variant="default"

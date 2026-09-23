@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 import { Container } from "@/components/ui/container";
 import { Heading } from "@/components/ui/heading";
-import { Button } from "@/components/ui/button";
-import { EmptyState } from "@/components/ui/state";
 import { getPackageBySlug } from "@/lib/packages";
 import { PackageBuilder } from "@/components/packages/package-builder";
 
@@ -25,21 +24,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
   const { slug } = await params;
   const pkg = getPackageBySlug(slug);
 
-  if (!pkg) {
-    return (
-      <Container className="py-20">
-        <EmptyState
-          title="Package not found"
-          description={`We couldn't find a package matching "${slug}".`}
-          action={
-            <Button asChild variant="outline">
-              <Link href="/packages">Browse packages</Link>
-            </Button>
-          }
-        />
-      </Container>
-    );
-  }
+  if (!pkg) notFound();
 
   return (
     <Container className="py-10 sm:py-14">

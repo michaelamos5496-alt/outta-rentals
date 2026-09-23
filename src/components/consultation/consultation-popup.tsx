@@ -7,9 +7,37 @@ import { Modal } from "@/components/ui/modal";
 import { ConsultationRequestForm } from "@/components/consultation/consultation-request-form";
 
 const AUTO_OPEN_DELAY_MS = 5000;
+const SEEN_KEY = "outta-consultation-seen";
+
+function hasSeenThisSession(): boolean {
+  try {
+    return window.sessionStorage.getItem(SEEN_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function markSeenThisSession() {
+  try {
+    window.sessionStorage.setItem(SEEN_KEY, "1");
+  } catch {
+    // Storage unavailable (private mode) — the popup may auto-open again next load.
+  }
+}
+
+function isTyping(): boolean {
+  const el = document.activeElement;
+  return (
+    el instanceof HTMLInputElement ||
+    el instanceof HTMLTextAreaElement ||
+    el instanceof HTMLSelectElement ||
+    (el instanceof HTMLElement && el.isContentEditable)
+  );
+}
 
 /**
- * Opens itself 5s after the site loads to invite a consultation request.
+ * Opens itself 5s after the site loads to invite a consultation request —
+ * once per browser session, and never while the visitor is typing in a field.
  * Once dismissed (in either direction) it collapses into a floating button
  * — fixed opposite the nav FAB so a customer can reopen it whenever
  * they're ready, instead of only getting the one auto-prompt.
@@ -20,8 +48,10 @@ function ConsultationPopup() {
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
-      setOpen(true);
       setShown(true);
+      if (hasSeenThisSession() || isTyping()) return;
+      markSeenThisSession();
+      setOpen(true);
     }, AUTO_OPEN_DELAY_MS);
     return () => clearTimeout(timer);
   }, []);

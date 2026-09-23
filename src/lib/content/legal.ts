@@ -22,9 +22,9 @@ export interface LegalDocument {
 export const termsOfService: LegalDocument = {
   eyebrow: "Legal",
   title: "Terms of Service",
-  lastUpdated: "10 August 2026",
+  lastUpdated: "23 September 2026",
   intro:
-    "These Terms govern your use of the OUTTA RENTALS website and the services described on it. By browsing this site, submitting a quote request, or entering into a rental agreement with OUTTA, you agree to these Terms.",
+    "These Terms govern your use of the OUTTA RENTALS website and the services described on it. By browsing this site, sending a kit request, or entering into a rental agreement with OUTTA, you agree to these Terms.",
   sections: [
     {
       heading: "1. Who we are",
@@ -36,21 +36,21 @@ export const termsOfService: LegalDocument = {
     {
       heading: "2. The website is not a booking system",
       body: [
-        "Browsing the catalogue, adding items to a kit, and submitting a quote request through this website does not create a rental agreement or reserve equipment. Every request is reviewed by OUTTA and confirmed separately — availability, pricing and dates shown on the site are estimates until confirmed in writing.",
+        "Browsing the catalogue, adding items to a kit, and sending a kit request to OUTTA on WhatsApp does not create a rental agreement or reserve equipment. Every request is reviewed by OUTTA and confirmed separately — availability and dates shown on the site are not final until confirmed in writing.",
         "A binding rental agreement is formed only once OUTTA confirms a quote and both parties agree on the rental terms for that booking (see our Rental Terms).",
       ],
     },
     {
       heading: "3. Accounts and information you provide",
       body: [
-        "When you submit a quote request or contact form, you agree to provide accurate, current information. You're responsible for the accuracy of the project details, dates and contact information you submit.",
+        "When you send a kit request, enquiry or contact form, you agree to provide accurate, current information. You're responsible for the accuracy of the project details, dates and contact information you submit.",
         "We may decline any request at our discretion, including where equipment is unavailable, where information provided is incomplete, or where a prior rental with you was not honored.",
       ],
     },
     {
       heading: "4. Pricing",
       body: [
-        "Prices on this website are shown in Ghana Cedis (₵) and are indicative daily/weekly rates for demonstration purposes. Final pricing — including any delivery, insurance, or damage-deposit charges — is confirmed at the quote stage and set out in your rental agreement.",
+        "Rental prices are not listed on this website. Pricing — including any delivery, insurance, or damage-deposit charges — is provided on request, confirmed in your quote and set out in your rental agreement.",
       ],
     },
     {
@@ -62,7 +62,7 @@ export const termsOfService: LegalDocument = {
     {
       heading: "6. Limitation of liability",
       body: [
-        "This website and its content are provided \"as is\". OUTTA is not liable for indirect or consequential loss arising from your use of the site, including reliance on demo pricing or availability shown before a quote is confirmed.",
+        "This website and its content are provided \"as is\". OUTTA is not liable for indirect or consequential loss arising from your use of the site, including reliance on availability shown before a quote is confirmed.",
         "Nothing in these Terms limits liability that cannot be limited under Ghanaian law.",
       ],
     },
@@ -90,22 +90,22 @@ export const termsOfService: LegalDocument = {
 export const privacyPolicy: LegalDocument = {
   eyebrow: "Legal",
   title: "Privacy Policy",
-  lastUpdated: "10 August 2026",
+  lastUpdated: "23 September 2026",
   intro:
-    "This policy explains what information OUTTA RENTALS collects when you use this website or request a quote, and how that information is used, stored and protected.",
+    "This policy explains what information OUTTA RENTALS collects when you use this website or send us a request, and how that information is used, stored and protected.",
   sections: [
     {
       heading: "1. Information we collect",
       body: [
-        "Contact and project details you submit — name, email, phone number, company, project type, shoot dates and location — when you request a quote or use the contact form.",
-        "Kit information — the equipment and dates you select while browsing, stored locally in your browser (localStorage) so your kit persists between visits. This is not sent to us until you submit a quote request.",
+        "Contact and project details you send us — such as your name, email, phone number, project details, shoot dates and location — when you send a kit request or use the contact or consultation forms. These are sent to OUTTA as a WhatsApp message that you review and send yourself.",
+        "Kit information — the equipment and dates you select while browsing, stored locally in your browser (localStorage) so your kit persists between visits. This is not sent to us unless you choose to send your kit on WhatsApp.",
         "Technical information — standard web request data (such as IP address and browser type) collected automatically by our hosting provider for security and performance purposes.",
       ],
     },
     {
       heading: "2. How we use it",
       body: [
-        "To respond to quote requests and contact-form submissions, and to prepare and manage rental agreements.",
+        "To respond to kit requests and enquiries, and to prepare and manage rental agreements.",
         "To communicate with you about a booking, including by WhatsApp or email if you've provided those details.",
         "To improve this website's reliability and content — we do not sell your information or use it for third-party advertising.",
       ],
@@ -113,13 +113,13 @@ export const privacyPolicy: LegalDocument = {
     {
       heading: "3. Where information is stored",
       body: [
-        "Quote requests and customer records are stored in our database, hosted with our infrastructure provider. Kit selections made before you submit a request stay in your browser's local storage and are never transmitted to us until you actively submit them.",
+        "Requests and enquiries reach us through WhatsApp, and are held in our WhatsApp account and any booking records we keep for your rental. WhatsApp is operated by Meta and its own privacy policy applies to messages sent through it. Kit selections stay in your browser's local storage and are never transmitted to us unless you actively send them.",
       ],
     },
     {
       heading: "4. Who we share it with",
       body: [
-        "We don't sell or rent your personal information. It may be shared with service providers who help us operate the website and process bookings (such as our hosting and database providers), under obligations to keep it confidential, or where required by law.",
+        "We don't sell or rent your personal information. It may be shared with service providers who help us operate the website and process bookings (such as our hosting provider and WhatsApp), under obligations to keep it confidential, or where required by law.",
       ],
     },
     {
@@ -146,14 +146,14 @@ export const privacyPolicy: LegalDocument = {
 export const rentalTerms: LegalDocument = {
   eyebrow: "Legal",
   title: "Rental Terms",
-  lastUpdated: "10 August 2026",
+  lastUpdated: "23 September 2026",
   intro:
     "These terms apply to every equipment rental confirmed with OUTTA RENTALS, in addition to our general Terms of Service. They're summarized here for transparency — your signed rental agreement is the binding document for a specific booking.",
   sections: [
     {
       heading: "1. Booking and confirmation",
       body: [
-        "A rental is confirmed once OUTTA reviews your quote request, confirms equipment availability for your dates, and both parties agree on final pricing. Submitting a quote request does not itself reserve equipment.",
+        "A rental is confirmed once OUTTA reviews your kit request, confirms equipment availability for your dates, and both parties agree on final pricing. Sending a kit request does not itself reserve equipment.",
         "Rental periods are calculated in full days from pickup/delivery to return, inclusive of the start date.",
       ],
     },

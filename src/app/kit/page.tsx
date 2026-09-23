@@ -194,8 +194,8 @@ export default function KitPage() {
           <div className="mt-6 flex flex-col gap-2">
             <WhatsAppButton
               items={lines.map((l) => ({ name: l.product.name, quantity: l.quantity }))}
-              startDate={startDate}
-              endDate={endDate}
+              startDate={dateError ? undefined : startDate}
+              endDate={dateError ? undefined : endDate}
               projectLabel={projectInfo.projectName || projectInfo.productionType}
               notes={projectInfo.notes}
               variant="default"

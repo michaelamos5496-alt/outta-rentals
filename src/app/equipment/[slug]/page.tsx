@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Check, Clapperboard } from "lucide-react";
 
 import {
@@ -18,8 +19,6 @@ import { absoluteUrl, SITE_NAME } from "@/lib/seo";
 import { workProjects } from "@/lib/content/work";
 import { Container } from "@/components/ui/container";
 import { Badge } from "@/components/ui/badge";
-import { EmptyState } from "@/components/ui/state";
-import { Button } from "@/components/ui/button";
 import { ProductGallery } from "@/components/catalogue/product-gallery";
 import { ProductActions } from "@/components/catalogue/product-actions";
 import { ProductShelf } from "@/components/catalogue/product-shelf";
@@ -67,21 +66,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
   const product = await fetchProductBySlug(slug);
 
-  if (!product) {
-    return (
-      <Container className="py-20">
-        <EmptyState
-          title="Equipment not found"
-          description={`We couldn't find equipment matching "${slug}". It may have been renamed or is no longer listed.`}
-          action={
-            <Button asChild variant="outline">
-              <Link href="/equipment">Browse all equipment</Link>
-            </Button>
-          }
-        />
-      </Container>
-    );
-  }
+  if (!product) notFound();
 
   const brand = getBrandBySlug(product.brandSlug);
   const category = getCategoryBySlug(product.categorySlug);

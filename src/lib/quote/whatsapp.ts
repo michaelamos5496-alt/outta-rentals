@@ -11,6 +11,8 @@ export interface WhatsAppMessageInput {
   notes?: string;
   /** Defaults to "Please send me a quotation." — override for non-kit messages. */
   closingLine?: string;
+  /** Defaults to "OUTTA RENTALS — KIT REQUEST". */
+  heading?: string;
 }
 
 function formatShortDate(iso: string): string {
@@ -26,7 +28,7 @@ function formatShortDate(iso: string): string {
  */
 export function buildWhatsAppMessage(input: WhatsAppMessageInput): string {
   const items = input.items ?? [];
-  const lines: string[] = ["OUTTA RENTALS — KIT REQUEST", ""];
+  const lines: string[] = [input.heading ?? "OUTTA RENTALS — KIT REQUEST", ""];
 
   if (input.projectLabel) {
     lines.push("Project:", input.projectLabel, "");
@@ -64,9 +66,10 @@ export function buildWhatsAppMessage(input: WhatsAppMessageInput): string {
     lines.push("Notes:", input.notes, "");
   }
 
-  lines.push(input.closingLine ?? "Please send me a quotation.");
+  const closingLine = input.closingLine ?? "Please send me a quotation.";
+  if (closingLine) lines.push(closingLine);
 
-  return lines.join("\n");
+  return lines.join("\n").trimEnd();
 }
 
 /** Reads the configured WhatsApp number. Never hardcode a fallback number here. */
@@ -75,10 +78,15 @@ export function getWhatsAppNumber(): string | null {
   return number && number.trim() ? number.trim() : null;
 }
 
-export function getWhatsAppLink(input: WhatsAppMessageInput): string | null {
-  const number = getWhatsAppNumber();
+/** Links to OUTTA's number by default; pass `to` to message someone else (e.g. a customer from admin). */
+export function getWhatsAppLink(input: WhatsAppMessageInput, to?: string): string | null {
+  const number = to ?? getWhatsAppNumber();
   if (!number) return null;
-  const digitsOnly = number.replace(/[^\d]/g, "");
+  let digitsOnly = number.replace(/[^\d]/g, "");
+  // wa.me needs the country code — local Ghanaian numbers ("024…") become "23324…".
+  if (digitsOnly.startsWith("00")) digitsOnly = digitsOnly.slice(2);
+  else if (digitsOnly.startsWith("0")) digitsOnly = `233${digitsOnly.slice(1)}`;
+  if (!digitsOnly) return null;
   const message = buildWhatsAppMessage(input);
   return `https://wa.me/${digitsOnly}?text=${encodeURIComponent(message)}`;
 }

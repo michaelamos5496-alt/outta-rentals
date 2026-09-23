@@ -27,6 +27,7 @@ function MobileTabBar() {
   if (isProductPage || pathname?.startsWith("/admin")) return null;
 
   const whatsappLink = getWhatsAppLink({
+    heading: "OUTTA RENTALS — ENQUIRY",
     closingLine: "I'd like to talk about an upcoming shoot.",
   });
 
@@ -59,6 +60,7 @@ function MobileTabBar() {
 
         <a
           href={whatsappLink ?? "/kit"}
+          aria-label={whatsappLink ? "Message OUTTA on WhatsApp" : "View your kit"}
           target={whatsappLink ? "_blank" : undefined}
           rel={whatsappLink ? "noopener noreferrer" : undefined}
           className="-mt-5 flex flex-col items-center gap-1"

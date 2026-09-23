@@ -1,9 +1,23 @@
-import { emptyProjectInfo, type KitState } from "./types";
+import { getProductBySlug } from "@/lib/catalogue";
+import { emptyProjectInfo, type KitLineItem, type KitState } from "./types";
 
 const STORAGE_KEY = "outta-kit-v1";
 
 function todayIso(): string {
   return new Date().toISOString().slice(0, 10);
+}
+
+// Drops malformed entries and products that are no longer in the catalogue,
+// so a stale kit can't show a count for items the kit page can't render.
+function isValidStoredItem(item: unknown): item is KitLineItem {
+  if (!item || typeof item !== "object") return false;
+  const { productSlug, quantity } = item as Partial<KitLineItem>;
+  return (
+    typeof productSlug === "string" &&
+    Number.isInteger(quantity) &&
+    (quantity as number) > 0 &&
+    Boolean(getProductBySlug(productSlug))
+  );
 }
 
 export function getDefaultKitState(): KitState {
@@ -28,9 +42,9 @@ export function loadKit(): KitState {
     const parsed = JSON.parse(raw) as Partial<KitState>;
     const fallback = getDefaultKitState();
     return {
-      items: Array.isArray(parsed.items) ? parsed.items : fallback.items,
-      startDate: parsed.startDate ?? fallback.startDate,
-      endDate: parsed.endDate ?? fallback.endDate,
+      items: Array.isArray(parsed.items) ? parsed.items.filter(isValidStoredItem) : fallback.items,
+      startDate: typeof parsed.startDate === "string" ? parsed.startDate : fallback.startDate,
+      endDate: typeof parsed.endDate === "string" ? parsed.endDate : fallback.endDate,
       projectInfo: { ...fallback.projectInfo, ...parsed.projectInfo },
     };
   } catch {

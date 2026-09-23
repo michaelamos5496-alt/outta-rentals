@@ -71,6 +71,8 @@ function QuoteDetailActions({ quote }: { quote: AdminQuote }) {
           </Button>
           <WhatsAppButton
             label={`Message ${quote.customerName.split(" ")[0]} on WhatsApp`}
+            to={quote.customerPhone}
+            heading="OUTTA RENTALS — YOUR QUOTE"
             items={quote.kit.map((k) => ({ name: k.productName, quantity: k.quantity }))}
             startDate={quote.startDate}
             endDate={quote.endDate}

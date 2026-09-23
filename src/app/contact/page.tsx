@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Clock, MapPin, Phone } from "lucide-react";
+import { MapPin, Phone } from "lucide-react";
 
 import { Section } from "@/components/ui/section";
 import { Divider } from "@/components/ui/divider";
@@ -18,7 +18,6 @@ const infoRows: { icon: typeof Phone; label: string; value: string; href?: strin
     ? [{ icon: Phone, label: "Phone", value: phone, href: `tel:${phone.replace(/[^\d+]/g, "")}` }]
     : []),
   { icon: MapPin, label: "Location", value: siteConfig.location, href: siteConfig.mapsUrl },
-  { icon: Clock, label: "Opening hours", value: "Mon–Sat, 8am–6pm (placeholder)" },
 ];
 
 export default function ContactPage() {
@@ -47,6 +46,7 @@ export default function ContactPage() {
             <p className="text-label mb-3">Prefer WhatsApp?</p>
             <WhatsAppButton
               label="Message OUTTA on WhatsApp"
+              heading="OUTTA RENTALS — ENQUIRY"
               closingLine="I'd like to talk about an upcoming shoot."
               className="w-full"
             />
