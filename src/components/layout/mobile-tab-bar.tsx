@@ -58,7 +58,7 @@ function MobileTabBar() {
         </Link>
 
         <a
-          href={whatsappLink ?? "/quote"}
+          href={whatsappLink ?? "/kit"}
           target={whatsappLink ? "_blank" : undefined}
           rel={whatsappLink ? "noopener noreferrer" : undefined}
           className="-mt-5 flex flex-col items-center gap-1"

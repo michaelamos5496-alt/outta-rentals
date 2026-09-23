@@ -192,22 +192,13 @@ export default function KitPage() {
           </div>
 
           <div className="mt-6 flex flex-col gap-2">
-            {datesValid ? (
-              <Button asChild className="w-full">
-                <Link href="/quote">Continue to Quote</Link>
-              </Button>
-            ) : (
-              <Button className="w-full" disabled>
-                Continue to Quote
-              </Button>
-            )}
             <WhatsAppButton
               items={lines.map((l) => ({ name: l.product.name, quantity: l.quantity }))}
               startDate={startDate}
               endDate={endDate}
               projectLabel={projectInfo.projectName || projectInfo.productionType}
               notes={projectInfo.notes}
-              variant="outline"
+              variant="default"
               className="w-full"
             />
             <Button asChild variant="ghost" className="w-full">
