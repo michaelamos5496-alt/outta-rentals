@@ -4,7 +4,6 @@ import { CategoryExperience } from "@/components/sections/category-experience";
 import { WhyOutta } from "@/components/sections/why-outta";
 import { WorkShowcase } from "@/components/sections/work-showcase";
 import { Services } from "@/components/sections/services";
-import { Testimonials } from "@/components/sections/testimonials";
 import { FinalCta } from "@/components/sections/final-cta";
 import { fetchAllProducts } from "@/lib/catalogue/db";
 import { getProductImage } from "@/lib/editorial-images";
@@ -85,7 +84,6 @@ export default async function Home() {
       <WorkShowcase />
       <WhyOutta />
       <Services />
-      <Testimonials />
       <FinalCta />
     </div>
   );
