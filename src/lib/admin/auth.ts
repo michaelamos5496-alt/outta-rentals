@@ -1,5 +1,6 @@
 "use server";
 
+import { cache } from "react";
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
 
@@ -37,7 +38,16 @@ async function getServerSupabase() {
  * project, so a signed-in user is only an admin if their email is listed in
  * `admin_users` (provisioned manually in the Supabase dashboard).
  */
+// Confirmed admins are remembered briefly so each click doesn't re-query
+// admin_users. Removing someone from admin_users takes effect within this window.
+const ADMIN_CACHE_MS = 60_000;
+const confirmedAdmins = new Map<string, number>();
+
 async function isListedAdmin(email: string): Promise<boolean> {
+  const key = email.trim().toLowerCase();
+  const cachedUntil = confirmedAdmins.get(key);
+  if (cachedUntil && cachedUntil > Date.now()) return true;
+
   const service = getSupabaseServerClient();
   if (!service) return false;
   const { data, error } = await service
@@ -45,14 +55,29 @@ async function isListedAdmin(email: string): Promise<boolean> {
     .select("id")
     // Exact match (not ilike — "%"/"_" would act as wildcards). Emails in
     // admin_users are stored lowercase; see schema.sql.
-    .eq("email", email.trim().toLowerCase())
+    .eq("email", key)
     .limit(1);
   if (error) {
     console.error("[admin/auth] admin_users lookup failed:", error.message);
     return false;
   }
-  return (data?.length ?? 0) > 0;
+  const listed = (data?.length ?? 0) > 0;
+  if (listed) confirmedAdmins.set(key, Date.now() + ADMIN_CACHE_MS);
+  else confirmedAdmins.delete(key);
+  return listed;
 }
+
+// Once per request: the layout, page and any server action share one check.
+// getClaims() verifies the session token locally when the project uses
+// asymmetric signing keys (no round trip), falling back to the Auth server.
+const resolveSupabaseSession = cache(async (): Promise<AdminSession | null> => {
+  const supabase = await getServerSupabase();
+  if (!supabase) return null;
+  const { data } = await supabase.auth.getClaims();
+  const email = typeof data?.claims?.email === "string" ? data.claims.email : undefined;
+  if (!email || !(await isListedAdmin(email))) return null;
+  return { email, demo: false };
+});
 
 export interface AdminSession {
   email: string;
@@ -74,14 +99,7 @@ export interface AdminSession {
  * returns `null` — see `signInAdmin` and `src/middleware.ts`.
  */
 export async function getAdminSession(): Promise<AdminSession | null> {
-  if (supabaseConfigured()) {
-    const supabase = await getServerSupabase();
-    if (!supabase) return null;
-    const { data } = await supabase.auth.getUser();
-    const email = data.user?.email;
-    if (!email || !(await isListedAdmin(email))) return null;
-    return { email, demo: false };
-  }
+  if (supabaseConfigured()) return resolveSupabaseSession();
 
   if (process.env.NODE_ENV === "production") return null;
 

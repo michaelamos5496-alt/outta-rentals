@@ -37,8 +37,10 @@ export async function proxy(request: NextRequest) {
       },
     });
 
-    const { data } = await supabase.auth.getUser();
-    if (!data.user) {
+    // getClaims() also refreshes an expiring session (writing the new cookies
+    // via setAll above) and verifies the token locally where possible.
+    const { data } = await supabase.auth.getClaims();
+    if (!data?.claims) {
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
     return response;
