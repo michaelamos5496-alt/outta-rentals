@@ -1,5 +1,6 @@
 import { getAdminSession } from "@/lib/admin/auth";
 import { listEnquiries } from "@/lib/admin/enquiries";
+import { formatDateTime } from "@/lib/admin/format";
 import { listQuotes } from "@/lib/admin/quotes";
 
 export const dynamic = "force-dynamic";
@@ -51,7 +52,7 @@ export async function GET(request: Request) {
         "Admin notes",
       ],
       ...quotes.map((q) => [
-        new Date(q.createdAt).toLocaleString("en-GB", { timeZone: "Africa/Accra" }),
+        formatDateTime(q.createdAt),
         q.status,
         q.customerName,
         q.customerPhone,
@@ -72,7 +73,7 @@ export async function GET(request: Request) {
     csv = toCsv([
       ["Received", "Type", "Name", "Phone", "Email", "Message"],
       ...enquiries.map((e) => [
-        new Date(e.createdAt).toLocaleString("en-GB", { timeZone: "Africa/Accra" }),
+        formatDateTime(e.createdAt),
         e.kind === "contact" ? "Contact form" : "Consultation",
         e.name,
         e.phone,

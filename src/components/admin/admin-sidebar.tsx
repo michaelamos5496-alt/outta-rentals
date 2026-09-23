@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Boxes,
-  ClipboardList,
   FileText,
   Inbox,
   LayoutDashboard,
@@ -23,7 +22,6 @@ const navItems = [
   { href: "/admin/quotes", label: "Quotes", icon: FileText },
   { href: "/admin/enquiries", label: "Enquiries", icon: Inbox },
   { href: "/admin/customers", label: "Customers", icon: Users },
-  { href: "/admin/orders", label: "Orders", icon: ClipboardList },
 ];
 
 function AdminSidebar({ variant = "vertical" }: { variant?: "vertical" | "horizontal" }) {

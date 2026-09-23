@@ -141,17 +141,61 @@ function getFallbackProducts(): DemoProduct[] {
     .map(({ images, archived, ...product }) => product);
 }
 
+const STATUSES: ProductAvailability[] = [
+  "available",
+  "reserved",
+  "maintenance",
+  "coming_soon",
+  "unavailable",
+];
+
+/**
+ * Stock status set on the admin Inventory page (`product_stock.status`),
+ * keyed by slug. Overrides the catalogue's default status on the live site.
+ */
+async function fetchStatusOverrides(): Promise<Map<string, ProductAvailability>> {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return new Map();
+  const { data, error } = await supabase
+    .from("product_stock")
+    .select("product_slug, status")
+    .not("status", "is", null);
+  if (error) {
+    console.error("[catalogue/db] Failed to fetch stock status:", error.message);
+    return new Map();
+  }
+  return new Map(
+    (data ?? [])
+      .filter((row) => STATUSES.includes(row.status))
+      .map((row) => [row.product_slug as string, row.status as ProductAvailability])
+  );
+}
+
+function applyStatus(
+  products: DemoProduct[],
+  overrides: Map<string, ProductAvailability>
+): DemoProduct[] {
+  if (overrides.size === 0) return products;
+  return products.map((p) => {
+    const status = overrides.get(p.slug);
+    return status && status !== p.availability ? { ...p, availability: status } : p;
+  });
+}
+
 /** Fetches once per request/build and reuses the result for every helper below. */
 async function getProductPool(): Promise<{ products: DemoProduct[]; fromDb: boolean }> {
-  if (cachedProducts) return { products: cachedProducts, fromDb: true };
+  const overridesPromise = fetchStatusOverrides();
+  if (cachedProducts) {
+    return { products: applyStatus(cachedProducts, await overridesPromise), fromDb: true };
+  }
 
   const dbProducts = await fetchAllProductsFromDb();
   if (dbProducts && dbProducts.length > 0) {
     cachedProducts = dbProducts;
-    return { products: dbProducts, fromDb: true };
+    return { products: applyStatus(dbProducts, await overridesPromise), fromDb: true };
   }
 
-  return { products: getFallbackProducts(), fromDb: false };
+  return { products: applyStatus(getFallbackProducts(), await overridesPromise), fromDb: false };
 }
 
 export async function fetchAllProducts(): Promise<DemoProduct[]> {

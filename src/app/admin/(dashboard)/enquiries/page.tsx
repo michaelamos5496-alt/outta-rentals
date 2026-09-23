@@ -1,6 +1,7 @@
 import { Download, Inbox } from "lucide-react";
 
 import { listEnquiries } from "@/lib/admin/enquiries";
+import { formatDateTime } from "@/lib/admin/format";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/state";
@@ -48,7 +49,7 @@ export default async function AdminEnquiriesPage() {
                   </p>
                   <div className="flex items-center gap-2">
                     <Badge variant="outline">{kindLabels[enquiry.kind]}</Badge>
-                    <span className="text-meta">{new Date(enquiry.createdAt).toLocaleString()}</span>
+                    <span className="text-meta">{formatDateTime(enquiry.createdAt)}</span>
                   </div>
                 </div>
                 {enquiry.message ? (

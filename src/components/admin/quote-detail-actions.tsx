@@ -22,6 +22,7 @@ import {
   updateQuoteDatesAction,
   updateQuoteStatusAction,
 } from "@/lib/admin/actions";
+import { formatDateTime } from "@/lib/admin/format";
 import type { AdminQuote, AdminQuoteStatus } from "@/lib/admin/types";
 
 function QuoteDetailActions({ quote }: { quote: AdminQuote }) {
@@ -236,7 +237,7 @@ function QuoteDetailActions({ quote }: { quote: AdminQuote }) {
             quote.notes.map((note) => (
               <div key={note.id} className="rounded-lg border border-border p-3 text-sm">
                 <p>{note.text}</p>
-                <p className="text-meta mt-1.5">{new Date(note.createdAt).toLocaleString()}</p>
+                <p className="text-meta mt-1.5">{formatDateTime(note.createdAt)}</p>
               </div>
             ))
           )}

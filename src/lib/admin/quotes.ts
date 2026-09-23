@@ -3,6 +3,7 @@ import "server-only";
 import { calculateRentalDays } from "@/lib/kit/rental";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
 import * as memory from "./store";
+import type { ProductAvailability } from "@/lib/catalogue";
 import type { AdminQuote, AdminQuoteKitLine, AdminQuoteStatus } from "./types";
 
 /**
@@ -234,21 +235,63 @@ export async function getCustomerByKey(key: string): Promise<AdminCustomerSummar
 
 // ------------------------------------------------------------------- Stock
 
-/** Units owned per product slug (products without a row own 1 unit). */
-export async function listProductUnits(): Promise<Map<string, number>> {
+export interface ProductStockRow {
+  units: number;
+  /** Saved status, or null to use the catalogue default. */
+  status: ProductAvailability | null;
+}
+
+/** Saved stock per product slug (products without a row: 1 unit, default status). */
+export async function listProductStock(): Promise<Map<string, ProductStockRow>> {
   const supabase = getSupabaseServerClient();
   if (!supabase) return new Map();
-  const { data, error } = await supabase.from("product_stock").select("product_slug, units");
+  const { data, error } = await supabase.from("product_stock").select("product_slug, units, status");
   if (error) throw new Error(`Couldn't load stock: ${error.message}`);
-  return new Map((data ?? []).map((row) => [row.product_slug as string, row.units as number]));
+  return new Map(
+    (data ?? []).map((row) => [
+      row.product_slug as string,
+      { units: row.units as number, status: (row.status as ProductAvailability | null) ?? null },
+    ])
+  );
+}
+
+export async function setProductStatus(slug: string, status: ProductAvailability): Promise<boolean> {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return false;
+  // Upsert only the status so an existing units-owned value is kept.
+  const { data: existing } = await supabase
+    .from("product_stock")
+    .select("units")
+    .eq("product_slug", slug)
+    .maybeSingle();
+  const { error } = await supabase.from("product_stock").upsert({
+    product_slug: slug,
+    units: existing?.units ?? 1,
+    status,
+    updated_at: new Date().toISOString(),
+  });
+  if (error) {
+    console.error("[admin/quotes] Status update failed:", error.message);
+    return false;
+  }
+  return true;
 }
 
 export async function setProductUnits(slug: string, units: number): Promise<boolean> {
   const supabase = getSupabaseServerClient();
   if (!supabase) return false;
-  const { error } = await supabase
+  // Update if the row exists (keeping its status); otherwise insert.
+  const { data: updated, error: updateError } = await supabase
     .from("product_stock")
-    .upsert({ product_slug: slug, units, updated_at: new Date().toISOString() });
+    .update({ units, updated_at: new Date().toISOString() })
+    .eq("product_slug", slug)
+    .select("product_slug");
+  if (updateError) {
+    console.error("[admin/quotes] Stock update failed:", updateError.message);
+    return false;
+  }
+  if (updated && updated.length > 0) return true;
+  const { error } = await supabase.from("product_stock").insert({ product_slug: slug, units });
   if (error) {
     console.error("[admin/quotes] Stock update failed:", error.message);
     return false;

@@ -1,7 +1,13 @@
 import Link from "next/link";
 
 import { getQuoteById } from "@/lib/admin/quotes";
-import { quoteCustomerLabel, quoteDateRange, quoteTitle, quoteTotal } from "@/lib/admin/format";
+import {
+  formatDateTime,
+  quoteCustomerLabel,
+  quoteDateRange,
+  quoteTitle,
+  quoteTotal,
+} from "@/lib/admin/format";
 import { EmptyState } from "@/components/ui/state";
 import { Button } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
@@ -43,7 +49,7 @@ export default async function AdminQuoteDetailPage({ params }: QuoteDetailPagePr
       </p>
       <h1 className="text-h2">{quoteTitle(quote)}</h1>
       <p className="text-small mt-1">
-        Submitted {new Date(quote.createdAt).toLocaleString()}
+        Received {formatDateTime(quote.createdAt)}
       </p>
 
       <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px]">

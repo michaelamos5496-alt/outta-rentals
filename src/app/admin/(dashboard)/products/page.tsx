@@ -16,11 +16,17 @@ import {
 import { ProductRowActions } from "@/components/admin/product-row-actions";
 import { formatPrice } from "@/lib/currency";
 import { UnsavedEditsNotice } from "@/components/admin/unsaved-edits-notice";
+import { catalogueEditable } from "@/lib/admin/catalogue-editing";
+import { listProductStock } from "@/lib/admin/quotes";
 
 export const metadata = { title: "Products" };
 
-export default function AdminProductsPage() {
-  const products = listProducts();
+export default async function AdminProductsPage() {
+  const stock = await listProductStock();
+  const products = listProducts().map((p) => ({
+    ...p,
+    availability: stock.get(p.slug)?.status ?? p.availability,
+  }));
 
   return (
     <div>
@@ -30,11 +36,13 @@ export default function AdminProductsPage() {
           <p className="text-small mt-1">{products.length} total</p>
           <UnsavedEditsNotice />
         </div>
-        <Button asChild>
-          <Link href="/admin/products/new">
-            <Plus /> New Product
-          </Link>
-        </Button>
+        {catalogueEditable ? (
+          <Button asChild>
+            <Link href="/admin/products/new">
+              <Plus /> New Product
+            </Link>
+          </Button>
+        ) : null}
       </div>
 
       <div className="mt-6 rounded-lg border border-border">
@@ -47,16 +55,22 @@ export default function AdminProductsPage() {
               <TableHead>Day rate</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Featured</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              {catalogueEditable ? <TableHead className="text-right">Actions</TableHead> : null}
             </TableRow>
           </TableHeader>
           <TableBody>
             {products.map((product) => (
               <TableRow key={product.id} className={product.archived ? "opacity-50" : undefined}>
                 <TableCell className="max-w-56 truncate font-medium">
-                  <Link href={`/admin/products/${product.id}`} className="hover:text-brand">
-                    {product.name}
-                  </Link>
+                  {catalogueEditable ? (
+                    <Link href={`/admin/products/${product.id}`} className="hover:text-brand">
+                      {product.name}
+                    </Link>
+                  ) : (
+                    <Link href={`/equipment/${product.slug}`} target="_blank" className="hover:text-brand">
+                      {product.name}
+                    </Link>
+                  )}
                   {product.archived ? (
                     <span className="text-meta ml-2">Archived</span>
                   ) : null}
@@ -70,9 +84,11 @@ export default function AdminProductsPage() {
                   </Badge>
                 </TableCell>
                 <TableCell>{product.featured ? "Yes" : "—"}</TableCell>
-                <TableCell className="text-right">
-                  <ProductRowActions id={product.id} archived={product.archived} />
-                </TableCell>
+                {catalogueEditable ? (
+                  <TableCell className="text-right">
+                    <ProductRowActions id={product.id} archived={product.archived} />
+                  </TableCell>
+                ) : null}
               </TableRow>
             ))}
           </TableBody>

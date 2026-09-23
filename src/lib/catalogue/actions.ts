@@ -15,6 +15,8 @@ export interface KitAvailabilityResult {
   productName: string;
   available: boolean;
   availableQuantity: number | null;
+  /** Why it isn't available: out of service (maintenance etc.) or booked by a confirmed order. */
+  reason: "out_of_service" | "booked" | null;
   source: "database" | "status-only";
 }
 
@@ -61,6 +63,11 @@ export async function checkKitAvailability(
       productName: product.name,
       available: inService && (free === undefined || free >= item.quantity),
       availableQuantity: inService ? (free ?? null) : 0,
+      reason: !inService
+        ? "out_of_service"
+        : free !== undefined && free < item.quantity
+          ? "booked"
+          : null,
       source: freeUnits ? "database" : "status-only",
     });
   }

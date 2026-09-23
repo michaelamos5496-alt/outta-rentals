@@ -103,9 +103,11 @@ export default function KitPage() {
                       <AlertCircle className="mt-0.5 size-4 shrink-0 text-destructive" />
                       <span>
                         <span className="font-medium">{result.productName}</span>{" "}
-                        {result.availableQuantity
-                          ? `— only ${result.availableQuantity} available for these dates.`
-                          : "— already booked for these dates."}{" "}
+                        {result.reason === "out_of_service"
+                          ? "— currently out of service."
+                          : result.availableQuantity
+                            ? `— only ${result.availableQuantity} available for these dates.`
+                            : "— already booked for these dates."}{" "}
                         <span className="text-muted-foreground">
                           You can still send your kit and OUTTA will suggest alternatives.
                         </span>

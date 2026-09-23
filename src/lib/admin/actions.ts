@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { getAdminSession } from "./auth";
+import { catalogueEditable } from "./catalogue-editing";
 import {
   createProduct,
   updateProduct,
@@ -15,17 +16,25 @@ import {
 } from "./store";
 import {
   addQuoteNote,
+  setProductStatus,
   setProductUnits,
   updateQuoteDates,
   updateQuoteStatus,
   type StatusUpdateResult,
 } from "./quotes";
+import type { ProductAvailability } from "@/lib/catalogue";
 import type { AdminQuoteStatus } from "./types";
 
 async function requireAdmin() {
   const session = await getAdminSession();
   if (!session) throw new Error("Not authorized.");
   return session;
+}
+
+function requireCatalogueEditing() {
+  if (!catalogueEditable) {
+    throw new Error("Product and category editing isn't available on the live site yet.");
+  }
 }
 
 function revalidateStorefront() {
@@ -37,6 +46,7 @@ function revalidateStorefront() {
 
 export async function createProductAction(input: AdminProductInput) {
   await requireAdmin();
+  requireCatalogueEditing();
   const product = createProduct(input);
   revalidatePath("/admin/products");
   revalidatePath("/admin/inventory");
@@ -46,6 +56,7 @@ export async function createProductAction(input: AdminProductInput) {
 
 export async function updateProductAction(id: string, patch: Partial<AdminProductInput>) {
   await requireAdmin();
+  requireCatalogueEditing();
   const product = updateProduct(id, patch);
   revalidatePath("/admin/products");
   revalidatePath(`/admin/products/${id}`);
@@ -56,6 +67,7 @@ export async function updateProductAction(id: string, patch: Partial<AdminProduc
 
 export async function deleteProductAction(id: string) {
   await requireAdmin();
+  requireCatalogueEditing();
   const ok = deleteProduct(id);
   revalidatePath("/admin/products");
   revalidatePath("/admin/inventory");
@@ -65,6 +77,7 @@ export async function deleteProductAction(id: string) {
 
 export async function setProductArchivedAction(id: string, archived: boolean) {
   await requireAdmin();
+  requireCatalogueEditing();
   const product = setProductArchived(id, archived);
   revalidatePath("/admin/products");
   revalidateStorefront();
@@ -76,6 +89,7 @@ export async function setProductAvailabilityAction(
   availability: AdminProductInput["availability"]
 ) {
   await requireAdmin();
+  requireCatalogueEditing();
   const product = updateProduct(id, { availability });
   revalidatePath("/admin/products");
   revalidatePath("/admin/inventory");
@@ -87,6 +101,7 @@ export async function setProductAvailabilityAction(
 
 export async function createCategoryAction(input: AdminCategoryInput) {
   await requireAdmin();
+  requireCatalogueEditing();
   const category = createCategory(input);
   revalidatePath("/admin/categories");
   return category;
@@ -94,6 +109,7 @@ export async function createCategoryAction(input: AdminCategoryInput) {
 
 export async function updateCategoryAction(id: string, patch: Partial<AdminCategoryInput>) {
   await requireAdmin();
+  requireCatalogueEditing();
   const category = updateCategory(id, patch);
   revalidatePath("/admin/categories");
   return category;
@@ -101,6 +117,7 @@ export async function updateCategoryAction(id: string, patch: Partial<AdminCateg
 
 export async function deleteCategoryAction(id: string) {
   await requireAdmin();
+  requireCatalogueEditing();
   const ok = deleteCategory(id);
   revalidatePath("/admin/categories");
   return ok;
@@ -143,6 +160,24 @@ export async function updateQuoteDatesAction(id: string, startDate: string, endD
   revalidatePath(`/admin/quotes/${id}`);
   revalidatePath("/admin/quotes");
   return result;
+}
+
+const productStatuses: ProductAvailability[] = [
+  "available",
+  "reserved",
+  "maintenance",
+  "coming_soon",
+  "unavailable",
+];
+
+/** Saved stock status — shown on the live site straight away. */
+export async function setProductStatusAction(slug: string, status: ProductAvailability) {
+  await requireAdmin();
+  if (typeof slug !== "string" || !productStatuses.includes(status)) return false;
+  const ok = await setProductStatus(slug, status);
+  revalidatePath("/admin/inventory");
+  revalidateStorefront();
+  return ok;
 }
 
 export async function setProductUnitsAction(slug: string, units: number) {

@@ -9,17 +9,18 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { InventoryStatusSelect } from "@/components/admin/inventory-status-select";
-import { UnsavedEditsNotice } from "@/components/admin/unsaved-edits-notice";
 import { UnitsOwnedInput } from "@/components/admin/units-owned-input";
-import { listProductUnits } from "@/lib/admin/quotes";
+import { listProductStock } from "@/lib/admin/quotes";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
 
 export const metadata = { title: "Inventory" };
 
 export default async function AdminInventoryPage() {
-  const products = listProducts().filter((p) => !p.archived);
-  const units = await listProductUnits();
+  const stock = await listProductStock();
   const stockSaved = Boolean(getSupabaseServerClient());
+  const products = listProducts()
+    .filter((p) => !p.archived)
+    .map((p) => ({ ...p, availability: stock.get(p.slug)?.status ?? p.availability }));
 
   const counts = Object.keys(availabilityLabels).map((status) => ({
     status,
@@ -31,11 +32,10 @@ export default async function AdminInventoryPage() {
     <div>
       <h1 className="text-h2">Inventory</h1>
       <p className="text-small mt-1">
-        Units owned decide how many of an item can be booked for the same dates — confirmed
-        orders use them up.{" "}
-        {stockSaved ? "Units owned are saved permanently." : "Connect Supabase to save units owned."}
+        Status shows on the live site straight away — e.g. set a broken item to Maintenance.
+        Units owned decide how many can be booked for the same dates.
+        {stockSaved ? "" : " Connect Supabase to save changes."}
       </p>
-      <UnsavedEditsNotice subject="Status changes" />
 
       <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-5">
         {counts.map((c) => (
@@ -68,12 +68,16 @@ export default async function AdminInventoryPage() {
                 <TableCell>
                   <UnitsOwnedInput
                     slug={product.slug}
-                    value={units.get(product.slug) ?? 1}
+                    value={stock.get(product.slug)?.units ?? 1}
                     disabled={!stockSaved}
                   />
                 </TableCell>
                 <TableCell>
-                  <InventoryStatusSelect id={product.id} value={product.availability} />
+                  <InventoryStatusSelect
+                    slug={product.slug}
+                    value={product.availability}
+                    disabled={!stockSaved}
+                  />
                 </TableCell>
               </TableRow>
             ))}
