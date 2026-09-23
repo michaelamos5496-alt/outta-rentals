@@ -5,6 +5,7 @@ import "./globals.css";
 import { KitProvider } from "@/components/kit/kit-provider";
 import { SiteChrome } from "@/components/layout/site-chrome";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/seo";
+import { siteConfig } from "@/config/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -62,6 +63,7 @@ const organizationJsonLd = {
   name: SITE_NAME,
   url: SITE_URL,
   description: SITE_DESCRIPTION,
+  sameAs: [siteConfig.instagramUrl],
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

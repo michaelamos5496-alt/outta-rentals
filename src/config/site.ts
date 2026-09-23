@@ -4,6 +4,7 @@ export const siteConfig = {
   tagline: "Production equipment, ready when you are.",
   description:
     "OUTTA RENTALS is a premium film, photography and production-equipment rental company.",
+  instagramUrl: "https://www.instagram.com/outtarentals/",
 } as const;
 
 const whatsappDigits = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "").replace(/[^\d]/g, "");
@@ -55,7 +56,7 @@ export const footerLinkGroups: FooterLinkGroup[] = [
   {
     title: "Contact",
     links: [
-      { label: "Instagram", href: "#" },
+      { label: "Instagram", href: siteConfig.instagramUrl },
       { label: "WhatsApp", href: whatsappDigits ? `https://wa.me/${whatsappDigits}` : "#" },
       { label: "Email", href: "#" },
       { label: "Location", href: "#" },
