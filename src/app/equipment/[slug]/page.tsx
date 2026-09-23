@@ -13,7 +13,9 @@ import {
   availabilityVariant,
   type DemoProductSpec,
 } from "@/lib/catalogue";
-import { fetchProductBySlug } from "@/lib/catalogue/db";
+import { fetchProductBySlug, getBookedRanges } from "@/lib/catalogue/db";
+import { todayIso } from "@/lib/kit/rental";
+import { BookedDates } from "@/components/catalogue/booked-dates";
 import { getRecommendedForShoot } from "@/lib/packages";
 import { absoluteUrl, SITE_NAME } from "@/lib/seo";
 import { workProjects } from "@/lib/content/work";
@@ -67,6 +69,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const product = await fetchProductBySlug(slug);
 
   if (!product) notFound();
+  const bookedRanges = await getBookedRanges(product.slug, todayIso());
 
   const brand = getBrandBySlug(product.brandSlug);
   const category = getCategoryBySlug(product.categorySlug);
@@ -172,6 +175,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <p className="text-small mt-6">
               Pricing on request — add this to your kit and OUTTA will send you a quote.
             </p>
+
+            <BookedDates ranges={bookedRanges} />
 
             <div className="mt-6 hidden lg:block">
               <ProductActions productSlug={product.slug} productName={product.name} />

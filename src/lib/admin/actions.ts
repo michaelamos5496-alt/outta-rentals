@@ -143,6 +143,8 @@ export async function updateQuoteStatusAction(
     throw new Error("Invalid status update.");
   }
   const result = await updateQuoteStatus(id, status);
+  // Booked dates show on product pages — refresh them when bookings change.
+  if (result.ok) revalidatePath("/equipment", "layout");
   revalidatePath("/admin/quotes");
   revalidatePath(`/admin/quotes/${id}`);
   revalidatePath("/admin");

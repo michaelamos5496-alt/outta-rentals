@@ -1,6 +1,6 @@
 export interface WhatsAppMessageInput {
   /** Omit or leave empty for a general inquiry with no kit attached. */
-  items?: { name: string; quantity: number; note?: string }[];
+  items?: { name: string; quantity: number }[];
   startDate?: string;
   endDate?: string;
   projectLabel?: string;
@@ -45,7 +45,7 @@ export function buildWhatsAppMessage(input: WhatsAppMessageInput): string {
   if (items.length > 0) {
     lines.push("Equipment:", "");
     for (const item of items) {
-      lines.push(`${item.name} × ${item.quantity}${item.note ? ` (${item.note})` : ""}`);
+      lines.push(`${item.name} × ${item.quantity}`);
     }
     lines.push("");
   }

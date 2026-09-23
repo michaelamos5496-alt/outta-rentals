@@ -109,7 +109,7 @@ export default function KitPage() {
                             ? `— only ${result.availableQuantity} available for these dates.`
                             : "— already booked for these dates."}{" "}
                         <span className="text-muted-foreground">
-                          You can still send your kit and OUTTA will suggest alternatives.
+                          Remove it or choose different dates to send your kit.
                         </span>
                       </span>
                     </p>
@@ -196,7 +196,7 @@ export default function KitPage() {
           </div>
 
           <div className="mt-6 flex flex-col gap-2">
-            <SendKitButton className="w-full" />
+            <SendKitButton className="w-full" hint />
             <Button asChild variant="ghost" className="w-full">
               <Link href="/equipment">Continue browsing</Link>
             </Button>

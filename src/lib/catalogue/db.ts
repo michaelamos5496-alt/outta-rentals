@@ -259,6 +259,63 @@ export async function getAvailableUnits(
   return units;
 }
 
+export interface BookedRange {
+  /** ISO dates, inclusive. */
+  start: string;
+  end: string;
+}
+
+const DAY_MS = 86_400_000;
+const addDays = (iso: string, n: number) =>
+  new Date(Date.parse(`${iso}T00:00:00Z`) + n * DAY_MS).toISOString().slice(0, 10);
+
+/**
+ * Upcoming date ranges when every unit of a product is taken by confirmed
+ * orders — i.e. the dates a customer can't rent it. With several units owned,
+ * a day only counts once all of them are booked. Empty without Supabase.
+ */
+export async function getBookedRanges(slug: string, today: string): Promise<BookedRange[]> {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return [];
+  const horizon = addDays(today, 366);
+
+  const [stock, bookings] = await Promise.all([
+    supabase.from("product_stock").select("units").eq("product_slug", slug).maybeSingle(),
+    supabase
+      .from("rental_bookings")
+      .select("start_date, end_date, quantity")
+      .eq("product_slug", slug)
+      .in("status", ["held", "confirmed"])
+      .gte("end_date", today)
+      .lte("start_date", horizon),
+  ]);
+  if (stock.error || bookings.error || !bookings.data?.length) return [];
+  const units = stock.data?.units ?? 1;
+
+  // Units booked per day, then merge consecutive fully-booked days.
+  const perDay = new Map<string, number>();
+  for (const b of bookings.data) {
+    let day = b.start_date < today ? today : b.start_date;
+    const last = b.end_date > horizon ? horizon : b.end_date;
+    while (day <= last) {
+      perDay.set(day, (perDay.get(day) ?? 0) + b.quantity);
+      day = addDays(day, 1);
+    }
+  }
+  const fullDays = [...perDay.entries()]
+    .filter(([, booked]) => booked >= units)
+    .map(([day]) => day)
+    .sort();
+
+  const ranges: BookedRange[] = [];
+  for (const day of fullDays) {
+    const current = ranges[ranges.length - 1];
+    if (current && addDays(current.end, 1) === day) current.end = day;
+    else ranges.push({ start: day, end: day });
+  }
+  return ranges;
+}
+
 export async function fetchCategories(): Promise<Category[]> {
   const supabase = getSupabaseServerClient();
   if (!supabase) return staticCategories;

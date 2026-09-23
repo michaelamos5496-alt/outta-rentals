@@ -32,7 +32,7 @@ function KitDrawer() {
             }
             footer={
               <div className="mt-3 flex flex-col gap-2">
-                <SendKitButton className="w-full" />
+                <SendKitButton className="w-full" hint />
                 <Button asChild variant="outline" className="w-full" onClick={closeDrawer}>
                   <Link href="/kit">View full kit</Link>
                 </Button>
