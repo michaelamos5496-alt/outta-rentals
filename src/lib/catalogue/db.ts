@@ -174,58 +174,45 @@ export async function fetchProductBySlug(slug: string): Promise<DemoProduct | un
   return fromDb ? getFallbackProducts().find((p) => p.slug === slug) : undefined;
 }
 
-export interface AvailabilityResult {
-  available: boolean;
-  /** Units free for the range, when known (Supabase-backed only). */
-  availableQuantity: number | null;
-  source: "database" | "status-only";
-}
-
 /**
- * Checks whether a product can be rented for a date range without
- * double-booking. Backed by `get_available_quantity()` / `is_product_available()`
- * in `schema.sql` when Supabase is connected (see that file for how
- * overlapping `rental_bookings` are excluded). Without a live project,
- * falls back to the product's static `status` field only — i.e. "available"
- * unless it's flagged unavailable/maintenance/reserved/coming soon, with no
- * real date-range checking possible yet.
+ * Units of each product still free for a date range: units owned
+ * (`product_stock`, default 1) minus overlapping confirmed bookings
+ * (`rental_bookings`, created when an order is confirmed in admin).
+ * Returns `null` when Supabase isn't connected or the lookup fails.
  */
-export async function checkProductAvailability(
-  product: DemoProduct,
+export async function getAvailableUnits(
+  slugs: string[],
   startDate: string,
-  endDate: string,
-  quantity = 1
-): Promise<AvailabilityResult> {
+  endDate: string
+): Promise<Map<string, number> | null> {
   const supabase = getSupabaseServerClient();
+  if (!supabase || slugs.length === 0) return null;
 
-  if (!supabase) {
-    return {
-      available: product.availability === "available",
-      availableQuantity: null,
-      source: "status-only",
-    };
+  const [stock, bookings] = await Promise.all([
+    supabase.from("product_stock").select("product_slug, units").in("product_slug", slugs),
+    supabase
+      .from("rental_bookings")
+      .select("product_slug, quantity")
+      .in("product_slug", slugs)
+      .in("status", ["held", "confirmed"])
+      .lte("start_date", endDate)
+      .gte("end_date", startDate),
+  ]);
+  if (stock.error || bookings.error) {
+    console.error(
+      "[catalogue/db] Availability lookup failed:",
+      stock.error?.message ?? bookings.error?.message
+    );
+    return null;
   }
 
-  const { data: availableQuantity, error } = await supabase.rpc("get_available_quantity", {
-    p_product_id: product.id,
-    p_start: startDate,
-    p_end: endDate,
-  });
-
-  if (error || availableQuantity === null || availableQuantity === undefined) {
-    console.error("[catalogue/db] Availability check failed:", error?.message);
-    return {
-      available: product.availability === "available",
-      availableQuantity: null,
-      source: "status-only",
-    };
+  const units = new Map<string, number>(slugs.map((slug) => [slug, 1]));
+  for (const row of stock.data ?? []) units.set(row.product_slug, row.units);
+  for (const row of bookings.data ?? []) {
+    units.set(row.product_slug, (units.get(row.product_slug) ?? 1) - row.quantity);
   }
-
-  return {
-    available: product.availability === "available" && availableQuantity >= quantity,
-    availableQuantity,
-    source: "database",
-  };
+  for (const [slug, free] of units) units.set(slug, Math.max(free, 0));
+  return units;
 }
 
 export async function fetchCategories(): Promise<Category[]> {

@@ -1,6 +1,7 @@
 "use server";
 
-import { checkProductAvailability, fetchAllProducts, fetchProductBySlug } from "./db";
+import { validateDateRange } from "@/lib/kit/rental";
+import { fetchAllProducts, fetchProductBySlug, getAvailableUnits } from "./db";
 import { getBrandBySlug, getCategoryBySlug } from "./index";
 import type { ProductAvailability } from "./types";
 
@@ -20,10 +21,9 @@ export interface KitAvailabilityResult {
 const MAX_AVAILABILITY_ITEMS = 100;
 
 /**
- * Checks every kit line against the requested rental dates. Used by the
- * "Check availability" action on `/kit` — the real, callable entry point
- * for the availability system `checkProductAvailability()` implements (see
- * `src/lib/catalogue/db.ts` and `get_available_quantity()` in `schema.sql`).
+ * Checks every kit line against the requested rental dates — flags items
+ * that are out of service or already booked by a confirmed order (see
+ * `getAvailableUnits()` in `src/lib/catalogue/db.ts`). Used by `/kit`.
  */
 export async function checkKitAvailability(
   items: KitAvailabilityCheckItem[],
@@ -45,17 +45,23 @@ export async function checkKitAvailability(
     )
     .slice(0, MAX_AVAILABILITY_ITEMS);
 
+  const datesValid = validateDateRange(startDate, endDate).valid;
+  const freeUnits = datesValid
+    ? await getAvailableUnits([...new Set(safeItems.map((i) => i.productSlug))], startDate, endDate)
+    : null;
+
   for (const item of safeItems) {
     const product = await fetchProductBySlug(item.productSlug);
     if (!product) continue;
+    const inService = product.availability === "available";
+    const free = freeUnits?.get(product.slug);
 
-    const result = await checkProductAvailability(product, startDate, endDate, item.quantity);
     results.push({
       productSlug: product.slug,
       productName: product.name,
-      available: result.available,
-      availableQuantity: result.availableQuantity,
-      source: result.source,
+      available: inService && (free === undefined || free >= item.quantity),
+      availableQuantity: inService ? (free ?? null) : 0,
+      source: freeUnits ? "database" : "status-only",
     });
   }
 

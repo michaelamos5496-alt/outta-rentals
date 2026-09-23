@@ -4,6 +4,7 @@ import * as React from "react";
 
 import { useKit } from "@/components/kit/kit-provider";
 import { WhatsAppButton } from "@/components/quote/whatsapp-button";
+import { useKitAvailability } from "@/components/kit/use-kit-availability";
 import { resolveKitLines } from "@/lib/kit/pricing";
 import { recordKitRequest, type KitRequestInput } from "@/lib/quote/actions";
 
@@ -11,6 +12,8 @@ import { recordKitRequest, type KitRequestInput } from "@/lib/quote/actions";
 function SendKitButton({ className }: { className?: string }) {
   const { items, startDate, endDate, rentalDays, dateError, projectInfo } = useKit();
   const lines = resolveKitLines(items, rentalDays ?? 0);
+  const { unavailable } = useKitAvailability();
+  const booked = new Map(unavailable.map((r) => [r.productSlug, r.availableQuantity]));
   // Remembers the last request recorded so tapping Send Kit twice for the
   // same kit doesn't create duplicate orders in admin.
   const lastRecorded = React.useRef<string | null>(null);
@@ -39,7 +42,16 @@ function SendKitButton({ className }: { className?: string }) {
 
   return (
     <WhatsAppButton
-      items={lines.map((l) => ({ name: l.product.name, quantity: l.quantity }))}
+      items={lines.map((l) => {
+        const free = booked.get(l.product.slug);
+        const note =
+          free === undefined
+            ? undefined
+            : free
+              ? `only ${free} available on these dates`
+              : "booked on these dates";
+        return { name: l.product.name, quantity: l.quantity, note };
+      })}
       startDate={validStart}
       endDate={validEnd}
       projectLabel={projectInfo.projectName || projectInfo.productionType}

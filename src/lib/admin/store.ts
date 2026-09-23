@@ -358,6 +358,12 @@ export function updateQuoteStatus(
   return quote;
 }
 
+export function replaceQuote(updated: AdminQuote): void {
+  const store = getQuotesStore();
+  const index = store.findIndex((q) => q.id === updated.id);
+  if (index >= 0) store[index] = updated;
+}
+
 export function addQuoteNote(id: string, text: string): AdminQuote | undefined {
   const quote = getQuoteById(id);
   if (!quote || !text.trim()) return quote;

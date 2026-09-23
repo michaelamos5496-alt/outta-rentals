@@ -1,9 +1,8 @@
 "use client";
 
-import * as React from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { AlertCircle, CheckCircle2, LoaderCircle, Package, SearchCheck } from "lucide-react";
+import { AlertCircle, CheckCircle2, LoaderCircle, Package } from "lucide-react";
 
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
@@ -26,32 +25,20 @@ import { RentalDates } from "@/components/kit/rental-dates";
 import { resolveKitLines } from "@/lib/kit/pricing";
 import { kitPresets } from "@/lib/placeholder-data";
 import { SendKitButton } from "@/components/kit/send-kit-button";
-import { checkKitAvailability, type KitAvailabilityResult } from "@/lib/catalogue/actions";
+import { useKitAvailability } from "@/components/kit/use-kit-availability";
 
 function SectionLabel({ children }: { children: ReactNode }) {
   return <p className="text-label mb-4">{children}</p>;
 }
 
 export default function KitPage() {
-  const { items, startDate, endDate, rentalDays, dateError, projectInfo, setProjectInfo, clearKit } =
-    useKit();
+  const { items, rentalDays, dateError, projectInfo, setProjectInfo, clearKit } = useKit();
 
   const lines = resolveKitLines(items, rentalDays ?? 0);
   const datesValid = !dateError && rentalDays !== null;
   const itemCount = items.reduce((n, i) => n + i.quantity, 0);
 
-  const [checking, setChecking] = React.useState(false);
-  const [availabilityResults, setAvailabilityResults] = React.useState<
-    KitAvailabilityResult[] | null
-  >(null);
-
-  async function handleCheckAvailability() {
-    setChecking(true);
-    setAvailabilityResults(null);
-    const results = await checkKitAvailability(items, startDate, endDate);
-    setAvailabilityResults(results);
-    setChecking(false);
-  }
+  const { results, unavailable, checking } = useKitAvailability();
 
   if (items.length === 0) {
     return (
@@ -99,45 +86,33 @@ export default function KitPage() {
             <SectionLabel>Rental dates</SectionLabel>
             <RentalDates />
 
-            <Button
-              variant="outline"
-              size="sm"
-              className="mt-4"
-              disabled={!datesValid || checking}
-              onClick={handleCheckAvailability}
-            >
-              {checking ? <LoaderCircle className="animate-spin" /> : <SearchCheck />}
-              Check availability for these dates
-            </Button>
-
-            {availabilityResults ? (
-              <div className="mt-4 flex flex-col gap-2">
-                {availabilityResults.map((result) => (
-                  <div
-                    key={result.productSlug}
-                    className="flex items-center gap-2.5 text-sm"
-                  >
-                    {result.available ? (
-                      <CheckCircle2 className="size-4 shrink-0 text-brand" />
-                    ) : (
-                      <AlertCircle className="size-4 shrink-0 text-destructive" />
-                    )}
-                    <span className="text-muted-foreground">{result.productName}</span>
-                    <span>
-                      {result.available
-                        ? "Available for these dates"
-                        : result.availableQuantity !== null
-                          ? `Only ${result.availableQuantity} available for these dates`
-                          : "Not available for these dates"}
-                    </span>
-                  </div>
-                ))}
-                {availabilityResults[0]?.source === "status-only" ? (
-                  <p className="text-meta mt-1">
-                    Based on current status only — live date-range checking
-                    activates once OUTTA&rsquo;s inventory system is connected.
+            {datesValid ? (
+              <div className="mt-4 flex flex-col gap-2" aria-live="polite">
+                {checking ? (
+                  <p className="text-meta flex items-center gap-2">
+                    <LoaderCircle className="size-3.5 animate-spin" /> Checking availability…
                   </p>
-                ) : null}
+                ) : unavailable.length === 0 && results.length > 0 ? (
+                  <p className="flex items-center gap-2.5 text-sm">
+                    <CheckCircle2 className="size-4 shrink-0 text-brand" />
+                    Everything in your kit is available for these dates.
+                  </p>
+                ) : (
+                  unavailable.map((result) => (
+                    <p key={result.productSlug} className="flex items-start gap-2.5 text-sm">
+                      <AlertCircle className="mt-0.5 size-4 shrink-0 text-destructive" />
+                      <span>
+                        <span className="font-medium">{result.productName}</span>{" "}
+                        {result.availableQuantity
+                          ? `— only ${result.availableQuantity} available for these dates.`
+                          : "— already booked for these dates."}{" "}
+                        <span className="text-muted-foreground">
+                          You can still send your kit and OUTTA will suggest alternatives.
+                        </span>
+                      </span>
+                    </p>
+                  ))
+                )}
               </div>
             ) : null}
           </div>

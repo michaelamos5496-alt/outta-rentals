@@ -1,5 +1,6 @@
 import "server-only";
 
+import { calculateRentalDays } from "@/lib/kit/rental";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
 import * as memory from "./store";
 import type { AdminQuote, AdminQuoteKitLine, AdminQuoteStatus } from "./types";
@@ -89,13 +90,81 @@ export async function getQuoteById(id: string): Promise<AdminQuote | undefined> 
   return data ? toAdminQuote(data) : undefined;
 }
 
-export async function updateQuoteStatus(id: string, status: AdminQuoteStatus): Promise<boolean> {
-  const supabase = getSupabaseServerClient();
-  if (!supabase) return Boolean(memory.updateQuoteStatus(id, status));
+export interface BookingConflict {
+  productName: string;
+  requested: number;
+  available: number;
+}
 
-  const { error } = await supabase.from("quote_requests").update({ status }).eq("id", id);
-  if (error) throw new Error(`Couldn't update status: ${error.message}`);
-  return true;
+export type StatusUpdateResult =
+  | { ok: true }
+  | { ok: false; error: "no_dates" | "not_found" | "invalid_status" | "failed" }
+  | { ok: false; error: "conflict"; conflicts: BookingConflict[] };
+
+/**
+ * Changes an order's status. In Supabase this runs `set_quote_status()`,
+ * which books the order's equipment for its dates on "confirmed" (refusing
+ * if that would double-book) and frees them on any other status.
+ */
+export async function updateQuoteStatus(
+  id: string,
+  status: AdminQuoteStatus
+): Promise<StatusUpdateResult> {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) {
+    return memory.updateQuoteStatus(id, status) ? { ok: true } : { ok: false, error: "not_found" };
+  }
+
+  const { data, error } = await supabase.rpc("set_quote_status", {
+    p_quote_id: id,
+    p_status: status,
+  });
+  if (error) {
+    console.error("[admin/quotes] set_quote_status failed:", error.message);
+    return { ok: false, error: "failed" };
+  }
+  return data as StatusUpdateResult;
+}
+
+/** Sets an order's rental dates. Refused while confirmed (its equipment is booked). */
+export async function updateQuoteDates(
+  id: string,
+  startDate: string,
+  endDate: string
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  const quote = await getQuoteById(id);
+  if (!quote) return { ok: false, error: "Order not found." };
+  if (quote.status === "confirmed") {
+    return { ok: false, error: "Change the status from Confirmed before editing dates." };
+  }
+  const rentalDays = calculateRentalDays(startDate, endDate);
+  if (!rentalDays) return { ok: false, error: "End date must be on or after the start date." };
+  const estimatedTotal = quote.kit.reduce(
+    (sum, line) => sum + line.dayRate * line.quantity * rentalDays,
+    0
+  );
+
+  const supabase = getSupabaseServerClient();
+  if (!supabase) {
+    Object.assign(quote, { startDate, endDate, rentalDays, estimatedTotal });
+    memory.replaceQuote(quote);
+    return { ok: true };
+  }
+
+  const { error } = await supabase
+    .from("quote_requests")
+    .update({
+      start_date: startDate,
+      end_date: endDate,
+      rental_days: rentalDays,
+      estimated_total: estimatedTotal,
+    })
+    .eq("id", id);
+  if (error) {
+    console.error("[admin/quotes] Date update failed:", error.message);
+    return { ok: false, error: "Couldn't save the dates. Please try again." };
+  }
+  return { ok: true };
 }
 
 export async function addQuoteNote(id: string, text: string): Promise<boolean> {
@@ -161,4 +230,28 @@ export async function listCustomers(): Promise<AdminCustomerSummary[]> {
 
 export async function getCustomerByKey(key: string): Promise<AdminCustomerSummary | undefined> {
   return (await listCustomers()).find((c) => c.key === key);
+}
+
+// ------------------------------------------------------------------- Stock
+
+/** Units owned per product slug (products without a row own 1 unit). */
+export async function listProductUnits(): Promise<Map<string, number>> {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return new Map();
+  const { data, error } = await supabase.from("product_stock").select("product_slug, units");
+  if (error) throw new Error(`Couldn't load stock: ${error.message}`);
+  return new Map((data ?? []).map((row) => [row.product_slug as string, row.units as number]));
+}
+
+export async function setProductUnits(slug: string, units: number): Promise<boolean> {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return false;
+  const { error } = await supabase
+    .from("product_stock")
+    .upsert({ product_slug: slug, units, updated_at: new Date().toISOString() });
+  if (error) {
+    console.error("[admin/quotes] Stock update failed:", error.message);
+    return false;
+  }
+  return true;
 }

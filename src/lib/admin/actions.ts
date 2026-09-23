@@ -13,7 +13,13 @@ import {
   type AdminProductInput,
   type AdminCategoryInput,
 } from "./store";
-import { updateQuoteStatus, addQuoteNote } from "./quotes";
+import {
+  addQuoteNote,
+  setProductUnits,
+  updateQuoteDates,
+  updateQuoteStatus,
+  type StatusUpdateResult,
+} from "./quotes";
 import type { AdminQuoteStatus } from "./types";
 
 async function requireAdmin() {
@@ -111,16 +117,42 @@ const validStatuses: AdminQuoteStatus[] = [
   "cancelled",
 ];
 
-export async function updateQuoteStatusAction(id: string, status: AdminQuoteStatus) {
+export async function updateQuoteStatusAction(
+  id: string,
+  status: AdminQuoteStatus
+): Promise<StatusUpdateResult> {
   await requireAdmin();
   if (typeof id !== "string" || !validStatuses.includes(status)) {
     throw new Error("Invalid status update.");
   }
-  const quote = await updateQuoteStatus(id, status);
+  const result = await updateQuoteStatus(id, status);
   revalidatePath("/admin/quotes");
   revalidatePath(`/admin/quotes/${id}`);
   revalidatePath("/admin");
-  return quote;
+  return result;
+}
+
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+export async function updateQuoteDatesAction(id: string, startDate: string, endDate: string) {
+  await requireAdmin();
+  if (typeof id !== "string" || !ISO_DATE.test(startDate) || !ISO_DATE.test(endDate)) {
+    return { ok: false as const, error: "Choose a valid start and end date." };
+  }
+  const result = await updateQuoteDates(id, startDate, endDate);
+  revalidatePath(`/admin/quotes/${id}`);
+  revalidatePath("/admin/quotes");
+  return result;
+}
+
+export async function setProductUnitsAction(slug: string, units: number) {
+  await requireAdmin();
+  if (typeof slug !== "string" || !Number.isInteger(units) || units < 0 || units > 999) {
+    return false;
+  }
+  const ok = await setProductUnits(slug, units);
+  revalidatePath("/admin/inventory");
+  return ok;
 }
 
 export async function addQuoteNoteAction(id: string, text: string) {
