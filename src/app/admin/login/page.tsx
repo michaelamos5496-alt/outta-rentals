@@ -1,10 +1,11 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AlertTriangle, LoaderCircle, LockKeyhole } from "lucide-react";
 
-import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -34,22 +35,31 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <Container width="narrow" className="flex min-h-[70svh] items-center py-16">
-      <div className="mx-auto w-full max-w-sm">
+    <div className="flex min-h-svh flex-col items-center justify-center bg-brand px-4 py-12">
+      <Image
+        src="/brand/outta-logo-dark.png"
+        alt="OUTTA Rentals"
+        width={595}
+        height={225}
+        priority
+        className="mb-8 h-12 w-auto"
+      />
+      <div className="w-full max-w-sm rounded-3xl bg-background p-6 shadow-xl sm:p-8">
         <div className="flex items-center gap-2">
-          <LockKeyhole className="size-5 text-brand" />
-          <p className="text-label">OUTTA Admin</p>
+          <LockKeyhole className="size-4 text-brand" />
+          <p className="text-label">Admin</p>
         </div>
-        <h1 className="text-h2 mt-3">Sign in</h1>
-        <p className="text-small mt-2">Internal access only.</p>
+        <h1 className="text-h2 mt-2">Sign in</h1>
+        <p className="text-small mt-1">Internal access only.</p>
 
-        <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
           <div>
             <Label htmlFor="admin-email">Email</Label>
             <Input
               id="admin-email"
               type="email"
               autoComplete="username"
+              required
               className="mt-1.5"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -61,6 +71,7 @@ export default function AdminLoginPage() {
               id="admin-password"
               type="password"
               autoComplete="current-password"
+              required
               className="mt-1.5"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -80,6 +91,9 @@ export default function AdminLoginPage() {
           </Button>
         </form>
       </div>
-    </Container>
+      <Link href="/" className="mt-6 text-sm text-brand-foreground/80 hover:text-brand-foreground">
+        ← Back to website
+      </Link>
+    </div>
   );
 }

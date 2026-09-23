@@ -81,7 +81,7 @@ function CategoryManager({ categories }: { categories: AdminCategory[] }) {
       {adding ? (
         <form
           onSubmit={handleCreate}
-          className="mt-4 flex flex-col gap-3 rounded-lg border border-border p-4 sm:flex-row sm:items-end"
+          className="mt-4 flex flex-col gap-3 rounded-2xl border border-border bg-card p-4 sm:flex-row sm:items-end"
         >
           <div className="flex-1">
             <label className="text-label" htmlFor="new-category-name">Name</label>
@@ -118,7 +118,7 @@ function CategoryManager({ categories }: { categories: AdminCategory[] }) {
         </form>
       ) : null}
 
-      <div className="mt-4 rounded-lg border border-border">
+      <div className="mt-4 rounded-2xl border border-border bg-card">
         <Table>
           <TableHeader>
             <TableRow>

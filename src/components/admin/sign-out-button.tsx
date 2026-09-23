@@ -7,7 +7,7 @@ import { LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { signOutAdmin } from "@/lib/admin/auth";
 
-function SignOutButton() {
+function SignOutButton({ className }: { className?: string }) {
   const router = useRouter();
   const [loading, setLoading] = React.useState(false);
 
@@ -19,7 +19,7 @@ function SignOutButton() {
   }
 
   return (
-    <Button variant="ghost" size="sm" onClick={handleSignOut} disabled={loading}>
+    <Button variant="ghost" size="sm" onClick={handleSignOut} disabled={loading} className={className}>
       <LogOut /> Sign out
     </Button>
   );

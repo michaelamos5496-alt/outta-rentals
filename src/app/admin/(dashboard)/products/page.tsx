@@ -45,7 +45,7 @@ export default async function AdminProductsPage() {
         ) : null}
       </div>
 
-      <div className="mt-6 rounded-lg border border-border">
+      <div className="mt-6 rounded-2xl border border-border bg-card">
         <Table>
           <TableHeader>
             <TableRow>

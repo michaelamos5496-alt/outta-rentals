@@ -56,7 +56,7 @@ export default async function AdminQuoteDetailPage({ params }: QuoteDetailPagePr
         <div className="flex flex-col gap-8">
           <section>
             <p className="text-label mb-3">Customer</p>
-            <div className="rounded-lg border border-border p-4 text-sm">
+            <div className="rounded-2xl border border-border bg-card p-4 text-sm">
               <p className="font-medium">{quoteCustomerLabel(quote)}</p>
               {quote.customerCompany ? (
                 <p className="text-small mt-1">{quote.customerCompany}</p>
@@ -73,7 +73,7 @@ export default async function AdminQuoteDetailPage({ params }: QuoteDetailPagePr
 
           <section>
             <p className="text-label mb-3">Project</p>
-            <div className="rounded-lg border border-border p-4 text-sm">
+            <div className="rounded-2xl border border-border bg-card p-4 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Type</span>
                 <span>{quote.projectType || "—"}</span>
@@ -97,7 +97,7 @@ export default async function AdminQuoteDetailPage({ params }: QuoteDetailPagePr
           {quote.projectNotes ? (
             <section>
               <p className="text-label mb-3">Customer notes</p>
-              <p className="rounded-lg border border-border p-4 text-sm whitespace-pre-wrap">
+              <p className="rounded-2xl border border-border bg-card p-4 text-sm whitespace-pre-wrap">
                 {quote.projectNotes}
               </p>
             </section>
@@ -105,7 +105,7 @@ export default async function AdminQuoteDetailPage({ params }: QuoteDetailPagePr
 
           <section>
             <p className="text-label mb-3">Equipment</p>
-            <div className="flex flex-col divide-y divide-border rounded-lg border border-border">
+            <div className="flex flex-col divide-y divide-border rounded-2xl border border-border bg-card">
               {quote.kit.map((line) => (
                 <div key={line.productSlug} className="flex justify-between p-3 text-sm">
                   <span>
@@ -127,7 +127,7 @@ export default async function AdminQuoteDetailPage({ params }: QuoteDetailPagePr
           </section>
         </div>
 
-        <aside className="h-fit rounded-lg border border-border p-4 lg:sticky lg:top-6">
+        <aside className="h-fit rounded-2xl border border-border bg-card p-4 lg:sticky lg:top-6">
           <QuoteDetailActions quote={quote} />
         </aside>
       </div>

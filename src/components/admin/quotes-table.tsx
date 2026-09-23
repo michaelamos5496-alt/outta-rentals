@@ -58,7 +58,7 @@ function QuotesTable({ quotes }: { quotes: AdminQuote[] }) {
         </Select>
       </div>
 
-      <div className="mt-4 rounded-lg border border-border">
+      <div className="mt-4 rounded-2xl border border-border bg-card">
         <Table>
           <TableHeader>
             <TableRow>
@@ -82,13 +82,13 @@ function QuotesTable({ quotes }: { quotes: AdminQuote[] }) {
                   <TableCell>
                     <Link href={`/admin/quotes/${quote.id}`} className="block hover:text-brand">
                       <p className="font-medium">{quoteCustomerLabel(quote)}</p>
-                      <p className="text-meta mt-0.5">{quote.customerPhone || quote.customerEmail}</p>
+                      <p className="mt-0.5 text-xs text-muted-foreground">{quote.customerPhone || quote.customerEmail}</p>
                     </Link>
                   </TableCell>
                   <TableCell>
                     <Link href={`/admin/quotes/${quote.id}`} className="block">
                       {quoteTitle(quote)}
-                      <span className="text-meta ml-2">{quote.projectType}</span>
+                      <span className="ml-2 text-xs text-muted-foreground">{quote.projectType}</span>
                     </Link>
                   </TableCell>
                   <TableCell>

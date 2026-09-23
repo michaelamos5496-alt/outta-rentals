@@ -52,7 +52,13 @@ export default async function AdminDashboardPage() {
       <p className="text-small mt-1">Your record of orders and enquiries from the website.</p>
 
       <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
-        <StatCard label="New orders" value={newOrders.length} icon={Sparkles} hint="Not looked at yet" />
+        <StatCard
+          label="New orders"
+          value={newOrders.length}
+          icon={Sparkles}
+          hint="Not looked at yet"
+          highlight={newOrders.length > 0}
+        />
         <StatCard
           label="In progress"
           value={inProgress.length}
@@ -78,7 +84,7 @@ export default async function AdminDashboardPage() {
               <Link href="/admin/quotes">View all</Link>
             </Button>
           </div>
-          <div className="mt-3 flex flex-col divide-y divide-border rounded-lg border border-border">
+          <div className="mt-3 flex flex-col divide-y divide-border rounded-2xl border border-border bg-card">
             {quotes.length === 0 ? (
               <p className="text-small p-4">No orders yet. Send Kit orders from the website appear here.</p>
             ) : (
@@ -108,7 +114,7 @@ export default async function AdminDashboardPage() {
               <Link href="/admin/enquiries">View all</Link>
             </Button>
           </div>
-          <div className="mt-3 flex flex-col divide-y divide-border rounded-lg border border-border">
+          <div className="mt-3 flex flex-col divide-y divide-border rounded-2xl border border-border bg-card">
             {enquiries.length === 0 ? (
               <p className="text-small p-4">
                 No enquiries yet. Contact form and consultation messages appear here.

@@ -137,7 +137,7 @@ function QuoteDetailActions({ quote }: { quote: AdminQuote }) {
             ))}
           </SelectContent>
         </Select>
-        <p className="text-meta mt-2">
+        <p className="mt-2 text-xs text-muted-foreground">
           {confirmed
             ? "Equipment is booked for these dates. Change the status to free them."
             : "Confirming books this equipment for the order's dates."}

@@ -24,7 +24,7 @@ export default function AdminCategoriesPage() {
         {catalogueEditable ? (
           <CategoryManager categories={categories} />
         ) : (
-          <div className="rounded-lg border border-border">
+          <div className="rounded-2xl border border-border bg-card">
             <Table>
               <TableHeader>
                 <TableRow>

@@ -39,14 +39,14 @@ export default async function AdminInventoryPage() {
 
       <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-5">
         {counts.map((c) => (
-          <div key={c.status} className="rounded-lg border border-border p-3">
-            <p className="text-label">{c.label}</p>
+          <div key={c.status} className="rounded-2xl border border-border bg-card p-3">
+            <p className="text-sm text-muted-foreground">{c.label}</p>
             <p className="text-h3 mt-1">{c.count}</p>
           </div>
         ))}
       </div>
 
-      <div className="mt-6 rounded-lg border border-border">
+      <div className="mt-6 rounded-2xl border border-border bg-card">
         <Table>
           <TableHeader>
             <TableRow>

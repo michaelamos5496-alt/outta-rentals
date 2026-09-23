@@ -46,15 +46,15 @@ export default async function AdminCustomerDetailPage({ params }: CustomerDetail
       <p className="text-small mt-1">{customer.company}</p>
 
       <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
-        <div className="rounded-lg border border-border p-3">
+        <div className="rounded-2xl border border-border bg-card p-3">
           <p className="text-label">Email</p>
           <p className="mt-1 text-sm">{customer.email || "—"}</p>
         </div>
-        <div className="rounded-lg border border-border p-3">
+        <div className="rounded-2xl border border-border bg-card p-3">
           <p className="text-label">Phone</p>
           <p className="mt-1 text-sm">{customer.phone || "—"}</p>
         </div>
-        <div className="rounded-lg border border-border p-3">
+        <div className="rounded-2xl border border-border bg-card p-3">
           <p className="text-label">Total quotes</p>
           <p className="mt-1 text-sm">{customer.quotes.length}</p>
         </div>
@@ -70,7 +70,7 @@ export default async function AdminCustomerDetailPage({ params }: CustomerDetail
         {completedRentals.length === 0 ? (
           <p className="text-small">No rental history yet.</p>
         ) : (
-          <div className="flex flex-col divide-y divide-border rounded-lg border border-border">
+          <div className="flex flex-col divide-y divide-border rounded-2xl border border-border bg-card">
             {completedRentals.map((quote) => (
               <Link
                 key={quote.id}
@@ -87,7 +87,7 @@ export default async function AdminCustomerDetailPage({ params }: CustomerDetail
 
       <div className="mt-8">
         <p className="text-label mb-3">Quote history</p>
-        <div className="flex flex-col divide-y divide-border rounded-lg border border-border">
+        <div className="flex flex-col divide-y divide-border rounded-2xl border border-border bg-card">
           {customer.quotes.map((quote) => (
             <Link
               key={quote.id}

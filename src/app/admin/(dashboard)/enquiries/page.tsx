@@ -37,7 +37,7 @@ export default async function AdminEnquiriesPage() {
             description="Messages sent through the Contact form or consultation popup will appear here."
           />
         ) : (
-          <div className="flex flex-col divide-y divide-border rounded-lg border border-border">
+          <div className="flex flex-col divide-y divide-border rounded-2xl border border-border bg-card">
             {enquiries.map((enquiry) => (
               <div key={enquiry.id} className="flex flex-col gap-2 p-4 text-sm">
                 <div className="flex flex-wrap items-center justify-between gap-2">

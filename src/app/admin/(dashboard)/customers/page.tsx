@@ -22,7 +22,7 @@ export default async function AdminCustomersPage() {
         {customers.length} customers, grouped by phone number from Send Kit orders.
       </p>
 
-      <div className="mt-6 rounded-lg border border-border">
+      <div className="mt-6 rounded-2xl border border-border bg-card">
         <Table>
           <TableHeader>
             <TableRow>
