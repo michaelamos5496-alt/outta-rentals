@@ -9,10 +9,15 @@ import { slideUp, staggerContainer } from "@/lib/motion";
 import { ContactForm } from "@/components/contact/contact-form";
 import { WhatsAppButton } from "@/components/quote/whatsapp-button";
 import { siteConfig } from "@/config/site";
+import { getWhatsAppNumber } from "@/lib/quote/whatsapp";
+
+const phone = getWhatsAppNumber();
 
 const infoRows: { icon: typeof Mail; label: string; value: string; href?: string }[] = [
   { icon: Mail, label: "Email", value: "hello@outtarentals.com (placeholder)" },
-  { icon: Phone, label: "Phone", value: "+000 000 0000 (placeholder)" },
+  ...(phone
+    ? [{ icon: Phone, label: "Phone", value: phone, href: `tel:${phone.replace(/[^\d+]/g, "")}` }]
+    : []),
   { icon: MapPin, label: "Location", value: siteConfig.location, href: siteConfig.mapsUrl },
   { icon: Clock, label: "Opening hours", value: "Mon–Sat, 8am–6pm (placeholder)" },
 ];
@@ -59,8 +64,9 @@ export default function ContactPage() {
                   {row.href ? (
                     <a
                       href={row.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      {...(row.href.startsWith("http")
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
                       className="text-small mt-0.5 block underline-offset-4 hover:text-foreground hover:underline"
                     >
                       {row.value}
