@@ -206,6 +206,7 @@ export default function KitPage() {
               startDate={startDate}
               endDate={endDate}
               projectLabel={projectInfo.projectName || projectInfo.productionType}
+              notes={projectInfo.notes}
               variant="outline"
               className="w-full"
             />

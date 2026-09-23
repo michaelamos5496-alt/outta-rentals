@@ -6,6 +6,8 @@ export const siteConfig = {
     "OUTTA RENTALS is a premium film, photography and production-equipment rental company.",
 } as const;
 
+const whatsappDigits = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "").replace(/[^\d]/g, "");
+
 export interface NavItem {
   label: string;
   href: string;
@@ -54,7 +56,7 @@ export const footerLinkGroups: FooterLinkGroup[] = [
     title: "Contact",
     links: [
       { label: "Instagram", href: "#" },
-      { label: "WhatsApp", href: "#" },
+      { label: "WhatsApp", href: whatsappDigits ? `https://wa.me/${whatsappDigits}` : "#" },
       { label: "Email", href: "#" },
       { label: "Location", href: "#" },
     ],

@@ -95,11 +95,24 @@ export default function QuotePage() {
     setErrors(customerErrors);
     if (Object.keys(customerErrors).length > 0) return;
 
-    // Opened synchronously, within the click handler, so browsers still treat
-    // it as a direct result of the user's tap and don't block it — setting
-    // its location after the async submission below would otherwise read as
-    // an unrequested popup.
-    const whatsappTab = window.open("", "_blank");
+    const whatsappLink = getWhatsAppLink({
+      items: lines.map((l) => ({ name: l.product.name, quantity: l.quantity })),
+      startDate,
+      endDate,
+      projectLabel: projectInfo.projectName || projectInfo.productionType,
+      customerName: customer.name,
+      customerPhone: customer.phone,
+      customerEmail: customer.email,
+      notes,
+    });
+
+    // WhatsApp is where every order lands, so it opens first — synchronously,
+    // within the click handler, so browsers treat it as a direct result of the
+    // tap and don't block it as a popup. The database save below is only a
+    // backup record and never stops the order reaching WhatsApp.
+    if (whatsappLink) {
+      window.open(whatsappLink, "_blank", "noopener,noreferrer");
+    }
 
     setSubmitState("loading");
     setSubmitError(null);
@@ -126,30 +139,14 @@ export default function QuotePage() {
         },
         customer,
         delivery: { ...emptyDeliveryDetails, method: "pickup" },
-      }),
+      }).catch(() => ({ ok: false as const, error: "We couldn't submit your request. Please try again." })),
       minDelay,
     ]);
 
-    if (result.ok) {
-      const whatsappLink = getWhatsAppLink({
-        items: lines.map((l) => ({ name: l.product.name, quantity: l.quantity })),
-        startDate,
-        endDate,
-        projectLabel: projectInfo.projectName || projectInfo.productionType,
-        customerName: customer.name,
-        customerPhone: customer.phone,
-        customerEmail: customer.email,
-        notes,
-      });
-      if (whatsappLink && whatsappTab) {
-        whatsappTab.location.href = whatsappLink;
-      } else {
-        whatsappTab?.close();
-      }
+    if (result.ok || whatsappLink) {
       setSubmitState("success");
       clearKit();
     } else {
-      whatsappTab?.close();
       setSubmitState("error");
       setSubmitError(result.error);
     }
