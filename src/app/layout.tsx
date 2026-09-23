@@ -33,15 +33,9 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   icons: {
-    icon: [
-      {
-        url: "/brand/outta-favicon.png",
-        type: "image/png",
-        sizes: "512x512",
-      },
-    ],
-    shortcut: "/brand/outta-favicon.png",
-    apple: "/brand/outta-favicon.png",
+    // /favicon.ico is picked up automatically from src/app/favicon.ico.
+    icon: [{ url: "/brand/outta-favicon.png", type: "image/png", sizes: "512x512" }],
+    apple: "/brand/outta-apple-touch.png",
   },
   openGraph: {
     type: "website",
