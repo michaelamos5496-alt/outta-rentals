@@ -60,7 +60,6 @@ export const footerLinkGroups: FooterLinkGroup[] = [
     links: [
       { label: "Instagram", href: siteConfig.instagramUrl },
       { label: "WhatsApp", href: whatsappDigits ? `https://wa.me/${whatsappDigits}` : "#" },
-      { label: "Email", href: "#" },
       { label: "Location", href: siteConfig.mapsUrl },
     ],
   },

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import { Clock, MapPin, Phone } from "lucide-react";
 
 import { Section } from "@/components/ui/section";
 import { Divider } from "@/components/ui/divider";
@@ -13,8 +13,7 @@ import { getWhatsAppNumber } from "@/lib/quote/whatsapp";
 
 const phone = getWhatsAppNumber();
 
-const infoRows: { icon: typeof Mail; label: string; value: string; href?: string }[] = [
-  { icon: Mail, label: "Email", value: "hello@outtarentals.com (placeholder)" },
+const infoRows: { icon: typeof Phone; label: string; value: string; href?: string }[] = [
   ...(phone
     ? [{ icon: Phone, label: "Phone", value: phone, href: `tel:${phone.replace(/[^\d+]/g, "")}` }]
     : []),
