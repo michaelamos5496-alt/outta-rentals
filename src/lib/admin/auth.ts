@@ -3,6 +3,8 @@
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
 
+import { getSupabaseServerClient } from "@/lib/supabase/server";
+
 const DEMO_COOKIE = "outta-admin-demo";
 
 function supabaseConfigured(): boolean {
@@ -30,6 +32,28 @@ async function getServerSupabase() {
   });
 }
 
+/**
+ * Supabase Auth alone isn't enough: public sign-ups may be enabled on the
+ * project, so a signed-in user is only an admin if their email is listed in
+ * `admin_users` (provisioned manually in the Supabase dashboard).
+ */
+async function isListedAdmin(email: string): Promise<boolean> {
+  const service = getSupabaseServerClient();
+  if (!service) return false;
+  const { data, error } = await service
+    .from("admin_users")
+    .select("id")
+    // Exact match (not ilike — "%"/"_" would act as wildcards). Emails in
+    // admin_users are stored lowercase; see schema.sql.
+    .eq("email", email.trim().toLowerCase())
+    .limit(1);
+  if (error) {
+    console.error("[admin/auth] admin_users lookup failed:", error.message);
+    return false;
+  }
+  return (data?.length ?? 0) > 0;
+}
+
 export interface AdminSession {
   email: string;
   /** True when running the dev-only, no-Supabase demo bypass — never true in production. */
@@ -54,7 +78,9 @@ export async function getAdminSession(): Promise<AdminSession | null> {
     const supabase = await getServerSupabase();
     if (!supabase) return null;
     const { data } = await supabase.auth.getUser();
-    return data.user?.email ? { email: data.user.email, demo: false } : null;
+    const email = data.user?.email;
+    if (!email || !(await isListedAdmin(email))) return null;
+    return { email, demo: false };
   }
 
   if (process.env.NODE_ENV === "production") return null;
@@ -79,6 +105,10 @@ export async function signInAdmin(email: string, password: string): Promise<Sign
     if (!supabase) return { ok: false, error: "Auth is not available." };
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) return { ok: false, error: error.message };
+    if (!(await isListedAdmin(email))) {
+      await supabase.auth.signOut();
+      return { ok: false, error: "This account doesn't have admin access." };
+    }
     return { ok: true };
   }
 

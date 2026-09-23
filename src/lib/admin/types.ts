@@ -47,6 +47,9 @@ export interface AdminQuote {
   projectName: string;
   projectType: string;
   shootLocation: string;
+  /** Customer's notes from the kit page. */
+  projectNotes?: string;
+  /** ISO date, or "" when the customer sent the kit without valid dates. */
   startDate: string;
   endDate: string;
   rentalDays: number;

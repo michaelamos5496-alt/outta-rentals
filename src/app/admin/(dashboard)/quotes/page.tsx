@@ -1,10 +1,10 @@
-import { listQuotes } from "@/lib/admin/store";
+import { listQuotes } from "@/lib/admin/quotes";
 import { QuotesTable } from "@/components/admin/quotes-table";
 
 export const metadata = { title: "Quotes" };
 
-export default function AdminQuotesPage() {
-  const quotes = listQuotes();
+export default async function AdminQuotesPage() {
+  const quotes = await listQuotes();
 
   return (
     <div>

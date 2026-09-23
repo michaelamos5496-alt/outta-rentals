@@ -1,6 +1,7 @@
 import Link from "next/link";
 
-import { getQuoteById } from "@/lib/admin/store";
+import { getQuoteById } from "@/lib/admin/quotes";
+import { quoteCustomerLabel, quoteDateRange, quoteTitle, quoteTotal } from "@/lib/admin/format";
 import { EmptyState } from "@/components/ui/state";
 import { Button } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
@@ -15,7 +16,7 @@ export const metadata = { title: "Quote" };
 
 export default async function AdminQuoteDetailPage({ params }: QuoteDetailPageProps) {
   const { id } = await params;
-  const quote = getQuoteById(id);
+  const quote = await getQuoteById(id);
 
   if (!quote) {
     return (
@@ -38,9 +39,9 @@ export default async function AdminQuoteDetailPage({ params }: QuoteDetailPagePr
           Quotes
         </Link>
         <span className="mx-2 text-muted-foreground/50">/</span>
-        <span className="text-foreground">{quote.projectName}</span>
+        <span className="text-foreground">{quoteTitle(quote)}</span>
       </p>
-      <h1 className="text-h2">{quote.projectName}</h1>
+      <h1 className="text-h2">{quoteTitle(quote)}</h1>
       <p className="text-small mt-1">
         Submitted {new Date(quote.createdAt).toLocaleString()}
       </p>
@@ -50,10 +51,17 @@ export default async function AdminQuoteDetailPage({ params }: QuoteDetailPagePr
           <section>
             <p className="text-label mb-3">Customer</p>
             <div className="rounded-lg border border-border p-4 text-sm">
-              <p className="font-medium">{quote.customerName}</p>
-              <p className="text-small mt-1">{quote.customerCompany}</p>
-              <p className="text-small mt-1">{quote.customerEmail}</p>
-              <p className="text-small mt-1">{quote.customerPhone}</p>
+              <p className="font-medium">{quoteCustomerLabel(quote)}</p>
+              {quote.customerCompany ? (
+                <p className="text-small mt-1">{quote.customerCompany}</p>
+              ) : null}
+              {quote.customerEmail ? <p className="text-small mt-1">{quote.customerEmail}</p> : null}
+              {quote.customerPhone ? <p className="text-small mt-1">{quote.customerPhone}</p> : null}
+              {!quote.customerName && !quote.customerPhone && !quote.customerEmail ? (
+                <p className="text-small mt-1">
+                  No contact details were entered — check the WhatsApp chat for this request.
+                </p>
+              ) : null}
             </div>
           </section>
 
@@ -62,23 +70,32 @@ export default async function AdminQuoteDetailPage({ params }: QuoteDetailPagePr
             <div className="rounded-lg border border-border p-4 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Type</span>
-                <span>{quote.projectType}</span>
+                <span>{quote.projectType || "—"}</span>
               </div>
               <Divider className="my-2" />
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Location</span>
-                <span>{quote.shootLocation}</span>
+                <span>{quote.shootLocation || "—"}</span>
               </div>
               <Divider className="my-2" />
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Dates</span>
                 <span>
-                  {new Date(quote.startDate).toLocaleDateString()} →{" "}
-                  {new Date(quote.endDate).toLocaleDateString()} ({quote.rentalDays}d)
+                  {quoteDateRange(quote)}
+                  {quote.rentalDays > 0 ? ` (${quote.rentalDays}d)` : ""}
                 </span>
               </div>
             </div>
           </section>
+
+          {quote.projectNotes ? (
+            <section>
+              <p className="text-label mb-3">Customer notes</p>
+              <p className="rounded-lg border border-border p-4 text-sm whitespace-pre-wrap">
+                {quote.projectNotes}
+              </p>
+            </section>
+          ) : null}
 
           <section>
             <p className="text-label mb-3">Equipment</p>
@@ -86,16 +103,19 @@ export default async function AdminQuoteDetailPage({ params }: QuoteDetailPagePr
               {quote.kit.map((line) => (
                 <div key={line.productSlug} className="flex justify-between p-3 text-sm">
                   <span>
-                    {line.productName} × {line.quantity} × {quote.rentalDays}d
+                    {line.productName} × {line.quantity}
+                    {quote.rentalDays > 0 ? ` × ${quote.rentalDays}d` : ""}
                   </span>
                   <span>
-                    {formatPrice(line.dayRate * line.quantity * quote.rentalDays)}
+                    {quote.rentalDays > 0
+                      ? formatPrice(line.dayRate * line.quantity * quote.rentalDays)
+                      : `${formatPrice(line.dayRate)}/day`}
                   </span>
                 </div>
               ))}
               <div className="flex justify-between p-3 text-sm font-medium">
                 <span>Estimated total</span>
-                <span>{formatPrice(quote.estimatedTotal)}</span>
+                <span>{quoteTotal(quote)}</span>
               </div>
             </div>
           </section>

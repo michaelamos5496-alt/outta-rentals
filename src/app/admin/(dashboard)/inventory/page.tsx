@@ -9,6 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { InventoryStatusSelect } from "@/components/admin/inventory-status-select";
+import { UnsavedEditsNotice } from "@/components/admin/unsaved-edits-notice";
 
 export const metadata = { title: "Inventory" };
 
@@ -24,7 +25,8 @@ export default function AdminInventoryPage() {
   return (
     <div>
       <h1 className="text-h2">Inventory</h1>
-      <p className="text-small mt-1">Update stock status directly — changes apply immediately.</p>
+      <p className="text-small mt-1">Update stock status directly.</p>
+      <UnsavedEditsNotice />
 
       <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-5">
         {counts.map((c) => (

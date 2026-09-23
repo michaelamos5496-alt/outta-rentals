@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/table";
 import { ProductRowActions } from "@/components/admin/product-row-actions";
 import { formatPrice } from "@/lib/currency";
+import { UnsavedEditsNotice } from "@/components/admin/unsaved-edits-notice";
 
 export const metadata = { title: "Products" };
 
@@ -27,6 +28,7 @@ export default function AdminProductsPage() {
         <div>
           <h1 className="text-h2">Products</h1>
           <p className="text-small mt-1">{products.length} total</p>
+          <UnsavedEditsNotice />
         </div>
         <Button asChild>
           <Link href="/admin/products/new">

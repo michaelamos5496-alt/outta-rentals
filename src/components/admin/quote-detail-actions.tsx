@@ -24,27 +24,43 @@ function QuoteDetailActions({ quote }: { quote: AdminQuote }) {
   const [noteText, setNoteText] = React.useState("");
   const [savingStatus, setSavingStatus] = React.useState(false);
   const [savingNote, setSavingNote] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
 
   async function handleStatusChange(next: string) {
+    const previous = status;
     setStatus(next as AdminQuoteStatus);
     setSavingStatus(true);
-    await updateQuoteStatusAction(quote.id, next as AdminQuoteStatus);
-    router.refresh();
-    setSavingStatus(false);
+    setError(null);
+    try {
+      await updateQuoteStatusAction(quote.id, next as AdminQuoteStatus);
+      router.refresh();
+    } catch {
+      setStatus(previous);
+      setError("Couldn't update the status. Please try again.");
+    } finally {
+      setSavingStatus(false);
+    }
   }
 
   async function handleAddNote(e: React.FormEvent) {
     e.preventDefault();
     if (!noteText.trim()) return;
     setSavingNote(true);
-    await addQuoteNoteAction(quote.id, noteText);
-    setNoteText("");
-    router.refresh();
-    setSavingNote(false);
+    setError(null);
+    try {
+      await addQuoteNoteAction(quote.id, noteText);
+      setNoteText("");
+      router.refresh();
+    } catch {
+      setError("Couldn't save the note. Please try again.");
+    } finally {
+      setSavingNote(false);
+    }
   }
 
   return (
     <div className="flex flex-col gap-6">
+      {error ? <p className="text-sm text-destructive">{error}</p> : null}
       <div>
         <p className="text-label mb-2">Status</p>
         <Select value={status} onValueChange={handleStatusChange} disabled={savingStatus}>
@@ -64,24 +80,33 @@ function QuoteDetailActions({ quote }: { quote: AdminQuote }) {
       <div>
         <p className="text-label mb-2">Contact customer</p>
         <div className="flex flex-col gap-2">
-          <Button asChild variant="outline" className="w-full justify-start">
-            <a href={`mailto:${quote.customerEmail}`}>
-              <Mail /> {quote.customerEmail}
-            </a>
-          </Button>
-          <WhatsAppButton
-            label={`Message ${quote.customerName.split(" ")[0]} on WhatsApp`}
-            to={quote.customerPhone}
-            heading="OUTTA RENTALS — YOUR QUOTE"
-            items={quote.kit.map((k) => ({ name: k.productName, quantity: k.quantity }))}
-            startDate={quote.startDate}
-            endDate={quote.endDate}
-            projectLabel={quote.projectName}
-            location={quote.shootLocation}
-            closingLine="Following up on your OUTTA quote request."
-            variant="outline"
-            className="w-full justify-start"
-          />
+          {quote.customerEmail ? (
+            <Button asChild variant="outline" className="w-full justify-start">
+              <a href={`mailto:${quote.customerEmail}`}>
+                <Mail /> {quote.customerEmail}
+              </a>
+            </Button>
+          ) : null}
+          {quote.customerPhone ? (
+            <WhatsAppButton
+              label={`Message ${quote.customerName.split(" ")[0] || "customer"} on WhatsApp`}
+              to={quote.customerPhone}
+              heading="OUTTA RENTALS — YOUR KIT REQUEST"
+              items={quote.kit.map((k) => ({ name: k.productName, quantity: k.quantity }))}
+              startDate={quote.startDate || undefined}
+              endDate={quote.endDate || undefined}
+              projectLabel={quote.projectName}
+              location={quote.shootLocation}
+              closingLine="Following up on your OUTTA kit request."
+              variant="outline"
+              className="w-full justify-start"
+            />
+          ) : null}
+          {!quote.customerEmail && !quote.customerPhone ? (
+            <p className="text-small">
+              No contact details on this request — reply from the WhatsApp chat it came in on.
+            </p>
+          ) : null}
         </div>
       </div>
 

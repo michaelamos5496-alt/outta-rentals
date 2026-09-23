@@ -141,7 +141,9 @@ create table customers (
 create table admin_users (
   id uuid primary key default gen_random_uuid(),
   full_name text not null,
-  email text not null unique,
+  -- Stored lowercase: `getAdminSession()` matches it exactly against the
+  -- signed-in Supabase Auth user's email.
+  email text not null unique check (email = lower(email)),
   role text not null default 'staff' check (role in ('owner', 'manager', 'staff'))
 );
 
@@ -179,9 +181,10 @@ create table quote_requests (
   id uuid primary key default gen_random_uuid(),
   customer_id uuid references customers (id) on delete set null,
   kit_id uuid references kit_lists (id) on delete set null,
-  start_date date not null,
-  end_date date not null,
-  rental_days int not null,
+  -- Nullable: a Send Kit request can arrive before the customer picks dates.
+  start_date date,
+  end_date date,
+  rental_days int,
   estimated_total numeric(10, 2),
   kit_snapshot jsonb not null, -- [{ productSlug, productName, quantity, dayRate }]
   project_name text,
@@ -329,7 +332,7 @@ create table testimonials (
 -- ============================================================================
 -- All application reads/writes from the Next.js app go through either:
 --   - the anon key (browser-safe, subject to RLS below), or
---   - the service role key (server-only, e.g. `submitQuoteRequest`; BYPASSES
+--   - the service role key (server-only, e.g. `recordKitRequest`; BYPASSES
 --     RLS entirely by design). Never expose the service role key to the
 --     client — it already lives only in `SUPABASE_SERVICE_ROLE_KEY`, a
 --     server-only env var (see `src/lib/supabase/server.ts`).
@@ -379,13 +382,13 @@ create policy "Public read access" on testimonials for select using (true);
 create policy "Published projects are public" on projects
   for select using (published_at is not null and published_at <= now());
 
--- ---- Guest quote submission -----------------------------------------------
--- Anyone can submit a quote request; no one can read them back over the
--- public API (privacy) — `quote_requests` intentionally has no select
--- policy. Admin tooling reads via the service role.
+-- ---- Quote requests (Send Kit orders) -----------------------------------------
+-- No public policies: requests are written by the server (`recordKitRequest`,
+-- service role, validated input) and read only by the admin dashboard, so the
+-- public API can neither read them nor insert arbitrary rows.
 
-create policy "Anyone can submit a quote request" on quote_requests
-  for insert to anon, authenticated with check (true);
+create index quote_requests_created_at_idx on quote_requests (created_at desc);
+create index quote_notes_quote_idx on quote_notes (quote_request_id);
 
 -- ---- Everything else: service-role only ------------------------------------
 -- `customers`, `orders`, `kit_lists`, `kit_items`, `rental_bookings`,

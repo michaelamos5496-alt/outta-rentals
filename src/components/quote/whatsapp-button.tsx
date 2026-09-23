@@ -13,6 +13,8 @@ export interface WhatsAppButtonProps extends WhatsAppMessageInput {
   size?: React.ComponentProps<typeof Button>["size"];
   /** Recipient number; defaults to OUTTA's configured WhatsApp number. */
   to?: string;
+  /** Called when the link is opened — e.g. to record the request. */
+  onSend?: () => void;
 }
 
 function WhatsAppButton({
@@ -21,6 +23,7 @@ function WhatsAppButton({
   variant = "outline",
   size = "lg",
   to,
+  onSend,
   ...message
 }: WhatsAppButtonProps) {
   const link = getWhatsAppLink(message, to);
@@ -35,7 +38,7 @@ function WhatsAppButton({
 
   return (
     <Button asChild variant={variant} size={size} className={className}>
-      <a href={link} target="_blank" rel="noopener noreferrer">
+      <a href={link} target="_blank" rel="noopener noreferrer" onClick={onSend}>
         <MessageCircle /> {label}
       </a>
     </Button>

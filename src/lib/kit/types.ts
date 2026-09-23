@@ -4,6 +4,8 @@ export interface KitLineItem {
 }
 
 export interface ProjectInfo {
+  customerName: string;
+  customerPhone: string;
   projectName: string;
   productionType: string;
   notes: string;
@@ -17,6 +19,8 @@ export interface KitState {
 }
 
 export const emptyProjectInfo: ProjectInfo = {
+  customerName: "",
+  customerPhone: "",
   projectName: "",
   productionType: "",
   notes: "",

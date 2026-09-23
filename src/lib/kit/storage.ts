@@ -1,5 +1,5 @@
 import { getProductBySlug } from "@/lib/catalogue";
-import { emptyProjectInfo, type KitLineItem, type KitState } from "./types";
+import { emptyProjectInfo, type KitLineItem, type KitState, type ProjectInfo } from "./types";
 
 const STORAGE_KEY = "outta-kit-v1";
 
@@ -18,6 +18,16 @@ function isValidStoredItem(item: unknown): item is KitLineItem {
     (quantity as number) > 0 &&
     Boolean(getProductBySlug(productSlug))
   );
+}
+
+function sanitizeProjectInfo(stored: unknown, fallback: ProjectInfo): ProjectInfo {
+  if (!stored || typeof stored !== "object") return fallback;
+  const result = { ...fallback };
+  for (const key of Object.keys(fallback) as (keyof ProjectInfo)[]) {
+    const value = (stored as Record<string, unknown>)[key];
+    if (typeof value === "string") result[key] = value;
+  }
+  return result;
 }
 
 export function getDefaultKitState(): KitState {
@@ -45,7 +55,7 @@ export function loadKit(): KitState {
       items: Array.isArray(parsed.items) ? parsed.items.filter(isValidStoredItem) : fallback.items,
       startDate: typeof parsed.startDate === "string" ? parsed.startDate : fallback.startDate,
       endDate: typeof parsed.endDate === "string" ? parsed.endDate : fallback.endDate,
-      projectInfo: { ...fallback.projectInfo, ...parsed.projectInfo },
+      projectInfo: sanitizeProjectInfo(parsed.projectInfo, fallback.projectInfo),
     };
   } catch {
     return getDefaultKitState();

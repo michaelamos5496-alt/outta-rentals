@@ -242,6 +242,8 @@ export async function fetchCategories(): Promise<Category[]> {
     console.error("[catalogue/db] Failed to fetch categories:", error?.message);
     return staticCategories;
   }
+  // Tables exist but haven't been populated yet — keep the built-in list.
+  if (data.length === 0) return staticCategories;
 
   return data.map((row) => ({
     id: row.id,
@@ -267,6 +269,8 @@ export async function fetchBrands(): Promise<Brand[]> {
     console.error("[catalogue/db] Failed to fetch brands:", error?.message);
     return staticBrands;
   }
+  // Tables exist but haven't been populated yet — keep the built-in list.
+  if (data.length === 0) return staticBrands;
 
   return data.map((row) => ({
     id: row.id,

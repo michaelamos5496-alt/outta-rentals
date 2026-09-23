@@ -10,11 +10,10 @@ import {
   createCategory,
   updateCategory,
   deleteCategory,
-  updateQuoteStatus,
-  addQuoteNote,
   type AdminProductInput,
   type AdminCategoryInput,
 } from "./store";
+import { updateQuoteStatus, addQuoteNote } from "./quotes";
 import type { AdminQuoteStatus } from "./types";
 
 async function requireAdmin() {
@@ -103,9 +102,21 @@ export async function deleteCategoryAction(id: string) {
 
 // ------------------------------------------------------------------ Quotes
 
+const validStatuses: AdminQuoteStatus[] = [
+  "new",
+  "reviewing",
+  "quoted",
+  "confirmed",
+  "completed",
+  "cancelled",
+];
+
 export async function updateQuoteStatusAction(id: string, status: AdminQuoteStatus) {
   await requireAdmin();
-  const quote = updateQuoteStatus(id, status);
+  if (typeof id !== "string" || !validStatuses.includes(status)) {
+    throw new Error("Invalid status update.");
+  }
+  const quote = await updateQuoteStatus(id, status);
   revalidatePath("/admin/quotes");
   revalidatePath(`/admin/quotes/${id}`);
   revalidatePath("/admin");
@@ -114,7 +125,8 @@ export async function updateQuoteStatusAction(id: string, status: AdminQuoteStat
 
 export async function addQuoteNoteAction(id: string, text: string) {
   await requireAdmin();
-  const quote = addQuoteNote(id, text);
+  if (typeof id !== "string" || typeof text !== "string") throw new Error("Invalid note.");
+  const quote = await addQuoteNote(id, text);
   revalidatePath(`/admin/quotes/${id}`);
   return quote;
 }

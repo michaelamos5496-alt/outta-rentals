@@ -4,6 +4,7 @@ import { getProductById } from "@/lib/admin/store";
 import { EmptyState } from "@/components/ui/state";
 import { Button } from "@/components/ui/button";
 import { ProductForm } from "@/components/admin/product-form";
+import { UnsavedEditsNotice } from "@/components/admin/unsaved-edits-notice";
 
 interface EditProductPageProps {
   params: Promise<{ id: string }>;
@@ -33,6 +34,7 @@ export default async function EditProductPage({ params }: EditProductPageProps) 
     <div>
       <h1 className="text-h2">Edit product</h1>
       <p className="text-small mt-1">{product.name}</p>
+      <UnsavedEditsNotice />
       <div className="mt-6">
         <ProductForm product={product} />
       </div>

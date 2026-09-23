@@ -9,7 +9,9 @@ import {
   PackageX,
 } from "lucide-react";
 
-import { listProducts, listQuotes } from "@/lib/admin/store";
+import { listProducts } from "@/lib/admin/store";
+import { listQuotes } from "@/lib/admin/quotes";
+import { quoteCustomerLabel, quoteTitle, quoteTotal } from "@/lib/admin/format";
 import { StatCard } from "@/components/admin/stat-card";
 import { QuoteStatusBadge } from "@/components/admin/quote-status-badge";
 import { Button } from "@/components/ui/button";
@@ -17,16 +19,20 @@ import { formatPrice } from "@/lib/currency";
 
 export const metadata = { title: "Dashboard" };
 
-export default function AdminDashboardPage() {
+export default async function AdminDashboardPage() {
   const products = listProducts().filter((p) => !p.archived);
-  const quotes = listQuotes();
+  const quotes = await listQuotes();
   const today = new Date();
 
   const activeRentals = quotes.filter(
-    (q) => q.status === "confirmed" && new Date(q.startDate) <= today && new Date(q.endDate) >= today
+    (q) =>
+      q.status === "confirmed" &&
+      Boolean(q.startDate) &&
+      new Date(q.startDate) <= today &&
+      new Date(q.endDate) >= today
   );
   const upcomingRentals = quotes.filter(
-    (q) => q.status === "confirmed" && new Date(q.startDate) > today
+    (q) => q.status === "confirmed" && Boolean(q.startDate) && new Date(q.startDate) > today
   );
   const pendingQuotes = quotes.filter((q) => ["new", "reviewing", "quoted"].includes(q.status));
   const availableEquipment = products.filter((p) => p.availability === "available");
@@ -74,13 +80,14 @@ export default function AdminDashboardPage() {
                 className="flex items-center justify-between gap-4 p-4 text-sm hover:bg-secondary/40"
               >
                 <div className="min-w-0">
-                  <p className="truncate font-medium">{quote.customerName}</p>
+                  <p className="truncate font-medium">{quoteCustomerLabel(quote)}</p>
                   <p className="text-small mt-0.5 truncate">
-                    {quote.projectName} · {quote.projectType}
+                    {quoteTitle(quote)}
+                    {quote.projectType ? ` · ${quote.projectType}` : ""}
                   </p>
                 </div>
                 <div className="flex shrink-0 items-center gap-4">
-                  <span className="text-small">{formatPrice(quote.estimatedTotal)}</span>
+                  <span className="text-small">{quoteTotal(quote)}</span>
                   <QuoteStatusBadge status={quote.status} />
                 </div>
               </Link>

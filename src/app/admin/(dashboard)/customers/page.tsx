@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { listCustomers } from "@/lib/admin/store";
+import { listCustomers } from "@/lib/admin/quotes";
 import {
   Table,
   TableBody,
@@ -12,14 +12,14 @@ import {
 
 export const metadata = { title: "Customers" };
 
-export default function AdminCustomersPage() {
-  const customers = listCustomers();
+export default async function AdminCustomersPage() {
+  const customers = await listCustomers();
 
   return (
     <div>
       <h1 className="text-h2">Customers</h1>
       <p className="text-small mt-1">
-        {customers.length} customers, derived from submitted quotes.
+        {customers.length} customers, grouped by phone number from Send Kit orders.
       </p>
 
       <div className="mt-6 rounded-lg border border-border">
@@ -35,18 +35,18 @@ export default function AdminCustomersPage() {
           </TableHeader>
           <TableBody>
             {customers.map((customer) => (
-              <TableRow key={customer.email}>
+              <TableRow key={customer.key}>
                 <TableCell className="font-medium">
                   <Link
-                    href={`/admin/customers/${encodeURIComponent(customer.email)}`}
+                    href={`/admin/customers/${encodeURIComponent(customer.key)}`}
                     className="hover:text-brand"
                   >
-                    {customer.name}
+                    {customer.name || customer.phone || "Unnamed customer"}
                   </Link>
                 </TableCell>
                 <TableCell>{customer.company || "—"}</TableCell>
-                <TableCell>{customer.email}</TableCell>
-                <TableCell>{customer.phone}</TableCell>
+                <TableCell>{customer.email || "—"}</TableCell>
+                <TableCell>{customer.phone || "—"}</TableCell>
                 <TableCell>{customer.quotes.length}</TableCell>
               </TableRow>
             ))}

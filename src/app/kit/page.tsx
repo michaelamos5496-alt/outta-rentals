@@ -25,7 +25,7 @@ import { KitItemRow } from "@/components/kit/kit-item-row";
 import { RentalDates } from "@/components/kit/rental-dates";
 import { resolveKitLines } from "@/lib/kit/pricing";
 import { kitPresets } from "@/lib/placeholder-data";
-import { WhatsAppButton } from "@/components/quote/whatsapp-button";
+import { SendKitButton } from "@/components/kit/send-kit-button";
 import { checkKitAvailability, type KitAvailabilityResult } from "@/lib/catalogue/actions";
 
 function SectionLabel({ children }: { children: ReactNode }) {
@@ -150,6 +150,33 @@ export default function KitPage() {
 
           <Divider className="my-6" />
 
+          <SectionLabel>Your details</SectionLabel>
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-1.5">
+              <Label htmlFor="customer-name">Name</Label>
+              <Input
+                id="customer-name"
+                autoComplete="name"
+                placeholder="Ama Owusu"
+                value={projectInfo.customerName}
+                onChange={(e) => setProjectInfo({ customerName: e.target.value })}
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <Label htmlFor="customer-phone">Phone</Label>
+              <Input
+                id="customer-phone"
+                type="tel"
+                autoComplete="tel"
+                placeholder="024 123 4567"
+                value={projectInfo.customerPhone}
+                onChange={(e) => setProjectInfo({ customerPhone: e.target.value })}
+              />
+            </div>
+          </div>
+
+          <Divider className="my-6" />
+
           <SectionLabel>Project information</SectionLabel>
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-1.5">
@@ -192,15 +219,7 @@ export default function KitPage() {
           </div>
 
           <div className="mt-6 flex flex-col gap-2">
-            <WhatsAppButton
-              items={lines.map((l) => ({ name: l.product.name, quantity: l.quantity }))}
-              startDate={dateError ? undefined : startDate}
-              endDate={dateError ? undefined : endDate}
-              projectLabel={projectInfo.projectName || projectInfo.productionType}
-              notes={projectInfo.notes}
-              variant="default"
-              className="w-full"
-            />
+            <SendKitButton className="w-full" />
             <Button asChild variant="ghost" className="w-full">
               <Link href="/equipment">Continue browsing</Link>
             </Button>

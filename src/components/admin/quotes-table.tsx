@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/table";
 import { QuoteStatusBadge, quoteStatusLabels, quoteStatuses } from "@/components/admin/quote-status-badge";
 import type { AdminQuote } from "@/lib/admin/types";
-import { formatPrice } from "@/lib/currency";
+import { quoteCustomerLabel, quoteDateRange, quoteTitle, quoteTotal } from "@/lib/admin/format";
 
 function QuotesTable({ quotes }: { quotes: AdminQuote[] }) {
   const [query, setQuery] = React.useState("");
@@ -30,7 +30,7 @@ function QuotesTable({ quotes }: { quotes: AdminQuote[] }) {
   const filtered = quotes.filter((q) => {
     if (status !== "all" && q.status !== status) return false;
     if (!query.trim()) return true;
-    const haystack = `${q.customerName} ${q.projectName} ${q.customerEmail}`.toLowerCase();
+    const haystack = `${q.customerName} ${q.projectName} ${q.customerEmail} ${q.customerPhone}`.toLowerCase();
     return haystack.includes(query.trim().toLowerCase());
   });
 
@@ -39,7 +39,7 @@ function QuotesTable({ quotes }: { quotes: AdminQuote[] }) {
       <div className="flex flex-col gap-3 sm:flex-row">
         <SearchInput
           containerClassName="flex-1"
-          placeholder="Search by customer, project, email…"
+          placeholder="Search by customer, project, phone…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
@@ -81,21 +81,20 @@ function QuotesTable({ quotes }: { quotes: AdminQuote[] }) {
                 <TableRow key={quote.id} className="cursor-pointer">
                   <TableCell>
                     <Link href={`/admin/quotes/${quote.id}`} className="block hover:text-brand">
-                      <p className="font-medium">{quote.customerName}</p>
-                      <p className="text-meta mt-0.5">{quote.customerEmail}</p>
+                      <p className="font-medium">{quoteCustomerLabel(quote)}</p>
+                      <p className="text-meta mt-0.5">{quote.customerPhone || quote.customerEmail}</p>
                     </Link>
                   </TableCell>
                   <TableCell>
                     <Link href={`/admin/quotes/${quote.id}`} className="block">
-                      {quote.projectName}
+                      {quoteTitle(quote)}
                       <span className="text-meta ml-2">{quote.projectType}</span>
                     </Link>
                   </TableCell>
                   <TableCell>
-                    {new Date(quote.startDate).toLocaleDateString()} →{" "}
-                    {new Date(quote.endDate).toLocaleDateString()}
+                    {quoteDateRange(quote)}
                   </TableCell>
-                  <TableCell>{formatPrice(quote.estimatedTotal)}</TableCell>
+                  <TableCell>{quoteTotal(quote)}</TableCell>
                   <TableCell>
                     <QuoteStatusBadge status={quote.status} />
                   </TableCell>

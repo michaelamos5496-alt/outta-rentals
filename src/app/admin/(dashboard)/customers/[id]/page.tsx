@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-import { getCustomerByEmail } from "@/lib/admin/store";
+import { getCustomerByKey } from "@/lib/admin/quotes";
+import { quoteDateRange, quoteTitle, quoteTotal } from "@/lib/admin/format";
 import { EmptyState } from "@/components/ui/state";
 import { Button } from "@/components/ui/button";
 import { QuoteStatusBadge } from "@/components/admin/quote-status-badge";
-import { formatPrice } from "@/lib/currency";
 
 interface CustomerDetailPageProps {
   params: Promise<{ id: string }>;
@@ -14,8 +14,7 @@ export const metadata = { title: "Customer" };
 
 export default async function AdminCustomerDetailPage({ params }: CustomerDetailPageProps) {
   const { id } = await params;
-  const email = decodeURIComponent(id);
-  const customer = getCustomerByEmail(email);
+  const customer = await getCustomerByKey(decodeURIComponent(id));
 
   if (!customer) {
     return (
@@ -41,19 +40,19 @@ export default async function AdminCustomerDetailPage({ params }: CustomerDetail
           Customers
         </Link>
         <span className="mx-2 text-muted-foreground/50">/</span>
-        <span className="text-foreground">{customer.name}</span>
+        <span className="text-foreground">{customer.name || customer.phone || "Customer"}</span>
       </p>
-      <h1 className="text-h2">{customer.name}</h1>
+      <h1 className="text-h2">{customer.name || customer.phone || "Unnamed customer"}</h1>
       <p className="text-small mt-1">{customer.company}</p>
 
       <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
         <div className="rounded-lg border border-border p-3">
           <p className="text-label">Email</p>
-          <p className="mt-1 text-sm">{customer.email}</p>
+          <p className="mt-1 text-sm">{customer.email || "—"}</p>
         </div>
         <div className="rounded-lg border border-border p-3">
           <p className="text-label">Phone</p>
-          <p className="mt-1 text-sm">{customer.phone}</p>
+          <p className="mt-1 text-sm">{customer.phone || "—"}</p>
         </div>
         <div className="rounded-lg border border-border p-3">
           <p className="text-label">Total quotes</p>
@@ -65,7 +64,7 @@ export default async function AdminCustomerDetailPage({ params }: CustomerDetail
         <p className="text-label mb-3">
           Rental history
           <span className="ml-2 normal-case text-muted-foreground">
-            (confirmed/completed quotes — no orders system connected yet)
+            (confirmed and completed orders)
           </span>
         </p>
         {completedRentals.length === 0 ? (
@@ -78,11 +77,8 @@ export default async function AdminCustomerDetailPage({ params }: CustomerDetail
                 href={`/admin/quotes/${quote.id}`}
                 className="flex items-center justify-between p-3 text-sm hover:bg-secondary/40"
               >
-                <span>{quote.projectName}</span>
-                <span className="text-muted-foreground">
-                  {new Date(quote.startDate).toLocaleDateString()} →{" "}
-                  {new Date(quote.endDate).toLocaleDateString()}
-                </span>
+                <span>{quoteTitle(quote)}</span>
+                <span className="text-muted-foreground">{quoteDateRange(quote)}</span>
               </Link>
             ))}
           </div>
@@ -98,11 +94,9 @@ export default async function AdminCustomerDetailPage({ params }: CustomerDetail
               href={`/admin/quotes/${quote.id}`}
               className="flex items-center justify-between p-3 text-sm hover:bg-secondary/40"
             >
-              <span>{quote.projectName}</span>
+              <span>{quoteTitle(quote)}</span>
               <div className="flex items-center gap-3">
-                <span className="text-muted-foreground">
-                  {formatPrice(quote.estimatedTotal)}
-                </span>
+                <span className="text-muted-foreground">{quoteTotal(quote)}</span>
                 <QuoteStatusBadge status={quote.status} />
               </div>
             </Link>

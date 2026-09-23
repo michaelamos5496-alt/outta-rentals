@@ -364,36 +364,3 @@ export function addQuoteNote(id: string, text: string): AdminQuote | undefined {
   quote.notes.push({ id: generateId("note"), text: text.trim(), createdAt: new Date().toISOString() });
   return quote;
 }
-
-// --------------------------------------------------------------- Customers
-
-export interface AdminCustomerSummary {
-  name: string;
-  email: string;
-  phone: string;
-  company: string;
-  quotes: AdminQuote[];
-}
-
-export function listCustomers(): AdminCustomerSummary[] {
-  const byEmail = new Map<string, AdminCustomerSummary>();
-  for (const quote of getQuotesStore()) {
-    const existing = byEmail.get(quote.customerEmail);
-    if (existing) {
-      existing.quotes.push(quote);
-    } else {
-      byEmail.set(quote.customerEmail, {
-        name: quote.customerName,
-        email: quote.customerEmail,
-        phone: quote.customerPhone,
-        company: quote.customerCompany,
-        quotes: [quote],
-      });
-    }
-  }
-  return Array.from(byEmail.values()).sort((a, b) => a.name.localeCompare(b.name));
-}
-
-export function getCustomerByEmail(email: string): AdminCustomerSummary | undefined {
-  return listCustomers().find((c) => c.email === email);
-}
