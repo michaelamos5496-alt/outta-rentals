@@ -5,6 +5,8 @@ export const siteConfig = {
   description:
     "OUTTA RENTALS is a premium film, photography and production-equipment rental company.",
   instagramUrl: "https://www.instagram.com/outtarentals/",
+  location: "Mantse Boi St, Accra, Ghana",
+  mapsUrl: "https://maps.app.goo.gl/3YKMNyU5pUCgFWXs5",
 } as const;
 
 const whatsappDigits = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "").replace(/[^\d]/g, "");
@@ -59,7 +61,7 @@ export const footerLinkGroups: FooterLinkGroup[] = [
       { label: "Instagram", href: siteConfig.instagramUrl },
       { label: "WhatsApp", href: whatsappDigits ? `https://wa.me/${whatsappDigits}` : "#" },
       { label: "Email", href: "#" },
-      { label: "Location", href: "#" },
+      { label: "Location", href: siteConfig.mapsUrl },
     ],
   },
 ];

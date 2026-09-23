@@ -8,11 +8,12 @@ import { Divider } from "@/components/ui/divider";
 import { slideUp, staggerContainer } from "@/lib/motion";
 import { ContactForm } from "@/components/contact/contact-form";
 import { WhatsAppButton } from "@/components/quote/whatsapp-button";
+import { siteConfig } from "@/config/site";
 
-const infoRows = [
+const infoRows: { icon: typeof Mail; label: string; value: string; href?: string }[] = [
   { icon: Mail, label: "Email", value: "hello@outtarentals.com (placeholder)" },
   { icon: Phone, label: "Phone", value: "+000 000 0000 (placeholder)" },
-  { icon: MapPin, label: "Location", value: "City, Country (placeholder)" },
+  { icon: MapPin, label: "Location", value: siteConfig.location, href: siteConfig.mapsUrl },
   { icon: Clock, label: "Opening hours", value: "Mon–Sat, 8am–6pm (placeholder)" },
 ];
 
@@ -55,7 +56,18 @@ export default function ContactPage() {
                 <row.icon className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
                 <div>
                   <p className="text-label">{row.label}</p>
-                  <p className="text-small mt-0.5">{row.value}</p>
+                  {row.href ? (
+                    <a
+                      href={row.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-small mt-0.5 block underline-offset-4 hover:text-foreground hover:underline"
+                    >
+                      {row.value}
+                    </a>
+                  ) : (
+                    <p className="text-small mt-0.5">{row.value}</p>
+                  )}
                 </div>
               </div>
             ))}
