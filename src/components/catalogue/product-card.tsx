@@ -26,17 +26,13 @@ export interface ProductCardProps {
 }
 
 function ProductCard({ product, view = "grid", className }: ProductCardProps) {
-  const { addItem } = useKit();
-  const [added, setAdded] = React.useState(false);
+  const { addItem, items, openDrawer } = useKit();
+  // Stays "In Cart" for as long as the item is in the cart, so it can't be added twice by accident.
+  const added = items.some((i) => i.productSlug === product.slug);
   const href = `/equipment/${product.slug}`;
   const brand = getBrandBySlug(product.brandSlug);
   const category = getCategoryBySlug(product.categorySlug);
 
-  React.useEffect(() => {
-    if (!added) return;
-    const timeout = setTimeout(() => setAdded(false), 1600);
-    return () => clearTimeout(timeout);
-  }, [added]);
 
   if (view === "list") {
     return <ListProductCard product={product} className={className} />;
@@ -73,11 +69,11 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
 
       <button
         type="button"
-        aria-label={added ? "Added to kit" : "Add to kit"}
+        aria-label={added ? "In cart — view cart" : `Add ${product.name} to cart`}
         onClick={(e) => {
           e.preventDefault();
-          addItem(product.slug);
-          setAdded(true);
+          if (added) openDrawer();
+          else addItem(product.slug);
         }}
         className={cn(
           "absolute bottom-2 left-2 flex h-9 items-center gap-1 rounded-full pr-3.5 pl-2.5 text-xs font-bold transition-colors active:scale-95",
@@ -85,7 +81,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
         )}
       >
         {added ? <Check className="size-4" /> : <Plus className="size-4" />}
-        {added ? "Added" : "Add"}
+        {added ? "In Cart" : "Add to Cart"}
       </button>
     </article>
   );
@@ -98,17 +94,13 @@ function ListProductCard({
   product: DemoProduct;
   className?: string;
 }) {
-  const { addItem } = useKit();
-  const [added, setAdded] = React.useState(false);
+  const { addItem, items, openDrawer } = useKit();
+  // Stays "In Cart" for as long as the item is in the cart, so it can't be added twice by accident.
+  const added = items.some((i) => i.productSlug === product.slug);
   const brand = getBrandBySlug(product.brandSlug)?.name ?? product.brandSlug;
   const icon = getCategoryIcon(product.categorySlug);
   const href = `/equipment/${product.slug}`;
 
-  React.useEffect(() => {
-    if (!added) return;
-    const timeout = setTimeout(() => setAdded(false), 1600);
-    return () => clearTimeout(timeout);
-  }, [added]);
 
   return (
     <article className={cn("group/product flex flex-row gap-5", className)}>
@@ -145,12 +137,12 @@ function ListProductCard({
               variant={added ? "secondary" : "outline"}
               size="sm"
               onClick={() => {
-                addItem(product.slug);
-                setAdded(true);
+                if (added) openDrawer();
+                else addItem(product.slug);
               }}
             >
               {added ? <Check /> : <Plus />}
-              {added ? "Added" : "Add to Kit"}
+              {added ? "In Cart" : "Add to Cart"}
             </Button>
           </div>
         </div>

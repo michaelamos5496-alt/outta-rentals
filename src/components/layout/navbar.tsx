@@ -13,7 +13,7 @@ import {
   LoaderCircle,
   Mail,
   MessageCircle,
-  Package,
+  ShoppingCart,
   Plus,
   Search,
   X,
@@ -438,11 +438,11 @@ function Navbar() {
               <Button
                 variant="ghost"
                 size="icon"
-                aria-label="Kit list"
+                aria-label="Cart"
                 onClick={openDrawer}
                 className="relative text-brand-foreground hover:bg-brand-foreground/10 hover:text-brand-foreground"
               >
-                <Package />
+                <ShoppingCart />
                 {hydrated && itemCount > 0 ? (
                   <span className="absolute top-1 right-1 flex size-3.5 items-center justify-center rounded-full border border-brand bg-brand-foreground text-[0.5625rem] font-medium text-brand">
                     {itemCount > 9 ? "9+" : itemCount}
@@ -543,7 +543,7 @@ function Navbar() {
                     openDrawer();
                   }}
                 >
-                  <Package /> Kit
+                  <ShoppingCart /> Cart
                   {hydrated && itemCount > 0 ? (
                     <span className="absolute -top-2 -right-2 flex size-5 items-center justify-center rounded-full border border-background bg-brand text-[0.6875rem] font-medium text-brand-foreground">
                       {itemCount > 9 ? "9+" : itemCount}

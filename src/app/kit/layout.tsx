@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Your Kit",
-  description: "Review and manage the equipment kit you've put together with OUTTA RENTALS.",
+  title: "Your Cart",
+  description: "Review and manage the equipment in your OUTTA RENTALS cart.",
   robots: { index: false, follow: true },
 };
 

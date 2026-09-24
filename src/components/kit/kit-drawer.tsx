@@ -20,7 +20,7 @@ function KitDrawer() {
     <Drawer open={drawerOpen} onOpenChange={(open) => (open ? openDrawer() : closeDrawer())}>
       <DrawerContent className="overflow-y-auto sm:max-w-md">
         <DrawerHeader>
-          <DrawerTitle>Your kit{itemCount > 0 ? ` · ${itemCount} item${itemCount === 1 ? "" : "s"}` : ""}</DrawerTitle>
+          <DrawerTitle>Your cart{itemCount > 0 ? ` · ${itemCount} item${itemCount === 1 ? "" : "s"}` : ""}</DrawerTitle>
         </DrawerHeader>
         <div className="flex flex-1 flex-col px-4 pb-6">
           <KitSummary
@@ -34,7 +34,7 @@ function KitDrawer() {
               <div className="mt-3 flex flex-col gap-2">
                 <SendKitButton className="w-full" hint />
                 <Button asChild variant="outline" className="w-full" onClick={closeDrawer}>
-                  <Link href="/kit">View full kit</Link>
+                  <Link href="/kit">View full cart</Link>
                 </Button>
               </div>
             }

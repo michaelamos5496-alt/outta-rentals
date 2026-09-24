@@ -14,14 +14,10 @@ export interface ProductActionsProps {
 
 function ProductActions({ productSlug, productName }: ProductActionsProps) {
   const router = useRouter();
-  const { addItem } = useKit();
-  const [added, setAdded] = React.useState(false);
+  const { addItem, items, openDrawer } = useKit();
+  // Stays "In Cart" for as long as the item is in the cart, so it can't be added twice by accident.
+  const added = items.some((i) => i.productSlug === productSlug);
 
-  React.useEffect(() => {
-    if (!added) return;
-    const timeout = setTimeout(() => setAdded(false), 1800);
-    return () => clearTimeout(timeout);
-  }, [added]);
 
   return (
     <div className="flex flex-col gap-3 sm:flex-row">
@@ -30,19 +26,19 @@ function ProductActions({ productSlug, productName }: ProductActionsProps) {
         variant={added ? "secondary" : "default"}
         className="flex-1"
         onClick={() => {
-          addItem(productSlug);
-          setAdded(true);
+          if (added) openDrawer();
+          else addItem(productSlug);
         }}
       >
         {added ? <Check /> : <Plus />}
-        {added ? `${productName} added` : "Add to Kit"}
+        {added ? "In Cart — view cart" : "Add to Cart"}
       </Button>
       <Button
         size="lg"
         variant="outline"
         className="flex-1"
         onClick={() => {
-          addItem(productSlug);
+          addItem(productSlug, 1, { silent: true });
           router.push("/kit");
         }}
       >

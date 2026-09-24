@@ -27,15 +27,11 @@ function EquipmentUsedItem({
   productSlug: string;
   quantity: number;
 }) {
-  const { addItem } = useKit();
-  const [added, setAdded] = React.useState(false);
+  const { addItem, items, openDrawer } = useKit();
+  // Stays "In Cart" for as long as the item is in the cart, so it can't be added twice by accident.
+  const added = items.some((i) => i.productSlug === productSlug);
   const product = getProductBySlug(productSlug);
 
-  React.useEffect(() => {
-    if (!added) return;
-    const timeout = setTimeout(() => setAdded(false), 1600);
-    return () => clearTimeout(timeout);
-  }, [added]);
 
   if (!product) return null;
 
@@ -51,12 +47,12 @@ function EquipmentUsedItem({
         variant={added ? "secondary" : "outline"}
         size="sm"
         onClick={() => {
-          addItem(product.slug, quantity);
-          setAdded(true);
+          if (added) openDrawer();
+          else addItem(product.slug, quantity);
         }}
       >
         {added ? <Check /> : <Plus />}
-        {added ? "Added" : "Add to Kit"}
+        {added ? "In Cart" : "Add to Cart"}
       </Button>
     </div>
   );

@@ -52,7 +52,7 @@ function PackageBuilder({ pkg }: PackageBuilderProps) {
   function handleAddPackage() {
     activeLines
       .filter((l) => l.line.active)
-      .forEach((l) => addItem(l.product.slug, l.line.quantity));
+      .forEach((l) => addItem(l.product.slug, l.line.quantity, { silent: true }));
     setAdded(true);
     router.push("/kit");
   }
@@ -160,7 +160,7 @@ function PackageBuilder({ pkg }: PackageBuilderProps) {
           disabled={activeCount === 0}
           onClick={handleAddPackage}
         >
-          <Package /> {added ? "Added" : "Add Entire Package to Kit"}
+          <Package /> {added ? "Added" : "Add Entire Package to Cart"}
         </Button>
       </div>
     </div>

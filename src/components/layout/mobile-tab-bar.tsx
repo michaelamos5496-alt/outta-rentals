@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Menu, MessageCircle, Package, Video } from "lucide-react";
+import { Home, Menu, MessageCircle, ShoppingCart, Video } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { categories } from "@/lib/catalogue";
@@ -24,7 +24,7 @@ function MobileTabBar() {
     ? pathname.split("/")[2]
     : undefined;
   const isProductPage = equipmentSegment && !categories.some((c) => c.slug === equipmentSegment);
-  if (isProductPage || pathname?.startsWith("/admin")) return null;
+  if (isProductPage || pathname?.startsWith("/admin") || pathname === "/kit") return null;
 
   const whatsappLink = getWhatsAppLink({
     heading: "OUTTA RENTALS — ENQUIRY",
@@ -60,7 +60,7 @@ function MobileTabBar() {
 
         <a
           href={whatsappLink ?? "/kit"}
-          aria-label={whatsappLink ? "Message OUTTA on WhatsApp" : "View your kit"}
+          aria-label={whatsappLink ? "Message OUTTA on WhatsApp" : "View your cart"}
           target={whatsappLink ? "_blank" : undefined}
           rel={whatsappLink ? "noopener noreferrer" : undefined}
           className="-mt-5 flex flex-col items-center gap-1"
@@ -72,12 +72,12 @@ function MobileTabBar() {
 
         <button
           type="button"
-          aria-label="Open kit"
+          aria-label="Open cart"
           onClick={openDrawer}
           className="relative flex flex-col items-center gap-1 py-1 text-[0.625rem] font-medium tracking-wide text-muted-foreground uppercase"
         >
-          <Package className="size-5" strokeWidth={1.75} />
-          Kit
+          <ShoppingCart className="size-5" strokeWidth={1.75} />
+          Cart
           {hydrated && itemCount > 0 ? (
             <span className="absolute -top-0.5 right-1/2 translate-x-3.5 flex size-3.5 items-center justify-center rounded-full border border-background bg-brand text-[0.5625rem] font-medium text-brand-foreground">
               {itemCount > 9 ? "9+" : itemCount}

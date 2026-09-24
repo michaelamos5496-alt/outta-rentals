@@ -16,7 +16,12 @@ export interface KitContextValue {
   projectInfo: ProjectInfo;
   drawerOpen: boolean;
   hydrated: boolean;
-  addItem: (productSlug: string, quantity?: number) => void;
+  /** The most recent add-to-cart, for the "Added to cart" confirmation sheet. */
+  lastAdded: { slug: string; id: number } | null;
+  addedSheetOpen: boolean;
+  /** `silent` skips the confirmation sheet — for flows that go straight to the cart. */
+  addItem: (productSlug: string, quantity?: number, options?: { silent?: boolean }) => void;
+  dismissLastAdded: () => void;
   removeItem: (productSlug: string) => void;
   setQuantity: (productSlug: string, quantity: number) => void;
   clearKit: () => void;
@@ -33,6 +38,8 @@ export function KitProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = React.useState<KitState>(getDefaultKitState);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [hydrated, setHydrated] = React.useState(false);
+  const [lastAdded, setLastAdded] = React.useState<{ slug: string; id: number } | null>(null);
+  const [addedSheetOpen, setAddedSheetOpen] = React.useState(false);
 
   // Load any persisted kit once, after mount, to avoid an SSR/client
   // hydration mismatch (localStorage doesn't exist on the server). This is
@@ -51,7 +58,12 @@ export function KitProvider({ children }: { children: React.ReactNode }) {
     saveKit(state);
   }, [state, hydrated]);
 
-  const addItem = React.useCallback((productSlug: string, quantity = 1) => {
+  const addItem = React.useCallback(
+    (productSlug: string, quantity = 1, options?: { silent?: boolean }) => {
+    if (!options?.silent) {
+      setLastAdded((prev) => ({ slug: productSlug, id: (prev?.id ?? 0) + 1 }));
+      setAddedSheetOpen(true);
+    }
     setState((s) => {
       const existing = s.items.find((i) => i.productSlug === productSlug);
       const items = existing
@@ -61,7 +73,11 @@ export function KitProvider({ children }: { children: React.ReactNode }) {
         : [...s.items, { productSlug, quantity }];
       return { ...s, items };
     });
-  }, []);
+    },
+    []
+  );
+
+  const dismissLastAdded = React.useCallback(() => setAddedSheetOpen(false), []);
 
   const removeItem = React.useCallback((productSlug: string) => {
     setState((s) => ({ ...s, items: s.items.filter((i) => i.productSlug !== productSlug) }));
@@ -106,7 +122,10 @@ export function KitProvider({ children }: { children: React.ReactNode }) {
     projectInfo: state.projectInfo,
     drawerOpen,
     hydrated,
+    lastAdded,
+    addedSheetOpen,
     addItem,
+    dismissLastAdded,
     removeItem,
     setQuantity,
     clearKit,

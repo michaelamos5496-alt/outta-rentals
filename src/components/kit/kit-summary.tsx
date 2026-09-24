@@ -27,7 +27,7 @@ function KitSummary({ compact = false, showDates = true, emptyAction, footer }: 
     return (
       <EmptyState
         icon={Package}
-        title="Your kit is empty"
+        title="Your cart is empty"
         description="Add equipment while you browse — it'll show up here."
         action={emptyAction}
       />
@@ -61,7 +61,7 @@ function KitSummary({ compact = false, showDates = true, emptyAction, footer }: 
 
       <div className="flex items-center justify-between gap-3">
         <Button variant="link" size="sm" className="h-auto p-0 text-muted-foreground" onClick={clearKit}>
-          Clear kit
+          Clear cart
         </Button>
         {!footer ? (
           <Button asChild variant="outline" size="sm">

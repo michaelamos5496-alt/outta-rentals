@@ -43,13 +43,13 @@ export default function KitPage() {
   if (items.length === 0) {
     return (
       <Section>
-        <Heading level="h1" eyebrow="Kit">
-          Your kit
+        <Heading level="h1" eyebrow="Cart">
+          Your cart
         </Heading>
         <div className="mt-10">
           <EmptyState
             icon={Package}
-            title="Your kit is empty"
+            title="Your cart is empty"
             description="Browse the catalogue and add equipment — it'll show up here, ready for dates and a quote."
             action={
               <Button asChild variant="outline">
@@ -63,13 +63,13 @@ export default function KitPage() {
   }
 
   return (
-    <Section>
+    <Section className="pb-32 lg:pb-0">
       <div className="flex items-start justify-between gap-4">
-        <Heading level="h1" eyebrow="Kit">
-          Your kit
+        <Heading level="h1" eyebrow="Cart">
+          Your cart
         </Heading>
         <Button variant="link" size="sm" className="h-auto p-0 text-muted-foreground" onClick={clearKit}>
-          Clear kit
+          Clear cart
         </Button>
       </div>
 
@@ -95,7 +95,7 @@ export default function KitPage() {
                 ) : unavailable.length === 0 && results.length > 0 ? (
                   <p className="flex items-center gap-2.5 text-sm">
                     <CheckCircle2 className="size-4 shrink-0 text-brand" />
-                    Everything in your kit is available for these dates.
+                    Everything in your cart is available for these dates.
                   </p>
                 ) : (
                   unavailable.map((result) => (
@@ -109,7 +109,7 @@ export default function KitPage() {
                             ? `— only ${result.availableQuantity} available for these dates.`
                             : "— already booked for these dates."}{" "}
                         <span className="text-muted-foreground">
-                          Remove it or choose different dates to send your kit.
+                          Remove it or choose different dates to check out.
                         </span>
                       </span>
                     </p>
@@ -120,7 +120,7 @@ export default function KitPage() {
           </div>
         </div>
 
-        <aside className="h-fit border border-border p-6 lg:sticky lg:top-24">
+        <aside id="checkout-details" className="h-fit scroll-mt-24 border border-border p-6 lg:sticky lg:top-24">
           <p className="text-meta">
             Pricing on request — OUTTA will confirm rates in your quote.
           </p>
@@ -202,6 +202,28 @@ export default function KitPage() {
             </Button>
           </div>
         </aside>
+      </div>
+
+      {/* Mobile: sticky checkout bar, like Amazon / B&H. */}
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur-md lg:hidden">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-sm font-medium">
+              {itemCount} item{itemCount === 1 ? "" : "s"}
+            </p>
+            <p className="text-meta">Pricing confirmed in your quote</p>
+          </div>
+          <Button
+            size="lg"
+            onClick={() =>
+              document
+                .getElementById("checkout-details")
+                ?.scrollIntoView({ behavior: "smooth", block: "start" })
+            }
+          >
+            Proceed to Checkout
+          </Button>
+        </div>
       </div>
     </Section>
   );

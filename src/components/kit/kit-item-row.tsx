@@ -46,7 +46,7 @@ function KitItemRow({ line }: KitItemRowProps) {
           <Button
             variant="ghost"
             size="icon-sm"
-            aria-label={`Remove ${product.name} from kit`}
+            aria-label={`Remove ${product.name} from cart`}
             onClick={() => removeItem(product.slug)}
             className="shrink-0 text-muted-foreground hover:text-destructive"
           >

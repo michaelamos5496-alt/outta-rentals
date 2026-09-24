@@ -15,14 +15,10 @@ export interface MobileStickyRentProps {
 // its existing inline `ProductActions` untouched (this renders `lg:hidden`).
 function MobileStickyRent({ productSlug }: MobileStickyRentProps) {
   const router = useRouter();
-  const { addItem } = useKit();
-  const [added, setAdded] = React.useState(false);
+  const { addItem, items, openDrawer } = useKit();
+  // Stays "In Cart" for as long as the item is in the cart, so it can't be added twice by accident.
+  const added = items.some((i) => i.productSlug === productSlug);
 
-  React.useEffect(() => {
-    if (!added) return;
-    const timeout = setTimeout(() => setAdded(false), 1400);
-    return () => clearTimeout(timeout);
-  }, [added]);
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-background/95 px-5 py-3 backdrop-blur-md lg:hidden">
@@ -32,19 +28,19 @@ function MobileStickyRent({ productSlug }: MobileStickyRentProps) {
           <Button
             variant={added ? "secondary" : "outline"}
             size="lg"
-            aria-label="Add to kit"
+            aria-label={added ? "In cart — view cart" : "Add to cart"}
             onClick={() => {
-              addItem(productSlug);
-              setAdded(true);
+              if (added) openDrawer();
+              else addItem(productSlug);
             }}
           >
             {added ? <Check /> : <Plus />}
-            {added ? "Added" : "Add to Kit"}
+            {added ? "In Cart" : "Add to Cart"}
           </Button>
           <Button
             size="lg"
             onClick={() => {
-              addItem(productSlug);
+              addItem(productSlug, 1, { silent: true });
               router.push("/kit");
             }}
           >
