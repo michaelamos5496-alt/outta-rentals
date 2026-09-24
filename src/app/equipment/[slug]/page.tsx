@@ -19,6 +19,7 @@ import { BookedDates } from "@/components/catalogue/booked-dates";
 import { getRecommendedForShoot } from "@/lib/packages";
 import { absoluteUrl, SITE_NAME } from "@/lib/seo";
 import { workProjects } from "@/lib/content/work";
+import { showWorkSection } from "@/config/site";
 import { Container } from "@/components/ui/container";
 import { Badge } from "@/components/ui/badge";
 import { ProductGallery } from "@/components/catalogue/product-gallery";
@@ -81,7 +82,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
     (p) => !alreadyShown.has(p.slug)
   );
   const related = getRelatedProducts(product);
-  const shotWithThis = workProjects.find((p) =>
+  const shotWithThis = !showWorkSection
+    ? undefined
+    : workProjects.find((p) =>
     p.equipmentUsed.some((e) => e.productSlug === product.slug)
   );
 

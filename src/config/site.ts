@@ -11,6 +11,14 @@ export const siteConfig = {
 
 const whatsappDigits = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "").replace(/[^\d]/g, "");
 
+/**
+ * The Work section (homepage showcase, /work, "Shot with this gear" links)
+ * still holds sample projects. Hidden everywhere until real productions are
+ * added to src/lib/content/work.ts and src/lib/placeholder-data.ts — then
+ * set this to true.
+ */
+export const showWorkSection = false;
+
 export interface NavItem {
   label: string;
   href: string;
@@ -22,7 +30,7 @@ export const primaryNav: NavItem[] = [
   { label: "Work", href: "/work" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
-];
+].filter((item) => showWorkSection || item.href !== "/work");
 
 export interface FooterLinkGroup {
   title: string;
@@ -51,7 +59,7 @@ export const footerLinkGroups: FooterLinkGroup[] = [
     title: "Company",
     links: [
       { label: "About", href: "/about" },
-      { label: "Work", href: "/work" },
+      ...(showWorkSection ? [{ label: "Work", href: "/work" }] : []),
       { label: "Contact", href: "/contact" },
     ],
   },

@@ -3,6 +3,7 @@ import { FeaturedEquipment } from "@/components/sections/featured-equipment";
 import { CategoryExperience } from "@/components/sections/category-experience";
 import { WhyOutta } from "@/components/sections/why-outta";
 import { WorkShowcase } from "@/components/sections/work-showcase";
+import { showWorkSection } from "@/config/site";
 import { Services } from "@/components/sections/services";
 import { FinalCta } from "@/components/sections/final-cta";
 import { fetchAllProducts } from "@/lib/catalogue/db";
@@ -81,7 +82,7 @@ export default async function Home() {
       <Hero products={spotlightProducts} />
       <CategoryExperience products={products} />
       <FeaturedEquipment packages={featuredPackages} />
-      <WorkShowcase />
+      {showWorkSection ? <WorkShowcase /> : null}
       <WhyOutta />
       <Services />
       <FinalCta />

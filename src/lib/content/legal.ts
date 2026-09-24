@@ -15,8 +15,8 @@ export interface LegalDocument {
  * Standard-form legal content for a production-equipment rental business.
  * Structurally complete, but written as a starting template — OUTTA should
  * have it reviewed by a lawyer familiar with Ghanaian law before treating
- * it as binding, and fill in the placeholders (registered entity name,
- * address, dispute jurisdiction) marked below.
+ * it as binding, and add its registered entity name and address (Terms §1)
+ * and a specific court venue (Terms, governing law) once confirmed.
  */
 
 export const termsOfService: LegalDocument = {
@@ -29,7 +29,7 @@ export const termsOfService: LegalDocument = {
     {
       heading: "1. Who we are",
       body: [
-        "OUTTA RENTALS (\"OUTTA\", \"we\", \"us\") is a production-equipment rental business [registered entity name and address to be added] operating in Ghana.",
+        "OUTTA RENTALS (\"OUTTA\", \"we\", \"us\") is a production-equipment rental business operating in Ghana.",
         "References to \"you\" mean the individual or organization requesting or renting equipment from OUTTA.",
       ],
     },
@@ -75,7 +75,7 @@ export const termsOfService: LegalDocument = {
     {
       heading: "8. Governing law",
       body: [
-        "These Terms are governed by the laws of Ghana. Disputes arising from your use of this website are subject to the exclusive jurisdiction of the courts of Ghana, [specific venue to be confirmed].",
+        "These Terms are governed by the laws of Ghana. Disputes arising from your use of this website are subject to the exclusive jurisdiction of the courts of Ghana.",
       ],
     },
     {

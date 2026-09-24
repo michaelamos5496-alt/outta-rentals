@@ -22,7 +22,7 @@ import gsap from "gsap";
 
 import { cn } from "@/lib/utils";
 import { duration, easeOutta } from "@/lib/motion";
-import { siteConfig, type NavItem } from "@/config/site";
+import { showWorkSection, siteConfig, type NavItem } from "@/config/site";
 import { availabilityLabels, availabilityVariant } from "@/lib/catalogue";
 import { searchCatalogueAction, type CatalogueSearchResult } from "@/lib/catalogue/actions";
 import { Container } from "@/components/ui/container";
@@ -162,7 +162,7 @@ const equipmentTabs: EquipmentTab[] = [
 // below is untouched.
 const fabItems: (NavItem & { icon: React.ComponentType<{ className?: string; strokeWidth?: number }> })[] = [
   { label: "Services", href: "/services", icon: Briefcase },
-  { label: "Work", href: "/work", icon: Clapperboard },
+  ...(showWorkSection ? [{ label: "Work", href: "/work", icon: Clapperboard }] : []),
   { label: "About", href: "/about", icon: Info },
   { label: "Contact", href: "/contact", icon: Mail },
 ];
@@ -299,13 +299,17 @@ const mobileNavGroups: { title: string; items: NavItem[] }[] = [
       ...equipmentTabs.map((tab) => ({ label: tab.label, href: tab.href })),
     ],
   },
-  {
-    title: "Explore",
-    items: [
-      { label: "Productions", href: "/work" },
-      { label: "Shot With This Gear", href: "/work" },
-    ],
-  },
+  ...(showWorkSection
+    ? [
+        {
+          title: "Explore",
+          items: [
+            { label: "Productions", href: "/work" },
+            { label: "Shot With This Gear", href: "/work" },
+          ],
+        },
+      ]
+    : []),
   {
     title: "About",
     items: [

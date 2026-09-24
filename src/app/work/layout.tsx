@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+
+import { showWorkSection } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Our Work",
@@ -7,5 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default function WorkLayout({ children }: { children: React.ReactNode }) {
+  // Sample projects only for now — see showWorkSection in src/config/site.ts.
+  if (!showWorkSection) notFound();
   return children;
 }

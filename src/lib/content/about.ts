@@ -12,7 +12,7 @@ export const aboutSections: AboutSection[] = [
   {
     eyebrow: "Who We Are",
     title: "A production-equipment partner, not just a rental counter.",
-    body: "OUTTA RENTALS exists to get the right equipment into the right hands, with the technical grounding to back it up. Placeholder — full company profile to be added.",
+    body: "OUTTA RENTALS exists to get the right equipment into the right hands, with the technical grounding to back it up.",
   },
   {
     eyebrow: "What We Believe",
