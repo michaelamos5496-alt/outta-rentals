@@ -19,6 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { DeleteOrderButton } from "@/components/admin/delete-order-button";
 import { QuoteStatusBadge, quoteStatusLabels, quoteStatuses } from "@/components/admin/quote-status-badge";
 import type { AdminQuote, AdminQuoteStatus } from "@/lib/admin/types";
 import {
@@ -79,12 +80,15 @@ function QuotesTable({
               <TableHead>Dates</TableHead>
               <TableHead>Total</TableHead>
               <TableHead>Status</TableHead>
+              <TableHead className="w-10">
+                <span className="sr-only">Delete</span>
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {filtered.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={5} className="text-small py-8 text-center">
+                <TableCell colSpan={6} className="text-small py-8 text-center">
                   No quotes match.
                 </TableCell>
               </TableRow>
@@ -109,6 +113,14 @@ function QuotesTable({
                   <TableCell>{quoteTotal(quote)}</TableCell>
                   <TableCell>
                     <QuoteStatusBadge status={quote.status} />
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <DeleteOrderButton
+                      compact
+                      id={quote.id}
+                      confirmed={quote.status === "confirmed"}
+                      label={quoteCustomerLabel(quote)}
+                    />
                   </TableCell>
                 </TableRow>
               ))

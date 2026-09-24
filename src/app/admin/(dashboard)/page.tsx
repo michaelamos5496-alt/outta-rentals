@@ -23,6 +23,7 @@ import { StatCard } from "@/components/admin/stat-card";
 import { RentalAlertsPanel } from "@/components/admin/rental-alerts-panel";
 import { rentalAlerts } from "@/lib/admin/rental";
 import { QuoteStatusBadge } from "@/components/admin/quote-status-badge";
+import { DeleteOrderButton } from "@/components/admin/delete-order-button";
 import { Button } from "@/components/ui/button";
 
 export const metadata = { title: "Dashboard" };
@@ -95,19 +96,26 @@ export default async function AdminDashboardPage() {
               <p className="text-small p-4">Nothing yet. Send Kit requests from the website appear here.</p>
             ) : (
               quotes.slice(0, 6).map((quote) => (
-                <Link
-                  key={quote.id}
-                  href={quoteHref(quote)}
-                  className="flex items-center justify-between gap-4 p-4 text-sm hover:bg-secondary/40"
-                >
-                  <div className="min-w-0">
-                    <p className="truncate font-medium">{quoteCustomerLabel(quote)}</p>
-                    <p className="text-small mt-0.5 truncate">
-                      {quoteTitle(quote)} · {quoteDateRange(quote)}
-                    </p>
-                  </div>
-                  <QuoteStatusBadge status={quote.status} />
-                </Link>
+                <div key={quote.id} className="flex items-center gap-2 pr-2 hover:bg-secondary/40">
+                  <Link
+                    href={quoteHref(quote)}
+                    className="flex min-w-0 flex-1 items-center justify-between gap-4 p-4 text-sm"
+                  >
+                    <div className="min-w-0">
+                      <p className="truncate font-medium">{quoteCustomerLabel(quote)}</p>
+                      <p className="text-small mt-0.5 truncate">
+                        {quoteTitle(quote)} · {quoteDateRange(quote)}
+                      </p>
+                    </div>
+                    <QuoteStatusBadge status={quote.status} />
+                  </Link>
+                  <DeleteOrderButton
+                    compact
+                    id={quote.id}
+                    confirmed={quote.status === "confirmed"}
+                    label={quoteCustomerLabel(quote)}
+                  />
+                </div>
               ))
             )}
           </div>

@@ -21,10 +21,17 @@ function DeleteOrderButton({
   id,
   confirmed,
   backHref,
+  label,
+  compact = false,
 }: {
   id: string;
   confirmed: boolean;
-  backHref: string;
+  /** Where to go after deleting (from the order's own page); omit to stay on a list. */
+  backHref?: string;
+  /** Names the order in the icon button's accessible label. */
+  label?: string;
+  /** Icon-only button for list rows. */
+  compact?: boolean;
 }) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
@@ -37,7 +44,8 @@ function DeleteOrderButton({
     const ok = await deleteQuoteAction(id).catch(() => false);
     if (ok) {
       setOpen(false);
-      router.push(backHref);
+      setDeleting(false);
+      if (backHref) router.push(backHref);
       router.refresh();
     } else {
       setError("Couldn't delete the order. Please try again.");
@@ -47,17 +55,34 @@ function DeleteOrderButton({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button
-        variant="ghost"
-        size="sm"
-        className="w-full justify-start text-destructive hover:bg-destructive/10 hover:text-destructive"
-        onClick={() => setOpen(true)}
-      >
-        <Trash2 /> Delete order
-      </Button>
+      {compact ? (
+        <Button
+          variant="ghost"
+          size="icon-sm"
+          aria-label={label ? `Delete ${label}` : "Delete"}
+          title="Delete"
+          className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setOpen(true);
+          }}
+        >
+          <Trash2 />
+        </Button>
+      ) : (
+        <Button
+          variant="ghost"
+          size="sm"
+          className="w-full justify-start text-destructive hover:bg-destructive/10 hover:text-destructive"
+          onClick={() => setOpen(true)}
+        >
+          <Trash2 /> Delete order
+        </Button>
+      )}
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Delete this order?</DialogTitle>
+          <DialogTitle>Delete {label ? `“${label}”` : "this order"}?</DialogTitle>
           <DialogDescription>
             It will be removed permanently, with its notes
             {confirmed ? ", and its booked dates will become available again" : ""}. This can&rsquo;t be

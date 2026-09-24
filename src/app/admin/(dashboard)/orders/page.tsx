@@ -6,6 +6,7 @@ import { isOrder, quoteCustomerLabel, quoteDateRange, quoteHref, quoteTitle } fr
 import { rentalStage, type RentalStage } from "@/lib/admin/rental";
 import { todayIso } from "@/lib/kit/rental";
 import { EmptyState } from "@/components/ui/state";
+import { DeleteOrderButton } from "@/components/admin/delete-order-button";
 import {
   Table,
   TableBody,
@@ -103,6 +104,9 @@ export default async function AdminOrdersPage({
                   <TableHead>Equipment</TableHead>
                   <TableHead>Dates</TableHead>
                   <TableHead>Stage</TableHead>
+                  <TableHead className="w-10">
+                    <span className="sr-only">Delete</span>
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -132,6 +136,14 @@ export default async function AdminOrdersPage({
                         >
                           {stageLabels[stage]}
                         </span>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <DeleteOrderButton
+                          compact
+                          id={quote.id}
+                          confirmed={quote.status === "confirmed"}
+                          label={quoteCustomerLabel(quote)}
+                        />
                       </TableCell>
                     </TableRow>
                   );
