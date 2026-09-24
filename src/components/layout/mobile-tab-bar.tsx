@@ -12,7 +12,7 @@ import { useKit } from "@/components/kit/kit-provider";
 import { useMobileNav } from "@/components/layout/mobile-nav-provider";
 
 // Persistent bottom app-bar for mobile — modeled on MCB Rentals' mobile tab
-// bar (Home / Equipment / WhatsApp / Cart / More), reskinned in OUTTA's dark
+// bar (Home / Equipment / Cart / WhatsApp / More), reskinned in OUTTA's dark
 // + brand-green language. Hidden on product detail pages, which already
 // have their own sticky Rent Now bar in the same screen real estate.
 function MobileTabBar() {
@@ -58,32 +58,32 @@ function MobileTabBar() {
           Equipment
         </Link>
 
-        <a
-          href={whatsappLink ?? "/kit"}
-          aria-label={whatsappLink ? "Message OUTTA on WhatsApp" : "View your cart"}
-          target={whatsappLink ? "_blank" : undefined}
-          rel={whatsappLink ? "noopener noreferrer" : undefined}
-          className="-mt-5 flex flex-col items-center gap-1"
-        >
-          <span className="flex size-12 items-center justify-center rounded-full bg-brand text-brand-foreground shadow-md">
-            <MessageCircle className="size-5" strokeWidth={1.75} />
-          </span>
-        </a>
-
         <button
           type="button"
-          aria-label="Open cart"
+          aria-label={itemCount > 0 ? `Open cart, ${itemCount} item${itemCount === 1 ? "" : "s"}` : "Open cart"}
           onClick={openDrawer}
-          className="relative flex flex-col items-center gap-1 py-1 text-[0.625rem] font-medium tracking-wide text-muted-foreground uppercase"
+          className="relative -mt-5 flex flex-col items-center gap-1"
         >
-          <ShoppingCart className="size-5" strokeWidth={1.75} />
-          Cart
+          <span className="flex size-12 items-center justify-center rounded-full bg-brand text-brand-foreground shadow-md active:scale-95">
+            <ShoppingCart className="size-5" strokeWidth={1.75} />
+          </span>
           {hydrated && itemCount > 0 ? (
-            <span className="absolute -top-0.5 right-1/2 translate-x-3.5 flex size-3.5 items-center justify-center rounded-full border border-background bg-brand text-[0.5625rem] font-medium text-brand-foreground">
+            <span className="absolute -top-1 right-1/2 flex size-5 translate-x-6 items-center justify-center rounded-full border-2 border-background bg-foreground text-[0.625rem] font-bold text-background">
               {itemCount > 9 ? "9+" : itemCount}
             </span>
           ) : null}
         </button>
+
+        <a
+          href={whatsappLink ?? "/contact"}
+          aria-label="Message OUTTA on WhatsApp"
+          target={whatsappLink ? "_blank" : undefined}
+          rel={whatsappLink ? "noopener noreferrer" : undefined}
+          className="flex flex-col items-center gap-1 py-1 text-[0.625rem] font-medium tracking-wide text-muted-foreground uppercase"
+        >
+          <MessageCircle className="size-5" strokeWidth={1.75} />
+          WhatsApp
+        </a>
 
         <button
           type="button"
