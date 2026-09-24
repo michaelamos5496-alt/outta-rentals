@@ -7,7 +7,7 @@ export const revalidate = 60; // seconds — keep inventory reasonably fresh onc
 
 export const metadata: Metadata = {
   title: "Grip",
-  description: "Support, stabilization and rigging.",
+  description: "Tripods, gimbals, jibs, sliders, stands and camera support.",
 };
 
 export default async function GripPage() {

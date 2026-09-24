@@ -160,9 +160,7 @@ function PackageBuilder({ pkg }: PackageBuilderProps) {
           <p className="text-sm">
             {activeCount} item{activeCount === 1 ? "" : "s"} in this package
           </p>
-          <p className="text-meta mt-0.5">
-            {dailyTotal}/day — estimate, final quote confirmed by OUTTA.
-          </p>
+          <p className="text-meta mt-0.5">{dailyTotal}/day</p>
         </div>
         <Button
           size="lg"

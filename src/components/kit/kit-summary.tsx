@@ -64,11 +64,7 @@ function KitSummary({ compact = false, showDates = true, emptyAction, footer }: 
             {canPrice ? total : "—"}
           </span>
         </div>
-        <p className="text-meta">
-          {canPrice
-            ? "Estimate — final quote confirmed by OUTTA."
-            : "Set valid rental dates to see an estimate."}
-        </p>
+        {!canPrice ? <p className="text-meta">Set valid rental dates to see an estimate.</p> : null}
       </div>
 
       <div className="flex items-center justify-between gap-3">

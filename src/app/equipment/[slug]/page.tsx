@@ -188,14 +188,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
               ) : (
                 <p className="text-h3 font-semibold">Price on request</p>
               )}
-              {product.weekRate > 0 ? (
-                <p className="text-small mt-1">
-                  {formatPrice(product.weekRate, product.currency)} / week
-                </p>
-              ) : null}
-              <p className="text-meta mt-2">
-                Add this to your cart and OUTTA will confirm your final quote.
-              </p>
             </div>
 
             <BookedDates ranges={bookedRanges} />

@@ -46,7 +46,7 @@ export const categories: Category[] = [
     id: "cat-grip",
     name: "Grip",
     slug: "grip",
-    description: "Support, stabilization and rigging.",
+    description: "Tripods, gimbals, jibs, sliders, stands and camera support.",
   },
   {
     id: "cat-audio",
@@ -76,7 +76,7 @@ export const categories: Category[] = [
     id: "cat-camera-accessories",
     name: "Camera Accessories",
     slug: "camera-accessories",
-    description: "Wireless focus, monitors, jibs and on-set camera support.",
+    description: "Wireless focus, video transmitters and on-set camera support.",
   },
   {
     id: "cat-filters",

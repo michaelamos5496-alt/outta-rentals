@@ -7,7 +7,7 @@ export const revalidate = 60; // seconds — keep inventory reasonably fresh onc
 
 export const metadata: Metadata = {
   title: "Camera Accessories",
-  description: "Wireless focus, monitors, jibs and on-set camera support.",
+  description: "Wireless focus, video transmitters and on-set camera support.",
 };
 
 export default async function CameraAccessoriesPage() {

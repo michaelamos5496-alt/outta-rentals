@@ -141,11 +141,9 @@ export default function KitPage() {
             <span className="font-medium">Estimated total</span>
             <span className="text-h3 font-mono">{datesValid ? total : "—"}</span>
           </div>
-          <p className="text-meta mt-2">
-            {datesValid
-              ? "Estimate — final quote confirmed by OUTTA."
-              : "Set valid rental dates to see an estimate."}
-          </p>
+          {!datesValid ? (
+            <p className="text-meta mt-2">Set valid rental dates to see an estimate.</p>
+          ) : null}
 
           <Divider className="my-6" />
 
@@ -234,7 +232,7 @@ export default function KitPage() {
               {itemCount} item{itemCount === 1 ? "" : "s"}
             </p>
             <p className="text-meta">
-              {datesValid ? `Est. ${total} · final quote by OUTTA` : "Set dates for an estimate"}
+              {datesValid ? `Est. ${total}` : "Set dates for an estimate"}
             </p>
           </div>
           <Button

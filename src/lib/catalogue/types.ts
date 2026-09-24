@@ -34,7 +34,6 @@ export interface DemoProduct {
   shortDescription: string;
   description: string;
   dayRate: number;
-  weekRate: number;
   currency: string;
   availability: ProductAvailability;
   featured?: boolean;

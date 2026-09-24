@@ -97,7 +97,6 @@ async function fetchAllProductsFromDb(): Promise<DemoProduct[] | null> {
 
   return rows.map((row): DemoProduct => {
     const dayRate = row.rental_rates.find((r) => r.period === "day");
-    const weekRate = row.rental_rates.find((r) => r.period === "week");
     const specifications: DemoProductSpec[] = [...row.product_specifications]
       .sort((a, b) => a.order - b.order)
       .map((s) => ({ label: s.label, value: s.value, group: s.group ?? undefined }));
@@ -113,8 +112,7 @@ async function fetchAllProductsFromDb(): Promise<DemoProduct[] | null> {
       shortDescription: row.short_description,
       description: row.description ?? "",
       dayRate: dayRate?.price ?? 0,
-      weekRate: weekRate?.price ?? 0,
-      currency: dayRate?.currency ?? weekRate?.currency ?? "GHS",
+      currency: dayRate?.currency ?? "GHS",
       availability: row.status as ProductAvailability,
       featured: row.featured,
       isNew: row.is_new,

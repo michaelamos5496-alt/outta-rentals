@@ -42,7 +42,6 @@ function ProductForm({ product }: ProductFormProps) {
   const [shortDescription, setShortDescription] = React.useState(product?.shortDescription ?? "");
   const [description, setDescription] = React.useState(product?.description ?? "");
   const [dayRate, setDayRate] = React.useState(String(product?.dayRate ?? ""));
-  const [weekRate, setWeekRate] = React.useState(String(product?.weekRate ?? ""));
   const [availability, setAvailability] = React.useState<ProductAvailability>(
     product?.availability ?? "available"
   );
@@ -72,7 +71,6 @@ function ProductForm({ product }: ProductFormProps) {
       shortDescription,
       description,
       dayRate: Number(dayRate) || 0,
-      weekRate: Number(weekRate) || 0,
       currency: "GHS",
       availability,
       featured,
@@ -173,25 +171,15 @@ function ProductForm({ product }: ProductFormProps) {
 
       <Divider />
 
-      <section className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <section className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-          <Label htmlFor="day-rate">Daily rate (USD)</Label>
+          <Label htmlFor="day-rate">Daily rate</Label>
           <Input
             id="day-rate"
             type="number"
             className="mt-1.5"
             value={dayRate}
             onChange={(e) => setDayRate(e.target.value)}
-          />
-        </div>
-        <div>
-          <Label htmlFor="week-rate">Weekly rate (USD)</Label>
-          <Input
-            id="week-rate"
-            type="number"
-            className="mt-1.5"
-            value={weekRate}
-            onChange={(e) => setWeekRate(e.target.value)}
           />
         </div>
         <div>
