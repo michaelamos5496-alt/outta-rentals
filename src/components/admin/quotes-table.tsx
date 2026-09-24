@@ -96,13 +96,13 @@ function QuotesTable({
               filtered.map((quote) => (
                 <TableRow key={quote.id} className="cursor-pointer">
                   <TableCell>
-                    <Link href={quoteHref(quote)} className="block hover:text-brand">
+                    <Link prefetch={false} href={quoteHref(quote)} className="block hover:text-brand">
                       <p className="font-medium">{quoteCustomerLabel(quote)}</p>
                       <p className="mt-0.5 text-xs text-muted-foreground">{quote.customerPhone || quote.customerEmail}</p>
                     </Link>
                   </TableCell>
                   <TableCell>
-                    <Link href={quoteHref(quote)} className="block">
+                    <Link prefetch={false} href={quoteHref(quote)} className="block">
                       {quoteTitle(quote)}
                       <span className="ml-2 text-xs text-muted-foreground">{quote.projectType}</span>
                     </Link>

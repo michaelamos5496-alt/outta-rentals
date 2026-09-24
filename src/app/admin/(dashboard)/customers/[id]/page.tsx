@@ -22,7 +22,7 @@ export default async function AdminCustomerDetailPage({ params }: CustomerDetail
         title="Customer not found"
         action={
           <Button asChild variant="outline">
-            <Link href="/admin/customers">Back to customers</Link>
+            <Link prefetch={false} href="/admin/customers">Back to customers</Link>
           </Button>
         }
       />
@@ -36,7 +36,7 @@ export default async function AdminCustomerDetailPage({ params }: CustomerDetail
   return (
     <div>
       <p className="text-small mb-2">
-        <Link href="/admin/customers" className="hover:text-foreground">
+        <Link prefetch={false} href="/admin/customers" className="hover:text-foreground">
           Customers
         </Link>
         <span className="mx-2 text-muted-foreground/50">/</span>
@@ -72,7 +72,7 @@ export default async function AdminCustomerDetailPage({ params }: CustomerDetail
         ) : (
           <div className="flex flex-col divide-y divide-border rounded-2xl border border-border bg-card">
             {completedRentals.map((quote) => (
-              <Link
+              <Link prefetch={false}
                 key={quote.id}
                 href={quoteHref(quote)}
                 className="flex items-center justify-between p-3 text-sm hover:bg-secondary/40"
@@ -89,7 +89,7 @@ export default async function AdminCustomerDetailPage({ params }: CustomerDetail
         <p className="text-label mb-3">Quote history</p>
         <div className="flex flex-col divide-y divide-border rounded-2xl border border-border bg-card">
           {customer.quotes.map((quote) => (
-            <Link
+            <Link prefetch={false}
               key={quote.id}
               href={quoteHref(quote)}
               className="flex items-center justify-between p-3 text-sm hover:bg-secondary/40"

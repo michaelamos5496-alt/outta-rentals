@@ -38,7 +38,7 @@ export default async function AdminProductsPage() {
         </div>
         {catalogueEditable ? (
           <Button asChild>
-            <Link href="/admin/products/new">
+            <Link prefetch={false} href="/admin/products/new">
               <Plus /> New Product
             </Link>
           </Button>
@@ -63,11 +63,11 @@ export default async function AdminProductsPage() {
               <TableRow key={product.id} className={product.archived ? "opacity-50" : undefined}>
                 <TableCell className="max-w-56 truncate font-medium">
                   {catalogueEditable ? (
-                    <Link href={`/admin/products/${product.id}`} className="hover:text-brand">
+                    <Link prefetch={false} href={`/admin/products/${product.id}`} className="hover:text-brand">
                       {product.name}
                     </Link>
                   ) : (
-                    <Link href={`/equipment/${product.slug}`} target="_blank" className="hover:text-brand">
+                    <Link prefetch={false} href={`/equipment/${product.slug}`} target="_blank" className="hover:text-brand">
                       {product.name}
                     </Link>
                   )}

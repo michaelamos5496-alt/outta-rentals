@@ -91,7 +91,7 @@ export default function AdminLoginPage() {
           </Button>
         </form>
       </div>
-      <Link href="/" className="mt-6 text-sm text-brand-foreground/80 hover:text-brand-foreground">
+      <Link prefetch={false} href="/" className="mt-6 text-sm text-brand-foreground/80 hover:text-brand-foreground">
         ← Back to website
       </Link>
     </div>

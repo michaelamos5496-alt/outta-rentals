@@ -26,7 +26,7 @@ export default async function EditProductPage({ params }: EditProductPageProps) 
         description="It may have been deleted."
         action={
           <Button asChild variant="outline">
-            <Link href="/admin/products">Back to products</Link>
+            <Link prefetch={false} href="/admin/products">Back to products</Link>
           </Button>
         }
       />

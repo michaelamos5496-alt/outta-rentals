@@ -37,7 +37,7 @@ export default async function AdminCustomersPage() {
             {customers.map((customer) => (
               <TableRow key={customer.key}>
                 <TableCell className="font-medium">
-                  <Link
+                  <Link prefetch={false}
                     href={`/admin/customers/${encodeURIComponent(customer.key)}`}
                     className="hover:text-brand"
                   >

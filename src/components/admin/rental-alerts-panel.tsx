@@ -53,7 +53,7 @@ function RentalAlertsPanel({ alerts, today }: { alerts: RentalAlert[]; today: st
                   urgent && "bg-destructive/5"
                 )}
               >
-                <Link href={quoteHref(alert.quote)} className="min-w-0 hover:text-brand">
+                <Link prefetch={false} href={quoteHref(alert.quote)} className="min-w-0 hover:text-brand">
                   <p className="flex flex-wrap items-center gap-2 text-sm font-medium">
                     <span
                       className={cn(

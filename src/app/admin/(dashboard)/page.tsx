@@ -88,7 +88,7 @@ export default async function AdminDashboardPage() {
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-medium">Latest requests</h2>
             <Button asChild variant="ghost" size="sm">
-              <Link href="/admin/quotes">View quotes</Link>
+              <Link prefetch={false} href="/admin/quotes">View quotes</Link>
             </Button>
           </div>
           <div className="mt-3 flex flex-col divide-y divide-border rounded-2xl border border-border bg-card">
@@ -97,7 +97,7 @@ export default async function AdminDashboardPage() {
             ) : (
               quotes.slice(0, 6).map((quote) => (
                 <div key={quote.id} className="flex items-center gap-2 pr-2 hover:bg-secondary/40">
-                  <Link
+                  <Link prefetch={false}
                     href={quoteHref(quote)}
                     className="flex min-w-0 flex-1 items-center justify-between gap-4 p-4 text-sm"
                   >
@@ -125,7 +125,7 @@ export default async function AdminDashboardPage() {
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-medium">Recent enquiries</h2>
             <Button asChild variant="ghost" size="sm">
-              <Link href="/admin/enquiries">View all</Link>
+              <Link prefetch={false} href="/admin/enquiries">View all</Link>
             </Button>
           </div>
           <div className="mt-3 flex flex-col divide-y divide-border rounded-2xl border border-border bg-card">
@@ -135,7 +135,7 @@ export default async function AdminDashboardPage() {
               </p>
             ) : (
               enquiries.slice(0, 6).map((enquiry) => (
-                <Link
+                <Link prefetch={false}
                   key={enquiry.id}
                   href="/admin/enquiries"
                   className="flex items-center justify-between gap-4 p-4 text-sm hover:bg-secondary/40"

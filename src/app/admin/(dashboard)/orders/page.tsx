@@ -71,7 +71,7 @@ export default async function AdminOrdersPage({
           { label: `Active (${active.length})`, href: "/admin/orders", on: !showCompleted },
           { label: `Completed (${completed.length})`, href: "/admin/orders?view=completed", on: showCompleted },
         ].map((tab) => (
-          <Link
+          <Link prefetch={false}
             key={tab.href}
             href={tab.href}
             className={cn(
@@ -116,13 +116,13 @@ export default async function AdminOrdersPage({
                   return (
                     <TableRow key={quote.id}>
                       <TableCell>
-                        <Link href={href} className="block hover:text-brand">
+                        <Link prefetch={false} href={href} className="block hover:text-brand">
                           <p className="font-medium">{quoteCustomerLabel(quote)}</p>
                           <p className="mt-0.5 text-xs text-muted-foreground">{quoteTitle(quote)}</p>
                         </Link>
                       </TableCell>
                       <TableCell className="max-w-72">
-                        <Link href={href} className="line-clamp-2 block whitespace-normal">
+                        <Link prefetch={false} href={href} className="line-clamp-2 block whitespace-normal">
                           {quote.kit.map((k) => `${k.productName} × ${k.quantity}`).join(", ")}
                         </Link>
                       </TableCell>

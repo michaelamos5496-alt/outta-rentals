@@ -3,6 +3,12 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   agentRules: false,
   poweredByHeader: false,
+  experimental: {
+    // Keep visited dynamic pages (e.g. admin) in the browser for 30s so going
+    // back and forth is instant; mutations still refresh via revalidatePath /
+    // router.refresh.
+    staleTimes: { dynamic: 30 },
+  },
   async headers() {
     return [
       {

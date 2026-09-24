@@ -34,7 +34,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
       <div className="min-h-screen bg-background text-foreground">
         <div className="flex">
           <aside className="sticky top-0 hidden h-svh w-64 shrink-0 flex-col bg-brand p-4 text-brand-foreground lg:flex">
-            <Link href="/admin" className="mb-8 block px-2 pt-2" aria-label="Admin dashboard">
+            <Link prefetch={false} href="/admin" className="mb-8 block px-2 pt-2" aria-label="Admin dashboard">
               <Image
                 src="/brand/outta-logo-dark.png"
                 alt="OUTTA Rentals"

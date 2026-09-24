@@ -19,7 +19,7 @@ function AdminMobileNav({ email }: { email: string }) {
 
   return (
     <header className="sticky top-0 z-30 flex items-center justify-between bg-brand px-4 py-3 lg:hidden">
-      <Link href="/admin" aria-label="Admin dashboard">
+      <Link prefetch={false} href="/admin" aria-label="Admin dashboard">
         <Image
           src="/brand/outta-logo-dark.png"
           alt="OUTTA Rentals"

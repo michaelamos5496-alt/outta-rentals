@@ -48,7 +48,7 @@ function AdminSidebar({ onNavigate }: { onNavigate?: () => void }) {
           {group.map((item) => {
             const active = item.exact ? pathname === item.href : pathname.startsWith(item.href);
             return (
-              <Link
+              <Link prefetch={false}
                 key={item.href}
                 href={item.href}
                 onClick={onNavigate}

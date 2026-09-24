@@ -33,7 +33,7 @@ export async function OrderDetailPage({ id, section }: { id: string; section: "q
         description="It may have been deleted."
         action={
           <Button asChild variant="outline">
-            <Link href={`/admin/${section}`}>Back to {section}</Link>
+            <Link prefetch={false} href={`/admin/${section}`}>Back to {section}</Link>
           </Button>
         }
       />
@@ -45,7 +45,7 @@ export async function OrderDetailPage({ id, section }: { id: string; section: "q
   return (
     <div>
       <p className="text-small mb-2">
-        <Link href={`/admin/${section}`} className="hover:text-foreground">
+        <Link prefetch={false} href={`/admin/${section}`} className="hover:text-foreground">
           {section === "orders" ? "Orders" : "Quotes"}
         </Link>
         <span className="mx-2 text-muted-foreground/50">/</span>
