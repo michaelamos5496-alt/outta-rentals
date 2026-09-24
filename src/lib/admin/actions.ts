@@ -16,6 +16,10 @@ import {
 } from "./store";
 import {
   addQuoteNote,
+  deleteQuote,
+  markPickedUp,
+  markReturned,
+  undoTimelineStep,
   setProductStatus,
   setProductUnits,
   updateQuoteDates,
@@ -189,6 +193,51 @@ export async function setProductUnitsAction(slug: string, units: number) {
   }
   const ok = await setProductUnits(slug, units);
   revalidatePath("/admin/inventory");
+  return ok;
+}
+
+function revalidateOrder(id: string) {
+  revalidatePath(`/admin/quotes/${id}`);
+  revalidatePath("/admin/quotes");
+  revalidatePath("/admin");
+}
+
+export async function markPickedUpAction(id: string, method: "pickup" | "delivery") {
+  await requireAdmin();
+  if (typeof id !== "string" || (method !== "pickup" && method !== "delivery")) {
+    return { ok: false as const, error: "Invalid request." };
+  }
+  const result = await markPickedUp(id, method);
+  revalidateOrder(id);
+  return result;
+}
+
+export async function markReturnedAction(id: string) {
+  await requireAdmin();
+  if (typeof id !== "string") return { ok: false as const, error: "Invalid request." };
+  const result = await markReturned(id);
+  revalidateOrder(id);
+  revalidatePath("/equipment", "layout");
+  return result;
+}
+
+export async function undoTimelineStepAction(id: string) {
+  await requireAdmin();
+  if (typeof id !== "string") return { ok: false as const, error: "Invalid request." };
+  const result = await undoTimelineStep(id);
+  revalidateOrder(id);
+  revalidatePath("/equipment", "layout");
+  return result;
+}
+
+export async function deleteQuoteAction(id: string) {
+  await requireAdmin();
+  if (typeof id !== "string") return false;
+  const ok = await deleteQuote(id);
+  revalidatePath("/admin/quotes");
+  revalidatePath("/admin/customers", "layout");
+  revalidatePath("/admin");
+  revalidatePath("/equipment", "layout");
   return ok;
 }
 

@@ -1,6 +1,7 @@
 import { ExternalLink } from "lucide-react";
 
 import { SignOutButton } from "@/components/admin/sign-out-button";
+import { NotificationToggle } from "@/components/admin/admin-alerts";
 
 /** Signed-in email, a link to the public site, and sign out — bottom of the green sidebar. */
 function AdminAccount({ email }: { email: string }) {
@@ -9,6 +10,7 @@ function AdminAccount({ email }: { email: string }) {
       <p className="truncate px-3 pb-1 text-xs text-brand-foreground/70" title={email}>
         {email}
       </p>
+      <NotificationToggle />
       <a
         href="/"
         target="_blank"

@@ -358,6 +358,14 @@ export function updateQuoteStatus(
   return quote;
 }
 
+export function deleteQuote(id: string): boolean {
+  const store = getQuotesStore();
+  const index = store.findIndex((q) => q.id === id);
+  if (index < 0) return false;
+  store.splice(index, 1);
+  return true;
+}
+
 export function replaceQuote(updated: AdminQuote): void {
   const store = getQuotesStore();
   const index = store.findIndex((q) => q.id === updated.id);

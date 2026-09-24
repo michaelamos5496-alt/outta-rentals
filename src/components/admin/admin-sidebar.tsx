@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { AlertsBadge } from "@/components/admin/admin-alerts";
 
 // Records first (what's used daily), catalogue after.
 const navGroups = [
@@ -59,6 +60,7 @@ function AdminSidebar({ onNavigate }: { onNavigate?: () => void }) {
               >
                 <item.icon className="size-4 shrink-0" />
                 {item.label}
+                {item.href === "/admin" ? <AlertsBadge /> : null}
               </Link>
             );
           })}

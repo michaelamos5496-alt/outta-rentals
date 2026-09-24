@@ -56,6 +56,12 @@ export interface AdminQuote {
   estimatedTotal: number;
   kit: AdminQuoteKitLine[];
   status: AdminQuoteStatus;
+  /** How the equipment went out, once recorded. */
+  deliveryMethod?: "pickup" | "delivery" | null;
+  /** When the customer collected it / it was delivered (ISO), or null. */
+  pickedUpAt?: string | null;
+  /** When it came back (ISO), or null. */
+  returnedAt?: string | null;
   notes: AdminQuoteNote[];
   createdAt: string;
 }

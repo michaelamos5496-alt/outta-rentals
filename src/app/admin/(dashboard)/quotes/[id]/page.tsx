@@ -12,6 +12,8 @@ import { EmptyState } from "@/components/ui/state";
 import { Button } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
 import { QuoteDetailActions } from "@/components/admin/quote-detail-actions";
+import { RentalTimeline } from "@/components/admin/rental-timeline";
+import { todayIso } from "@/lib/kit/rental";
 import { formatPrice } from "@/lib/currency";
 
 interface QuoteDetailPageProps {
@@ -54,6 +56,8 @@ export default async function AdminQuoteDetailPage({ params }: QuoteDetailPagePr
 
       <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px]">
         <div className="flex flex-col gap-8">
+          <RentalTimeline quote={quote} today={todayIso()} />
+
           <section>
             <p className="text-label mb-3">Customer</p>
             <div className="rounded-2xl border border-border bg-card p-4 text-sm">
@@ -128,7 +132,8 @@ export default async function AdminQuoteDetailPage({ params }: QuoteDetailPagePr
         </div>
 
         <aside className="h-fit rounded-2xl border border-border bg-card p-4 lg:sticky lg:top-6">
-          <QuoteDetailActions quote={quote} />
+          {/* Keyed by status so the panel resets when the timeline changes it. */}
+          <QuoteDetailActions key={quote.status} quote={quote} />
         </aside>
       </div>
     </div>

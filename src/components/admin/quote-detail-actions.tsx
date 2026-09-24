@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/select";
 import { quoteStatusLabels, quoteStatuses } from "@/components/admin/quote-status-badge";
 import { WhatsAppButton } from "@/components/quote/whatsapp-button";
+import { DeleteOrderButton } from "@/components/admin/delete-order-button";
 import {
   addQuoteNoteAction,
   updateQuoteDatesAction,
@@ -254,6 +255,10 @@ function QuoteDetailActions({ quote }: { quote: AdminQuote }) {
             Add note
           </Button>
         </form>
+      </div>
+
+      <div className="border-t border-border pt-4">
+        <DeleteOrderButton id={quote.id} confirmed={status === "confirmed"} />
       </div>
     </div>
   );

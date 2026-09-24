@@ -19,6 +19,8 @@ import {
 } from "@/lib/admin/format";
 import { todayIso } from "@/lib/kit/rental";
 import { StatCard } from "@/components/admin/stat-card";
+import { RentalAlertsPanel } from "@/components/admin/rental-alerts-panel";
+import { rentalAlerts } from "@/lib/admin/rental";
 import { QuoteStatusBadge } from "@/components/admin/quote-status-badge";
 import { Button } from "@/components/ui/button";
 
@@ -36,8 +38,9 @@ export default async function AdminDashboardPage() {
   const monthAgo = new Date(`${today}T00:00:00Z`).getTime() - 30 * DAY_MS;
 
   const confirmed = quotes.filter((q) => q.status === "confirmed" && q.startDate && q.endDate);
-  const outNow = confirmed.filter((q) => q.startDate <= today && q.endDate >= today);
-  const upcoming = confirmed.filter((q) => q.startDate > today);
+  const outNow = confirmed.filter((q) => q.pickedUpAt && !q.returnedAt);
+  const upcoming = confirmed.filter((q) => !q.pickedUpAt && q.startDate > today);
+  const alerts = rentalAlerts(quotes, today);
   const newOrders = quotes.filter((q) => q.status === "new");
   const inProgress = quotes.filter((q) => q.status === "reviewing" || q.status === "quoted");
   const recentEnquiries = enquiries.filter((e) => new Date(e.createdAt).getTime() >= monthAgo);
@@ -50,6 +53,8 @@ export default async function AdminDashboardPage() {
     <div>
       <h1 className="text-h2">Dashboard</h1>
       <p className="text-small mt-1">Your record of orders and enquiries from the website.</p>
+
+      <RentalAlertsPanel alerts={alerts} today={today} />
 
       <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
         <StatCard
@@ -65,8 +70,8 @@ export default async function AdminDashboardPage() {
           icon={FileQuestion}
           hint="Reviewing or quoted"
         />
-        <StatCard label="Out now" value={outNow.length} icon={CalendarCheck2} hint="Confirmed, dates include today" />
-        <StatCard label="Upcoming" value={upcoming.length} icon={CalendarClock} hint="Confirmed, starting later" />
+        <StatCard label="Out now" value={outNow.length} icon={CalendarCheck2} hint="Picked up, not back yet" />
+        <StatCard label="Upcoming" value={upcoming.length} icon={CalendarClock} hint="Confirmed, going out later" />
         <StatCard label="Enquiries" value={recentEnquiries.length} icon={Inbox} hint="Last 30 days" />
         <StatCard
           label="Out of service"

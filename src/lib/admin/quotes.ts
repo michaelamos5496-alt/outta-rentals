@@ -31,12 +31,15 @@ interface QuoteRow {
   customer_company: string | null;
   customer_email: string | null;
   customer_phone: string | null;
+  delivery_method: "pickup" | "delivery" | null;
+  picked_up_at: string | null;
+  returned_at: string | null;
   created_at: string;
   quote_notes?: { id: string; note: string; created_at: string }[];
 }
 
 const QUOTE_COLUMNS =
-  "id, status, start_date, end_date, rental_days, estimated_total, kit_snapshot, project_name, project_type, shoot_location, project_description, customer_name, customer_company, customer_email, customer_phone, created_at";
+  "id, status, start_date, end_date, rental_days, estimated_total, kit_snapshot, project_name, project_type, shoot_location, project_description, customer_name, customer_company, customer_email, customer_phone, delivery_method, picked_up_at, returned_at, created_at";
 
 function toAdminQuote(row: QuoteRow): AdminQuote {
   return {
@@ -55,6 +58,9 @@ function toAdminQuote(row: QuoteRow): AdminQuote {
     estimatedTotal: Number(row.estimated_total ?? 0),
     kit: Array.isArray(row.kit_snapshot) ? row.kit_snapshot : [],
     status: row.status,
+    deliveryMethod: row.delivery_method,
+    pickedUpAt: row.picked_up_at,
+    returnedAt: row.returned_at,
     notes: [...(row.quote_notes ?? [])]
       .sort((a, b) => a.created_at.localeCompare(b.created_at))
       .map((n) => ({ id: n.id, text: n.note, createdAt: n.created_at })),
@@ -166,6 +172,119 @@ export async function updateQuoteDates(
     return { ok: false, error: "Couldn't save the dates. Please try again." };
   }
   return { ok: true };
+}
+
+export type TimelineResult = { ok: true } | { ok: false; error: string };
+
+/** Records that the equipment went out (collected or delivered) now. */
+export async function markPickedUp(
+  id: string,
+  method: "pickup" | "delivery"
+): Promise<TimelineResult> {
+  const quote = await getQuoteById(id);
+  if (!quote) return { ok: false, error: "Order not found." };
+  if (quote.status !== "confirmed") return { ok: false, error: "Confirm the order first." };
+  const now = new Date().toISOString();
+
+  const supabase = getSupabaseServerClient();
+  if (!supabase) {
+    memory.replaceQuote({ ...quote, pickedUpAt: now, deliveryMethod: method });
+    return { ok: true };
+  }
+  const { error } = await supabase
+    .from("quote_requests")
+    .update({ picked_up_at: now, delivery_method: method })
+    .eq("id", id);
+  if (error) {
+    console.error("[admin/quotes] Pickup update failed:", error.message);
+    return { ok: false, error: "Couldn't save. Please try again." };
+  }
+  return { ok: true };
+}
+
+/**
+ * Records the return now and completes the order — which also frees any
+ * remaining booked days, so an early return opens those dates up again.
+ */
+export async function markReturned(id: string): Promise<TimelineResult> {
+  const quote = await getQuoteById(id);
+  if (!quote) return { ok: false, error: "Order not found." };
+  if (!quote.pickedUpAt) return { ok: false, error: "Mark it picked up first." };
+  const now = new Date().toISOString();
+
+  const supabase = getSupabaseServerClient();
+  if (!supabase) {
+    memory.replaceQuote({ ...quote, returnedAt: now, status: "completed" });
+    return { ok: true };
+  }
+  const { error } = await supabase.from("quote_requests").update({ returned_at: now }).eq("id", id);
+  if (error) {
+    console.error("[admin/quotes] Return update failed:", error.message);
+    return { ok: false, error: "Couldn't save. Please try again." };
+  }
+  const status = await updateQuoteStatus(id, "completed");
+  return status.ok ? { ok: true } : { ok: false, error: "Saved the return, but couldn't complete the order." };
+}
+
+/** Undo a mis-tap: clears the latest timeline step. */
+export async function undoTimelineStep(id: string): Promise<TimelineResult> {
+  const quote = await getQuoteById(id);
+  if (!quote) return { ok: false, error: "Order not found." };
+  const supabase = getSupabaseServerClient();
+
+  if (quote.returnedAt) {
+    // Re-confirming re-books the dates — refused if they've been taken since.
+    const status = supabase
+      ? await updateQuoteStatus(id, "confirmed")
+      : ({ ok: true } as StatusUpdateResult);
+    if (!status.ok) {
+      return {
+        ok: false,
+        error:
+          status.error === "conflict"
+            ? "Can't undo — some of this equipment has been booked for these dates since."
+            : "Couldn't undo. Please try again.",
+      };
+    }
+    if (!supabase) {
+      memory.replaceQuote({ ...quote, returnedAt: null, status: "confirmed" });
+      return { ok: true };
+    }
+    const { error } = await supabase.from("quote_requests").update({ returned_at: null }).eq("id", id);
+    return error ? { ok: false, error: "Couldn't undo. Please try again." } : { ok: true };
+  }
+
+  if (quote.pickedUpAt) {
+    if (!supabase) {
+      memory.replaceQuote({ ...quote, pickedUpAt: null });
+      return { ok: true };
+    }
+    const { error } = await supabase.from("quote_requests").update({ picked_up_at: null }).eq("id", id);
+    return error ? { ok: false, error: "Couldn't undo. Please try again." } : { ok: true };
+  }
+  return { ok: true };
+}
+
+/**
+ * Permanently deletes an order and its notes. Its bookings are removed first
+ * so a deleted confirmed order can't keep its dates blocked.
+ */
+export async function deleteQuote(id: string): Promise<boolean> {
+  const supabase = getSupabaseServerClient();
+  if (!supabase) return memory.deleteQuote(id);
+  if (!/^[0-9a-f-]{36}$/i.test(id)) return false;
+
+  const bookings = await supabase.from("rental_bookings").delete().eq("quote_request_id", id);
+  if (bookings.error) {
+    console.error("[admin/quotes] Booking cleanup failed:", bookings.error.message);
+    return false;
+  }
+  const { error } = await supabase.from("quote_requests").delete().eq("id", id);
+  if (error) {
+    console.error("[admin/quotes] Order delete failed:", error.message);
+    return false;
+  }
+  return true;
 }
 
 export async function addQuoteNote(id: string, text: string): Promise<boolean> {

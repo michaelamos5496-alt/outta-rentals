@@ -13,6 +13,8 @@ export interface WhatsAppMessageInput {
   closingLine?: string;
   /** Defaults to "OUTTA RENTALS — KIT REQUEST". */
   heading?: string;
+  /** Send this text as-is instead of building the structured message. */
+  message?: string;
 }
 
 function formatShortDate(iso: string): string {
@@ -27,6 +29,7 @@ function formatShortDate(iso: string): string {
  * than rendered empty.
  */
 export function buildWhatsAppMessage(input: WhatsAppMessageInput): string {
+  if (input.message) return input.message;
   const items = input.items ?? [];
   const lines: string[] = [input.heading ?? "OUTTA RENTALS — KIT REQUEST", ""];
 
