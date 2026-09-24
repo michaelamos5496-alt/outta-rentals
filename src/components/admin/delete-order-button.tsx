@@ -17,7 +17,15 @@ import {
 import { deleteQuoteAction } from "@/lib/admin/actions";
 
 /** Permanently deletes an order after a confirmation step. */
-function DeleteOrderButton({ id, confirmed }: { id: string; confirmed: boolean }) {
+function DeleteOrderButton({
+  id,
+  confirmed,
+  backHref,
+}: {
+  id: string;
+  confirmed: boolean;
+  backHref: string;
+}) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const [deleting, setDeleting] = React.useState(false);
@@ -29,7 +37,7 @@ function DeleteOrderButton({ id, confirmed }: { id: string; confirmed: boolean }
     const ok = await deleteQuoteAction(id).catch(() => false);
     if (ok) {
       setOpen(false);
-      router.push("/admin/quotes");
+      router.push(backHref);
       router.refresh();
     } else {
       setError("Couldn't delete the order. Please try again.");

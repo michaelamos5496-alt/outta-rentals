@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Boxes,
+  ClipboardCheck,
   FileText,
   Inbox,
   LayoutDashboard,
@@ -19,6 +20,7 @@ import { AlertsBadge } from "@/components/admin/admin-alerts";
 const navGroups = [
   [
     { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
+    { href: "/admin/orders", label: "Orders", icon: ClipboardCheck },
     { href: "/admin/quotes", label: "Quotes", icon: FileText },
     { href: "/admin/enquiries", label: "Enquiries", icon: Inbox },
     { href: "/admin/customers", label: "Customers", icon: Users },

@@ -23,7 +23,7 @@ import {
   updateQuoteDatesAction,
   updateQuoteStatusAction,
 } from "@/lib/admin/actions";
-import { formatDateTime } from "@/lib/admin/format";
+import { formatDateTime, isOrder } from "@/lib/admin/format";
 import type { AdminQuote, AdminQuoteStatus } from "@/lib/admin/types";
 
 function QuoteDetailActions({ quote }: { quote: AdminQuote }) {
@@ -258,7 +258,11 @@ function QuoteDetailActions({ quote }: { quote: AdminQuote }) {
       </div>
 
       <div className="border-t border-border pt-4">
-        <DeleteOrderButton id={quote.id} confirmed={status === "confirmed"} />
+        <DeleteOrderButton
+          id={quote.id}
+          confirmed={status === "confirmed"}
+          backHref={isOrder(quote) ? "/admin/orders" : "/admin/quotes"}
+        />
       </div>
     </div>
   );

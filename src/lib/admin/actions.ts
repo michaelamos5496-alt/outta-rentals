@@ -150,6 +150,7 @@ export async function updateQuoteStatusAction(
   // Booked dates show on product pages — refresh them when bookings change.
   if (result.ok) revalidatePath("/equipment", "layout");
   revalidatePath("/admin/quotes");
+  revalidatePath("/admin/orders", "layout");
   revalidatePath(`/admin/quotes/${id}`);
   revalidatePath("/admin");
   return result;
@@ -165,6 +166,7 @@ export async function updateQuoteDatesAction(id: string, startDate: string, endD
   const result = await updateQuoteDates(id, startDate, endDate);
   revalidatePath(`/admin/quotes/${id}`);
   revalidatePath("/admin/quotes");
+  revalidatePath("/admin/orders", "layout");
   return result;
 }
 
@@ -199,6 +201,7 @@ export async function setProductUnitsAction(slug: string, units: number) {
 function revalidateOrder(id: string) {
   revalidatePath(`/admin/quotes/${id}`);
   revalidatePath("/admin/quotes");
+  revalidatePath("/admin/orders", "layout");
   revalidatePath("/admin");
 }
 
@@ -235,6 +238,7 @@ export async function deleteQuoteAction(id: string) {
   if (typeof id !== "string") return false;
   const ok = await deleteQuote(id);
   revalidatePath("/admin/quotes");
+  revalidatePath("/admin/orders", "layout");
   revalidatePath("/admin/customers", "layout");
   revalidatePath("/admin");
   revalidatePath("/equipment", "layout");

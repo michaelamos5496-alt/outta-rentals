@@ -65,7 +65,7 @@ export function AdminAlertsProvider({ children }: { children: React.ReactNode })
         });
         note.onclick = () => {
           window.focus();
-          router.push(`/admin/quotes/${alert.quoteId}`);
+          router.push(alert.href);
         };
         seen.add(alert.key);
       }

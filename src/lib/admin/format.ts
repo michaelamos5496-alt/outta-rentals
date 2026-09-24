@@ -41,3 +41,13 @@ export function quoteDateRange(quote: AdminQuote): string {
 export function quoteTotal(quote: AdminQuote): string {
   return quote.estimatedTotal > 0 ? formatPrice(quote.estimatedTotal) : "—";
 }
+
+/** Confirmed (and completed) requests are orders; everything else is a quote. */
+export function isOrder(quote: Pick<AdminQuote, "status">): boolean {
+  return quote.status === "confirmed" || quote.status === "completed";
+}
+
+/** The admin page for a request — under Orders once confirmed, else Quotes. */
+export function quoteHref(quote: Pick<AdminQuote, "id" | "status">): string {
+  return `${isOrder(quote) ? "/admin/orders" : "/admin/quotes"}/${quote.id}`;
+}

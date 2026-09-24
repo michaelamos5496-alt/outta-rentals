@@ -9,7 +9,7 @@ import {
   reminderMessage,
   type RentalAlert,
 } from "@/lib/admin/rental";
-import { quoteCustomerLabel } from "@/lib/admin/format";
+import { quoteCustomerLabel, quoteHref } from "@/lib/admin/format";
 import { cn } from "@/lib/utils";
 
 function alertDetail(alert: RentalAlert): string {
@@ -53,7 +53,7 @@ function RentalAlertsPanel({ alerts, today }: { alerts: RentalAlert[]; today: st
                   urgent && "bg-destructive/5"
                 )}
               >
-                <Link href={`/admin/quotes/${alert.quote.id}`} className="min-w-0 hover:text-brand">
+                <Link href={quoteHref(alert.quote)} className="min-w-0 hover:text-brand">
                   <p className="flex flex-wrap items-center gap-2 text-sm font-medium">
                     <span
                       className={cn(

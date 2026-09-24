@@ -20,10 +20,22 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { QuoteStatusBadge, quoteStatusLabels, quoteStatuses } from "@/components/admin/quote-status-badge";
-import type { AdminQuote } from "@/lib/admin/types";
-import { quoteCustomerLabel, quoteDateRange, quoteTitle, quoteTotal } from "@/lib/admin/format";
+import type { AdminQuote, AdminQuoteStatus } from "@/lib/admin/types";
+import {
+  quoteCustomerLabel,
+  quoteDateRange,
+  quoteHref,
+  quoteTitle,
+  quoteTotal,
+} from "@/lib/admin/format";
 
-function QuotesTable({ quotes }: { quotes: AdminQuote[] }) {
+function QuotesTable({
+  quotes,
+  statuses = quoteStatuses,
+}: {
+  quotes: AdminQuote[];
+  statuses?: AdminQuoteStatus[];
+}) {
   const [query, setQuery] = React.useState("");
   const [status, setStatus] = React.useState<string>("all");
 
@@ -49,7 +61,7 @@ function QuotesTable({ quotes }: { quotes: AdminQuote[] }) {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All statuses</SelectItem>
-            {quoteStatuses.map((s) => (
+            {statuses.map((s) => (
               <SelectItem key={s} value={s}>
                 {quoteStatusLabels[s]}
               </SelectItem>
@@ -80,13 +92,13 @@ function QuotesTable({ quotes }: { quotes: AdminQuote[] }) {
               filtered.map((quote) => (
                 <TableRow key={quote.id} className="cursor-pointer">
                   <TableCell>
-                    <Link href={`/admin/quotes/${quote.id}`} className="block hover:text-brand">
+                    <Link href={quoteHref(quote)} className="block hover:text-brand">
                       <p className="font-medium">{quoteCustomerLabel(quote)}</p>
                       <p className="mt-0.5 text-xs text-muted-foreground">{quote.customerPhone || quote.customerEmail}</p>
                     </Link>
                   </TableCell>
                   <TableCell>
-                    <Link href={`/admin/quotes/${quote.id}`} className="block">
+                    <Link href={quoteHref(quote)} className="block">
                       {quoteTitle(quote)}
                       <span className="ml-2 text-xs text-muted-foreground">{quote.projectType}</span>
                     </Link>

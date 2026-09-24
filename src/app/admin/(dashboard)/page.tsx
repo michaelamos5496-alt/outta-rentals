@@ -14,6 +14,7 @@ import { listEnquiries } from "@/lib/admin/enquiries";
 import {
   formatDateTime,
   quoteCustomerLabel,
+  quoteHref,
   quoteDateRange,
   quoteTitle,
 } from "@/lib/admin/format";
@@ -58,7 +59,7 @@ export default async function AdminDashboardPage() {
 
       <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
         <StatCard
-          label="New orders"
+          label="New requests"
           value={newOrders.length}
           icon={Sparkles}
           hint="Not looked at yet"
@@ -84,19 +85,19 @@ export default async function AdminDashboardPage() {
       <div className="mt-8 grid grid-cols-1 gap-8 xl:grid-cols-2">
         <section>
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-medium">Recent orders</h2>
+            <h2 className="text-sm font-medium">Latest requests</h2>
             <Button asChild variant="ghost" size="sm">
-              <Link href="/admin/quotes">View all</Link>
+              <Link href="/admin/quotes">View quotes</Link>
             </Button>
           </div>
           <div className="mt-3 flex flex-col divide-y divide-border rounded-2xl border border-border bg-card">
             {quotes.length === 0 ? (
-              <p className="text-small p-4">No orders yet. Send Kit orders from the website appear here.</p>
+              <p className="text-small p-4">Nothing yet. Send Kit requests from the website appear here.</p>
             ) : (
               quotes.slice(0, 6).map((quote) => (
                 <Link
                   key={quote.id}
-                  href={`/admin/quotes/${quote.id}`}
+                  href={quoteHref(quote)}
                   className="flex items-center justify-between gap-4 p-4 text-sm hover:bg-secondary/40"
                 >
                   <div className="min-w-0">

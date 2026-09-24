@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { getCustomerByKey } from "@/lib/admin/quotes";
-import { quoteDateRange, quoteTitle, quoteTotal } from "@/lib/admin/format";
+import { quoteDateRange, quoteHref, quoteTitle, quoteTotal } from "@/lib/admin/format";
 import { EmptyState } from "@/components/ui/state";
 import { Button } from "@/components/ui/button";
 import { QuoteStatusBadge } from "@/components/admin/quote-status-badge";
@@ -74,7 +74,7 @@ export default async function AdminCustomerDetailPage({ params }: CustomerDetail
             {completedRentals.map((quote) => (
               <Link
                 key={quote.id}
-                href={`/admin/quotes/${quote.id}`}
+                href={quoteHref(quote)}
                 className="flex items-center justify-between p-3 text-sm hover:bg-secondary/40"
               >
                 <span>{quoteTitle(quote)}</span>
@@ -91,7 +91,7 @@ export default async function AdminCustomerDetailPage({ params }: CustomerDetail
           {customer.quotes.map((quote) => (
             <Link
               key={quote.id}
-              href={`/admin/quotes/${quote.id}`}
+              href={quoteHref(quote)}
               className="flex items-center justify-between p-3 text-sm hover:bg-secondary/40"
             >
               <span>{quoteTitle(quote)}</span>
