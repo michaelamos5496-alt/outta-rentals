@@ -27,7 +27,7 @@ function MobileStickyRent({ productSlug }: MobileStickyRentProps) {
   return (
     <div className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-background/95 px-5 py-3 backdrop-blur-md lg:hidden">
       <div className="flex items-center justify-between gap-4">
-        <p className="text-meta">Pricing on request</p>
+        <p className="text-meta hidden min-[380px]:block">Pricing on request</p>
         <div className="flex gap-2">
           <Button
             variant={added ? "secondary" : "outline"}
@@ -39,6 +39,7 @@ function MobileStickyRent({ productSlug }: MobileStickyRentProps) {
             }}
           >
             {added ? <Check /> : <Plus />}
+            {added ? "Added" : "Add to Kit"}
           </Button>
           <Button
             size="lg"

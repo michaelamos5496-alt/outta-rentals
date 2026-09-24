@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowUpRight, Check, Plus } from "lucide-react";
+import { Check, Plus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -80,11 +80,12 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
           setAdded(true);
         }}
         className={cn(
-          "absolute bottom-2 left-2 flex size-7 items-center justify-center rounded-full transition-colors active:scale-90",
+          "absolute bottom-2 left-2 flex h-9 items-center gap-1 rounded-full pr-3.5 pl-2.5 text-xs font-bold transition-colors active:scale-95",
           added ? "bg-brand-foreground text-brand" : "bg-foreground text-background"
         )}
       >
-        {added ? <Check className="size-3.5" /> : <ArrowUpRight className="size-3.5" />}
+        {added ? <Check className="size-4" /> : <Plus className="size-4" />}
+        {added ? "Added" : "Add"}
       </button>
     </article>
   );
