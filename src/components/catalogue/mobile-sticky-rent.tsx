@@ -6,14 +6,17 @@ import { Check, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { useKit } from "@/components/kit/kit-provider";
+import { formatPrice } from "@/lib/currency";
 
 export interface MobileStickyRentProps {
   productSlug: string;
+  dayRate: number;
+  currency: string;
 }
 
 // Mobile-only sticky action bar for the product detail page — desktop keeps
 // its existing inline `ProductActions` untouched (this renders `lg:hidden`).
-function MobileStickyRent({ productSlug }: MobileStickyRentProps) {
+function MobileStickyRent({ productSlug, dayRate, currency }: MobileStickyRentProps) {
   const router = useRouter();
   const { addItem, items, openDrawer } = useKit();
   // Stays "In Cart" for as long as the item is in the cart, so it can't be added twice by accident.
@@ -23,7 +26,10 @@ function MobileStickyRent({ productSlug }: MobileStickyRentProps) {
   return (
     <div className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-background/95 px-5 py-3 backdrop-blur-md lg:hidden">
       <div className="flex items-center justify-between gap-4">
-        <p className="text-meta hidden min-[380px]:block">Pricing on request</p>
+        <div className="shrink-0">
+          <p className="font-mono text-lg leading-none font-semibold">{formatPrice(dayRate, currency)}</p>
+          <p className="text-meta mt-1">/ day</p>
+        </div>
         <div className="flex gap-2">
           <Button
             variant={added ? "secondary" : "outline"}

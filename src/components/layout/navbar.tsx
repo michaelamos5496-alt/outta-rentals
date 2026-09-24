@@ -33,6 +33,7 @@ import { Modal } from "@/components/ui/modal";
 import { useMobileNav } from "@/components/layout/mobile-nav-provider";
 import { useKit } from "@/components/kit/kit-provider";
 import { getWhatsAppLink } from "@/lib/quote/whatsapp";
+import { formatPrice } from "@/lib/currency";
 
 function useDebouncedValue<T>(value: T, delayMs: number): T {
   const [debounced, setDebounced] = React.useState(value);
@@ -105,6 +106,9 @@ function NavbarSearch({ onNavigate }: { onNavigate: () => void }) {
                     </p>
                   </div>
                   <div className="flex shrink-0 items-center gap-2">
+                    <span className="text-small font-mono whitespace-nowrap">
+                      {formatPrice(product.dayRate, product.currency)}/day
+                    </span>
                     <Badge variant={availabilityVariant[product.availability]}>
                       {availabilityLabels[product.availability]}
                     </Badge>

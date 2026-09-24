@@ -15,6 +15,7 @@ import {
 } from "@/lib/catalogue";
 import { fetchProductBySlug, getBookedRanges } from "@/lib/catalogue/db";
 import { todayIso } from "@/lib/kit/rental";
+import { formatPrice } from "@/lib/currency";
 import { BookedDates } from "@/components/catalogue/booked-dates";
 import { getRecommendedForShoot } from "@/lib/packages";
 import { absoluteUrl, SITE_NAME } from "@/lib/seo";
@@ -106,6 +107,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
     url: absoluteUrl(`/equipment/${product.slug}`),
     offers: {
       "@type": "Offer",
+      ...(product.dayRate > 0
+        ? { price: product.dayRate, priceCurrency: product.currency }
+        : {}),
       availability: schemaAvailability[product.availability] ?? "https://schema.org/OutOfStock",
       url: absoluteUrl(`/equipment/${product.slug}`),
     },
@@ -175,9 +179,24 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
             <p className="text-body mt-4">{product.description}</p>
 
-            <p className="text-small mt-6">
-              Pricing on request — add this to your kit and OUTTA will send you a quote.
-            </p>
+            <div className="mt-6">
+              {product.dayRate > 0 ? (
+                <p className="font-mono text-h2 font-semibold">
+                  {formatPrice(product.dayRate, product.currency)}
+                  <span className="font-sans text-base font-normal text-muted-foreground"> / day</span>
+                </p>
+              ) : (
+                <p className="text-h3 font-semibold">Price on request</p>
+              )}
+              {product.weekRate > 0 ? (
+                <p className="text-small mt-1">
+                  {formatPrice(product.weekRate, product.currency)} / week
+                </p>
+              ) : null}
+              <p className="text-meta mt-2">
+                Add this to your cart and OUTTA will confirm your final quote.
+              </p>
+            </div>
 
             <BookedDates ranges={bookedRanges} />
 
@@ -269,7 +288,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
         ) : null}
       </Container>
 
-      <MobileStickyRent productSlug={product.slug} />
+      <MobileStickyRent
+        productSlug={product.slug}
+        dayRate={product.dayRate}
+        currency={product.currency}
+      />
 
       <Container>
         <ProductShelf

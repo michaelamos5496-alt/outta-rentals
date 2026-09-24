@@ -9,15 +9,16 @@ import { getBrandBySlug, getCategoryIcon } from "@/lib/catalogue";
 import type { ResolvedKitLine } from "@/lib/kit/pricing";
 import { useKit } from "@/components/kit/kit-provider";
 import { getProductImage } from "@/lib/editorial-images";
+import { formatPrice } from "@/lib/currency";
 
 export interface KitItemRowProps {
   line: ResolvedKitLine;
   compact?: boolean;
 }
 
-function KitItemRow({ line }: KitItemRowProps) {
+function KitItemRow({ line, compact = false }: KitItemRowProps) {
   const { setQuantity, removeItem } = useKit();
-  const { product, quantity } = line;
+  const { product, quantity, lineTotal } = line;
   const brand = getBrandBySlug(product.brandSlug)?.name ?? product.brandSlug;
   const icon = getCategoryIcon(product.categorySlug);
   const href = `/equipment/${product.slug}`;
@@ -54,7 +55,7 @@ function KitItemRow({ line }: KitItemRowProps) {
           </Button>
         </div>
 
-        <div className="mt-auto flex items-end gap-3 pt-3">
+        <div className="mt-auto flex items-end justify-between gap-3 pt-3">
           <div className="flex items-center gap-1 rounded-lg border border-input">
             <Button
               variant="ghost"
@@ -76,6 +77,16 @@ function KitItemRow({ line }: KitItemRowProps) {
             </Button>
           </div>
 
+          <div className="text-right">
+            {!compact && line.rentalDays > 0 ? (
+              <p className="text-meta">
+                {formatPrice(product.dayRate, product.currency)}/day × {quantity} × {line.rentalDays}d
+              </p>
+            ) : null}
+            <p className="font-mono text-sm font-medium">
+              {line.rentalDays > 0 ? formatPrice(lineTotal, product.currency) : "—"}
+            </p>
+          </div>
         </div>
       </div>
     </div>

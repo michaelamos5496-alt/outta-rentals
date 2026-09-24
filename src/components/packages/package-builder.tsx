@@ -13,6 +13,7 @@ import { getBrandBySlug, getCategoryIcon, getProductBySlug } from "@/lib/catalog
 import { useKit } from "@/components/kit/kit-provider";
 import type { ProductionPackage } from "@/lib/packages/types";
 import { getProductImage } from "@/lib/editorial-images";
+import { formatPrice, formatTotal } from "@/lib/currency";
 
 interface BuilderLine {
   role: string;
@@ -48,6 +49,11 @@ function PackageBuilder({ pkg }: PackageBuilderProps) {
     );
 
   const activeCount = activeLines.filter((l) => l.line.active).length;
+  const dailyTotal = formatTotal(
+    activeLines
+      .filter((l) => l.line.active)
+      .map((l) => ({ amount: l.product.dayRate * l.line.quantity, currency: l.product.currency }))
+  );
 
   function handleAddPackage() {
     activeLines
@@ -136,6 +142,10 @@ function PackageBuilder({ pkg }: PackageBuilderProps) {
                       <Plus />
                     </Button>
                   </div>
+                  <p className="text-sm font-medium">
+                    <span className="font-mono">{formatPrice(product.dayRate * line.quantity, product.currency)}</span>
+                    <span className="font-sans text-muted-foreground"> /day</span>
+                  </p>
                 </div>
               </div>
             </div>
@@ -151,7 +161,7 @@ function PackageBuilder({ pkg }: PackageBuilderProps) {
             {activeCount} item{activeCount === 1 ? "" : "s"} in this package
           </p>
           <p className="text-meta mt-0.5">
-            Pricing confirmed by OUTTA in your quote.
+            {dailyTotal}/day — estimate, final quote confirmed by OUTTA.
           </p>
         </div>
         <Button

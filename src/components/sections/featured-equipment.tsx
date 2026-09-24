@@ -11,6 +11,7 @@ import { Heading } from "@/components/ui/heading";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { getCategoryIcon, getProductBySlug } from "@/lib/catalogue";
 import { themeImages } from "@/lib/editorial-images";
+import { formatTotal } from "@/lib/currency";
 import type { ProductionPackage } from "@/lib/packages";
 
 // Featured packages use the same green card as the catalogue grid.
@@ -19,6 +20,10 @@ function FeaturedCard({ pkg }: { pkg: ProductionPackage }) {
   const heroItem = pkg.items.find((i) => i.role === "Camera") ?? pkg.items[0];
   const heroProduct = heroItem ? getProductBySlug(heroItem.productSlug) : undefined;
   const icon = getCategoryIcon(heroProduct?.categorySlug ?? "cameras");
+  const dayRates = pkg.items.flatMap((item) => {
+    const product = getProductBySlug(item.productSlug);
+    return product ? [{ amount: product.dayRate * item.quantity, currency: product.currency }] : [];
+  });
 
   return (
     <motion.article
@@ -47,6 +52,11 @@ function FeaturedCard({ pkg }: { pkg: ProductionPackage }) {
             icon={icon}
             className="aspect-[16/11] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
           />
+          {dayRates.length > 0 ? (
+            <span className="absolute right-2 bottom-2 rounded-full bg-background px-2 py-1 font-mono text-[0.6875rem] font-semibold">
+              From {formatTotal(dayRates)}/day
+            </span>
+          ) : null}
         </div>
       </Link>
 

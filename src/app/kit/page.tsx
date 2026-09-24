@@ -24,6 +24,7 @@ import { KitItemRow } from "@/components/kit/kit-item-row";
 import { RentalDates } from "@/components/kit/rental-dates";
 import { resolveKitLines } from "@/lib/kit/pricing";
 import { kitPresets } from "@/lib/placeholder-data";
+import { formatPrice, formatTotal } from "@/lib/currency";
 import { SendKitButton } from "@/components/kit/send-kit-button";
 import { useKitAvailability } from "@/components/kit/use-kit-availability";
 
@@ -37,6 +38,7 @@ export default function KitPage() {
   const lines = resolveKitLines(items, rentalDays ?? 0);
   const datesValid = !dateError && rentalDays !== null;
   const itemCount = items.reduce((n, i) => n + i.quantity, 0);
+  const total = formatTotal(lines.map((l) => ({ amount: l.lineTotal, currency: l.product.currency })));
 
   const { results, unavailable, checking } = useKitAvailability();
 
@@ -121,8 +123,28 @@ export default function KitPage() {
         </div>
 
         <aside id="checkout-details" className="h-fit scroll-mt-24 border border-border p-6 lg:sticky lg:top-24">
-          <p className="text-meta">
-            Pricing on request — OUTTA will confirm rates in your quote.
+          <SectionLabel>Estimated pricing</SectionLabel>
+          <div className="flex flex-col gap-2">
+            {lines.map((line) => (
+              <div key={line.product.slug} className="flex justify-between gap-3 text-sm">
+                <span className="text-muted-foreground">
+                  {line.product.name} × {line.quantity}
+                </span>
+                <span className="shrink-0 font-mono">
+                  {datesValid ? formatPrice(line.lineTotal, line.product.currency) : "—"}
+                </span>
+              </div>
+            ))}
+          </div>
+          <Divider className="my-4" />
+          <div className="flex items-baseline justify-between gap-3">
+            <span className="font-medium">Estimated total</span>
+            <span className="text-h3 font-mono">{datesValid ? total : "—"}</span>
+          </div>
+          <p className="text-meta mt-2">
+            {datesValid
+              ? "Estimate — final quote confirmed by OUTTA."
+              : "Set valid rental dates to see an estimate."}
           </p>
 
           <Divider className="my-6" />
@@ -211,7 +233,9 @@ export default function KitPage() {
             <p className="text-sm font-medium">
               {itemCount} item{itemCount === 1 ? "" : "s"}
             </p>
-            <p className="text-meta">Pricing confirmed in your quote</p>
+            <p className="text-meta">
+              {datesValid ? `Est. ${total} · final quote by OUTTA` : "Set dates for an estimate"}
+            </p>
           </div>
           <Button
             size="lg"

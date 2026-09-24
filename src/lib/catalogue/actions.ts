@@ -82,6 +82,8 @@ export interface CatalogueSearchResult {
   categoryName: string;
   categorySlug: string;
   availability: ProductAvailability;
+  dayRate: number;
+  currency: string;
 }
 
 function normalize(value: string): string {
@@ -116,5 +118,7 @@ export async function searchCatalogueAction(query: string): Promise<CatalogueSea
       categoryName: getCategoryBySlug(p.categorySlug)?.name ?? p.categorySlug,
       categorySlug: p.categorySlug,
       availability: p.availability,
+      dayRate: p.dayRate,
+      currency: p.currency,
     }));
 }
