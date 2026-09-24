@@ -165,6 +165,9 @@ export const productImages: Record<string, string> = {
   "haze-machine": "/equipment/haze-machine.avif",
   "smoke-machine": "/equipment/smoke-machine.jpg",
   "sony-fx3": "/equipment/sony-fx3.webp",
+  "sony-fx6": "/equipment/sony-fx6.jpg",
+  "arri-alexa-mini-lf": "/equipment/arri-alexa-mini-lf.webp",
+  "red-komodo": "/equipment/red-komodo.jpg",
   "aputure-600d": "/equipment/aputure-600d.webp",
   "aputure-600x": "/equipment/aputure-600x.jpg",
   "amaran-200x-s": "/equipment/amaran-200x-s.webp",
@@ -184,7 +187,10 @@ export function getProductImage(productSlug: string, categorySlug: string): stri
  */
 export const isolatedProductPhotos = new Set<string>([
   "arri-alexa-mini",
+  "arri-alexa-mini-lf",
+  "red-komodo",
   "sony-fx3",
+  "sony-fx6",
   "blackmagic-6k-pro",
   "blackmagic-6k",
   "red-helium",
