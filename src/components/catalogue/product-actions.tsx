@@ -12,7 +12,7 @@ export interface ProductActionsProps {
   productName: string;
 }
 
-function ProductActions({ productSlug, productName }: ProductActionsProps) {
+function ProductActions({ productSlug }: ProductActionsProps) {
   const router = useRouter();
   const { addItem, items, openDrawer } = useKit();
   // Stays "In Cart" for as long as the item is in the cart, so it can't be added twice by accident.
