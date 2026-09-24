@@ -167,6 +167,7 @@ export const productImages: Record<string, string> = {
   "sony-fx3": "/equipment/sony-fx3.webp",
   "sony-fx6": "/equipment/sony-fx6.jpg",
   "sachtler-video-25-plus-tripod": "/equipment/sachtler-video-25-plus-tripod.webp",
+  "manfrotto-116-mrk3": "/equipment/manfrotto-116-mrk3.webp",
   "arri-alexa-mini-lf": "/equipment/arri-alexa-mini-lf.webp",
   "red-komodo": "/equipment/red-komodo.jpg",
   "aputure-600d": "/equipment/aputure-600d.webp",
@@ -180,6 +181,7 @@ export const productImages: Record<string, string> = {
  */
 export const extraProductImages: Record<string, string[]> = {
   "sachtler-video-25-plus-tripod": ["/equipment/sachtler-video-25-plus-tripod-2.jpg"],
+  "manfrotto-116-mrk3": ["/equipment/manfrotto-116-mrk3-2.jpg"],
 };
 
 /** Every real photo for a product — main image first — or [] when there's none. */
