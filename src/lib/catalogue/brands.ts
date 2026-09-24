@@ -25,6 +25,8 @@ export const brands: Brand[] = [
   { id: "brand-atomos", name: "Atomos", slug: "atomos" },
   { id: "brand-teradek", name: "Teradek", slug: "teradek" },
   { id: "brand-freefly", name: "Freefly", slug: "freefly" },
+  { id: "brand-manfrotto", name: "Manfrotto", slug: "manfrotto" },
+  { id: "brand-smallrig", name: "SmallRig", slug: "smallrig" },
   { id: "brand-outta", name: "OUTTA Essentials", slug: "outta-essentials" },
 ];
 
