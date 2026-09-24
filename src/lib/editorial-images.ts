@@ -174,6 +174,20 @@ export const productImages: Record<string, string> = {
   "amaran-200x-s": "/equipment/amaran-200x-s.webp",
 };
 
+/**
+ * Extra photos shown after the main one on the product page, keyed by slug.
+ * Products listed here get a real multi-image gallery (clickable thumbnails).
+ */
+export const extraProductImages: Record<string, string[]> = {
+  "sachtler-video-25-plus-tripod": ["/equipment/sachtler-video-25-plus-tripod-2.jpg"],
+};
+
+/** Every real photo for a product — main image first — or [] when there's none. */
+export function getProductGallery(productSlug: string): string[] {
+  const main = productImages[productSlug];
+  return main ? [main, ...(extraProductImages[productSlug] ?? [])] : [];
+}
+
 /** Resolves a product's best-effort photo, falling back to its category photo. */
 export function getProductImage(productSlug: string, categorySlug: string): string | undefined {
   return productImages[productSlug] ?? categoryImages[categorySlug];

@@ -5,7 +5,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { getCategoryIcon } from "@/lib/catalogue";
-import { getProductImage, isolatedProductPhotos } from "@/lib/editorial-images";
+import { getProductGallery, getProductImage, isolatedProductPhotos } from "@/lib/editorial-images";
 
 export interface ProductGalleryProps {
   productSlug: string;
@@ -18,25 +18,30 @@ export interface ProductGalleryProps {
 
 function ProductGallery({ productSlug, categorySlug, sku, name, frameCount = 4 }: ProductGalleryProps) {
   const icon = getCategoryIcon(categorySlug);
+  const gallery = getProductGallery(productSlug);
+  // Real multi-photo gallery when there's more than one photo; otherwise the
+  // original single-photo layout.
+  const hasGallery = gallery.length > 1;
   const image = getProductImage(productSlug, categorySlug);
   const fit = isolatedProductPhotos.has(productSlug) ? "contain" : "cover";
   const [active, setActive] = React.useState(0);
-  const frames = Array.from({ length: frameCount });
+  const frames = hasGallery ? gallery : Array.from({ length: frameCount }, () => image);
+  const frameTotal = frames.length;
 
   return (
     <div className="flex flex-col gap-3">
       <div className="overflow-hidden border border-border">
         <MediaPlaceholder
-          src={image}
+          src={hasGallery ? gallery[active] : image}
           alt={name}
           icon={icon}
-          meta={`${sku} · ${active + 1}/${frameCount}`}
+          meta={`${sku} · ${active + 1}/${frameTotal}`}
           fit={fit}
           className="aspect-square w-full sm:aspect-4/3"
         />
       </div>
       <div className="grid grid-cols-4 gap-3">
-        {frames.map((_, i) => (
+        {frames.map((frameSrc, i) => (
           <button
             key={i}
             type="button"
@@ -51,7 +56,7 @@ function ProductGallery({ productSlug, categorySlug, sku, name, frameCount = 4 }
             )}
           >
             <MediaPlaceholder
-              src={image}
+              src={frameSrc}
               alt={`${name} ${i + 1}`}
               icon={icon}
               fit={fit}
