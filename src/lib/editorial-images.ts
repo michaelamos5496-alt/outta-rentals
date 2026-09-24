@@ -173,6 +173,7 @@ export const productImages: Record<string, string> = {
   "hi-hat": "/equipment/hi-hat.webp",
   "cine-saddle": "/equipment/cine-saddle.webp",
   "dji-ronin-2": "/equipment/dji-ronin-2.png",
+  "dana-dolly-slider": "/equipment/dana-dolly-slider.jpg",
   "arri-alexa-mini-lf": "/equipment/arri-alexa-mini-lf.webp",
   "red-komodo": "/equipment/red-komodo.jpg",
   "aputure-600d": "/equipment/aputure-600d.webp",
