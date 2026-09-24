@@ -171,6 +171,7 @@ export const productImages: Record<string, string> = {
   "manfrotto-546gb": "/equipment/manfrotto-546gb.jpg",
   "smallrig-tripod": "/equipment/smallrig-tripod.jpg",
   "hi-hat": "/equipment/hi-hat.webp",
+  "cine-saddle": "/equipment/cine-saddle.webp",
   "arri-alexa-mini-lf": "/equipment/arri-alexa-mini-lf.webp",
   "red-komodo": "/equipment/red-komodo.jpg",
   "aputure-600d": "/equipment/aputure-600d.webp",
@@ -188,6 +189,7 @@ export const extraProductImages: Record<string, string[]> = {
   "manfrotto-546gb": ["/equipment/manfrotto-546gb-2.jpg", "/equipment/manfrotto-546gb-3.jpg"],
   "smallrig-tripod": ["/equipment/smallrig-tripod-2.jpg", "/equipment/smallrig-tripod-3.jpg"],
   "hi-hat": ["/equipment/hi-hat-2.webp"],
+  "cine-saddle": ["/equipment/cine-saddle-2.webp"],
 };
 
 /** Every real photo for a product — main image first — or [] when there's none. */
