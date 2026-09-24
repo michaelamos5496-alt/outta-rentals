@@ -175,6 +175,10 @@ export const productImages: Record<string, string> = {
   "dji-ronin-2": "/equipment/dji-ronin-2.png",
   "dana-dolly-slider": "/equipment/dana-dolly-slider.jpg",
   "ez-fx-slider": "/equipment/ez-fx-slider.jpg",
+  "tiffen-glimmerglass": "/equipment/tiffen-glimmerglass.jpg",
+  "4x4ft-egg-crate": "/equipment/4x4ft-egg-crate.jpg",
+  "6x6ft-egg-crate": "/equipment/6x6ft-egg-crate.jpg",
+  "8x8ft-egg-crate": "/equipment/8x8ft-egg-crate.jpg",
   "arri-alexa-mini-lf": "/equipment/arri-alexa-mini-lf.webp",
   "red-komodo": "/equipment/red-komodo.jpg",
   "aputure-600d": "/equipment/aputure-600d.webp",
@@ -195,6 +199,8 @@ export const extraProductImages: Record<string, string[]> = {
   "cine-saddle": ["/equipment/cine-saddle-2.webp"],
   "dji-ronin-2": ["/equipment/dji-ronin-2-2.jpg", "/equipment/dji-ronin-2-3.jpg"],
   "ez-fx-slider": ["/equipment/ez-fx-slider-2.jpg"],
+  "6x6ft-egg-crate": ["/equipment/6x6ft-egg-crate-2.jpg"],
+  "8x8ft-egg-crate": ["/equipment/8x8ft-egg-crate-2.jpg"],
 };
 
 /** Every real photo for a product — main image first — or [] when there's none. */
