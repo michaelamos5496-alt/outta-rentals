@@ -28,31 +28,29 @@ function FeaturedCard({ pkg }: { pkg: ProductionPackage }) {
   return (
     <motion.article
       variants={slideUp()}
-      className="group/product relative overflow-hidden rounded-2xl bg-brand"
+      className="group/product relative flex flex-col overflow-hidden rounded-2xl bg-brand"
     >
-      <Link href={href} className="block active:opacity-80">
-        <div className="flex items-start justify-between gap-2 p-3 pb-1.5 sm:p-3.5 sm:pb-1.5">
+      <Link href={href} className="flex flex-1 flex-col active:opacity-80">
+        <div className="flex items-start justify-between gap-2 p-2.5 pb-1 sm:p-3 sm:pb-1">
           <div className="min-w-0">
-            <p className="line-clamp-2 text-sm font-bold leading-tight text-brand-foreground">
+            <p className="line-clamp-2 text-xs font-bold leading-tight text-brand-foreground">
               {pkg.name}
             </p>
-            <p className="mt-1 text-[0.6875rem] text-brand-foreground/70">
-              {pkg.items.length} {pkg.items.length === 1 ? "role" : "roles"} included
-            </p>
             {dayRates.length > 0 ? (
-              <p className="mt-1.5 font-mono text-sm leading-none font-bold text-brand-foreground">
+              <p className="mt-1 font-mono text-[0.8125rem] leading-none font-bold text-brand-foreground">
                 From {formatTotal(dayRates)}/day
               </p>
             ) : null}
           </div>
         </div>
 
-        <div className="relative mt-1">
+        <div className="relative mt-1 flex-1">
+          <div className="aspect-[16/11] w-full" />
           <MediaPlaceholder
             src={themeImages[pkg.slug]}
             alt={pkg.name}
             icon={icon}
-            className="aspect-[16/11] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
+            className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
           />
         </div>
       </Link>

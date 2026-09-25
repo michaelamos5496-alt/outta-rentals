@@ -12,7 +12,6 @@ import {
   availabilityLabels,
   availabilityVariant,
   getBrandBySlug,
-  getCategoryBySlug,
   getCategoryIcon,
   type DemoProduct,
 } from "@/lib/catalogue";
@@ -31,8 +30,6 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
   // Stays "In Cart" for as long as the item is in the cart, so it can't be added twice by accident.
   const added = items.some((i) => i.productSlug === product.slug);
   const href = `/equipment/${product.slug}`;
-  const brand = getBrandBySlug(product.brandSlug);
-  const category = getCategoryBySlug(product.categorySlug);
 
 
   if (view === "list") {
@@ -42,30 +39,29 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
   // Green card sitewide: brand + category + description on the green fill,
   // large photo, circular quick-add button.
   return (
-    <article className={cn("group/product relative overflow-hidden rounded-2xl bg-brand", className)}>
-      <Link href={href} className="block active:opacity-80">
-        <div className="flex items-start justify-between gap-2 p-3 pb-1.5 sm:p-3.5 sm:pb-1.5">
+    <article className={cn("group/product relative flex flex-col overflow-hidden rounded-2xl bg-brand", className)}>
+      <Link href={href} className="flex flex-1 flex-col active:opacity-80">
+        <div className="flex items-start justify-between gap-2 p-2.5 pb-1 sm:p-3 sm:pb-1">
           <div className="min-w-0">
-            <p className="line-clamp-2 text-sm font-bold leading-tight text-brand-foreground">
+            <p className="line-clamp-2 text-xs font-bold leading-tight text-brand-foreground">
               {product.name}
             </p>
-            <p className="mt-1 text-[0.6875rem] text-brand-foreground/70">
-              {brand?.name ?? product.brandSlug}
-              {category ? ` · ${category.name}` : ""}
-            </p>
             {product.dayRate > 0 ? (
-              <p className="mt-1.5 font-mono text-sm leading-none font-bold text-brand-foreground">
+              <p className="mt-1 font-mono text-[0.8125rem] leading-none font-bold text-brand-foreground">
                 {formatPrice(product.dayRate, product.currency)}/day
               </p>
             ) : null}
           </div>
         </div>
 
-        <div className="relative mt-1">
+        {/* The photo area fills whatever height the card has, so a longer name
+            in a neighbouring card never leaves a green strip under the photo. */}
+        <div className="relative mt-1 flex-1">
+          <div className="aspect-[16/11] w-full" />
           <MediaPlaceholder
             src={getProductImage(product.slug, product.categorySlug)}
             alt={product.name}
-            className="aspect-[16/11] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
+            className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
           />
         </div>
       </Link>

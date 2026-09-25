@@ -50,16 +50,13 @@ export default function PackagesPage() {
               className="group/pkg relative flex h-full flex-col overflow-hidden rounded-2xl bg-brand"
             >
               <Link href={`/packages/${pkg.slug}`} className="flex flex-1 flex-col active:opacity-80">
-                <div className="flex items-start justify-between gap-2 p-3 pb-1.5 sm:p-3.5 sm:pb-1.5">
+                <div className="flex items-start justify-between gap-2 p-2.5 pb-1 sm:p-3 sm:pb-1">
                   <div className="min-w-0">
-                    <p className="line-clamp-2 text-sm font-bold leading-tight text-brand-foreground">
+                    <p className="line-clamp-2 text-xs font-bold leading-tight text-brand-foreground">
                       {pkg.name}
                     </p>
-                    <p className="mt-1 text-[0.6875rem] text-brand-foreground/70">
-                      {pkg.items.length} roles included
-                    </p>
                     {dayRates.length > 0 ? (
-                      <p className="mt-1.5 font-mono text-sm leading-none font-bold text-brand-foreground">
+                      <p className="mt-1 font-mono text-[0.8125rem] leading-none font-bold text-brand-foreground">
                         From {formatTotal(dayRates)}/day
                       </p>
                     ) : null}
