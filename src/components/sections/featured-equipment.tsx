@@ -39,6 +39,11 @@ function FeaturedCard({ pkg }: { pkg: ProductionPackage }) {
             <p className="mt-1 text-[0.6875rem] text-brand-foreground/70">
               {pkg.items.length} {pkg.items.length === 1 ? "role" : "roles"} included
             </p>
+            {dayRates.length > 0 ? (
+              <p className="mt-1.5 font-mono text-sm leading-none font-bold text-brand-foreground">
+                From {formatTotal(dayRates)}/day
+              </p>
+            ) : null}
           </div>
           <p className="hidden max-w-[40%] text-right text-[0.625rem] leading-snug text-brand-foreground/70 sm:line-clamp-2 sm:block">
             {pkg.description}
@@ -52,11 +57,6 @@ function FeaturedCard({ pkg }: { pkg: ProductionPackage }) {
             icon={icon}
             className="aspect-[16/11] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
           />
-          {dayRates.length > 0 ? (
-            <span className="absolute right-2 bottom-2 rounded-full bg-background px-2 py-1 font-mono text-[0.6875rem] font-semibold">
-              From {formatTotal(dayRates)}/day
-            </span>
-          ) : null}
         </div>
       </Link>
 

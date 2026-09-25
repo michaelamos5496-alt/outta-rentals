@@ -58,6 +58,11 @@ export default function PackagesPage() {
                     <p className="mt-1 text-[0.6875rem] text-brand-foreground/70">
                       {pkg.items.length} roles included
                     </p>
+                    {dayRates.length > 0 ? (
+                      <p className="mt-1.5 font-mono text-sm leading-none font-bold text-brand-foreground">
+                        From {formatTotal(dayRates)}/day
+                      </p>
+                    ) : null}
                   </div>
                   <p className="hidden max-w-[45%] text-right text-[0.625rem] leading-snug text-brand-foreground/70 sm:line-clamp-2 sm:block">
                     {pkg.description}
@@ -71,11 +76,6 @@ export default function PackagesPage() {
                     icon={icon}
                     className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/pkg:scale-105"
                   />
-                  {dayRates.length > 0 ? (
-                    <span className="absolute right-2 bottom-2 bg-background px-1.5 py-0.5 font-mono text-[0.625rem] font-semibold">
-                      From {formatTotal(dayRates)}/day
-                    </span>
-                  ) : null}
                 </div>
               </Link>
 

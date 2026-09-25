@@ -53,6 +53,11 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
               {brand?.name ?? product.brandSlug}
               {category ? ` · ${category.name}` : ""}
             </p>
+            {product.dayRate > 0 ? (
+              <p className="mt-1.5 font-mono text-sm leading-none font-bold text-brand-foreground">
+                {formatPrice(product.dayRate, product.currency)}/day
+              </p>
+            ) : null}
           </div>
           <p className="hidden max-w-[40%] text-right text-[0.625rem] leading-snug text-brand-foreground/70 sm:line-clamp-2 sm:block">
             {product.shortDescription}
@@ -65,11 +70,6 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
             alt={product.name}
             className="aspect-[16/11] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
           />
-          {product.dayRate > 0 ? (
-            <span className="absolute right-2 bottom-2 rounded-full bg-background px-2 py-1 font-mono text-[0.6875rem] font-semibold">
-              {formatPrice(product.dayRate, product.currency)}/day
-            </span>
-          ) : null}
         </div>
       </Link>
 
