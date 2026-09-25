@@ -15,7 +15,7 @@ export const SITE_URL = (
 export const SITE_NAME = "OUTTA RENTALS";
 
 export const SITE_DESCRIPTION =
-  "OUTTA RENTALS is a premium film, photography and production-equipment rental company — cameras, lenses, lighting, audio, grip and drones for serious productions.";
+  "OUTTA RENTALS is a premium film, photography and production-equipment rental company — cameras, lenses, lighting and grip for serious productions.";
 
 export function absoluteUrl(path: string): string {
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;

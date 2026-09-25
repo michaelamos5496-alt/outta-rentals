@@ -13,10 +13,7 @@ export const categoryImages: Record<string, string> = {
   lenses: pexelsUrl(2335052),
   lighting: pexelsUrl(4417017),
   grip: pexelsUrl(20101684),
-  audio: pexelsUrl(347700),
   monitors: pexelsUrl(11234306),
-  drones: pexelsUrl(9977848),
-  accessories: pexelsUrl(1738643),
   // Added alongside the real inventory import — reuse the closest existing
   // category photo rather than sourcing new stock for a first pass.
   "camera-accessories": pexelsUrl(11234306), // shares the monitors/support photo

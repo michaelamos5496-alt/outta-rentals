@@ -123,7 +123,7 @@ function NavbarSearch({ onNavigate }: { onNavigate: () => void }) {
   );
 }
 
-// The real equipment taxonomy (all 12 real categories, every one reachable)
+// The real equipment taxonomy (all 9 real categories, every one reachable)
 // collapsed into the client's requested tab set — Camera and Light each
 // group a few closely related real categories under one tab. Rendered as
 // flat, always-visible tabs in the main nav row (711rent-style), not
@@ -155,9 +155,6 @@ const equipmentTabs: EquipmentTab[] = [
     ],
   },
   { label: "Grip", href: "/equipment/grip" },
-  { label: "Accessories", href: "/equipment/accessories" },
-  { label: "Audio", href: "/equipment/audio" },
-  { label: "Drone", href: "/equipment/drones" },
 ];
 
 // Thin utility row up top, now a radial FAB instead of a plain link list —
