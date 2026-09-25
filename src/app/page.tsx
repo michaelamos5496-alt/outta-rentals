@@ -44,7 +44,7 @@ function pickWithUniqueImages(
 }
 
 // Kept in the catalogue, just not shown in the hero banner / thumbnail strip.
-const HERO_EXCLUDED_SLUGS = new Set(["freefly-movi-pro"]);
+const HERO_EXCLUDED_SLUGS = new Set(["freefly-movi-pro", "dzofilm-pictor-zoom-20-55mm-t2-8"]);
 
 export default async function Home() {
   const products = await fetchAllProducts();
