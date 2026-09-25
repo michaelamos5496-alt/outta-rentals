@@ -48,6 +48,7 @@ const HERO_EXCLUDED_SLUGS = new Set([
   "freefly-movi-pro",
   "dzofilm-pictor-zoom-20-55mm-t2-8",
   "arri-alexa-mini-foreign",
+  "dzofilm-arles-prime-set-25-35-50-75-100mm",
 ]);
 
 export default async function Home() {
