@@ -7,8 +7,6 @@ import { showWorkSection } from "@/config/site";
 import { Services } from "@/components/sections/services";
 import { FinalCta } from "@/components/sections/final-cta";
 import { fetchAllProducts } from "@/lib/catalogue/db";
-import { getProductImage } from "@/lib/editorial-images";
-import type { DemoProduct } from "@/lib/catalogue";
 import { getPackageBySlug } from "@/lib/packages";
 
 // Statically imported (not next/dynamic) — this tree is passed as `children`
@@ -18,61 +16,38 @@ import { getPackageBySlug } from "@/lib/packages";
 // version (confirmed: 9 children resolved as 17). Static imports sidestep it.
 
 /**
- * Picks up to `count` products from `pool`, skipping any already in
- * `usedSlugs` and any whose real photo (several grip/lighting size-variant
- * SKUs legitimately share one reference photo) is already showing
- * elsewhere — the hero's thumbnail strip and the featured grid should
- * never repeat the same image twice.
+ * The hero banner and the thumbnail strip under it show this fixed set, in
+ * this order — they do NOT pick up new equipment automatically, so photos
+ * added to the catalogue later never appear on the homepage banner. To
+ * change what the hero shows, edit this list.
  */
-function pickWithUniqueImages(
-  pool: DemoProduct[],
-  usedSlugs: Set<string>,
-  usedImages: Set<string>,
-  count: number
-): DemoProduct[] {
-  const picked: DemoProduct[] = [];
-  for (const p of pool) {
-    if (picked.length >= count) break;
-    if (usedSlugs.has(p.slug)) continue;
-    const image = getProductImage(p.slug, p.categorySlug);
-    if (image && usedImages.has(image)) continue;
-    picked.push(p);
-    usedSlugs.add(p.slug);
-    if (image) usedImages.add(image);
-  }
-  return picked;
-}
-
-// Kept in the catalogue, just not shown in the hero banner / thumbnail strip.
-const HERO_EXCLUDED_SLUGS = new Set([
-  "freefly-movi-pro",
-  "dzofilm-pictor-zoom-20-55mm-t2-8",
-  "arri-alexa-mini-foreign",
-  "dzofilm-arles-prime-set-25-35-50-75-100mm",
-  "dzofilm-pictor-zoom-50-125mm-t2-8", // shares the Arles Set's stock photo
-]);
+const HERO_SLUGS = [
+  "sony-fx3",
+  "aputure-600d",
+  "aputure-600x",
+  "amaran-200x-s",
+  "c-stand-kit",
+  "arri-alexa-mini",
+  "red-helium",
+  "blackmagic-6k-pro",
+  "blackmagic-6k",
+  "dzofilm-arles-prime-single",
+  "dzofilm-vespid-prime-set-16-125mm",
+  "dzofilm-pictor-zoom-12-25mm-t2-8",
+  "arri-distagon-12mm",
+  "laowa-12mm-ef",
+  "sigma-18-35mm",
+  "canon-24-105mm",
+  "heavy-duty-tripod",
+];
 
 export default async function Home() {
   const products = await fetchAllProducts();
-  const heroPool = products.filter((p) => !HERO_EXCLUDED_SLUGS.has(p.slug));
-  const featured = heroPool.filter((p) => p.featured);
-  const usedSlugs = new Set<string>();
-  const usedImages = new Set<string>();
-
-  // Hero rotates through the featured set, topped up with other real
-  // catalogue items so the thumbnail strip beneath it fills a wide, varied
-  // row (711rent-style) with visually distinct photos, rather than
-  // repeating a photo shared by size-variant SKUs (e.g. the 4/6/8/12ft grip
-  // frames). 20 rather than 8 — at 8 items, two looped copies (~1,500px)
-  // didn't cover very wide viewports, leaving blank space at the end of
-  // the marquee track before it looped.
-  const SPOTLIGHT_COUNT = 20;
-  const spotlightProducts = pickWithUniqueImages(featured, usedSlugs, usedImages, SPOTLIGHT_COUNT);
-  if (spotlightProducts.length < SPOTLIGHT_COUNT) {
-    spotlightProducts.push(
-      ...pickWithUniqueImages(heroPool, usedSlugs, usedImages, SPOTLIGHT_COUNT - spotlightProducts.length)
-    );
-  }
+  const bySlug = new Map(products.map((p) => [p.slug, p]));
+  const spotlightProducts = HERO_SLUGS.flatMap((slug) => {
+    const product = bySlug.get(slug);
+    return product ? [product] : [];
+  });
 
   // The grid below is a pull from the preset production packages rather
   // than individual equipment, so it reads as "the kit for your shoot"
