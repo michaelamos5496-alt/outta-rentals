@@ -25,6 +25,7 @@ import { RentalDates } from "@/components/kit/rental-dates";
 import { resolveKitLines } from "@/lib/kit/pricing";
 import { kitPresets } from "@/lib/placeholder-data";
 import { formatPrice, formatTotal } from "@/lib/currency";
+import { isValidPhone } from "@/lib/kit/phone";
 import { SendKitButton } from "@/components/kit/send-kit-button";
 import { useKitAvailability } from "@/components/kit/use-kit-availability";
 
@@ -160,12 +161,17 @@ export default function KitPage() {
               />
             </div>
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="customer-phone">Phone</Label>
+              <Label htmlFor="customer-phone">
+                Contact number <span className="text-destructive">*</span>
+              </Label>
               <Input
                 id="customer-phone"
                 type="tel"
+                inputMode="tel"
                 autoComplete="tel"
+                required
                 placeholder="024 123 4567"
+                aria-invalid={projectInfo.customerPhone.trim() !== "" && !isValidPhone(projectInfo.customerPhone)}
                 value={projectInfo.customerPhone}
                 onChange={(e) => setProjectInfo({ customerPhone: e.target.value })}
               />
