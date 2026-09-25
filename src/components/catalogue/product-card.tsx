@@ -77,15 +77,20 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
           else addItem(product.slug);
         }}
         className={cn(
-          "absolute right-2 bottom-2 flex size-10 items-center justify-center rounded-full shadow-md transition-colors active:scale-90",
-          added ? "bg-brand text-brand-foreground" : "bg-foreground text-background"
+          // Frosted-glass button: translucent fill, heavy blur + saturation, a
+          // bright top edge and a soft shadow, like Apple's "liquid glass".
+          "absolute right-2 bottom-2 flex size-11 items-center justify-center rounded-full border backdrop-blur-xl backdrop-saturate-200 transition-all active:scale-90",
+          "shadow-[0_6px_20px_rgba(0,0,0,0.18),inset_0_1px_1px_rgba(255,255,255,0.9),inset_0_-1px_1px_rgba(255,255,255,0.25)]",
+          added
+            ? "border-white/50 bg-brand/70 text-white"
+            : "border-white/70 bg-white/40 text-neutral-900"
         )}
       >
         <ShoppingCart className="size-[1.125rem]" strokeWidth={1.75} />
         <span
           className={cn(
-            "absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full border-2 border-background",
-            added ? "bg-foreground text-background" : "bg-brand text-brand-foreground"
+            "absolute -top-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full shadow-sm",
+            added ? "bg-white text-brand" : "bg-brand text-brand-foreground"
           )}
         >
           {added ? <Check className="size-2.5" strokeWidth={3} /> : <Plus className="size-2.5" strokeWidth={3} />}
