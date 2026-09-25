@@ -49,6 +49,7 @@ const HERO_EXCLUDED_SLUGS = new Set([
   "dzofilm-pictor-zoom-20-55mm-t2-8",
   "arri-alexa-mini-foreign",
   "dzofilm-arles-prime-set-25-35-50-75-100mm",
+  "dzofilm-pictor-zoom-50-125mm-t2-8", // shares the Arles Set's stock photo
 ]);
 
 export default async function Home() {
