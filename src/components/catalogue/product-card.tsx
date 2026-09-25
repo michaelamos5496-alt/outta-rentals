@@ -65,9 +65,11 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
             alt={product.name}
             className="aspect-[16/11] w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
           />
-          <span className="absolute right-2 bottom-2 rounded-full bg-background px-2 py-1 font-mono text-[0.6875rem] font-semibold">
-            {formatPrice(product.dayRate, product.currency)}/day
-          </span>
+          {product.dayRate > 0 ? (
+            <span className="absolute right-2 bottom-2 rounded-full bg-background px-2 py-1 font-mono text-[0.6875rem] font-semibold">
+              {formatPrice(product.dayRate, product.currency)}/day
+            </span>
+          ) : null}
         </div>
       </Link>
 
@@ -131,10 +133,12 @@ function ListProductCard({
           </Badge>
         </div>
         <p className="text-small mt-2 line-clamp-2">{product.shortDescription}</p>
-        <p className="mt-2 font-mono text-sm font-semibold">
-          {formatPrice(product.dayRate, product.currency)}
-          <span className="font-sans font-normal text-muted-foreground"> / day</span>
-        </p>
+        {product.dayRate > 0 ? (
+          <p className="mt-2 font-mono text-sm font-semibold">
+            {formatPrice(product.dayRate, product.currency)}
+            <span className="font-sans font-normal text-muted-foreground"> / day</span>
+          </p>
+        ) : null}
 
         <div className="mt-auto flex items-center justify-end gap-3 pt-4">
           <div className="flex gap-2">

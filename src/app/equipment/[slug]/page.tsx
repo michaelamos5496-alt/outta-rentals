@@ -179,16 +179,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
             <p className="text-body mt-4">{product.description}</p>
 
-            <div className="mt-6">
-              {product.dayRate > 0 ? (
-                <p className="font-mono text-h2 font-semibold">
-                  {formatPrice(product.dayRate, product.currency)}
-                  <span className="font-sans text-base font-normal text-muted-foreground"> / day</span>
-                </p>
-              ) : (
-                <p className="text-h3 font-semibold">Price on request</p>
-              )}
-            </div>
+            {product.dayRate > 0 ? (
+              <p className="font-mono text-h2 mt-6 font-semibold">
+                {formatPrice(product.dayRate, product.currency)}
+                <span className="font-sans text-base font-normal text-muted-foreground"> / day</span>
+              </p>
+            ) : null}
 
             <BookedDates ranges={bookedRanges} />
 

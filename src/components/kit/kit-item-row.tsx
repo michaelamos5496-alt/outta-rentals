@@ -78,14 +78,16 @@ function KitItemRow({ line, compact = false }: KitItemRowProps) {
           </div>
 
           <div className="text-right">
-            {!compact && line.rentalDays > 0 ? (
+            {!compact && line.rentalDays > 0 && product.dayRate > 0 ? (
               <p className="text-meta">
                 {formatPrice(product.dayRate, product.currency)}/day × {quantity} × {line.rentalDays}d
               </p>
             ) : null}
-            <p className="font-mono text-sm font-medium">
-              {line.rentalDays > 0 ? formatPrice(lineTotal, product.currency) : "—"}
-            </p>
+            {product.dayRate > 0 ? (
+              <p className="font-mono text-sm font-medium">
+                {line.rentalDays > 0 ? formatPrice(lineTotal, product.currency) : "—"}
+              </p>
+            ) : null}
           </div>
         </div>
       </div>

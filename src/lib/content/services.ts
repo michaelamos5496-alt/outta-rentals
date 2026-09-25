@@ -24,7 +24,7 @@ export const serviceDetails: ServiceDetail[] = [
     name: "Equipment Rental",
     headline: "The full catalogue, ready when you are.",
     description:
-      "Cameras, lenses, lighting, grip and more — inspected and tested before every rental. Browse by category or build a kit from scratch, with real-time availability and pricing on request.",
+      "Cameras, lenses, lighting, grip and more — inspected and tested before every rental. Browse by category or build a kit from scratch, with live availability and pricing on every item.",
     icon: Package,
     cta: { label: "Browse Equipment", href: "/equipment" },
   },

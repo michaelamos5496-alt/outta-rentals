@@ -26,10 +26,14 @@ function MobileStickyRent({ productSlug, dayRate, currency }: MobileStickyRentPr
   return (
     <div className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-background/95 px-5 py-3 backdrop-blur-md lg:hidden">
       <div className="flex items-center justify-between gap-4">
-        <div className="shrink-0">
-          <p className="font-mono text-lg leading-none font-semibold">{formatPrice(dayRate, currency)}</p>
-          <p className="text-meta mt-1">/ day</p>
-        </div>
+        {dayRate > 0 ? (
+          <div className="shrink-0">
+            <p className="font-mono text-lg leading-none font-semibold">{formatPrice(dayRate, currency)}</p>
+            <p className="text-meta mt-1">/ day</p>
+          </div>
+        ) : (
+          <span />
+        )}
         <div className="flex gap-2">
           <Button
             variant={added ? "secondary" : "outline"}
