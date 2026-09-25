@@ -45,9 +45,6 @@ function FeaturedCard({ pkg }: { pkg: ProductionPackage }) {
               </p>
             ) : null}
           </div>
-          <p className="hidden max-w-[40%] text-right text-[0.625rem] leading-snug text-brand-foreground/70 sm:line-clamp-2 sm:block">
-            {pkg.description}
-          </p>
         </div>
 
         <div className="relative mt-1">

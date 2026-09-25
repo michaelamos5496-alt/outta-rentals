@@ -64,9 +64,6 @@ export default function PackagesPage() {
                       </p>
                     ) : null}
                   </div>
-                  <p className="hidden max-w-[45%] text-right text-[0.625rem] leading-snug text-brand-foreground/70 sm:line-clamp-2 sm:block">
-                    {pkg.description}
-                  </p>
                 </div>
 
                 <div className="relative mt-1 min-h-[7rem] flex-1">

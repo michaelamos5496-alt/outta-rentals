@@ -59,9 +59,6 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
               </p>
             ) : null}
           </div>
-          <p className="hidden max-w-[40%] text-right text-[0.625rem] leading-snug text-brand-foreground/70 sm:line-clamp-2 sm:block">
-            {product.shortDescription}
-          </p>
         </div>
 
         <div className="relative mt-1">
