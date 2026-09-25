@@ -77,20 +77,18 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
           else addItem(product.slug);
         }}
         className={cn(
-          // Frosted-glass button: translucent fill, heavy blur + saturation, a
-          // bright top edge and a soft shadow, like Apple's "liquid glass".
-          "absolute right-2 bottom-2 flex size-11 items-center justify-center rounded-full border backdrop-blur-xl backdrop-saturate-200 transition-all active:scale-90",
-          "shadow-[0_6px_20px_rgba(0,0,0,0.18),inset_0_1px_1px_rgba(255,255,255,0.9),inset_0_-1px_1px_rgba(255,255,255,0.25)]",
-          added
-            ? "border-white/50 bg-brand/70 text-white"
-            : "border-white/70 bg-white/40 text-neutral-900"
+          // Frosted green glass: translucent brand-green fill, heavy blur +
+          // saturation, a bright top edge and a soft green-tinted glow.
+          "absolute right-2 bottom-2 flex size-11 items-center justify-center rounded-full border text-white backdrop-blur-xl backdrop-saturate-200 transition-all active:scale-90",
+          "shadow-[0_6px_20px_rgba(0,110,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.75),inset_0_-1px_1px_rgba(255,255,255,0.2)]",
+          added ? "border-white/60 bg-brand/90" : "border-white/45 bg-brand/70"
         )}
       >
-        <ShoppingCart className="size-[1.125rem]" strokeWidth={1.75} />
+        <ShoppingCart className="size-[1.125rem] drop-shadow-sm" strokeWidth={1.75} />
         <span
           className={cn(
             "absolute -top-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full shadow-sm",
-            added ? "bg-white text-brand" : "bg-brand text-brand-foreground"
+            "bg-white text-brand"
           )}
         >
           {added ? <Check className="size-2.5" strokeWidth={3} /> : <Plus className="size-2.5" strokeWidth={3} />}
