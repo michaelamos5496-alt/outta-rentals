@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Check, Plus } from "lucide-react";
+import { Check, Plus, ShoppingCart } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -66,6 +66,8 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
         </div>
       </Link>
 
+      {/* Round cart button on the photo's corner — the "+" badge makes it read
+          as add-to-cart; it turns into a check once the item is in the cart. */}
       <button
         type="button"
         aria-label={added ? "In cart — view cart" : `Add ${product.name} to cart`}
@@ -75,12 +77,19 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
           else addItem(product.slug);
         }}
         className={cn(
-          "absolute bottom-2 left-2 flex h-9 items-center gap-1 rounded-full pr-3.5 pl-2.5 text-xs font-bold transition-colors active:scale-95",
-          added ? "bg-brand-foreground text-brand" : "bg-foreground text-background"
+          "absolute right-2 bottom-2 flex size-10 items-center justify-center rounded-full shadow-md transition-colors active:scale-90",
+          added ? "bg-brand text-brand-foreground" : "bg-foreground text-background"
         )}
       >
-        {added ? <Check className="size-4" /> : <Plus className="size-4" />}
-        {added ? "In Cart" : "Add to Cart"}
+        <ShoppingCart className="size-[1.125rem]" strokeWidth={1.75} />
+        <span
+          className={cn(
+            "absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full border-2 border-background",
+            added ? "bg-foreground text-background" : "bg-brand text-brand-foreground"
+          )}
+        >
+          {added ? <Check className="size-2.5" strokeWidth={3} /> : <Plus className="size-2.5" strokeWidth={3} />}
+        </span>
       </button>
     </article>
   );
