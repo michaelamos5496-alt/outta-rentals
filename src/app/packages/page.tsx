@@ -52,7 +52,7 @@ export default function PackagesPage() {
               <Link href={`/packages/${pkg.slug}`} className="flex flex-1 flex-col active:opacity-80">
                 <div className="flex items-start justify-between gap-2 p-2.5 pb-1 sm:p-3 sm:pb-1">
                   <div className="min-w-0">
-                    <p className="line-clamp-2 text-xs font-bold leading-tight text-brand-foreground">
+                    <p className="line-clamp-2 text-xs font-light leading-tight text-brand-foreground">
                       {pkg.name}
                     </p>
                     {dayRates.length > 0 ? (
