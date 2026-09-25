@@ -43,9 +43,13 @@ function pickWithUniqueImages(
   return picked;
 }
 
+// Kept in the catalogue, just not shown in the hero banner / thumbnail strip.
+const HERO_EXCLUDED_SLUGS = new Set(["freefly-movi-pro"]);
+
 export default async function Home() {
   const products = await fetchAllProducts();
-  const featured = products.filter((p) => p.featured);
+  const heroPool = products.filter((p) => !HERO_EXCLUDED_SLUGS.has(p.slug));
+  const featured = heroPool.filter((p) => p.featured);
   const usedSlugs = new Set<string>();
   const usedImages = new Set<string>();
 
@@ -60,7 +64,7 @@ export default async function Home() {
   const spotlightProducts = pickWithUniqueImages(featured, usedSlugs, usedImages, SPOTLIGHT_COUNT);
   if (spotlightProducts.length < SPOTLIGHT_COUNT) {
     spotlightProducts.push(
-      ...pickWithUniqueImages(products, usedSlugs, usedImages, SPOTLIGHT_COUNT - spotlightProducts.length)
+      ...pickWithUniqueImages(heroPool, usedSlugs, usedImages, SPOTLIGHT_COUNT - spotlightProducts.length)
     );
   }
 
