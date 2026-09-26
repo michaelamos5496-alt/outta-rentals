@@ -99,7 +99,7 @@ export const productImages: Record<string, string> = {
   "dzofilm-pictor-zoom-12-25mm-t2-8": "/equipment/dzofilm-pictor-zoom-12-25mm-t2-8-main.jpg",
   "dzofilm-pictor-zoom-20-55mm-t2-8": "/equipment/dzofilm-pictor-zoom-20-55mm-t2-8.jpg",
   "dzofilm-pictor-zoom-50-125mm-t2-8": "/equipment/dzofilm-pictor-zoom-50-125mm-t2-8-main.jpg",
-  "arri-distagon-12mm": "/equipment/arri-distagon-12mm.webp",
+  "arri-distagon-12mm": "/equipment/arri-distagon-12mm-main.jpg",
   "laowa-12mm-ef": "/equipment/laowa-12mm-ef.jpg",
   "sigma-18-35mm": "/equipment/sigma-18-35mm-main.jpg",
   "canon-24-105mm": "/equipment/canon-24-105mm.png",
@@ -199,6 +199,7 @@ export const extraProductImages: Record<string, string[]> = {
   "sigma-18-35mm": ["/equipment/sigma-18-35mm-2.jpg", "/equipment/sigma-18-35mm-3.jpg"],
   "dzofilm-vespid-prime-set-16-125mm": ["/equipment/dzofilm-vespid-prime-set-16-125mm-2.jpg", "/equipment/dzofilm-vespid-prime-set-16-125mm-3.jpg", "/equipment/dzofilm-vespid-prime-set-16-125mm-4.webp"],
   "dzofilm-pictor-zoom-50-125mm-t2-8": ["/equipment/dzofilm-pictor-zoom-50-125mm-t2-8-2.jpg"],
+  "arri-distagon-12mm": ["/equipment/arri-distagon-12mm-2.jpg", "/equipment/arri-distagon-12mm-3.jpg", "/equipment/arri-distagon-12mm-4.jpg", "/equipment/arri-distagon-12mm.webp"],
   "sachtler-video-25-plus-tripod": ["/equipment/sachtler-video-25-plus-tripod-2.jpg"],
   "manfrotto-116-mrk3": ["/equipment/manfrotto-116-mrk3-2.jpg"],
   "manfrotto-546gb": ["/equipment/manfrotto-546gb-2.jpg", "/equipment/manfrotto-546gb-3.jpg"],
@@ -230,6 +231,7 @@ export const showWholeOnCard = new Set<string>([
   "dzofilm-pictor-zoom-50-125mm-t2-8",
   "dzofilm-pictor-zoom-20-55mm-t2-8",
   "sigma-18-35mm",
+  "arri-distagon-12mm",
 ]);
 
 /** Resolves a product's best-effort photo, falling back to its category photo. */
