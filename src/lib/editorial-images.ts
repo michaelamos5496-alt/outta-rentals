@@ -204,7 +204,7 @@ export const extraProductImages: Record<string, string[]> = {
   "dzofilm-vespid-prime-set-16-125mm": ["/equipment/dzofilm-vespid-prime-set-16-125mm-2.jpg", "/equipment/dzofilm-vespid-prime-set-16-125mm-3.jpg", "/equipment/dzofilm-vespid-prime-set-16-125mm-4.webp"],
   "dzofilm-pictor-zoom-50-125mm-t2-8": ["/equipment/dzofilm-pictor-zoom-50-125mm-t2-8-2.jpg"],
   "arri-distagon-12mm": ["/equipment/arri-distagon-12mm-2.jpg", "/equipment/arri-distagon-12mm-3.jpg", "/equipment/arri-distagon-12mm-4.jpg", "/equipment/arri-distagon-12mm.webp"],
-  "laowa-12mm-ef": ["/equipment/laowa-12mm-ef-2.jpg", "/equipment/laowa-12mm-ef-3.jpg"],
+  "laowa-12mm-ef": ["/equipment/laowa-12mm-ef-2.jpg", "/equipment/laowa-12mm-ef-3.jpg", "/equipment/laowa-12mm-ef-4.jpg"],
   "aputure-600d": ["/equipment/aputure-600d-2.jpg", "/equipment/aputure-600d-3.webp", "/equipment/aputure-600d-4.webp", "/equipment/aputure-600d-5.webp"],
   "aputure-600x": ["/equipment/aputure-600x-2.webp", "/equipment/aputure-600x-3.webp", "/equipment/aputure-600x-4.webp", "/equipment/aputure-600x.jpg"],
   "amaran-200x-s": ["/equipment/amaran-200x-s-2.webp", "/equipment/amaran-200x-s-3.webp", "/equipment/amaran-200x-s-4.webp"],
