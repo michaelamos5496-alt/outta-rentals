@@ -200,6 +200,7 @@ export const extraProductImages: Record<string, string[]> = {
   "dzofilm-vespid-prime-set-16-125mm": ["/equipment/dzofilm-vespid-prime-set-16-125mm-2.jpg", "/equipment/dzofilm-vespid-prime-set-16-125mm-3.jpg", "/equipment/dzofilm-vespid-prime-set-16-125mm-4.webp"],
   "dzofilm-pictor-zoom-50-125mm-t2-8": ["/equipment/dzofilm-pictor-zoom-50-125mm-t2-8-2.jpg"],
   "arri-distagon-12mm": ["/equipment/arri-distagon-12mm-2.jpg", "/equipment/arri-distagon-12mm-3.jpg", "/equipment/arri-distagon-12mm-4.jpg", "/equipment/arri-distagon-12mm.webp"],
+  "laowa-12mm-ef": ["/equipment/laowa-12mm-ef-2.jpg", "/equipment/laowa-12mm-ef-3.jpg"],
   "sachtler-video-25-plus-tripod": ["/equipment/sachtler-video-25-plus-tripod-2.jpg"],
   "manfrotto-116-mrk3": ["/equipment/manfrotto-116-mrk3-2.jpg"],
   "manfrotto-546gb": ["/equipment/manfrotto-546gb-2.jpg", "/equipment/manfrotto-546gb-3.jpg"],
