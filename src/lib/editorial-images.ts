@@ -229,7 +229,7 @@ export const extraProductImages: Record<string, string[]> = {
   "hi-hat": ["/equipment/hi-hat-2.webp"],
   "cine-saddle": ["/equipment/cine-saddle-2.webp"],
   "dji-ronin-2": ["/equipment/dji-ronin-2-2.jpg", "/equipment/dji-ronin-2-3.jpg", "/equipment/dji-ronin-2-4.webp"],
-  "dji-rs3-pro-combo-with-ring": ["/equipment/dji-rs3-pro-combo-with-ring-2.webp", "/equipment/dji-rs3-pro-combo-with-ring-3.jpg"],
+  "dji-rs3-pro-combo-with-ring": ["/equipment/dji-rs3-pro-combo-with-ring-2.webp", "/equipment/dji-rs3-pro-combo-with-ring-3.jpg", "/equipment/dji-rs3-pro-combo-with-ring-4.webp", "/equipment/dji-rs3-pro-combo-with-ring-5.webp"],
   "ez-fx-slider": ["/equipment/ez-fx-slider-2.jpg"],
   "6x6ft-egg-crate": ["/equipment/6x6ft-egg-crate-2.jpg"],
   "8x8ft-egg-crate": ["/equipment/8x8ft-egg-crate-2.jpg"],
