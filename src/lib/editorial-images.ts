@@ -10,14 +10,12 @@ function pexelsUrl(id: number, width = 1200): string {
 
 export const categoryImages: Record<string, string> = {
   cameras: pexelsUrl(6794832),
-  lenses: pexelsUrl(2335052),
   lighting: pexelsUrl(4417017),
   grip: pexelsUrl(20101684),
   monitors: pexelsUrl(11234306),
   // Added alongside the real inventory import — reuse the closest existing
   // category photo rather than sourcing new stock for a first pass.
   "camera-accessories": pexelsUrl(11234306), // shares the monitors/support photo
-  filters: pexelsUrl(2335052), // shares the lenses photo
   "matte-boxes": pexelsUrl(20101684), // shares the grip photo
   "lighting-modifiers": pexelsUrl(4417017), // shares the lighting photo
 };
