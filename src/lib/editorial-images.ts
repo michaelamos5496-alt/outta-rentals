@@ -235,6 +235,8 @@ export const extraProductImages: Record<string, string[]> = {
   "tilta-mirage-matte-box-w-vnd": ["/equipment/tilta-mirage-matte-box-w-vnd-2.jpg"],
   "tilta-3-way-matte-box": ["/equipment/tilta-3-way-matte-box-2.webp", "/equipment/tilta-3-way-matte-box-3.webp", "/equipment/tilta-3-way-matte-box-4.webp"],
   "tilta-mini-matte-box": ["/equipment/tilta-mini-matte-box-2.webp", "/equipment/tilta-mini-matte-box-3.webp", "/equipment/tilta-mini-matte-box-4.webp"],
+  "12x12ft-butterfly": ["/equipment/butterfly-frame-kit.jpg"],
+  "8x8ft-butterfly": ["/equipment/butterfly-frame-kit.jpg"],
   "dji-ronin-2": ["/equipment/dji-ronin-2-2.jpg", "/equipment/dji-ronin-2-3.jpg", "/equipment/dji-ronin-2-4.webp"],
   "dji-rs3-pro-combo-with-ring": ["/equipment/dji-rs3-pro-combo-with-ring-2.webp", "/equipment/dji-rs3-pro-combo-with-ring-3.jpg", "/equipment/dji-rs3-pro-combo-with-ring-4.webp", "/equipment/dji-rs3-pro-combo-with-ring-5.webp"],
   "ez-fx-slider": ["/equipment/ez-fx-slider-2.jpg"],
