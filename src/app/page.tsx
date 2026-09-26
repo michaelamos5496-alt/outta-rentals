@@ -31,14 +31,12 @@ const HERO_SLUGS = [
   "red-helium",
   "blackmagic-6k-pro",
   "blackmagic-6k",
-  "dzofilm-arles-prime-single",
   "dzofilm-vespid-prime-set-16-125mm",
   "dzofilm-pictor-zoom-12-25mm-t2-8",
   "dzofilm-pictor-zoom-20-55mm-t2-8",
   "arri-distagon-12mm",
   "laowa-12mm-ef",
   "sigma-18-35mm",
-  "canon-24-105mm",
   "heavy-duty-tripod",
 ];
 
