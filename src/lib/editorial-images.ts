@@ -189,6 +189,8 @@ export const productImages: Record<string, string> = {
  */
 export const extraProductImages: Record<string, string[]> = {
   "arri-alexa-mini-lf": ["/equipment/arri-alexa-mini-lf-2.jpg", "/equipment/arri-alexa-mini-lf-3.jpg"],
+  "arri-alexa-mini": ["/equipment/arri-alexa-mini-shared-2.jpg", "/equipment/arri-alexa-mini-shared-3.jpg"],
+  "arri-alexa-mini-foreign": ["/equipment/arri-alexa-mini-shared-2.jpg", "/equipment/arri-alexa-mini-shared-3.jpg"],
   "red-helium": ["/equipment/red-helium-2.webp", "/equipment/red-helium-3.jpg"],
   "red-komodo": ["/equipment/red-komodo-2.jpg", "/equipment/red-komodo-3.png"],
   "sony-fx6": ["/equipment/sony-fx6-2.jpg", "/equipment/sony-fx6-3.jpg", "/equipment/sony-fx6-4.jpg"],
