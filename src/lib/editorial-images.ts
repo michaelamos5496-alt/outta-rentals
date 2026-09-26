@@ -232,6 +232,7 @@ export const extraProductImages: Record<string, string[]> = {
   "atomos-sumo-19-monitor": ["/equipment/atomos-sumo-19-monitor-2.webp", "/equipment/atomos-sumo-19-monitor-3.webp"],
   "lidar-focus-pro": ["/equipment/lidar-focus-pro-2.webp", "/equipment/lidar-focus-pro-3.webp"],
   "wooden-camera-universal-matte-box": ["/equipment/wooden-camera-universal-matte-box-2.webp", "/equipment/wooden-camera-universal-matte-box-3.webp"],
+  "tilta-mirage-matte-box-w-vnd": ["/equipment/tilta-mirage-matte-box-w-vnd-2.jpg"],
   "dji-ronin-2": ["/equipment/dji-ronin-2-2.jpg", "/equipment/dji-ronin-2-3.jpg", "/equipment/dji-ronin-2-4.webp"],
   "dji-rs3-pro-combo-with-ring": ["/equipment/dji-rs3-pro-combo-with-ring-2.webp", "/equipment/dji-rs3-pro-combo-with-ring-3.jpg", "/equipment/dji-rs3-pro-combo-with-ring-4.webp", "/equipment/dji-rs3-pro-combo-with-ring-5.webp"],
   "ez-fx-slider": ["/equipment/ez-fx-slider-2.jpg"],
