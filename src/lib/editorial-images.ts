@@ -192,7 +192,7 @@ export const extraProductImages: Record<string, string[]> = {
   "arri-alexa-mini": ["/equipment/arri-alexa-mini-shared-2.jpg", "/equipment/arri-alexa-mini-shared-3.jpg"],
   "arri-alexa-mini-foreign": ["/equipment/arri-alexa-mini-shared-2.jpg", "/equipment/arri-alexa-mini-shared-3.jpg"],
   "red-helium": ["/equipment/red-helium-2.webp", "/equipment/red-helium-3.jpg", "/equipment/red-helium-4.webp"],
-  "red-komodo": ["/equipment/red-komodo-2.jpg", "/equipment/red-komodo-3.png"],
+  "red-komodo": ["/equipment/red-komodo-2.jpg", "/equipment/red-komodo-3.png", "/equipment/red-komodo-4.webp", "/equipment/red-komodo-5.webp", "/equipment/red-komodo-6.jpg"],
   "sony-fx6": ["/equipment/sony-fx6-2.jpg", "/equipment/sony-fx6-3.jpg", "/equipment/sony-fx6-4.jpg"],
   "dzofilm-arles-prime-set-25-35-50-75-100mm": ["/equipment/dzofilm-arles-prime-set-25-35-50-75-100mm-2.jpg", "/equipment/dzofilm-arles-prime-set-25-35-50-75-100mm-3.jpg", "/equipment/dzofilm-arles-prime-set-25-35-50-75-100mm-4.jpg"],
   "dzofilm-pictor-zoom-20-55mm-t2-8": ["/equipment/dzofilm-pictor-zoom-20-55mm-t2-8-2.jpg", "/equipment/dzofilm-pictor-zoom-20-55mm-t2-8-3.jpg", "/equipment/dzofilm-pictor-zoom-20-55mm-t2-8-4.jpg"],
