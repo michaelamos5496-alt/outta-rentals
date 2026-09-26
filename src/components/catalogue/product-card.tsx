@@ -16,7 +16,7 @@ import {
   type DemoProduct,
 } from "@/lib/catalogue";
 import { useKit } from "@/components/kit/kit-provider";
-import { getProductImage } from "@/lib/editorial-images";
+import { getProductImage, showWholeOnCard } from "@/lib/editorial-images";
 import { formatPrice } from "@/lib/currency";
 
 export interface ProductCardProps {
@@ -61,6 +61,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
           <MediaPlaceholder
             src={getProductImage(product.slug, product.categorySlug)}
             alt={product.name}
+            fit={showWholeOnCard.has(product.slug) ? "contain" : "cover"}
             className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
           />
         </div>
