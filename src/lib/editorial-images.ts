@@ -207,6 +207,7 @@ export const extraProductImages: Record<string, string[]> = {
   "arri-4k-hmi-m40": ["/equipment/arri-4k-hmi-m40-2.jpg", "/equipment/arri-4k-hmi-m40-3.jpg", "/equipment/arri-4k-hmi-m40.jpg"],
   "nanlux-evoke-2400b": ["/equipment/nanlux-evoke-2400b-2.webp", "/equipment/nanlux-evoke-2400b-3.webp"],
   "aputure-ls-1200x": ["/equipment/aputure-ls-1200x-2.webp", "/equipment/aputure-ls-1200x-3.webp", "/equipment/aputure-ls-1200x-4.webp"],
+  "aputure-ls-1000c": ["/equipment/aputure-ls-1000c-2.webp", "/equipment/aputure-ls-1000c-3.webp"],
   "sachtler-video-25-plus-tripod": ["/equipment/sachtler-video-25-plus-tripod-2.jpg"],
   "manfrotto-116-mrk3": ["/equipment/manfrotto-116-mrk3-2.jpg"],
   "manfrotto-546gb": ["/equipment/manfrotto-546gb-2.jpg", "/equipment/manfrotto-546gb-3.jpg"],
