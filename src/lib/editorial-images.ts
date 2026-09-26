@@ -188,7 +188,7 @@ export const productImages: Record<string, string> = {
  * Products listed here get a real multi-image gallery (clickable thumbnails).
  */
 export const extraProductImages: Record<string, string[]> = {
-  "arri-alexa-mini-lf": ["/equipment/arri-alexa-mini-lf-2.jpg", "/equipment/arri-alexa-mini-lf-3.jpg"],
+  "arri-alexa-mini-lf": ["/equipment/arri-alexa-mini-lf-2.jpg", "/equipment/arri-alexa-mini-lf-3.jpg", "/equipment/arri-alexa-mini-lf-4.jpg", "/equipment/arri-alexa-mini-lf-5.jpg", "/equipment/arri-alexa-mini-lf-6.jpg"],
   "arri-alexa-mini": ["/equipment/arri-alexa-mini-shared-2.jpg", "/equipment/arri-alexa-mini-shared-3.jpg"],
   "arri-alexa-mini-foreign": ["/equipment/arri-alexa-mini-shared-2.jpg", "/equipment/arri-alexa-mini-shared-3.jpg"],
   "red-helium": ["/equipment/red-helium-2.webp", "/equipment/red-helium-3.jpg"],
