@@ -96,7 +96,7 @@ export const productImages: Record<string, string> = {
   "blackmagic-6k-pro": "/equipment/blackmagic-6k-pro.jpg",
   "blackmagic-6k": "/equipment/blackmagic-6k.jpg",
   "dzofilm-arles-prime-set-25-35-50-75-100mm": "/equipment/dzofilm-arles-prime-set-25-35-50-75-100mm.jpg",
-  "dzofilm-arles-prime-single": pexelsUrl(34956918),
+  "dzofilm-arles-prime-single": "/equipment/dzofilm-arles-prime-single.jpg",
   "dzofilm-vespid-prime-set-16-125mm": "/equipment/dzofilm-vespid-prime-set-16-125mm.jpg",
   "dzofilm-pictor-zoom-12-25mm-t2-8": "/equipment/dzofilm-pictor-zoom-12-25mm-t2-8-main.jpg",
   "dzofilm-pictor-zoom-20-55mm-t2-8": "/equipment/dzofilm-pictor-zoom-20-55mm-t2-8.jpg",
@@ -197,6 +197,7 @@ export const extraProductImages: Record<string, string[]> = {
   "dzofilm-arles-prime-set-25-35-50-75-100mm": ["/equipment/dzofilm-arles-prime-set-25-35-50-75-100mm-2.jpg", "/equipment/dzofilm-arles-prime-set-25-35-50-75-100mm-3.jpg", "/equipment/dzofilm-arles-prime-set-25-35-50-75-100mm-4.jpg"],
   "dzofilm-pictor-zoom-20-55mm-t2-8": ["/equipment/dzofilm-pictor-zoom-20-55mm-t2-8-2.jpg", "/equipment/dzofilm-pictor-zoom-20-55mm-t2-8-3.jpg", "/equipment/dzofilm-pictor-zoom-20-55mm-t2-8-4.jpg"],
   "dzofilm-pictor-zoom-12-25mm-t2-8": ["/equipment/dzofilm-pictor-zoom-12-25mm-t2-8-2.jpg", "/equipment/dzofilm-pictor-zoom-12-25mm-t2-8-3.jpg", "/equipment/dzofilm-pictor-zoom-12-25mm-t2-8-4.jpg"],
+  "dzofilm-arles-prime-single": ["/equipment/dzofilm-arles-prime-single-2.webp", "/equipment/dzofilm-arles-prime-single-3.webp", "/equipment/dzofilm-arles-prime-single-4.jpg"],
   "sachtler-video-25-plus-tripod": ["/equipment/sachtler-video-25-plus-tripod-2.jpg"],
   "manfrotto-116-mrk3": ["/equipment/manfrotto-116-mrk3-2.jpg"],
   "manfrotto-546gb": ["/equipment/manfrotto-546gb-2.jpg", "/equipment/manfrotto-546gb-3.jpg"],
@@ -223,6 +224,7 @@ export function getProductGallery(productSlug: string): string[] {
  */
 export const showWholeOnCard = new Set<string>([
   "dzofilm-arles-prime-set-25-35-50-75-100mm",
+  "dzofilm-arles-prime-single",
   "dzofilm-pictor-zoom-12-25mm-t2-8",
   "dzofilm-pictor-zoom-20-55mm-t2-8",
 ]);
@@ -246,6 +248,7 @@ export const isolatedProductPhotos = new Set<string>([
   "sony-fx3",
   "sony-fx6",
   "dzofilm-arles-prime-set-25-35-50-75-100mm",
+  "dzofilm-arles-prime-single",
   "dzofilm-pictor-zoom-12-25mm-t2-8",
   "dzofilm-pictor-zoom-20-55mm-t2-8",
   "sachtler-video-25-plus-tripod",
