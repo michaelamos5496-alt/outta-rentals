@@ -228,6 +228,7 @@ export const extraProductImages: Record<string, string[]> = {
   "smallrig-tripod": ["/equipment/smallrig-tripod-2.jpg", "/equipment/smallrig-tripod-3.jpg"],
   "hi-hat": ["/equipment/hi-hat-2.webp"],
   "cine-saddle": ["/equipment/cine-saddle-2.webp", "/equipment/cine-saddle-3.webp"],
+  "dana-dolly-slider": ["/equipment/dana-dolly-slider-2.jpg"],
   "dji-ronin-2": ["/equipment/dji-ronin-2-2.jpg", "/equipment/dji-ronin-2-3.jpg", "/equipment/dji-ronin-2-4.webp"],
   "dji-rs3-pro-combo-with-ring": ["/equipment/dji-rs3-pro-combo-with-ring-2.webp", "/equipment/dji-rs3-pro-combo-with-ring-3.jpg", "/equipment/dji-rs3-pro-combo-with-ring-4.webp", "/equipment/dji-rs3-pro-combo-with-ring-5.webp"],
   "ez-fx-slider": ["/equipment/ez-fx-slider-2.jpg"],
