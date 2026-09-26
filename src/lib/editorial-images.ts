@@ -180,7 +180,7 @@ export const productImages: Record<string, string> = {
   "red-komodo": "/equipment/red-komodo.jpg",
   "aputure-600d": "/equipment/aputure-600d.webp",
   "aputure-600x": "/equipment/aputure-600x-main.webp",
-  "amaran-200x-s": "/equipment/amaran-200x-s.webp",
+  "amaran-200x-s": "/equipment/amaran-200x-s-main.webp",
 };
 
 /**
@@ -203,6 +203,7 @@ export const extraProductImages: Record<string, string[]> = {
   "laowa-12mm-ef": ["/equipment/laowa-12mm-ef-2.jpg", "/equipment/laowa-12mm-ef-3.jpg"],
   "aputure-600d": ["/equipment/aputure-600d-2.jpg", "/equipment/aputure-600d-3.webp", "/equipment/aputure-600d-4.webp", "/equipment/aputure-600d-5.webp"],
   "aputure-600x": ["/equipment/aputure-600x-2.webp", "/equipment/aputure-600x-3.webp", "/equipment/aputure-600x-4.webp", "/equipment/aputure-600x.jpg"],
+  "amaran-200x-s": ["/equipment/amaran-200x-s-2.webp", "/equipment/amaran-200x-s-3.webp", "/equipment/amaran-200x-s-4.webp"],
   "sachtler-video-25-plus-tripod": ["/equipment/sachtler-video-25-plus-tripod-2.jpg"],
   "manfrotto-116-mrk3": ["/equipment/manfrotto-116-mrk3-2.jpg"],
   "manfrotto-546gb": ["/equipment/manfrotto-546gb-2.jpg", "/equipment/manfrotto-546gb-3.jpg"],
