@@ -213,6 +213,7 @@ export const extraProductImages: Record<string, string[]> = {
   "aputure-ls-300d-ii": ["/equipment/aputure-ls-300d-ii-2.webp", "/equipment/aputure-ls-300d-ii-3.webp"],
   "aputure-ls-120d-ii": ["/equipment/aputure-ls-120d-ii-2.webp"],
   "aputure-nova-p300c": ["/equipment/aputure-nova-p300c-2.webp", "/equipment/aputure-nova-p300c-3.webp"],
+  "aputure-mc-ls-mini": ["/equipment/aputure-mc-ls-mini-2.webp", "/equipment/aputure-mc-ls-mini-3.webp", "/equipment/aputure-mc-ls-mini-4.webp"],
   "sachtler-video-25-plus-tripod": ["/equipment/sachtler-video-25-plus-tripod-2.jpg"],
   "manfrotto-116-mrk3": ["/equipment/manfrotto-116-mrk3-2.jpg"],
   "manfrotto-546gb": ["/equipment/manfrotto-546gb-2.jpg", "/equipment/manfrotto-546gb-3.jpg"],
