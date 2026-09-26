@@ -230,6 +230,7 @@ export const extraProductImages: Record<string, string[]> = {
   "cine-saddle": ["/equipment/cine-saddle-2.webp", "/equipment/cine-saddle-3.webp"],
   "dana-dolly-slider": ["/equipment/dana-dolly-slider-2.jpg"],
   "atomos-sumo-19-monitor": ["/equipment/atomos-sumo-19-monitor-2.webp", "/equipment/atomos-sumo-19-monitor-3.webp"],
+  "lidar-focus-pro": ["/equipment/lidar-focus-pro-2.webp", "/equipment/lidar-focus-pro-3.webp"],
   "dji-ronin-2": ["/equipment/dji-ronin-2-2.jpg", "/equipment/dji-ronin-2-3.jpg", "/equipment/dji-ronin-2-4.webp"],
   "dji-rs3-pro-combo-with-ring": ["/equipment/dji-rs3-pro-combo-with-ring-2.webp", "/equipment/dji-rs3-pro-combo-with-ring-3.jpg", "/equipment/dji-rs3-pro-combo-with-ring-4.webp", "/equipment/dji-rs3-pro-combo-with-ring-5.webp"],
   "ez-fx-slider": ["/equipment/ez-fx-slider-2.jpg"],
