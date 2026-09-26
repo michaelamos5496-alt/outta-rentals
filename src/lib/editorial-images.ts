@@ -179,7 +179,7 @@ export const productImages: Record<string, string> = {
   "arri-alexa-mini-lf": "/equipment/arri-alexa-mini-lf.webp",
   "red-komodo": "/equipment/red-komodo.jpg",
   "aputure-600d": "/equipment/aputure-600d.webp",
-  "aputure-600x": "/equipment/aputure-600x.jpg",
+  "aputure-600x": "/equipment/aputure-600x-main.webp",
   "amaran-200x-s": "/equipment/amaran-200x-s.webp",
 };
 
@@ -202,6 +202,7 @@ export const extraProductImages: Record<string, string[]> = {
   "arri-distagon-12mm": ["/equipment/arri-distagon-12mm-2.jpg", "/equipment/arri-distagon-12mm-3.jpg", "/equipment/arri-distagon-12mm-4.jpg", "/equipment/arri-distagon-12mm.webp"],
   "laowa-12mm-ef": ["/equipment/laowa-12mm-ef-2.jpg", "/equipment/laowa-12mm-ef-3.jpg"],
   "aputure-600d": ["/equipment/aputure-600d-2.jpg", "/equipment/aputure-600d-3.webp", "/equipment/aputure-600d-4.webp", "/equipment/aputure-600d-5.webp"],
+  "aputure-600x": ["/equipment/aputure-600x-2.webp", "/equipment/aputure-600x-3.webp", "/equipment/aputure-600x-4.webp", "/equipment/aputure-600x.jpg"],
   "sachtler-video-25-plus-tripod": ["/equipment/sachtler-video-25-plus-tripod-2.jpg"],
   "manfrotto-116-mrk3": ["/equipment/manfrotto-116-mrk3-2.jpg"],
   "manfrotto-546gb": ["/equipment/manfrotto-546gb-2.jpg", "/equipment/manfrotto-546gb-3.jpg"],
