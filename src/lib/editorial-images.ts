@@ -189,6 +189,7 @@ export const productImages: Record<string, string> = {
  * Products listed here get a real multi-image gallery (clickable thumbnails).
  */
 export const extraProductImages: Record<string, string[]> = {
+  "arri-alexa-mini-lf": ["/equipment/arri-alexa-mini-lf-2.jpg", "/equipment/arri-alexa-mini-lf-3.jpg"],
   "sachtler-video-25-plus-tripod": ["/equipment/sachtler-video-25-plus-tripod-2.jpg"],
   "manfrotto-116-mrk3": ["/equipment/manfrotto-116-mrk3-2.jpg"],
   "manfrotto-546gb": ["/equipment/manfrotto-546gb-2.jpg", "/equipment/manfrotto-546gb-3.jpg"],
