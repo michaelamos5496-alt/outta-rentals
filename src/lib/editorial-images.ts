@@ -200,7 +200,7 @@ export const extraProductImages: Record<string, string[]> = {
   "dzofilm-pictor-zoom-20-55mm-t2-8": ["/equipment/dzofilm-pictor-zoom-20-55mm-t2-8-2.jpg", "/equipment/dzofilm-pictor-zoom-20-55mm-t2-8-3.jpg", "/equipment/dzofilm-pictor-zoom-20-55mm-t2-8-4.jpg"],
   "dzofilm-pictor-zoom-12-25mm-t2-8": ["/equipment/dzofilm-pictor-zoom-12-25mm-t2-8-2.jpg", "/equipment/dzofilm-pictor-zoom-12-25mm-t2-8-3.jpg", "/equipment/dzofilm-pictor-zoom-12-25mm-t2-8-4.jpg"],
   "dzofilm-arles-prime-single": ["/equipment/dzofilm-arles-prime-single-2.webp", "/equipment/dzofilm-arles-prime-single-3.webp", "/equipment/dzofilm-arles-prime-single-4.jpg"],
-  "sigma-18-35mm": ["/equipment/sigma-18-35mm-2.jpg", "/equipment/sigma-18-35mm-3.jpg"],
+  "sigma-18-35mm": ["/equipment/sigma-18-35mm-2.jpg", "/equipment/sigma-18-35mm-3.jpg", "/equipment/sigma-18-35mm-4.jpg", "/equipment/sigma-18-35mm-5.jpg"],
   "dzofilm-vespid-prime-set-16-125mm": ["/equipment/dzofilm-vespid-prime-set-16-125mm-2.jpg", "/equipment/dzofilm-vespid-prime-set-16-125mm-3.jpg", "/equipment/dzofilm-vespid-prime-set-16-125mm-4.webp"],
   "dzofilm-pictor-zoom-50-125mm-t2-8": ["/equipment/dzofilm-pictor-zoom-50-125mm-t2-8-2.jpg"],
   "arri-distagon-12mm": ["/equipment/arri-distagon-12mm-2.jpg", "/equipment/arri-distagon-12mm-3.jpg", "/equipment/arri-distagon-12mm-4.jpg", "/equipment/arri-distagon-12mm.webp"],
