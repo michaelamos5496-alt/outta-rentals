@@ -222,7 +222,7 @@ export const extraProductImages: Record<string, string[]> = {
   "nanlite-pavotube-4ft": ["/equipment/nanlite-pavotube-4ft-2.webp"],
   "nanlite-pavotube-1ft": ["/equipment/nanlite-pavotube-1ft-2.webp"],
   "freefly-movi-pro": ["/equipment/freefly-movi-pro-2.jpg", "/equipment/freefly-movi-pro-3.jpg"],
-  "sachtler-video-25-plus-tripod": ["/equipment/sachtler-video-25-plus-tripod-2.jpg"],
+  "sachtler-video-25-plus-tripod": ["/equipment/sachtler-video-25-plus-tripod-2.jpg", "/equipment/sachtler-video-25-plus-tripod-3.jpg"],
   "manfrotto-116-mrk3": ["/equipment/manfrotto-116-mrk3-2.jpg"],
   "manfrotto-546gb": ["/equipment/manfrotto-546gb-2.jpg", "/equipment/manfrotto-546gb-3.jpg"],
   "smallrig-tripod": ["/equipment/smallrig-tripod-2.jpg", "/equipment/smallrig-tripod-3.jpg"],
