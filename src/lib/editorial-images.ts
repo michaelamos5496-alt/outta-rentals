@@ -227,7 +227,7 @@ export const extraProductImages: Record<string, string[]> = {
   "manfrotto-546gb": ["/equipment/manfrotto-546gb-2.jpg", "/equipment/manfrotto-546gb-3.jpg"],
   "smallrig-tripod": ["/equipment/smallrig-tripod-2.jpg", "/equipment/smallrig-tripod-3.jpg"],
   "hi-hat": ["/equipment/hi-hat-2.webp"],
-  "cine-saddle": ["/equipment/cine-saddle-2.webp"],
+  "cine-saddle": ["/equipment/cine-saddle-2.webp", "/equipment/cine-saddle-3.webp"],
   "dji-ronin-2": ["/equipment/dji-ronin-2-2.jpg", "/equipment/dji-ronin-2-3.jpg", "/equipment/dji-ronin-2-4.webp"],
   "dji-rs3-pro-combo-with-ring": ["/equipment/dji-rs3-pro-combo-with-ring-2.webp", "/equipment/dji-rs3-pro-combo-with-ring-3.jpg", "/equipment/dji-rs3-pro-combo-with-ring-4.webp", "/equipment/dji-rs3-pro-combo-with-ring-5.webp"],
   "ez-fx-slider": ["/equipment/ez-fx-slider-2.jpg"],
