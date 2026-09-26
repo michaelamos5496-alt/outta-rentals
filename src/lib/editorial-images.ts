@@ -216,6 +216,7 @@ export const extraProductImages: Record<string, string[]> = {
   "aputure-mc-ls-mini": ["/equipment/aputure-mc-ls-mini-3.webp", "/equipment/aputure-mc-ls-mini-4.webp"],
   "amaran-f22c": ["/equipment/amaran-f22c-2.webp", "/equipment/amaran-f22c-3.webp", "/equipment/amaran-f22c-4.webp"],
   "amaran-300c": ["/equipment/amaran-300c-2.webp", "/equipment/amaran-300c-3.webp", "/equipment/amaran-300c-4.webp"],
+  "amaran-150c": ["/equipment/amaran-150c-2.webp", "/equipment/amaran-150c-3.webp"],
   "sachtler-video-25-plus-tripod": ["/equipment/sachtler-video-25-plus-tripod-2.jpg"],
   "manfrotto-116-mrk3": ["/equipment/manfrotto-116-mrk3-2.jpg"],
   "manfrotto-546gb": ["/equipment/manfrotto-546gb-2.jpg", "/equipment/manfrotto-546gb-3.jpg"],
