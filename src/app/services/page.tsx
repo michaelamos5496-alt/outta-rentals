@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
-import { Button } from "@/components/ui/button";
 import { WhatsAppButton } from "@/components/quote/whatsapp-button";
 import { slideUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { serviceDetails } from "@/lib/content/services";
@@ -37,36 +37,42 @@ export default function ServicesPage() {
         </Container>
       </Section>
 
-      {/* Numbered card grid — each service carries its number as a large
-          watermark, same treatment as the homepage's "Why OUTTA" row. */}
+      {/* Same numbered-card language as the homepage's "Why OUTTA" row — a
+          plain kicker/title/description card with a large number watermark,
+          nothing else competing with it. The whole card links out, with the
+          same circular arrow the package cards use instead of a button. */}
       <Section>
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
           variants={staggerContainer(0.06)}
-          className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
         >
           {serviceDetails.map((service, i) => (
-            <motion.article
-              key={service.slug}
-              variants={slideUp()}
-              className="relative flex min-h-[17rem] flex-col gap-3 overflow-hidden rounded-2xl border border-border bg-card p-6 sm:p-7"
-            >
-              <span
-                aria-hidden
-                className="pointer-events-none absolute -right-2 -bottom-6 font-heading text-[6.5rem] leading-none font-bold text-foreground/5 select-none"
+            <motion.div key={service.slug} variants={slideUp()} className="relative">
+              <Link
+                href={service.cta.href}
+                className="relative flex min-h-[13rem] flex-col gap-3 overflow-hidden rounded-2xl border border-border bg-card p-6 transition-colors hover:border-foreground/40"
               >
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <service.icon className="text-brand relative size-6" strokeWidth={1.75} />
-              <p className="text-label text-brand relative mt-1">{service.name}</p>
-              <h2 className="text-h3 relative">{service.headline}</h2>
-              <p className="text-small relative max-w-xs">{service.description}</p>
-              <Button asChild variant="outline" size="sm" className="relative mt-auto w-fit">
-                <Link href={service.cta.href}>{service.cta.label}</Link>
-              </Button>
-            </motion.article>
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -right-2 -bottom-6 font-heading text-[6.5rem] leading-none font-bold text-foreground/5 select-none"
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <p className="text-label text-brand relative">{service.name}</p>
+                <h2 className="text-h3 relative">{service.headline}</h2>
+                <p className="text-small relative mt-auto max-w-xs">{service.description}</p>
+              </Link>
+              <Link
+                href={service.cta.href}
+                aria-label={service.cta.label}
+                className="absolute right-2 bottom-2 flex size-7 items-center justify-center rounded-full bg-foreground text-background transition-transform active:scale-90"
+              >
+                <ArrowUpRight className="size-3.5" />
+              </Link>
+            </motion.div>
           ))}
         </motion.div>
       </Section>

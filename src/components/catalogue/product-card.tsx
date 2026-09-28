@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
 import { Check, Plus, ShoppingCart } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -16,6 +15,7 @@ import {
   type DemoProduct,
 } from "@/lib/catalogue";
 import { useKit } from "@/components/kit/kit-provider";
+import { useQuickView } from "@/components/catalogue/quick-view-provider";
 import { getProductImage, showWholeOnCard } from "@/lib/editorial-images";
 import { formatPrice } from "@/lib/currency";
 
@@ -27,20 +27,26 @@ export interface ProductCardProps {
 
 function ProductCard({ product, view = "grid", className }: ProductCardProps) {
   const { addItem, items, openDrawer } = useKit();
+  const { open: openQuickView } = useQuickView();
   // Stays "In Cart" for as long as the item is in the cart, so it can't be added twice by accident.
   const added = items.some((i) => i.productSlug === product.slug);
-  const href = `/equipment/${product.slug}`;
-
 
   if (view === "list") {
     return <ListProductCard product={product} className={className} />;
   }
 
   // Green card sitewide: brand + category + description on the green fill,
-  // large photo, circular quick-add button.
+  // large photo, circular quick-add button. Clicking the card opens the
+  // quick-view popup — see quick-view-provider.tsx — instead of navigating
+  // to a full product page.
   return (
     <article className={cn("group/product relative flex flex-col overflow-hidden rounded-2xl bg-brand", className)}>
-      <Link href={href} className="flex flex-1 flex-col active:opacity-80">
+      <button
+        type="button"
+        onClick={() => openQuickView(product)}
+        aria-label={`View ${product.name}`}
+        className="flex flex-1 flex-col text-left active:opacity-80"
+      >
         <div className="flex items-start justify-between gap-2 p-2.5 pb-1 sm:p-3 sm:pb-1">
           <div className="min-w-0">
             <p className="line-clamp-2 text-xs font-light leading-tight text-brand-foreground">
@@ -65,7 +71,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
             className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
           />
         </div>
-      </Link>
+      </button>
 
       {/* Round cart button on the photo's corner — the "+" badge makes it read
           as add-to-cart; it turns into a check once the item is in the cart. */}
@@ -74,6 +80,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
         aria-label={added ? "In cart — view cart" : `Add ${product.name} to cart`}
         onClick={(e) => {
           e.preventDefault();
+          e.stopPropagation();
           if (added) openDrawer();
           else addItem(product.slug);
         }}
@@ -107,16 +114,20 @@ function ListProductCard({
   className?: string;
 }) {
   const { addItem, items, openDrawer } = useKit();
+  const { open: openQuickView } = useQuickView();
   // Stays "In Cart" for as long as the item is in the cart, so it can't be added twice by accident.
   const added = items.some((i) => i.productSlug === product.slug);
   const brand = getBrandBySlug(product.brandSlug)?.name ?? product.brandSlug;
   const icon = getCategoryIcon(product.categorySlug);
-  const href = `/equipment/${product.slug}`;
-
 
   return (
     <article className={cn("group/product flex flex-row gap-5", className)}>
-      <Link href={href} className="block w-32 shrink-0 overflow-hidden border border-border sm:w-48">
+      <button
+        type="button"
+        onClick={() => openQuickView(product)}
+        aria-label={`View ${product.name}`}
+        className="block w-32 shrink-0 overflow-hidden border border-border sm:w-48"
+      >
         <MediaPlaceholder
           src={getProductImage(product.slug, product.categorySlug)}
           alt={product.name}
@@ -124,15 +135,15 @@ function ListProductCard({
           meta={product.sku}
           className="aspect-square h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
         />
-      </Link>
+      </button>
 
       <div className="flex flex-1 flex-col">
         <div className="flex items-start justify-between gap-2">
           <div>
             <p className="text-label text-muted-foreground">{brand}</p>
-            <Link href={href}>
+            <button type="button" onClick={() => openQuickView(product)} className="text-left">
               <h3 className="mt-1 font-medium leading-snug hover:text-brand">{product.name}</h3>
-            </Link>
+            </button>
           </div>
           <Badge variant={availabilityVariant[product.availability]} className="shrink-0">
             {availabilityLabels[product.availability]}
@@ -148,8 +159,8 @@ function ListProductCard({
 
         <div className="mt-auto flex items-center justify-end gap-3 pt-4">
           <div className="flex gap-2">
-            <Button asChild variant="ghost" size="sm">
-              <Link href={href}>View Details</Link>
+            <Button variant="ghost" size="sm" onClick={() => openQuickView(product)}>
+              View Details
             </Button>
             <Button
               variant={added ? "secondary" : "outline"}
