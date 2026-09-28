@@ -145,6 +145,8 @@ export const productImages: Record<string, string> = {
   "boom-mic": "/equipment/boom-mic.jpg",
   "dji-mic": "/equipment/dji-mic.jpg",
   "zoom-recorder": "/equipment/zoom-recorder.jpg",
+  "6x6ft-diffusion": "/equipment/6x6ft-diffusion.jpg",
+  "8x8ft-diffusion": "/equipment/8x8ft-diffusion.jpg",
   "infinibar-full-set": "/equipment/infinibar-full-set.webp",
   "nanlite-pavotube-4ft": "/equipment/nanlite-pavotube-4ft.jpg",
   "nanlite-pavotube-1ft": "/equipment/nanlite-pavotube-1ft.jpg",
