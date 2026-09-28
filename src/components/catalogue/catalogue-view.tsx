@@ -280,7 +280,10 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
 
       <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[240px_1fr]">
         <aside className="hidden lg:block">
-          <div className="sticky top-24">
+          {/* Sticky, but capped to the viewport and scrolling on its own —
+              a long filter list (many brands/categories) no longer pushes
+              the whole page down; it scrolls inside itself instead. */}
+          <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pr-1">
             <FilterPanel
               filters={filters}
               onChange={(patch) => setFilters((f) => ({ ...f, ...patch }))}
