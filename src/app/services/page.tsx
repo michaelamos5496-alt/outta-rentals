@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
 import { Section } from "@/components/ui/section";
-import { Container } from "@/components/ui/container";
+import { Heading } from "@/components/ui/heading";
 import { WhatsAppButton } from "@/components/quote/whatsapp-button";
 import { slideUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { serviceDetails } from "@/lib/content/services";
@@ -13,41 +13,40 @@ import { serviceDetails } from "@/lib/content/services";
 export default function ServicesPage() {
   return (
     <>
-      <Section spacing="none" bleed className="bg-brand py-16 sm:py-24">
-        <Container className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-end">
-          <div>
-            <p className="text-label !text-brand-foreground/70">Services</p>
-            <h1 className="text-display mt-4 max-w-2xl text-brand-foreground">
-              More than equipment.
-            </h1>
-            <p className="text-body mt-6 max-w-xl !text-brand-foreground/80">
-              Renting gear is the easy part. OUTTA is built around everything
-              around the rental — support, delivery, prep and the technical
-              judgment to get a kit right the first time.
-            </p>
-          </div>
+      {/* Plain page heading — no colored banner, same understated look as
+          Why OUTTA and About, so the whole page (not just the card grid
+          below) matches. */}
+      <Section spacing="compact" className="pt-16 sm:pt-20">
+        <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
+          <Heading level="h1" eyebrow="Services">
+            More than equipment.
+          </Heading>
           <WhatsAppButton
             label="Talk to OUTTA"
             heading="OUTTA RENTALS — SERVICES ENQUIRY"
             closingLine="I'd like to talk about a service."
             size="lg"
-            variant="secondary"
+            variant="default"
             className="shrink-0 uppercase tracking-wide"
           />
-        </Container>
-      </Section>
+        </div>
+        <p className="text-body mt-6 max-w-xl">
+          Renting gear is the easy part. OUTTA is built around everything
+          around the rental — support, delivery, prep and the technical
+          judgment to get a kit right the first time.
+        </p>
 
-      {/* Same numbered-card language as the homepage's "Why OUTTA" row — a
-          plain kicker/title/description card with a large number watermark,
-          nothing else competing with it. The whole card links out, with the
-          same circular arrow the package cards use instead of a button. */}
-      <Section>
+        {/* Same numbered-card language as the homepage's "Why OUTTA" row — a
+            plain kicker/title/description card with a large number
+            watermark, nothing else competing with it. The whole card links
+            out, with the same circular arrow the package cards use instead
+            of a button. */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
           variants={staggerContainer(0.06)}
-          className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
         >
           {serviceDetails.map((service, i) => (
             <motion.div key={service.slug} variants={slideUp()} className="relative">
