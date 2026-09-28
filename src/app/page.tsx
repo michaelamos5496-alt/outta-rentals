@@ -7,7 +7,7 @@ import { showWorkSection } from "@/config/site";
 import { Services } from "@/components/sections/services";
 import { FinalCta } from "@/components/sections/final-cta";
 import { fetchAllProducts } from "@/lib/catalogue/db";
-import { getPackageBySlug } from "@/lib/packages";
+import { getAllPackages } from "@/lib/packages";
 
 // Statically imported (not next/dynamic) — this tree is passed as `children`
 // into SmoothScroll (a "use client" wrapper) now that the homepage has
@@ -50,11 +50,10 @@ export default async function Home() {
 
   // The grid below is a pull from the preset production packages rather
   // than individual equipment, so it reads as "the kit for your shoot"
-  // instead of a second product list.
-  const featuredPackageSlugs = ["documentary", "commercial", "music-video", "short-film"];
-  const featuredPackages = featuredPackageSlugs
-    .map((slug) => getPackageBySlug(slug))
-    .filter((pkg): pkg is NonNullable<typeof pkg> => pkg !== undefined);
+  // instead of a second product list. getAllPackages() only returns the
+  // packages OUTTA has sent real pricing for — see LIVE_PACKAGE_SLUGS in
+  // src/lib/packages/index.ts.
+  const featuredPackages = getAllPackages();
 
   return (
     // The homepage stays focused on the rental itself — browse-by-category

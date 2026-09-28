@@ -80,7 +80,7 @@ function FeaturedEquipment({ packages }: { packages: ProductionPackage[] }) {
           Built for the shoot you&rsquo;re on.
         </Heading>
         <p className="text-small max-w-sm">
-          Preset kits for documentary, commercial, music video and short film work — customizable before you add them to your kit.
+          Preset kits for documentary and commercial work — customizable before you add them to your kit.
         </p>
       </div>
 

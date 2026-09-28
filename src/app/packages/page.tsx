@@ -13,7 +13,7 @@ import { formatPrice, formatTotal } from "@/lib/currency";
 export const metadata: Metadata = {
   title: "Production Packages",
   description:
-    "Preset equipment packages for commercial, documentary, music video, wedding, feature film and live production shoots — customizable before you add them to your kit.",
+    "Preset equipment packages for commercial and documentary shoots — customizable before you add them to your kit.",
 };
 
 export default function PackagesPage() {

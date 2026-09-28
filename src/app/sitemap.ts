@@ -4,7 +4,7 @@ import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
 import { categorySlugs } from "@/lib/catalogue/categories";
 import { fetchAllProducts } from "@/lib/catalogue/db";
-import { packages } from "@/lib/packages/data";
+import { getAllPackages } from "@/lib/packages";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const products = await fetchAllProducts();
@@ -36,7 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  const packageRoutes: MetadataRoute.Sitemap = packages.map((pkg) => ({
+  const packageRoutes: MetadataRoute.Sitemap = getAllPackages().map((pkg) => ({
     url: `${SITE_URL}/packages/${pkg.slug}`,
     changeFrequency: "weekly",
     priority: 0.6,

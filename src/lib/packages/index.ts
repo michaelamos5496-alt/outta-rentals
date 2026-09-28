@@ -5,12 +5,27 @@ import type { PackageTier, ProductionPackage } from "./types";
 export type { PackageRole, PackageLineItem, PackageTier, ProductionPackage } from "./types";
 export { packages } from "./data";
 
+/**
+ * Only these packages are published — OUTTA has only sent real, confirmed
+ * pricing for Commercial and Documentary so far. The rest (music-video,
+ * short-film, wedding, feature-film, interview, content, live-production)
+ * stay in `data.ts` with their old placeholder pricing so they're ready to
+ * publish the moment OUTTA sends a real rate sheet for them — add a slug
+ * here to bring one live.
+ */
+const LIVE_PACKAGE_SLUGS = new Set(["commercial", "documentary"]);
+
+function isLive(pkg: ProductionPackage): boolean {
+  return LIVE_PACKAGE_SLUGS.has(pkg.slug);
+}
+
 export function getAllPackages(): ProductionPackage[] {
-  return packages;
+  return packages.filter(isLive);
 }
 
 export function getPackageBySlug(slug: string): ProductionPackage | undefined {
-  return packages.find((p) => p.slug === slug);
+  const pkg = packages.find((p) => p.slug === slug);
+  return pkg && isLive(pkg) ? pkg : undefined;
 }
 
 /** The tier a package opens on — its first, e.g. "LITE" before "YOLO". */
@@ -38,7 +53,7 @@ export function getFromPrice(pkg: ProductionPackage): { amount: number; currency
 }
 
 export function getPackagesContainingProduct(productSlug: string): ProductionPackage[] {
-  return packages.filter((p) =>
+  return getAllPackages().filter((p) =>
     p.tiers.some((tier) => tier.items.some((item) => item.productSlug === productSlug))
   );
 }
