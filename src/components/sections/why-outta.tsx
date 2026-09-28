@@ -27,11 +27,11 @@ function WhyOutta() {
           <motion.div
             key={point.index}
             variants={slideUp()}
-            className="relative flex min-h-[13rem] flex-col gap-3 overflow-hidden rounded-2xl border border-border bg-card p-6"
+            className="relative flex min-h-[13rem] flex-col gap-3 overflow-hidden rounded-2xl border border-brand bg-card p-6"
           >
             <span
               aria-hidden
-              className="pointer-events-none absolute -right-2 -bottom-6 font-heading text-[6.5rem] leading-none font-bold text-foreground/5 select-none"
+              className="pointer-events-none absolute -right-2 -bottom-6 font-heading text-[6.5rem] leading-none font-bold text-brand/10 select-none"
             >
               {point.index}
             </span>
