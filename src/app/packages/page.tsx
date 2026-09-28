@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
+import { PackageEquipmentGrid } from "@/components/packages/package-equipment-grid";
 import { getCategoryIcon, getProductBySlug } from "@/lib/catalogue";
 import { getAllPackages, getDefaultTier, getFromPrice } from "@/lib/packages";
 import { themeImages } from "@/lib/editorial-images";
@@ -71,12 +72,19 @@ export default function PackagesPage() {
                 </div>
 
                 <div className="relative mt-1 min-h-[7rem] flex-1">
-                  <MediaPlaceholder
-                    src={themeImages[pkg.slug]}
-                    alt={pkg.name}
-                    icon={icon}
-                    className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/pkg:scale-105"
-                  />
+                  {pkg.slug === "commercial" ? (
+                    <PackageEquipmentGrid
+                      items={defaultTier.items}
+                      className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/pkg:scale-105"
+                    />
+                  ) : (
+                    <MediaPlaceholder
+                      src={themeImages[pkg.slug]}
+                      alt={pkg.name}
+                      icon={icon}
+                      className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/pkg:scale-105"
+                    />
+                  )}
                 </div>
               </Link>
 

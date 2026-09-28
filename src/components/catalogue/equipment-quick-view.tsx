@@ -28,7 +28,7 @@ function EquipmentQuickView() {
 
   return (
     <Dialog open={Boolean(product)} onOpenChange={(open) => !open && close()}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto p-0 sm:max-w-3xl">
+      <DialogContent className="max-h-[90vh] overflow-y-auto bg-[oklch(0.97_0.025_143)] p-0 sm:max-w-3xl">
         {product ? <QuickViewBody key={product.slug} productSlug={product.slug} /> : null}
       </DialogContent>
     </Dialog>

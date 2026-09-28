@@ -9,6 +9,7 @@ import { slideUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
+import { PackageEquipmentGrid } from "@/components/packages/package-equipment-grid";
 import { getCategoryIcon, getProductBySlug } from "@/lib/catalogue";
 import { themeImages } from "@/lib/editorial-images";
 import { formatPrice, formatTotal } from "@/lib/currency";
@@ -52,12 +53,19 @@ function FeaturedCard({ pkg }: { pkg: ProductionPackage }) {
 
         <div className="relative mt-1 flex-1">
           <div className="aspect-[16/11] w-full" />
-          <MediaPlaceholder
-            src={themeImages[pkg.slug]}
-            alt={pkg.name}
-            icon={icon}
-            className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
-          />
+          {pkg.slug === "commercial" ? (
+            <PackageEquipmentGrid
+              items={defaultTier.items}
+              className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
+            />
+          ) : (
+            <MediaPlaceholder
+              src={themeImages[pkg.slug]}
+              alt={pkg.name}
+              icon={icon}
+              className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
+            />
+          )}
         </div>
       </Link>
 
