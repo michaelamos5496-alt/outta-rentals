@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/container";
 import { Heading } from "@/components/ui/heading";
 import { getPackageBySlug } from "@/lib/packages";
-import { PackageBuilder } from "@/components/packages/package-builder";
+import { PackageTierSwitcher } from "@/components/packages/package-tier-switcher";
 
 interface PackagePageProps {
   params: Promise<{ slug: string }>;
@@ -46,7 +46,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
       </p>
 
       <div className="mt-10 max-w-2xl">
-        <PackageBuilder pkg={pkg} />
+        <PackageTierSwitcher tiers={pkg.tiers} />
       </div>
     </Container>
   );

@@ -6,9 +6,9 @@ import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { getCategoryIcon, getProductBySlug } from "@/lib/catalogue";
-import { getAllPackages } from "@/lib/packages";
+import { getAllPackages, getDefaultTier, getFromPrice } from "@/lib/packages";
 import { themeImages } from "@/lib/editorial-images";
-import { formatTotal } from "@/lib/currency";
+import { formatPrice, formatTotal } from "@/lib/currency";
 
 export const metadata: Metadata = {
   title: "Production Packages",
@@ -32,14 +32,17 @@ export default function PackagesPage() {
 
       <div className="mt-12 grid grid-cols-2 gap-x-2.5 gap-y-3 sm:grid-cols-2 sm:gap-x-4 sm:gap-y-6 lg:grid-cols-4">
         {packages.map((pkg) => {
-          const heroItem = pkg.items.find((i) => i.role === "Camera") ?? pkg.items[0];
+          const defaultTier = getDefaultTier(pkg);
+          const heroItem = defaultTier.items.find((i) => i.role === "Camera") ?? defaultTier.items[0];
           const heroProduct = heroItem ? getProductBySlug(heroItem.productSlug) : undefined;
           const icon = getCategoryIcon(heroProduct?.categorySlug ?? "cameras");
 
-          // Real total day rate for the package's line items — same "price
-          // tag" pattern as the equipment cards, computed from real product
-          // rates rather than invented.
-          const dayRates = pkg.items.flatMap((item) => {
+          // OUTTA's flat quoted rate when the package has one (e.g. tiered
+          // packages like Documentary/Commercial); otherwise the real total
+          // day rate for its default tier's line items, same "price tag"
+          // pattern as the equipment cards.
+          const flatPrice = getFromPrice(pkg);
+          const dayRates = defaultTier.items.flatMap((item) => {
             const product = getProductBySlug(item.productSlug);
             return product ? [{ amount: product.dayRate * item.quantity, currency: product.currency }] : [];
           });
@@ -55,7 +58,11 @@ export default function PackagesPage() {
                     <p className="line-clamp-2 text-xs font-light leading-tight text-brand-foreground">
                       {pkg.name}
                     </p>
-                    {dayRates.length > 0 ? (
+                    {flatPrice ? (
+                      <p className="mt-1 font-mono text-[0.8125rem] leading-none font-bold text-brand-foreground">
+                        From {formatPrice(flatPrice.amount, flatPrice.currency)}/day
+                      </p>
+                    ) : dayRates.length > 0 ? (
                       <p className="mt-1 font-mono text-[0.8125rem] leading-none font-bold text-brand-foreground">
                         From {formatTotal(dayRates)}/day
                       </p>

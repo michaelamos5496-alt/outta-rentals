@@ -4,6 +4,7 @@ import {
   Camera,
   Frame,
   Layers,
+  Mic2,
   MonitorPlay,
   Settings2,
   Spotlight,
@@ -17,7 +18,7 @@ import type { Category } from "@/types";
  * The top-level equipment categories. Each has a matching literal route at
  * `/equipment/[slug]` (see `src/app/equipment/*`). Only categories that hold
  * real equipment are listed — add one back here (plus a route and an icon)
- * when OUTTA stocks audio, drones or the like.
+ * when OUTTA stocks drones or the like.
  */
 export const categories: Category[] = [
   {
@@ -74,6 +75,12 @@ export const categories: Category[] = [
     slug: "lighting-modifiers",
     description: "Bounce, diffusion, flags and grip for lighting.",
   },
+  {
+    id: "cat-audio",
+    name: "Audio",
+    slug: "audio",
+    description: "Wireless mics, boom and field recording gear.",
+  },
 ];
 
 export const categoryIcons: Record<string, LucideIcon> = {
@@ -86,6 +93,7 @@ export const categoryIcons: Record<string, LucideIcon> = {
   filters: Layers,
   "matte-boxes": Frame,
   "lighting-modifiers": Sun,
+  audio: Mic2,
 };
 
 export function getCategoryBySlug(slug: string): Category | undefined {

@@ -11,7 +11,7 @@ import { Divider } from "@/components/ui/divider";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { getBrandBySlug, getCategoryIcon, getProductBySlug } from "@/lib/catalogue";
 import { useKit } from "@/components/kit/kit-provider";
-import type { ProductionPackage } from "@/lib/packages/types";
+import type { PackageLineItem } from "@/lib/packages/types";
 import { getProductImage } from "@/lib/editorial-images";
 import { formatPrice, formatTotal } from "@/lib/currency";
 
@@ -23,23 +23,34 @@ interface BuilderLine {
 }
 
 export interface PackageBuilderProps {
-  pkg: ProductionPackage;
+  /** The tier's line items — pass a new `key` from the parent when these change (e.g. the tier slug) so the builder's edits reset. */
+  items: PackageLineItem[];
+  /**
+   * OUTTA's flat quoted rate for this exact, un-customized bundle. Shown
+   * instead of the live per-item sum until the customer edits the package —
+   * once they add, remove or resize a line, the flat quote no longer
+   * describes what's in the kit, so the total switches to a live sum.
+   */
+  quotedPrice?: { amount: number; currency: string };
 }
 
-function PackageBuilder({ pkg }: PackageBuilderProps) {
+function PackageBuilder({ items, quotedPrice }: PackageBuilderProps) {
   const router = useRouter();
   const { addItem } = useKit();
   const [lines, setLines] = React.useState<BuilderLine[]>(
-    pkg.items.map((item) => ({ ...item, active: true }))
+    items.map((item) => ({ ...item, active: true }))
   );
   const [added, setAdded] = React.useState(false);
+  const [customized, setCustomized] = React.useState(false);
 
   function setQuantity(index: number, quantity: number) {
     setLines((ls) => ls.map((l, i) => (i === index ? { ...l, quantity: Math.max(1, quantity) } : l)));
+    setCustomized(true);
   }
 
   function toggleActive(index: number, active: boolean) {
     setLines((ls) => ls.map((l, i) => (i === index ? { ...l, active } : l)));
+    setCustomized(true);
   }
 
   const activeLines = lines
@@ -49,11 +60,15 @@ function PackageBuilder({ pkg }: PackageBuilderProps) {
     );
 
   const activeCount = activeLines.filter((l) => l.line.active).length;
-  const dailyTotal = formatTotal(
+  const liveTotal = formatTotal(
     activeLines
       .filter((l) => l.line.active)
       .map((l) => ({ amount: l.product.dayRate * l.line.quantity, currency: l.product.currency }))
   );
+  // OUTTA's flat quote for the preset bundle, until the customer changes it —
+  // then the total has to reflect what's actually in the kit.
+  const useQuotedPrice = quotedPrice && !customized;
+  const dailyTotal = useQuotedPrice ? formatPrice(quotedPrice.amount, quotedPrice.currency) : liveTotal;
 
   function handleAddPackage() {
     activeLines
@@ -160,7 +175,9 @@ function PackageBuilder({ pkg }: PackageBuilderProps) {
           <p className="text-sm">
             {activeCount} item{activeCount === 1 ? "" : "s"} in this package
           </p>
-          <p className="text-meta mt-0.5">{dailyTotal}/day</p>
+          <p className="text-meta mt-0.5">
+            {dailyTotal}/day{useQuotedPrice ? " — OUTTA's quoted rate" : ""}
+          </p>
         </div>
         <Button
           size="lg"

@@ -18,6 +18,7 @@ export const categoryImages: Record<string, string> = {
   "camera-accessories": pexelsUrl(11234306), // shares the monitors/support photo
   "matte-boxes": pexelsUrl(20101684), // shares the grip photo
   "lighting-modifiers": pexelsUrl(4417017), // shares the lighting photo
+  audio: pexelsUrl(347700),
 };
 
 /** Stock headshots for the testimonials hover-carousel — paired by index with `testimonials` in placeholder-data.ts. */

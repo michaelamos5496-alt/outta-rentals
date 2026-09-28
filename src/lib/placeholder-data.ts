@@ -38,6 +38,7 @@ export const equipmentCategories: EquipmentCategoryTeaser[] = [
   { name: "Filters", slug: "filters", icon: Layers },
   { name: "Matte Boxes", slug: "matte-boxes", icon: Frame },
   { name: "Lighting Modifiers", slug: "lighting-modifiers", icon: Sun },
+  { name: "Audio", slug: "audio", icon: Mic2 },
 ];
 
 export interface FeaturedProductTeaser {
