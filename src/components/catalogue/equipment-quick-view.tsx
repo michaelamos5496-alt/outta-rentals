@@ -1,8 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/navigation";
-import { Check, MessageCircle, Minus, Plus, ShoppingCart } from "lucide-react";
+import { Check, Minus, Plus, ShoppingCart } from "lucide-react";
 
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -39,7 +38,6 @@ function EquipmentQuickView() {
 // Keyed by slug in the parent so quantity resets and the gallery starts back
 // at its main photo every time a different product is opened.
 function QuickViewBody({ productSlug }: { productSlug: string }) {
-  const router = useRouter();
   const { product: current, close } = useQuickView();
   // `current` always matches `productSlug` here (the key above remounts this
   // component when it changes) — narrowed so TypeScript knows it's non-null.
@@ -156,24 +154,10 @@ function QuickViewBody({ productSlug }: { productSlug: string }) {
           <p className="text-meta mt-1.5">Set rental dates in your cart for a full estimate.</p>
         ) : null}
 
-        <div className="mt-5 flex flex-col gap-2 sm:flex-row">
-          <Button size="lg" className="flex-1" onClick={handleAction}>
-            {inCart ? <ShoppingCart /> : <Plus />}
-            {inCart ? "View Cart" : "Add to Cart"}
-          </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            className="flex-1"
-            onClick={() => {
-              addItem(product.slug, quantity, { silent: true });
-              close();
-              router.push("/kit");
-            }}
-          >
-            <MessageCircle /> Request Quote
-          </Button>
-        </div>
+        <Button size="lg" className="mt-5 w-full" onClick={handleAction}>
+          {inCart ? <ShoppingCart /> : <Plus />}
+          {inCart ? "View Cart" : "Add to Cart"}
+        </Button>
       </div>
     </div>
   );
