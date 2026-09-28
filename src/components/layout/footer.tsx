@@ -97,7 +97,7 @@ function Footer() {
               href="https://theimagedept.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors hover:text-foreground"
+              className="text-brand transition-colors hover:text-brand/80"
             >
               TheImageDept.
             </a>
