@@ -248,7 +248,11 @@ function NavFab() {
   }, [open, close]);
 
   return (
-    <div ref={containerRef} className="fixed right-4 bottom-24 z-40 lg:right-6 lg:bottom-6">
+    // Hidden on mobile — the Request Consultation button is the one
+    // floating action there instead (see ConsultationPopup); this FAB's
+    // menu (About/Contact/WhatsApp) is still reachable via the mobile tab
+    // bar and nav. Desktop keeps it.
+    <div ref={containerRef} className="fixed right-4 bottom-24 z-40 hidden lg:right-6 lg:bottom-6 lg:block">
       <div
         ref={panelRef}
         onMouseEnter={open_}
