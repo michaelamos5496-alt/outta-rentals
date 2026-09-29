@@ -38,9 +38,11 @@ function isTyping(): boolean {
 /**
  * Opens itself 5s after the site loads to invite a consultation request —
  * once per browser session, and never while the visitor is typing in a field.
- * Once dismissed (in either direction) it collapses into a floating button
- * — fixed opposite the nav FAB so a customer can reopen it whenever
- * they're ready, instead of only getting the one auto-prompt.
+ * Once dismissed (in either direction) it collapses into a floating button.
+ * On mobile it's a round icon FAB in the same spot (and same size/shape)
+ * as the nav's contact FAB, which is hidden on mobile in its favor — one
+ * floating action, not two. Desktop keeps both, so there it stays the
+ * labeled pill on the opposite corner from the nav FAB.
  */
 function ConsultationPopup() {
   const [open, setOpen] = React.useState(false);
@@ -63,10 +65,14 @@ function ConsultationPopup() {
           type="button"
           onClick={() => setOpen(true)}
           aria-label="Request a consultation"
-          className="fixed left-4 bottom-24 z-40 flex items-center gap-2 rounded-full border border-white/40 bg-white/35 py-3 pr-4 pl-3 text-foreground shadow-[0_8px_32px_-4px_rgba(0,0,0,0.25)] backdrop-blur-xl backdrop-saturate-150 transition-transform hover:scale-105 lg:left-6 lg:bottom-6"
+          className="fixed right-4 bottom-24 z-40 flex size-14 items-center justify-center rounded-full bg-brand text-brand-foreground shadow-xl transition-transform hover:scale-105 lg:left-6 lg:right-auto lg:bottom-6 lg:size-auto lg:justify-start lg:gap-2 lg:border lg:border-white/40 lg:bg-white/35 lg:py-3 lg:pr-4 lg:pl-3 lg:text-foreground lg:shadow-[0_8px_32px_-4px_rgba(0,0,0,0.25)] lg:backdrop-blur-xl lg:backdrop-saturate-150"
         >
-          <MessageCircleQuestion className="size-5 shrink-0 text-brand" strokeWidth={2} aria-hidden />
-          <span className="text-sm font-medium whitespace-nowrap">Request Consultation</span>
+          <MessageCircleQuestion
+            className="size-5 shrink-0 text-brand-foreground lg:text-brand"
+            strokeWidth={2}
+            aria-hidden
+          />
+          <span className="hidden text-sm font-medium whitespace-nowrap lg:inline">Request Consultation</span>
         </button>
       ) : null}
 

@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
@@ -7,6 +8,7 @@ import { ArrowUpRight } from "lucide-react";
 import { slideUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
+import { SlideIndicators, scrollToSlide, useSlideIndex } from "@/components/ui/slide-indicators";
 import { serviceDetails } from "@/lib/content/services";
 
 // Same five services this homepage teaser has always led with — the rest
@@ -23,6 +25,8 @@ function Services() {
   const featured = FEATURED_SLUGS.map((slug) => serviceDetails.find((s) => s.slug === slug)).filter(
     (s): s is NonNullable<typeof s> => Boolean(s)
   );
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+  const activeSlide = useSlideIndex(scrollRef, featured.length);
 
   return (
     <Section className="border-t border-border">
@@ -34,7 +38,10 @@ function Services() {
           page — green outline, green watermark number. Mobile gets a
           swipeable slide-to-slide carousel instead of a long vertical
           stack; desktop keeps the grid below. */}
-      <div className="scrollbar-none mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 sm:hidden">
+      <div
+        ref={scrollRef}
+        className="scrollbar-none mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 sm:hidden"
+      >
         {featured.map((service, i) => (
           <div key={service.slug} className="relative w-full shrink-0 snap-center">
             <Link
@@ -61,6 +68,13 @@ function Services() {
           </div>
         ))}
       </div>
+
+      <SlideIndicators
+        count={featured.length}
+        active={activeSlide}
+        onSelect={(i) => scrollToSlide(scrollRef, i)}
+        className="mt-4 sm:hidden"
+      />
 
       <motion.div
         initial="hidden"

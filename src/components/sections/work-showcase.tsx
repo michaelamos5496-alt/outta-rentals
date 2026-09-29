@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -10,6 +11,7 @@ import { Heading } from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { AutoplayVideo } from "@/components/ui/autoplay-video";
+import { SlideIndicators, scrollToSlide, useSlideIndex } from "@/components/ui/slide-indicators";
 import { workShowcase } from "@/lib/placeholder-data";
 import { themeImages } from "@/lib/editorial-images";
 
@@ -22,6 +24,9 @@ function slugifyTitle(value: string): string {
 }
 
 function WorkShowcase() {
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+  const activeSlide = useSlideIndex(scrollRef, workShowcase.length);
+
   return (
     <Section className="border-t border-border">
       <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
@@ -36,7 +41,10 @@ function WorkShowcase() {
 
       {/* Mobile: a swipeable slide-to-slide carousel (scroll-snap, one
           project per screen). Desktop keeps the two-column grid below. */}
-      <div className="scrollbar-none mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 sm:hidden">
+      <div
+        ref={scrollRef}
+        className="scrollbar-none mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 sm:hidden"
+      >
         {workShowcase.map((project) => {
           const slug = slugifyProductionType(project.productionType);
           return (
@@ -67,6 +75,13 @@ function WorkShowcase() {
           );
         })}
       </div>
+
+      <SlideIndicators
+        count={workShowcase.length}
+        active={activeSlide}
+        onSelect={(i) => scrollToSlide(scrollRef, i)}
+        className="mt-4 sm:hidden"
+      />
 
       <motion.div
         initial="hidden"

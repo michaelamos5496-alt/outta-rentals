@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
@@ -7,10 +8,14 @@ import { ArrowUpRight } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
 import { WhatsAppButton } from "@/components/quote/whatsapp-button";
+import { SlideIndicators, scrollToSlide, useSlideIndex } from "@/components/ui/slide-indicators";
 import { slideUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { serviceDetails } from "@/lib/content/services";
 
 export default function ServicesPage() {
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+  const activeSlide = useSlideIndex(scrollRef, serviceDetails.length);
+
   return (
     <>
       {/* Plain page heading — no colored banner, same understated look as
@@ -42,7 +47,10 @@ export default function ServicesPage() {
             out, with the same circular arrow the package cards use instead
             of a button. Mobile gets a swipeable slide-to-slide carousel
             instead of a long vertical stack; desktop keeps the grid below. */}
-        <div className="scrollbar-none mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 sm:hidden">
+        <div
+          ref={scrollRef}
+          className="scrollbar-none mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 sm:hidden"
+        >
           {serviceDetails.map((service, i) => (
             <div key={service.slug} className="relative w-full shrink-0 snap-center">
               <Link
@@ -69,6 +77,13 @@ export default function ServicesPage() {
             </div>
           ))}
         </div>
+
+        <SlideIndicators
+          count={serviceDetails.length}
+          active={activeSlide}
+          onSelect={(i) => scrollToSlide(scrollRef, i)}
+          className="mt-4 sm:hidden"
+        />
 
         <motion.div
           initial="hidden"

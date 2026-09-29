@@ -1,15 +1,20 @@
 "use client";
 
+import * as React from "react";
 import { motion } from "framer-motion";
 
 import { slideUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
+import { SlideIndicators, scrollToSlide, useSlideIndex } from "@/components/ui/slide-indicators";
 import { whyOutta } from "@/lib/placeholder-data";
 
 function WhyOutta() {
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+  const activeSlide = useSlideIndex(scrollRef, whyOutta.length);
+
   return (
-    <Section className="border-t border-border">
+    <Section className="border-t border-border bg-[oklch(0.97_0.025_143)]">
       <Heading level="h2" eyebrow="Why OUTTA">
         Why OUTTA?
       </Heading>
@@ -19,7 +24,10 @@ function WhyOutta() {
           gets a swipeable slide-to-slide carousel (scroll-snap, one card
           per screen) instead of a long vertical stack; desktop keeps the
           grid below. */}
-      <div className="scrollbar-none mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 sm:hidden">
+      <div
+        ref={scrollRef}
+        className="scrollbar-none mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 sm:hidden"
+      >
         {whyOutta.map((point) => (
           <div
             key={point.index}
@@ -37,6 +45,13 @@ function WhyOutta() {
           </div>
         ))}
       </div>
+
+      <SlideIndicators
+        count={whyOutta.length}
+        active={activeSlide}
+        onSelect={(i) => scrollToSlide(scrollRef, i)}
+        className="mt-4 sm:hidden"
+      />
 
       <motion.div
         initial="hidden"
