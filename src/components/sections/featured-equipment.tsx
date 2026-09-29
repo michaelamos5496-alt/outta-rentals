@@ -53,7 +53,7 @@ function FeaturedCard({ pkg }: { pkg: ProductionPackage }) {
 
         <div className="relative mt-1 flex-1">
           <div className="aspect-[16/11] w-full" />
-          {pkg.slug === "commercial" ? (
+          {pkg.slug === "commercial" || pkg.slug === "documentary" ? (
             <PackageEquipmentGrid
               items={defaultTier.items}
               className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"

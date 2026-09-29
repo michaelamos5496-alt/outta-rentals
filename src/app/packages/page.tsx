@@ -72,7 +72,7 @@ export default function PackagesPage() {
                 </div>
 
                 <div className="relative mt-1 min-h-[7rem] flex-1">
-                  {pkg.slug === "commercial" ? (
+                  {pkg.slug === "commercial" || pkg.slug === "documentary" ? (
                     <PackageEquipmentGrid
                       items={defaultTier.items}
                       className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/pkg:scale-105"
