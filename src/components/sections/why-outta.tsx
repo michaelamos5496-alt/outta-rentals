@@ -14,7 +14,7 @@ function WhyOutta() {
   const activeSlide = useSlideIndex(scrollRef, whyOutta.length);
 
   return (
-    <Section className="border-t border-border bg-[oklch(0.97_0.025_143)]">
+    <Section className="border-t border-border">
       <Heading level="h2" eyebrow="Why OUTTA">
         Why OUTTA?
       </Heading>
@@ -31,7 +31,7 @@ function WhyOutta() {
         {whyOutta.map((point) => (
           <div
             key={point.index}
-            className="relative flex min-h-[13rem] w-full shrink-0 snap-center flex-col gap-3 overflow-hidden rounded-2xl border border-brand bg-card p-6"
+            className="relative flex min-h-[13rem] w-full shrink-0 snap-center flex-col gap-3 overflow-hidden rounded-2xl border border-brand bg-[oklch(0.97_0.025_143)] p-6"
           >
             <span
               aria-hidden
@@ -64,7 +64,7 @@ function WhyOutta() {
           <motion.div
             key={point.index}
             variants={slideUp()}
-            className="relative flex min-h-[13rem] flex-col gap-3 overflow-hidden rounded-2xl border border-brand bg-card p-6"
+            className="relative flex min-h-[13rem] flex-col gap-3 overflow-hidden rounded-2xl border border-brand bg-[oklch(0.97_0.025_143)] p-6"
           >
             <span
               aria-hidden

@@ -46,7 +46,7 @@ function Services() {
           <div key={service.slug} className="relative w-full shrink-0 snap-center">
             <Link
               href={service.cta.href}
-              className="relative flex min-h-[13rem] flex-col gap-3 overflow-hidden rounded-2xl border border-brand bg-card p-6 transition-colors hover:border-brand/70"
+              className="relative flex min-h-[13rem] flex-col gap-3 overflow-hidden rounded-2xl border border-brand bg-[oklch(0.97_0.025_143)] p-6 transition-colors hover:border-brand/70"
             >
               <span
                 aria-hidden
@@ -87,7 +87,7 @@ function Services() {
           <motion.div key={service.slug} variants={slideUp()} className="relative">
             <Link
               href={service.cta.href}
-              className="relative flex min-h-[13rem] flex-col gap-3 overflow-hidden rounded-2xl border border-brand bg-card p-6 transition-colors hover:border-brand/70"
+              className="relative flex min-h-[13rem] flex-col gap-3 overflow-hidden rounded-2xl border border-brand bg-[oklch(0.97_0.025_143)] p-6 transition-colors hover:border-brand/70"
             >
               <span
                 aria-hidden
