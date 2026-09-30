@@ -30,9 +30,11 @@ function Services() {
 
   return (
     <Section className="border-t border-border">
-      <Heading level="h2" eyebrow="Services">
-        More than equipment.
-      </Heading>
+      <div className="text-center">
+        <Heading level="h2" eyebrow="Services">
+          More than equipment.
+        </Heading>
+      </div>
 
       {/* Same numbered-card language as Why OUTTA and the full Services
           page — green outline, green watermark number. Mobile gets a

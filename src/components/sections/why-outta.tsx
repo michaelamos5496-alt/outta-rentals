@@ -15,9 +15,11 @@ function WhyOutta() {
 
   return (
     <Section className="border-t border-border">
-      <Heading level="h2" eyebrow="Why OUTTA">
-        Why OUTTA?
-      </Heading>
+      <div className="text-center">
+        <Heading level="h2" eyebrow="Why OUTTA">
+          Why OUTTA?
+        </Heading>
+      </div>
 
       {/* Each point as its own numbered card, watermark bottom-right — same
           "numbered feature" language the services page uses below. Mobile

@@ -22,14 +22,16 @@ export default function PackagesPage() {
 
   return (
     <Section className="pt-16 sm:pt-20">
-      <Heading level="display" eyebrow="Packages">
-        Build your kit.
-      </Heading>
-      <p className="text-body mt-6 max-w-xl">
-        Preset production packages, put together the way an experienced
-        rental technician would start — adjust anything before it goes into
-        your kit.
-      </p>
+      <div className="text-center">
+        <Heading level="display" eyebrow="Packages">
+          Build your kit.
+        </Heading>
+        <p className="text-body mx-auto mt-6 max-w-xl">
+          Preset production packages, put together the way an experienced
+          rental technician would start — adjust anything before it goes into
+          your kit.
+        </p>
+      </div>
 
       <div className="mt-12 grid grid-cols-2 gap-x-2.5 gap-y-3 sm:grid-cols-2 sm:gap-x-4 sm:gap-y-6 lg:grid-cols-4">
         {packages.map((pkg) => {

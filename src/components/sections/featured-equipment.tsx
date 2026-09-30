@@ -83,7 +83,7 @@ function FeaturedCard({ pkg }: { pkg: ProductionPackage }) {
 function FeaturedEquipment({ packages }: { packages: ProductionPackage[] }) {
   return (
     <Section>
-      <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+      <div className="flex flex-col items-center gap-4 text-center">
         <Heading level="h2" eyebrow="Package Rentals">
           Built for the shoot you&rsquo;re on.
         </Heading>

@@ -22,7 +22,7 @@ export default function ServicesPage() {
           Why OUTTA and About, so the whole page (not just the card grid
           below) matches. */}
       <Section spacing="compact" className="pt-16 sm:pt-20">
-        <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
+        <div className="flex flex-col items-center gap-6 text-center">
           <Heading level="h1" eyebrow="Services">
             More than equipment.
           </Heading>
@@ -32,14 +32,14 @@ export default function ServicesPage() {
             closingLine="I'd like to talk about a service."
             size="lg"
             variant="default"
-            className="shrink-0 uppercase tracking-wide"
+            className="uppercase tracking-wide"
           />
+          <p className="text-body max-w-xl">
+            Renting gear is the easy part. OUTTA is built around everything
+            around the rental — support, delivery, prep and the technical
+            judgment to get a kit right the first time.
+          </p>
         </div>
-        <p className="text-body mt-6 max-w-xl">
-          Renting gear is the easy part. OUTTA is built around everything
-          around the rental — support, delivery, prep and the technical
-          judgment to get a kit right the first time.
-        </p>
 
         {/* Same numbered-card language as the homepage's "Why OUTTA" row — a
             plain kicker/title/description card with a large number

@@ -64,14 +64,16 @@ export default function WorkPage() {
   return (
     <>
       <Section spacing="compact" className="pt-16 sm:pt-20">
-        <Heading level="display" eyebrow="Work">
-          Built for the set.
-        </Heading>
-        <p className="text-body mt-6 max-w-xl">
-          A sample of the kinds of productions OUTTA equipment supports.
-          Placeholder projects for illustration — no real clients are
-          represented.
-        </p>
+        <div className="text-center">
+          <Heading level="display" eyebrow="Work">
+            Built for the set.
+          </Heading>
+          <p className="text-body mx-auto mt-6 max-w-xl">
+            A sample of the kinds of productions OUTTA equipment supports.
+            Placeholder projects for illustration — no real clients are
+            represented.
+          </p>
+        </div>
       </Section>
 
       <div className="border-t border-border">
