@@ -93,7 +93,7 @@ export default function PackagesPage() {
               <Link
                 href={`/packages/${pkg.slug}`}
                 aria-label={`View ${pkg.name} package`}
-                className="bg-foreground text-background absolute bottom-2 left-2 flex size-7 items-center justify-center rounded-full transition-transform active:scale-90"
+                className="bg-white text-foreground absolute bottom-2 left-2 flex size-7 items-center justify-center rounded-full transition-transform active:scale-90"
               >
                 <ArrowUpRight className="size-3.5" />
               </Link>

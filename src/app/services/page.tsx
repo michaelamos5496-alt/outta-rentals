@@ -70,7 +70,7 @@ export default function ServicesPage() {
               <Link
                 href={service.cta.href}
                 aria-label={service.cta.label}
-                className="absolute right-2 bottom-2 flex size-7 items-center justify-center rounded-full bg-foreground text-background transition-transform active:scale-90"
+                className="absolute right-2 bottom-2 flex size-7 items-center justify-center rounded-full bg-white text-foreground transition-transform active:scale-90"
               >
                 <ArrowUpRight className="size-3.5" />
               </Link>
@@ -111,7 +111,7 @@ export default function ServicesPage() {
               <Link
                 href={service.cta.href}
                 aria-label={service.cta.label}
-                className="absolute right-2 bottom-2 flex size-7 items-center justify-center rounded-full bg-foreground text-background transition-transform active:scale-90"
+                className="absolute right-2 bottom-2 flex size-7 items-center justify-center rounded-full bg-white text-foreground transition-transform active:scale-90"
               >
                 <ArrowUpRight className="size-3.5" />
               </Link>

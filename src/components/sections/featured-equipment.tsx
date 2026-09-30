@@ -72,7 +72,7 @@ function FeaturedCard({ pkg }: { pkg: ProductionPackage }) {
       <Link
         href={href}
         aria-label={`View ${pkg.name} package`}
-        className="absolute bottom-2 left-2 flex size-7 items-center justify-center rounded-full bg-foreground text-background transition-transform active:scale-90"
+        className="absolute bottom-2 left-2 flex size-7 items-center justify-center rounded-full bg-white text-foreground transition-transform active:scale-90"
       >
         <ArrowUpRight className="size-3.5" />
       </Link>
