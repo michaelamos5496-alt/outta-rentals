@@ -447,7 +447,12 @@ function Navbar() {
                 variant="ghost"
                 size="icon"
                 aria-label="Cart"
-                onClick={openDrawer}
+                // On /kit itself the full cart is already on the page —
+                // opening the drawer on top of it just duplicates it,
+                // "Clear cart" and all. Only open the drawer elsewhere.
+                onClick={() => {
+                  if (pathname !== "/kit") openDrawer();
+                }}
                 className="relative text-brand-foreground hover:bg-brand-foreground/10 hover:text-brand-foreground"
               >
                 <ShoppingCart />
