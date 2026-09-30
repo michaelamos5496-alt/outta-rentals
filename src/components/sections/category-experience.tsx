@@ -33,7 +33,13 @@ function CategoryExperience({ products }: CategoryExperienceProps) {
         whileInView="visible"
         viewport={viewportOnce}
         variants={staggerContainer(0.05)}
-        className="scrollbar-none flex justify-center gap-2 overflow-x-auto pb-2 sm:gap-3"
+        // `safe center`, not plain `center` — on mobile this row overflows
+        // and scrolls; plain center makes the browser center the *scroll
+        // position* too, so it opens cut off on both ends instead of at
+        // item 1. `safe` falls back to a normal start alignment whenever
+        // content doesn't fit, and only centers when it actually fits
+        // (wide desktop viewports where the row doesn't need to scroll).
+        className="scrollbar-none flex justify-[safe_center] gap-2 overflow-x-auto pb-2 sm:gap-3"
       >
         {equipmentCategories
           .map((category) => ({
