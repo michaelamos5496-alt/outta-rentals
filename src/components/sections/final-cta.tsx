@@ -40,7 +40,7 @@ function FinalCta() {
           <Button
             asChild
             size="lg"
-            className="bg-brand-foreground text-brand uppercase tracking-wide hover:bg-brand-foreground/90"
+            className="bg-white text-foreground uppercase tracking-wide hover:bg-white/90"
           >
             <Link href="/equipment">
               <Package /> Build Your Kit
