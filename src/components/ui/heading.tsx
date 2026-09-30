@@ -23,12 +23,15 @@ export interface HeadingProps extends React.ComponentProps<"h1"> {
   as?: React.ElementType;
   /** Small tracked label rendered above the heading, e.g. "EQUIPMENT". */
   eyebrow?: React.ReactNode;
+  /** Overrides for the eyebrow's own classes, e.g. a different font size. */
+  eyebrowClassName?: string;
 }
 
 function Heading({
   level = "h2",
   as,
   eyebrow,
+  eyebrowClassName,
   className,
   children,
   ...props
@@ -38,7 +41,7 @@ function Heading({
   return (
     <div data-slot="heading-group">
       {eyebrow ? (
-        <p className="text-label mb-3 text-brand">{eyebrow}</p>
+        <p className={cn("text-label mb-3 text-brand", eyebrowClassName)}>{eyebrow}</p>
       ) : null}
       <Tag
         data-slot="heading"
