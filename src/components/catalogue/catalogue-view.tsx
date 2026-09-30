@@ -105,7 +105,7 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
   if (filters.brands.some((slug) => !validBrandSlugs.has(slug))) {
     setFilters((f) => ({ ...f, brands: f.brands.filter((slug) => validBrandSlugs.has(slug)) }));
   }
-  const [sort, setSort] = React.useState<SortKey>("featured");
+  const [sort, setSort] = React.useState<SortKey>("price-desc");
   const [view, setView] = React.useState<"grid" | "list">("grid");
   const [visibleCount, setVisibleCount] = React.useState(PAGE_SIZE);
   const [mobileFiltersOpen, setMobileFiltersOpen] = React.useState(false);
