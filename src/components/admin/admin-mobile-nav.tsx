@@ -21,7 +21,7 @@ function AdminMobileNav({ email }: { email: string }) {
     <header className="sticky top-0 z-30 flex items-center justify-between bg-brand px-4 py-3 lg:hidden">
       <Link prefetch={false} href="/admin" aria-label="Admin dashboard">
         <Image
-          src="/brand/outta-logo-dark.png"
+          src="/brand/outta-logo.png"
           alt="OUTTA Rentals"
           width={595}
           height={225}
@@ -57,7 +57,7 @@ function AdminMobileNav({ email }: { email: string }) {
         >
           <SheetTitle className="sr-only">Admin menu</SheetTitle>
           <Image
-            src="/brand/outta-logo-dark.png"
+            src="/brand/outta-logo.png"
             alt="OUTTA Rentals"
             width={595}
             height={225}
