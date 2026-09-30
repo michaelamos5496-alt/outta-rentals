@@ -22,7 +22,7 @@ interface CategoryExperienceProps {
 function CategoryExperience({ products }: CategoryExperienceProps) {
   return (
     <Section spacing="compact" className="border-t border-border">
-      <div className="py-8">
+      <div className="py-8 text-center">
         <Heading level="h2" eyebrow="The Range">
           Built by category.
         </Heading>
@@ -33,7 +33,7 @@ function CategoryExperience({ products }: CategoryExperienceProps) {
         whileInView="visible"
         viewport={viewportOnce}
         variants={staggerContainer(0.05)}
-        className="scrollbar-none flex gap-2 overflow-x-auto pb-2 sm:gap-3"
+        className="scrollbar-none flex justify-center gap-2 overflow-x-auto pb-2 sm:gap-3"
       >
         {equipmentCategories
           .map((category) => ({
