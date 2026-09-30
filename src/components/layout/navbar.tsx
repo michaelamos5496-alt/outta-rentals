@@ -148,14 +148,8 @@ const equipmentTabs: EquipmentTab[] = [
     ],
   },
   { label: "Lens", href: "/equipment/lenses" },
-  {
-    label: "Light",
-    href: "/equipment/lighting",
-    children: [
-      { label: "Lighting", href: "/equipment/lighting" },
-      { label: "Modifiers", href: "/equipment/lighting-modifiers" },
-    ],
-  },
+  { label: "Light", href: "/equipment/lighting" },
+  { label: "Modifiers", href: "/equipment/lighting-modifiers" },
   { label: "Grip", href: "/equipment/grip" },
   { label: "Audio", href: "/equipment/audio" },
 ];
