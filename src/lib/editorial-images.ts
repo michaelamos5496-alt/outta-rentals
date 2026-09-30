@@ -235,6 +235,7 @@ export const extraProductImages: Record<string, string[]> = {
   "amaran-150c": ["/equipment/amaran-150c-2.webp", "/equipment/amaran-150c-3.webp"],
   "reflector": ["/equipment/reflector-2.jpg"],
   "wireless-directors-monitor": ["/equipment/wireless-directors-monitor-2.jpg"],
+  "dji-mic": ["/equipment/dji-mic-2.jpg", "/equipment/dji-mic-3.jpg"],
   "nanlite-forza-750b": [
     "/equipment/nanlite-forza-750b-2.jpg",
     "/equipment/nanlite-forza-750b-3.jpg",
