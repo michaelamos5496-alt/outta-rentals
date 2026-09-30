@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { AlertCircle, CheckCircle2, LoaderCircle, Package } from "lucide-react";
+import { AlertCircle, CheckCircle2, LoaderCircle, Package, Trash2 } from "lucide-react";
 
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
@@ -71,8 +71,8 @@ export default function KitPage() {
         <Heading level="h1" eyebrow="Cart">
           Your cart
         </Heading>
-        <Button variant="link" size="sm" className="h-auto p-0 text-muted-foreground" onClick={clearKit}>
-          Clear cart
+        <Button variant="outline" size="sm" onClick={clearKit}>
+          <Trash2 /> Clear cart
         </Button>
       </div>
 

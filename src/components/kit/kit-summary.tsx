@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Package } from "lucide-react";
+import { Package, Trash2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
@@ -68,8 +68,8 @@ function KitSummary({ compact = false, showDates = true, emptyAction, footer }: 
       </div>
 
       <div className="flex items-center justify-between gap-3">
-        <Button variant="link" size="sm" className="h-auto p-0 text-muted-foreground" onClick={clearKit}>
-          Clear cart
+        <Button variant="outline" size="sm" onClick={clearKit}>
+          <Trash2 /> Clear cart
         </Button>
         {!footer ? (
           <Button asChild variant="outline" size="sm">
