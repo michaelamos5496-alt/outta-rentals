@@ -386,7 +386,7 @@ function Navbar() {
           >
             <Link href="/" className="inline-flex shrink-0 items-center">
               <Image
-                src="/brand/outta-logo.png"
+                src="/brand/outta-logo-dark.png"
                 alt={siteConfig.name}
                 width={595}
                 height={225}
