@@ -90,10 +90,10 @@ export default function ServicesPage() {
           whileInView="visible"
           viewport={viewportOnce}
           variants={staggerContainer(0.06)}
-          className="mt-10 hidden gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-7"
+          className="mt-10 hidden flex-wrap justify-center gap-3 sm:flex"
         >
           {serviceDetails.map((service, i) => (
-            <motion.div key={service.slug} variants={slideUp()} className="relative">
+            <motion.div key={service.slug} variants={slideUp()} className="relative w-44 shrink-0">
               <Link
                 href={service.cta.href}
                 className="relative flex min-h-[12rem] flex-col gap-2 overflow-hidden rounded-2xl border border-brand bg-[oklch(0.97_0.025_143)] p-3 shadow-md transition-[border-color,box-shadow] duration-300 hover:border-brand/70 hover:shadow-lg"

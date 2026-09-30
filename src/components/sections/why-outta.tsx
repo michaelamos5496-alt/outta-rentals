@@ -60,13 +60,13 @@ function WhyOutta() {
         whileInView="visible"
         viewport={viewportOnce}
         variants={staggerContainer(0.06)}
-        className="mt-10 hidden gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-5"
+        className="mt-10 hidden flex-wrap justify-center gap-3 sm:flex"
       >
         {whyOutta.map((point) => (
           <motion.div
             key={point.index}
             variants={slideUp()}
-            className="relative flex min-h-[11rem] flex-col gap-2 overflow-hidden rounded-2xl border border-brand bg-[oklch(0.97_0.025_143)] p-4 shadow-md transition-shadow duration-300 hover:shadow-lg"
+            className="relative flex min-h-[11rem] w-60 shrink-0 flex-col gap-2 overflow-hidden rounded-2xl border border-brand bg-[oklch(0.97_0.025_143)] p-4 shadow-md transition-shadow duration-300 hover:shadow-lg"
           >
             <span
               aria-hidden
