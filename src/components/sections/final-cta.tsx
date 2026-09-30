@@ -21,14 +21,14 @@ function FinalCta() {
         variants={staggerContainer(0.08)}
         className="relative mx-auto w-full max-w-(--container-content) px-5 text-center sm:px-8 lg:px-12"
       >
-        <motion.h2 variants={slideUp()} className="text-display text-balance text-brand-foreground">
+        <motion.h2 variants={slideUp()} className="text-display text-balance text-white">
           READY TO
           <br />
           ROLL?
         </motion.h2>
         <motion.p
           variants={slideUp(0.05)}
-          className="text-body mx-auto mt-6 max-w-md !text-brand-foreground/80"
+          className="text-body mx-auto mt-6 max-w-md !text-white/80"
         >
           Tell us what you&rsquo;re shooting. We&rsquo;ll help you build the
           right kit.
@@ -50,7 +50,7 @@ function FinalCta() {
             asChild
             size="lg"
             variant="outline"
-            className="border-brand-foreground/30 bg-transparent text-brand-foreground uppercase tracking-wide hover:bg-brand-foreground/10"
+            className="border-white/30 bg-transparent text-white uppercase tracking-wide hover:bg-white/10"
           >
             <Link href="/contact">
               <MessageCircle /> Talk to OUTTA
