@@ -49,11 +49,11 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
       >
         <div className="flex items-start justify-between gap-2 p-2.5 pb-1 sm:p-3 sm:pb-1">
           <div className="min-w-0">
-            <p className="line-clamp-2 text-xs font-light leading-tight text-brand-foreground">
+            <p className="line-clamp-2 text-xs font-light leading-tight text-white">
               {product.name}
             </p>
             {product.dayRate > 0 ? (
-              <p className="mt-1 font-mono text-[0.8125rem] leading-none font-bold text-brand-foreground">
+              <p className="mt-1 font-mono text-[0.8125rem] leading-none font-bold text-white">
                 {formatPrice(product.dayRate, product.currency)}/day
               </p>
             ) : null}
