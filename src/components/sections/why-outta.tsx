@@ -60,22 +60,22 @@ function WhyOutta() {
         whileInView="visible"
         viewport={viewportOnce}
         variants={staggerContainer(0.06)}
-        className="mt-10 hidden gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-4"
+        className="mt-10 hidden gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-5"
       >
         {whyOutta.map((point) => (
           <motion.div
             key={point.index}
             variants={slideUp()}
-            className="relative flex min-h-[13rem] flex-col gap-3 overflow-hidden rounded-2xl border border-brand bg-[oklch(0.97_0.025_143)] p-6 shadow-md transition-shadow duration-300 hover:shadow-lg"
+            className="relative flex min-h-[11rem] flex-col gap-2 overflow-hidden rounded-2xl border border-brand bg-[oklch(0.97_0.025_143)] p-4 shadow-md transition-shadow duration-300 hover:shadow-lg"
           >
             <span
               aria-hidden
-              className="pointer-events-none absolute -right-2 -bottom-6 font-heading text-[6.5rem] leading-none font-bold text-brand/10 select-none"
+              className="pointer-events-none absolute -right-1 -bottom-3 font-heading text-[4rem] leading-none font-bold text-brand/10 select-none"
             >
               {point.index}
             </span>
             <p className="text-label text-brand relative">Point {point.index}</p>
-            <h3 className="text-h3 relative">{point.title}</h3>
+            <h3 className="text-base font-semibold leading-snug relative">{point.title}</h3>
             <p className="text-small relative mt-auto max-w-xs">{point.description}</p>
           </motion.div>
         ))}

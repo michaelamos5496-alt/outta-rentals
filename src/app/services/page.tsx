@@ -90,23 +90,23 @@ export default function ServicesPage() {
           whileInView="visible"
           viewport={viewportOnce}
           variants={staggerContainer(0.06)}
-          className="mt-10 hidden gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-10 hidden gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-7"
         >
           {serviceDetails.map((service, i) => (
             <motion.div key={service.slug} variants={slideUp()} className="relative">
               <Link
                 href={service.cta.href}
-                className="relative flex min-h-[13rem] flex-col gap-3 overflow-hidden rounded-2xl border border-brand bg-[oklch(0.97_0.025_143)] p-6 shadow-md transition-[border-color,box-shadow] duration-300 hover:border-brand/70 hover:shadow-lg"
+                className="relative flex min-h-[12rem] flex-col gap-2 overflow-hidden rounded-2xl border border-brand bg-[oklch(0.97_0.025_143)] p-3 shadow-md transition-[border-color,box-shadow] duration-300 hover:border-brand/70 hover:shadow-lg"
               >
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute -right-2 -bottom-6 font-heading text-[6.5rem] leading-none font-bold text-brand/10 select-none"
+                  className="pointer-events-none absolute -right-1 -bottom-3 font-heading text-[3.5rem] leading-none font-bold text-brand/10 select-none"
                 >
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <p className="text-label text-brand relative">{service.name}</p>
-                <h2 className="text-h3 relative">{service.headline}</h2>
-                <p className="text-small relative mt-auto max-w-xs">{service.description}</p>
+                <p className="text-label text-brand relative text-[0.625rem]">{service.name}</p>
+                <h2 className="text-sm font-semibold leading-snug relative">{service.headline}</h2>
+                <p className="text-small relative mt-auto line-clamp-4 max-w-xs">{service.description}</p>
               </Link>
               <Link
                 href={service.cta.href}
