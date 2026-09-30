@@ -400,7 +400,7 @@ function Navbar() {
                 <li key={tab.href} className="group/tab relative flex h-full items-center">
                   <Link
                     href={tab.href}
-                    className="text-label relative flex items-center gap-1 !text-brand-foreground whitespace-nowrap transition-colors hover:!text-brand-foreground"
+                    className="text-label relative flex items-center gap-1 !text-white whitespace-nowrap transition-colors hover:!text-white"
                   >
                     {tab.label}
                     {tab.children ? (
@@ -433,7 +433,7 @@ function Navbar() {
                 size="icon"
                 aria-label="Search"
                 onClick={() => setSearchOpen(true)}
-                className="text-brand-foreground hover:bg-brand-foreground/10 hover:text-brand-foreground"
+                className="text-white hover:bg-white/10 hover:text-white"
               >
                 <Search />
               </Button>
@@ -447,7 +447,7 @@ function Navbar() {
                 onClick={() => {
                   if (pathname !== "/kit") openDrawer();
                 }}
-                className="relative text-brand-foreground hover:bg-brand-foreground/10 hover:text-brand-foreground"
+                className="relative text-white hover:bg-white/10 hover:text-white"
               >
                 <ShoppingCart />
                 {hydrated && itemCount > 0 ? (
