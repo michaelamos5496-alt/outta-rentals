@@ -33,13 +33,13 @@ function CategoryExperience({ products }: CategoryExperienceProps) {
         whileInView="visible"
         viewport={viewportOnce}
         variants={staggerContainer(0.05)}
-        // `safe center`, not plain `center` — on mobile this row overflows
-        // and scrolls; plain center makes the browser center the *scroll
-        // position* too, so it opens cut off on both ends instead of at
-        // item 1. `safe` falls back to a normal start alignment whenever
-        // content doesn't fit, and only centers when it actually fits
-        // (wide desktop viewports where the row doesn't need to scroll).
-        className="scrollbar-none flex justify-[safe_center] gap-2 overflow-x-auto pb-2 sm:gap-3"
+        // Mobile keeps the horizontal swipe-scroll chip row (nowrap +
+        // overflow-x-auto). From `sm` up there's no scrolling at all —
+        // tiles wrap onto a second line and the whole block stays
+        // centered, so it's never stuck overflowing-but-left-aligned at
+        // in-between (tablet/small-desktop) widths the way a single
+        // scrollable row would be.
+        className="scrollbar-none flex flex-nowrap justify-start gap-2 overflow-x-auto pb-2 sm:flex-wrap sm:justify-center sm:overflow-visible sm:pb-0 sm:gap-3"
       >
         {equipmentCategories
           .map((category) => ({
