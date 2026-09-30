@@ -142,6 +142,26 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
 
   const sorted = React.useMemo(() => sortProducts(filtered, sort), [filtered, sort]);
   const visible = sorted.slice(0, visibleCount);
+  const hasMore = visibleCount < sorted.length;
+
+  // Infinite scroll: reveal the next page once the sentinel below the grid
+  // comes near the viewport, instead of waiting for a "Load more" click.
+  const loadMoreRef = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    if (!hasMore) return;
+    const node = loadMoreRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setVisibleCount((c) => Math.min(c + PAGE_SIZE, sorted.length));
+        }
+      },
+      { rootMargin: "600px" }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [hasMore, sorted.length]);
 
   const hasActiveFilters =
     filters.categories.length > 0 ||
@@ -339,16 +359,7 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
                   <ProductCard key={product.id} product={product} view={view} />
                 ))}
               </div>
-              {visibleCount < sorted.length ? (
-                <div className="mt-10 flex justify-center">
-                  <Button
-                    variant="outline"
-                    onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
-                  >
-                    Load more
-                  </Button>
-                </div>
-              ) : null}
+              {hasMore ? <div ref={loadMoreRef} aria-hidden className="h-10" /> : null}
             </>
           )}
         </div>
