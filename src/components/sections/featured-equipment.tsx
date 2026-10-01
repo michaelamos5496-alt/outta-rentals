@@ -34,7 +34,11 @@ function FeaturedEquipment({ packages }: { packages: ProductionPackage[] }) {
   return (
     <Section>
       <div className="flex flex-col items-center gap-4 text-center">
-        <Heading level="h2" eyebrow="Package Rentals" eyebrowClassName="text-[clamp(1.75rem,3vw,2.75rem)]">
+        <Heading
+          level="h2"
+          eyebrow="Package Rentals"
+          eyebrowClassName="text-[clamp(1.75rem,3vw,2.75rem)] text-foreground font-bold"
+        >
           Built for the shoot you&rsquo;re on.
         </Heading>
         <p className="text-small max-w-sm">
