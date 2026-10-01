@@ -398,33 +398,38 @@ function Navbar() {
 
             <ul className="hidden h-full items-stretch gap-6 lg:flex">
               {equipmentTabs.map((tab) => (
-                <li key={tab.href} className="group/tab relative flex h-full items-center">
-                  <Link
-                    href={tab.href}
-                    className="text-label relative flex items-center gap-1 !text-white whitespace-nowrap transition-colors hover:!text-white"
-                  >
-                    {tab.label}
-                    {tab.children ? (
-                      <ChevronDown className="size-3" strokeWidth={2.5} aria-hidden />
-                    ) : null}
-                  </Link>
-
-                  {tab.children ? (
-                    <div className="pointer-events-none absolute top-full left-0 z-50 w-72 translate-y-1 pt-3 opacity-0 transition-[opacity,transform] duration-150 ease-out group-hover/tab:pointer-events-auto group-hover/tab:translate-y-0 group-hover/tab:opacity-100">
-                      <div className="flex flex-col gap-1 rounded-2xl border border-border bg-background p-3 text-foreground shadow-lg">
-                        {tab.children.map((child) => (
-                          <Link
-                            key={child.label}
-                            href={child.href}
-                            className="rounded-xl px-3 py-2 text-sm font-medium whitespace-nowrap hover:bg-muted hover:text-brand"
-                          >
-                            {child.label}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
+                <React.Fragment key={tab.href}>
+                  {tab.label === "Packages" ? (
+                    <li aria-hidden className="h-4 w-px self-center bg-white/25" />
                   ) : null}
-                </li>
+                  <li className="group/tab relative flex h-full items-center">
+                    <Link
+                      href={tab.href}
+                      className="text-label relative flex items-center gap-1 !text-white whitespace-nowrap transition-colors hover:!text-white"
+                    >
+                      {tab.label}
+                      {tab.children ? (
+                        <ChevronDown className="size-3" strokeWidth={2.5} aria-hidden />
+                      ) : null}
+                    </Link>
+
+                    {tab.children ? (
+                      <div className="pointer-events-none absolute top-full left-0 z-50 w-72 translate-y-1 pt-3 opacity-0 transition-[opacity,transform] duration-150 ease-out group-hover/tab:pointer-events-auto group-hover/tab:translate-y-0 group-hover/tab:opacity-100">
+                        <div className="flex flex-col gap-1 rounded-2xl border border-border bg-background p-3 text-foreground shadow-lg">
+                          {tab.children.map((child) => (
+                            <Link
+                              key={child.label}
+                              href={child.href}
+                              className="rounded-xl px-3 py-2 text-sm font-medium whitespace-nowrap hover:bg-muted hover:text-brand"
+                            >
+                              {child.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
+                  </li>
+                </React.Fragment>
               ))}
             </ul>
 

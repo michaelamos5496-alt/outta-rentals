@@ -48,6 +48,7 @@ export default function PackagesPage() {
           rental technician would start — adjust anything before it goes into
           your kit.
         </p>
+        <p className="text-meta mt-4">20% Package Discount • All Rates in Ghana Cedis (GHC)</p>
       </div>
 
       {/* A 2x2 grid with a full cross-divider — each quadrant is one
