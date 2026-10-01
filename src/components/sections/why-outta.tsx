@@ -33,7 +33,7 @@ function WhyOutta() {
         {whyOutta.map((point) => (
           <div
             key={point.index}
-            className="relative flex min-h-[13rem] w-full shrink-0 snap-center flex-col gap-3 overflow-hidden rounded-2xl border border-brand bg-[oklch(0.97_0.025_143)] p-6 shadow-md"
+            className="relative flex min-h-[13rem] w-full shrink-0 snap-center flex-col gap-3 overflow-hidden rounded-2xl border border-brand bg-card p-6 shadow-md"
           >
             <span
               aria-hidden
@@ -66,7 +66,7 @@ function WhyOutta() {
           <motion.div
             key={point.index}
             variants={slideUp()}
-            className="relative flex min-h-[11rem] w-60 shrink-0 flex-col gap-2 overflow-hidden rounded-2xl border border-brand bg-[oklch(0.97_0.025_143)] p-4 shadow-md transition-shadow duration-300 hover:shadow-lg"
+            className="relative flex min-h-[11rem] w-60 shrink-0 flex-col gap-2 overflow-hidden rounded-2xl border border-brand bg-card p-4 shadow-md transition-shadow duration-300 hover:shadow-lg"
           >
             <span
               aria-hidden

@@ -79,13 +79,13 @@
 }
 
 :root {
-  /* A very light green tint (the same mix used on the equipment quick-view
-     popup) instead of flat white — the boldness still comes from
-     borders/shadows/type, just on a barely-green base instead of paper white. */
+  /* A very light green tint on the page itself (the same mix used on the
+     equipment quick-view popup) — cards stay true white so they still
+     stand out against it, rather than blending into the same tint. */
   --background: oklch(0.97 0.025 143);
   --foreground: oklch(0.11 0 0);
 
-  --card: oklch(0.97 0.025 143);
+  --card: oklch(1 0 0);
   --card-foreground: oklch(0.11 0 0);
   --popover: oklch(0.97 0.025 143);
   --popover-foreground: oklch(0.11 0 0);
