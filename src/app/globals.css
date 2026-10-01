@@ -79,14 +79,15 @@
 }
 
 :root {
-  /* White + near-black ink. No tint, no cream — the boldness comes from
-     borders/shadows/type, not from the page color. */
-  --background: oklch(1 0 0);
+  /* A very light green tint (the same mix used on the equipment quick-view
+     popup) instead of flat white — the boldness still comes from
+     borders/shadows/type, just on a barely-green base instead of paper white. */
+  --background: oklch(0.97 0.025 143);
   --foreground: oklch(0.11 0 0);
 
-  --card: oklch(1 0 0);
+  --card: oklch(0.97 0.025 143);
   --card-foreground: oklch(0.11 0 0);
-  --popover: oklch(1 0 0);
+  --popover: oklch(0.97 0.025 143);
   --popover-foreground: oklch(0.11 0 0);
 
   /* Primary actions carry the brand accent */
