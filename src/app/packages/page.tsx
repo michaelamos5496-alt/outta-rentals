@@ -12,15 +12,17 @@ export const metadata: Metadata = {
 };
 
 function PackageCell({ pkg }: { pkg: ProductionPackage }) {
-  // Most packages have two tiers, but some (Commercial, Music Video) now
-  // have three — the grid widens to fit instead of wrapping awkwardly.
-  const tierGridCols = pkg.tiers.length >= 3 ? "grid-cols-3" : "grid-cols-2";
+  // Fixed card width (not a container-filling grid column) so every tier
+  // card is the same small size across every package, whether it has two
+  // tiers (Documentary) or three (Commercial, Music Video).
   return (
     <div className="flex flex-col items-center gap-6 px-6 py-10 text-center sm:px-10 sm:py-12">
       <h2 className="text-h3">{pkg.name}</h2>
-      <div className={`grid w-full ${tierGridCols} gap-3`}>
+      <div className="flex w-full flex-wrap justify-center gap-3">
         {pkg.tiers.map((tier, i) => (
-          <TierCard key={tier.slug} pkg={pkg} tier={tier} premium={i === 0} />
+          <div key={tier.slug} className="w-[31%] min-w-[90px]">
+            <TierCard pkg={pkg} tier={tier} premium={i === 0} />
+          </div>
         ))}
       </div>
     </div>

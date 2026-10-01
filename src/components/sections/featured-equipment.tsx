@@ -9,18 +9,20 @@ import { TierCard } from "@/components/packages/tier-flyer";
 import { type ProductionPackage } from "@/lib/packages";
 
 function PackageCell({ pkg }: { pkg: ProductionPackage }) {
-  // Most packages have two tiers, but some (Commercial, Music Video) now
-  // have three — the grid widens to fit instead of wrapping awkwardly.
-  const tierGridCols = pkg.tiers.length >= 3 ? "grid-cols-3" : "grid-cols-2";
+  // Fixed card width (not a container-filling grid column) so every tier
+  // card is the same small size across every package, whether it has two
+  // tiers (Documentary) or three (Commercial, Music Video).
   return (
     <motion.div
       variants={slideUp()}
       className="flex flex-col items-center gap-4 px-4 py-8 text-center sm:px-6 sm:py-10"
     >
       <h3 className="text-h3">{pkg.name}</h3>
-      <div className={`grid w-full ${tierGridCols} gap-2.5 sm:gap-3`}>
+      <div className="flex w-full flex-wrap justify-center gap-2.5 sm:gap-3">
         {pkg.tiers.map((tier, i) => (
-          <TierCard key={tier.slug} pkg={pkg} tier={tier} premium={i === 0} />
+          <div key={tier.slug} className="w-[31%] min-w-[80px]">
+            <TierCard pkg={pkg} tier={tier} premium={i === 0} />
+          </div>
         ))}
       </div>
     </motion.div>
