@@ -11,25 +11,15 @@ import { PackageEquipmentGrid } from "@/components/packages/package-equipment-gr
 import { formatTotal } from "@/lib/currency";
 import { getTierTotal, type PackageTier, type ProductionPackage } from "@/lib/packages";
 
-// Featured packages use the same green card as the catalogue grid — one
-// card per tier (Commercial's TOP BOY and YOLO each get their own), with
-// the package name kept as a small label so it's still clear both belong
-// to Commercial.
-function FeaturedCard({ pkg, tier }: { pkg: ProductionPackage; tier: PackageTier }) {
+function TierCard({ pkg, tier }: { pkg: ProductionPackage; tier: PackageTier }) {
   const href = `/packages/${pkg.slug}?tier=${tier.slug}`;
   const rates = getTierTotal(tier);
 
   return (
-    <motion.article
-      variants={slideUp()}
-      className="group/product relative flex flex-col overflow-hidden rounded-2xl bg-brand"
-    >
+    <article className="group/product relative flex h-full flex-col overflow-hidden rounded-2xl bg-brand">
       <Link href={href} className="flex flex-1 flex-col active:opacity-80">
         <div className="flex items-start justify-between gap-2 p-2.5 pb-1 sm:p-3 sm:pb-1">
           <div className="min-w-0">
-            <p className="text-[0.625rem] leading-tight font-semibold tracking-wide text-brand-foreground/70 uppercase">
-              {pkg.name}
-            </p>
             <p className="mt-0.5 font-mono text-[0.8125rem] leading-none font-bold text-brand-foreground">
               {tier.label}
             </p>
@@ -41,8 +31,7 @@ function FeaturedCard({ pkg, tier }: { pkg: ProductionPackage; tier: PackageTier
           </div>
         </div>
 
-        <div className="relative mt-1 flex-1">
-          <div className="aspect-[16/11] w-full" />
+        <div className="relative mt-1 min-h-[7rem] flex-1">
           <PackageEquipmentGrid
             items={tier.items}
             className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
@@ -57,12 +46,32 @@ function FeaturedCard({ pkg, tier }: { pkg: ProductionPackage; tier: PackageTier
       >
         <ArrowUpRight className="size-3.5" />
       </Link>
-    </motion.article>
+    </article>
+  );
+}
+
+function PackageCell({ pkg }: { pkg: ProductionPackage }) {
+  return (
+    <motion.div
+      variants={slideUp()}
+      className="flex flex-col items-center gap-4 px-4 py-8 text-center sm:px-6 sm:py-10"
+    >
+      <h3 className="text-h3">{pkg.name}</h3>
+      <div className="grid w-full grid-cols-2 gap-2.5 sm:gap-3">
+        {pkg.tiers.map((tier) => (
+          <TierCard key={tier.slug} pkg={pkg} tier={tier} />
+        ))}
+      </div>
+    </motion.div>
   );
 }
 
 function FeaturedEquipment({ packages }: { packages: ProductionPackage[] }) {
-  const tierCards = packages.flatMap((pkg) => pkg.tiers.map((tier) => ({ pkg, tier })));
+  // Two packages per row, so each row's own divide-x only lines up its own
+  // pair — a plain divide-x/divide-y on one flat grid would also put a
+  // vertical rule on the second row's left-hand cell, breaking the cross.
+  const rows: ProductionPackage[][] = [];
+  for (let i = 0; i < packages.length; i += 2) rows.push(packages.slice(i, i + 2));
 
   return (
     <Section>
@@ -75,15 +84,21 @@ function FeaturedEquipment({ packages }: { packages: ProductionPackage[] }) {
         </p>
       </div>
 
+      {/* A 2x2 grid with a full cross-divider — each quadrant is one
+          package, its tiers side by side inside it. */}
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnce}
         variants={staggerContainer(0.06)}
-        className="mt-10 grid grid-cols-2 gap-x-2.5 gap-y-3 sm:gap-x-4 sm:gap-y-6 sm:grid-cols-2 lg:grid-cols-4"
+        className="mt-10 divide-y divide-border border-t border-border"
       >
-        {tierCards.map(({ pkg, tier }) => (
-          <FeaturedCard key={`${pkg.slug}-${tier.slug}`} pkg={pkg} tier={tier} />
+        {rows.map((row, i) => (
+          <div key={i} className="grid grid-cols-1 sm:grid-cols-2 sm:divide-x sm:divide-border">
+            {row.map((pkg) => (
+              <PackageCell key={pkg.slug} pkg={pkg} />
+            ))}
+          </div>
         ))}
       </motion.div>
     </Section>

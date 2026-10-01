@@ -53,8 +53,26 @@ function TierCard({ pkg, tier }: { pkg: ProductionPackage; tier: PackageTier }) 
   );
 }
 
+function PackageCell({ pkg }: { pkg: ProductionPackage }) {
+  return (
+    <div className="flex flex-col items-center gap-6 px-6 py-10 text-center sm:px-10 sm:py-12">
+      <h2 className="text-h3">{pkg.name}</h2>
+      <div className="grid w-full grid-cols-2 gap-3">
+        {pkg.tiers.map((tier) => (
+          <TierCard key={tier.slug} pkg={pkg} tier={tier} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function PackagesPage() {
   const packages = getAllPackages();
+  // Two packages per row, so each row's own divide-x only lines up its own
+  // pair — a plain divide-x/divide-y on one flat grid would also put a
+  // vertical rule on the second row's left-hand cell, breaking the cross.
+  const rows: ProductionPackage[][] = [];
+  for (let i = 0; i < packages.length; i += 2) rows.push(packages.slice(i, i + 2));
 
   return (
     <Section className="pt-16 sm:pt-20">
@@ -69,21 +87,14 @@ export default function PackagesPage() {
         </p>
       </div>
 
-      {/* A 4-column table: one column per package, its tiers stacked inside
-          it, a rule between columns at desktop — reads as a comparison
-          table across packages instead of a long vertical scroll. Stacks
-          to 1-2 columns below lg, where a side-by-side table doesn't fit. */}
-      <div className="mt-12 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-0 lg:divide-x lg:divide-border">
-        {packages.map((pkg) => (
-          <div key={pkg.slug} className="flex flex-col lg:px-6 lg:first:pl-0 lg:last:pr-0">
-            <h2 className="text-h3">{pkg.name}</h2>
-            <p className="text-small mt-1 text-muted-foreground">{pkg.description}</p>
-
-            <div className="mt-4 flex flex-col gap-3">
-              {pkg.tiers.map((tier) => (
-                <TierCard key={tier.slug} pkg={pkg} tier={tier} />
-              ))}
-            </div>
+      {/* A 2x2 grid with a full cross-divider — each quadrant is one
+          package, its tiers side by side inside it. */}
+      <div className="mt-12 divide-y divide-border border-t border-border">
+        {rows.map((row, i) => (
+          <div key={i} className="grid grid-cols-1 sm:grid-cols-2 sm:divide-x sm:divide-border">
+            {row.map((pkg) => (
+              <PackageCell key={pkg.slug} pkg={pkg} />
+            ))}
           </div>
         ))}
       </div>
