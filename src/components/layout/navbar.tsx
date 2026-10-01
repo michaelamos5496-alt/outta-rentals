@@ -152,6 +152,7 @@ const equipmentTabs: EquipmentTab[] = [
   { label: "Modifiers", href: "/equipment/lighting-modifiers" },
   { label: "Grip", href: "/equipment/grip" },
   { label: "Audio", href: "/equipment/audio" },
+  { label: "Packages", href: "/packages" },
 ];
 
 // Thin utility row up top, now a radial FAB instead of a plain link list —
@@ -386,7 +387,7 @@ function Navbar() {
           >
             <Link href="/" className="inline-flex shrink-0 items-center">
               <Image
-                src="/brand/outta-logo.png"
+                src="/brand/outta-logo-dark.png"
                 alt={siteConfig.name}
                 width={595}
                 height={225}
