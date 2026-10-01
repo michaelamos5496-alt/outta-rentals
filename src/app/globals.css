@@ -89,9 +89,9 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.11 0 0);
 
-  /* Primary actions carry the brand accent — same 50%-white tint as --brand. */
-  --primary: oklch(0.76 0.10 143);
-  --primary-foreground: oklch(0.12 0 0);
+  /* Primary actions carry the brand accent */
+  --primary: oklch(0.52 0.20 143);
+  --primary-foreground: oklch(0.99 0 0);
 
   --secondary: oklch(0.95 0 0);
   --secondary-foreground: oklch(0.11 0 0);
@@ -111,11 +111,9 @@
   --input: oklch(0.11 0 0 / 22%);
   --ring: oklch(0.52 0.20 143 / 60%);
 
-  /* OUTTA Green — sampled from the real logo, tinted 50% toward white.
-     Foreground flips to dark ink (not white) since the tinted green is
-     now too light for white text to read against. */
-  --brand: oklch(0.76 0.10 143);
-  --brand-foreground: oklch(0.12 0 0);
+  /* OUTTA Green — sampled from the real logo. Used for CTAs, focus, highlights only. */
+  --brand: oklch(0.52 0.20 143);
+  --brand-foreground: oklch(0.99 0 0);
   --brand-muted: oklch(0.52 0.20 143 / 18%);
 
   --chart-1: oklch(0.52 0.20 143);
@@ -129,8 +127,8 @@
 
   --sidebar: oklch(0.99 0 0);
   --sidebar-foreground: oklch(0.11 0 0);
-  --sidebar-primary: oklch(0.76 0.10 143);
-  --sidebar-primary-foreground: oklch(0.12 0 0);
+  --sidebar-primary: oklch(0.52 0.20 143);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
   --sidebar-accent: oklch(0.95 0 0);
   --sidebar-accent-foreground: oklch(0.11 0 0);
   --sidebar-border: oklch(0.11 0 0 / 16%);
@@ -145,7 +143,7 @@
   --card-foreground: oklch(0.97 0 0);
   --popover: oklch(0.13 0 0);
   --popover-foreground: oklch(0.97 0 0);
-  --primary: oklch(0.84 0.10 143);
+  --primary: oklch(0.68 0.20 143);
   --primary-foreground: oklch(0.12 0 0);
   --secondary: oklch(0.19 0 0);
   --secondary-foreground: oklch(0.97 0 0);
@@ -158,7 +156,7 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 14%);
   --ring: oklch(0.68 0.20 143 / 60%);
-  --brand: oklch(0.84 0.10 143);
+  --brand: oklch(0.68 0.20 143);
   --brand-foreground: oklch(0.12 0 0);
   --brand-muted: oklch(0.68 0.20 143 / 25%);
 }
