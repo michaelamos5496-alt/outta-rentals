@@ -16,8 +16,8 @@ function PackageCell({ pkg }: { pkg: ProductionPackage }) {
     <div className="flex flex-col items-center gap-6 px-6 py-10 text-center sm:px-10 sm:py-12">
       <h2 className="text-h3">{pkg.name}</h2>
       <div className="grid w-full grid-cols-2 gap-3">
-        {pkg.tiers.map((tier) => (
-          <TierCard key={tier.slug} pkg={pkg} tier={tier} />
+        {pkg.tiers.map((tier, i) => (
+          <TierCard key={tier.slug} pkg={pkg} tier={tier} premium={i === 0} />
         ))}
       </div>
     </div>

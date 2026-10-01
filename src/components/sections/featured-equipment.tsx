@@ -16,8 +16,8 @@ function PackageCell({ pkg }: { pkg: ProductionPackage }) {
     >
       <h3 className="text-h3">{pkg.name}</h3>
       <div className="grid w-full grid-cols-2 gap-2.5 sm:gap-3">
-        {pkg.tiers.map((tier) => (
-          <TierCard key={tier.slug} pkg={pkg} tier={tier} />
+        {pkg.tiers.map((tier, i) => (
+          <TierCard key={tier.slug} pkg={pkg} tier={tier} premium={i === 0} />
         ))}
       </div>
     </motion.div>

@@ -1,44 +1,87 @@
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Briefcase, Clapperboard, Music2, Video, type LucideIcon } from "lucide-react";
 
-import { getProductBySlug } from "@/lib/catalogue";
-import { getProductImage } from "@/lib/editorial-images";
 import { getTierTotal, type PackageTier, type ProductionPackage } from "@/lib/packages";
 import { formatTotal } from "@/lib/currency";
 
+// One distinct silhouette per package, not tied to any single piece of
+// equipment, so the flyer reads as this package's own mark rather than a
+// photo of whichever camera happens to be in the tier.
+const PACKAGE_ICONS: Record<string, LucideIcon> = {
+  commercial: Briefcase,
+  documentary: Video,
+  "music-video": Music2,
+  "short-film": Clapperboard,
+};
+
 /**
- * A tier's card image as a mini movie-poster flyer — the tier's hero item
- * photographed full-bleed, dark scrim, package name small and tier name
- * big in brand green, same "near-black photo + bold brand-color type"
- * language as the homepage hero — instead of the equipment contact-sheet.
+ * A tier's card image as a designed flyer — no equipment photography, just
+ * type and a watermark icon, same "numbered feature card" language as Why
+ * OUTTA/Services. The first tier in a package (TOP BOY, LITE, …) gets the
+ * dark/premium treatment; the second (YOLO) the lighter brand tint — so the
+ * pair in each quadrant reads as a deliberate high/low pairing, not two
+ * identical posters with different labels.
  */
-function TierFlyer({ pkg, tier }: { pkg: ProductionPackage; tier: PackageTier }) {
-  const heroItem = tier.items.find((i) => i.role === "Camera") ?? tier.items[0];
-  const heroProduct = heroItem ? getProductBySlug(heroItem.productSlug) : undefined;
-  const photo = heroProduct ? getProductImage(heroProduct.slug, heroProduct.categorySlug) : undefined;
+function TierFlyer({
+  pkg,
+  tier,
+  premium,
+}: {
+  pkg: ProductionPackage;
+  tier: PackageTier;
+  premium: boolean;
+}) {
+  const Icon = PACKAGE_ICONS[pkg.slug] ?? Video;
   const rates = getTierTotal(tier);
 
   return (
-    <div className="absolute inset-0 bg-black">
-      {photo ? (
-        <Image
-          src={photo}
-          alt=""
-          fill
-          sizes="(min-width: 1024px) 20vw, 50vw"
-          className="object-cover opacity-80 transition-transform duration-500 ease-[var(--ease-outta)] group-hover/pkg:scale-105"
-        />
-      ) : null}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/50" />
-      <div className="absolute inset-0 flex flex-col justify-between p-3 sm:p-4">
-        <p className="text-[0.625rem] font-semibold tracking-widest text-white/70 uppercase">{pkg.name}</p>
+    <div
+      className={
+        premium
+          ? "absolute inset-0 overflow-hidden bg-foreground"
+          : "absolute inset-0 overflow-hidden bg-brand"
+      }
+    >
+      <Icon
+        aria-hidden
+        strokeWidth={1}
+        className={
+          premium
+            ? "pointer-events-none absolute -right-5 -bottom-6 size-32 -rotate-12 text-background/10 select-none sm:size-36"
+            : "pointer-events-none absolute -right-5 -bottom-6 size-32 -rotate-12 text-brand-foreground/15 select-none sm:size-36"
+        }
+      />
+
+      <div className="relative flex h-full flex-col justify-between p-3 sm:p-4">
+        <p
+          className={
+            premium
+              ? "text-[0.625rem] font-semibold tracking-widest text-background/60 uppercase"
+              : "text-[0.625rem] font-semibold tracking-widest text-brand-foreground/70 uppercase"
+          }
+        >
+          {pkg.name}
+        </p>
         <div>
-          <p className="font-heading text-brand text-xl leading-[0.95] font-bold uppercase sm:text-2xl">
+          <p
+            className={
+              premium
+                ? "font-heading text-xl leading-[0.95] font-bold text-background uppercase sm:text-2xl"
+                : "font-heading text-xl leading-[0.95] font-bold text-brand-foreground uppercase sm:text-2xl"
+            }
+          >
             {tier.label}
           </p>
           {rates.length > 0 ? (
-            <p className="mt-1.5 font-mono text-xs font-semibold text-white">{formatTotal(rates)}/day</p>
+            <p
+              className={
+                premium
+                  ? "mt-1.5 font-mono text-xs font-semibold text-background/80"
+                  : "mt-1.5 font-mono text-xs font-semibold text-brand-foreground/90"
+              }
+            >
+              {formatTotal(rates)}/day
+            </p>
           ) : null}
         </div>
       </div>
@@ -47,13 +90,21 @@ function TierFlyer({ pkg, tier }: { pkg: ProductionPackage; tier: PackageTier })
 }
 
 /** The flyer wrapped in its card chrome — rounded corners, link, corner arrow. */
-function TierCard({ pkg, tier }: { pkg: ProductionPackage; tier: PackageTier }) {
+function TierCard({
+  pkg,
+  tier,
+  premium = false,
+}: {
+  pkg: ProductionPackage;
+  tier: PackageTier;
+  premium?: boolean;
+}) {
   const href = `/packages/${pkg.slug}?tier=${tier.slug}`;
 
   return (
     <article className="group/pkg relative aspect-[3/4] overflow-hidden rounded-2xl">
       <Link href={href} className="absolute inset-0 block active:opacity-80">
-        <TierFlyer pkg={pkg} tier={tier} />
+        <TierFlyer pkg={pkg} tier={tier} premium={premium} />
       </Link>
 
       <Link
