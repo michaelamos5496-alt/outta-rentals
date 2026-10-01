@@ -6,14 +6,15 @@ export type { PackageRole, PackageLineItem, PackageTier, ProductionPackage } fro
 export { packages } from "./data";
 
 /**
- * Only these packages are published — OUTTA has only sent real, confirmed
- * pricing for Commercial and Documentary so far. The rest (music-video,
- * short-film, wedding, feature-film, interview, content, live-production)
- * stay in `data.ts` with their old placeholder pricing so they're ready to
- * publish the moment OUTTA sends a real rate sheet for them — add a slug
- * here to bring one live.
+ * Only these packages are published. Commercial and Documentary have real,
+ * confirmed flat pricing from OUTTA. Music Video and Short Film don't have
+ * a flat rate yet — their tiers have no `price`, so the site computes a
+ * live total from each item's day rate instead (see getFromPrice). The
+ * rest (wedding, feature-film, interview, content, live-production) stay
+ * in `data.ts` with old placeholder pricing until they're ready — add a
+ * slug here to bring one live.
  */
-const LIVE_PACKAGE_SLUGS = new Set(["commercial", "documentary"]);
+const LIVE_PACKAGE_SLUGS = new Set(["commercial", "documentary", "music-video", "short-film"]);
 
 function isLive(pkg: ProductionPackage): boolean {
   return LIVE_PACKAGE_SLUGS.has(pkg.slug);

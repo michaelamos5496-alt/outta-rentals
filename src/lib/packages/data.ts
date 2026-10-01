@@ -116,14 +116,25 @@ export const packages: ProductionPackage[] = [
     description: "Bold lighting and specialty glass for high-concept looks.",
     tiers: [
       {
-        slug: "standard",
-        label: "Standard",
+        slug: "top-boy",
+        label: "TOP BOY",
         items: [
           { role: "Camera", productSlug: "red-helium", quantity: 1 },
           { role: "Lens", productSlug: "dzofilm-vespid-prime-set-16-125mm", quantity: 1 },
           { role: "Lighting", productSlug: "aputure-600x", quantity: 1 },
           { role: "Monitoring", productSlug: "smallhd-dop-monitor", quantity: 1 },
           { role: "Support", productSlug: "freefly-movi-pro", quantity: 1 },
+        ],
+      },
+      {
+        slug: "yolo",
+        label: "YOLO",
+        items: [
+          { role: "Camera", productSlug: "red-helium", quantity: 1 },
+          { role: "Lens", productSlug: "dzofilm-vespid-prime-set-16-125mm", quantity: 1 },
+          { role: "Lighting", productSlug: "aputure-600x", quantity: 1 },
+          { role: "Monitoring", productSlug: "smallhd-dop-monitor", quantity: 1 },
+          { role: "Support", productSlug: "dji-rs3-pro-combo-with-ring", quantity: 1 },
         ],
       },
     ],
@@ -134,14 +145,25 @@ export const packages: ProductionPackage[] = [
     description: "Compact narrative kits with room to move fast on a small crew.",
     tiers: [
       {
-        slug: "standard",
-        label: "Standard",
+        slug: "top-boy",
+        label: "TOP BOY",
         items: [
           { role: "Camera", productSlug: "blackmagic-6k", quantity: 1 },
           { role: "Lens", productSlug: "dzofilm-pictor-zoom-20-55mm-t2-8", quantity: 1 },
           { role: "Lighting", productSlug: "aputure-ls-300d-ii", quantity: 1 },
           { role: "Monitoring", productSlug: "smallhd-dir-monitor", quantity: 1 },
-          { role: "Support", productSlug: "heavy-duty-tripod", quantity: 1 },
+          { role: "Support", productSlug: "dji-rs3-pro-combo-with-ring", quantity: 1 },
+        ],
+      },
+      {
+        slug: "yolo",
+        label: "YOLO",
+        items: [
+          { role: "Camera", productSlug: "blackmagic-6k", quantity: 1 },
+          { role: "Lens", productSlug: "dzofilm-pictor-zoom-20-55mm-t2-8", quantity: 1 },
+          { role: "Lighting", productSlug: "aputure-ls-300d-ii", quantity: 1 },
+          { role: "Monitoring", productSlug: "smallhd-dir-monitor", quantity: 1 },
+          { role: "Support", productSlug: "dana-dolly-slider", quantity: 1 },
         ],
       },
     ],
