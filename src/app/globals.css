@@ -79,15 +79,15 @@
 }
 
 :root {
-  /* A very light green tint on the page itself (the same mix used on the
+  /* A light green tint on the page itself (the same mix used on the
      equipment quick-view popup) — cards stay true white so they still
      stand out against it, rather than blending into the same tint. */
-  --background: oklch(0.97 0.025 143);
+  --background: oklch(0.96 0.045 143);
   --foreground: oklch(0.11 0 0);
 
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.11 0 0);
-  --popover: oklch(0.97 0.025 143);
+  --popover: oklch(0.96 0.045 143);
   --popover-foreground: oklch(0.11 0 0);
 
   /* Primary actions carry the brand accent */
