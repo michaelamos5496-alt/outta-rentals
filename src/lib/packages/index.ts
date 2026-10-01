@@ -53,6 +53,22 @@ export function getFromPrice(pkg: ProductionPackage): { amount: number; currency
   return { amount: cheapest.price, currency: cheapest.currency };
 }
 
+/**
+ * A tier's price as formattable entries — its flat quoted price when it has
+ * one, otherwise each line item's day rate (for formatTotal, which sums per
+ * currency). Used to show every tier's price on a package card, not just
+ * the default tier's.
+ */
+export function getTierTotal(tier: PackageTier): { amount: number; currency: string }[] {
+  if (typeof tier.price === "number" && tier.currency) {
+    return [{ amount: tier.price, currency: tier.currency }];
+  }
+  return tier.items.flatMap((item) => {
+    const product = getProductBySlug(item.productSlug);
+    return product ? [{ amount: product.dayRate * item.quantity, currency: product.currency }] : [];
+  });
+}
+
 export function getPackagesContainingProduct(productSlug: string): ProductionPackage[] {
   return getAllPackages().filter((p) =>
     p.tiers.some((tier) => tier.items.some((item) => item.productSlug === productSlug))

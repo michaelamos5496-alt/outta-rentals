@@ -12,8 +12,8 @@ import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { PackageEquipmentGrid } from "@/components/packages/package-equipment-grid";
 import { getCategoryIcon, getProductBySlug } from "@/lib/catalogue";
 import { themeImages } from "@/lib/editorial-images";
-import { formatPrice, formatTotal } from "@/lib/currency";
-import { getDefaultTier, getFromPrice, type ProductionPackage } from "@/lib/packages";
+import { formatTotal } from "@/lib/currency";
+import { getDefaultTier, getTierTotal, type ProductionPackage } from "@/lib/packages";
 
 // Featured packages use the same green card as the catalogue grid.
 function FeaturedCard({ pkg }: { pkg: ProductionPackage }) {
@@ -22,11 +22,6 @@ function FeaturedCard({ pkg }: { pkg: ProductionPackage }) {
   const heroItem = defaultTier.items.find((i) => i.role === "Camera") ?? defaultTier.items[0];
   const heroProduct = heroItem ? getProductBySlug(heroItem.productSlug) : undefined;
   const icon = getCategoryIcon(heroProduct?.categorySlug ?? "cameras");
-  const flatPrice = getFromPrice(pkg);
-  const dayRates = defaultTier.items.flatMap((item) => {
-    const product = getProductBySlug(item.productSlug);
-    return product ? [{ amount: product.dayRate * item.quantity, currency: product.currency }] : [];
-  });
 
   return (
     <motion.article
@@ -36,18 +31,26 @@ function FeaturedCard({ pkg }: { pkg: ProductionPackage }) {
       <Link href={href} className="flex flex-1 flex-col active:opacity-80">
         <div className="flex items-start justify-between gap-2 p-2.5 pb-1 sm:p-3 sm:pb-1">
           <div className="min-w-0">
+            {/* Package name stays the clear identity ("Commercial"); every
+                tier's own price is listed right under it — both TOP BOY and
+                YOLO at a glance, no click needed. */}
             <p className="line-clamp-2 text-xs font-light leading-tight text-brand-foreground">
               {pkg.name}
             </p>
-            {flatPrice ? (
-              <p className="mt-1 font-mono text-[0.8125rem] leading-none font-bold text-brand-foreground">
-                From {formatPrice(flatPrice.amount, flatPrice.currency)}/day
-              </p>
-            ) : dayRates.length > 0 ? (
-              <p className="mt-1 font-mono text-[0.8125rem] leading-none font-bold text-brand-foreground">
-                From {formatTotal(dayRates)}/day
-              </p>
-            ) : null}
+            <div className="mt-1 flex flex-col gap-0.5">
+              {pkg.tiers.map((tier) => {
+                const rates = getTierTotal(tier);
+                if (rates.length === 0) return null;
+                return (
+                  <p
+                    key={tier.slug}
+                    className="font-mono text-[0.6875rem] leading-tight font-bold text-brand-foreground"
+                  >
+                    {tier.label} <span className="font-normal opacity-80">{formatTotal(rates)}/day</span>
+                  </p>
+                );
+              })}
+            </div>
           </div>
         </div>
 
