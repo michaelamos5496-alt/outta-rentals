@@ -9,6 +9,7 @@ import { PackageTierSwitcher } from "@/components/packages/package-tier-switcher
 
 interface PackagePageProps {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ tier?: string }>;
 }
 
 export async function generateMetadata({ params }: PackagePageProps): Promise<Metadata> {
@@ -20,8 +21,9 @@ export async function generateMetadata({ params }: PackagePageProps): Promise<Me
   };
 }
 
-export default async function PackagePage({ params }: PackagePageProps) {
+export default async function PackagePage({ params, searchParams }: PackagePageProps) {
   const { slug } = await params;
+  const { tier } = await searchParams;
   const pkg = getPackageBySlug(slug);
 
   if (!pkg) notFound();
@@ -46,7 +48,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
       </p>
 
       <div className="mt-10 max-w-2xl">
-        <PackageTierSwitcher tiers={pkg.tiers} />
+        <PackageTierSwitcher tiers={pkg.tiers} initialTierSlug={tier} />
       </div>
     </Container>
   );

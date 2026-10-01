@@ -9,6 +9,10 @@ import type { PackageTier } from "@/lib/packages/types";
 
 export interface PackageTierSwitcherProps {
   tiers: PackageTier[];
+  /** Pre-select a tier (e.g. from a per-tier card's ?tier= link) instead of
+   * always opening on the first one. Falls back to the first tier if it
+   * doesn't match any of this package's tiers. */
+  initialTierSlug?: string;
 }
 
 /**
@@ -17,8 +21,10 @@ export interface PackageTierSwitcherProps {
  * tabs swaps both the item list and the price shown, and resets any
  * customization the customer made to the previous tier.
  */
-function PackageTierSwitcher({ tiers }: PackageTierSwitcherProps) {
-  const [activeSlug, setActiveSlug] = React.useState(tiers[0].slug);
+function PackageTierSwitcher({ tiers, initialTierSlug }: PackageTierSwitcherProps) {
+  const [activeSlug, setActiveSlug] = React.useState(
+    tiers.some((t) => t.slug === initialTierSlug) ? initialTierSlug! : tiers[0].slug
+  );
   const active = tiers.find((t) => t.slug === activeSlug) ?? tiers[0];
 
   return (
