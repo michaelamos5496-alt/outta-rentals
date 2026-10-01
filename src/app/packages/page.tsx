@@ -69,19 +69,17 @@ export default function PackagesPage() {
         </p>
       </div>
 
-      {/* One group per package — its name and description sit above its
-          own row of tier cards, with a rule between groups, so Commercial's
-          TOP BOY/YOLO read as a pair distinct from Documentary's below it
-          rather than blurring into one flat grid of 8 cards. */}
-      <div className="mt-12 flex flex-col gap-10 sm:gap-12">
+      {/* A 4-column table: one column per package, its tiers stacked inside
+          it, a rule between columns at desktop — reads as a comparison
+          table across packages instead of a long vertical scroll. Stacks
+          to 1-2 columns below lg, where a side-by-side table doesn't fit. */}
+      <div className="mt-12 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-0 lg:divide-x lg:divide-border">
         {packages.map((pkg) => (
-          <div key={pkg.slug} className="border-t border-border pt-8 first:border-t-0 first:pt-0 sm:pt-10">
-            <div className="flex flex-col items-start justify-between gap-1.5 sm:flex-row sm:items-end sm:gap-4">
-              <h2 className="text-h3">{pkg.name}</h2>
-              <p className="text-small max-w-sm text-muted-foreground">{pkg.description}</p>
-            </div>
+          <div key={pkg.slug} className="flex flex-col lg:px-6 lg:first:pl-0 lg:last:pr-0">
+            <h2 className="text-h3">{pkg.name}</h2>
+            <p className="text-small mt-1 text-muted-foreground">{pkg.description}</p>
 
-            <div className="mt-5 grid grid-cols-2 gap-x-2.5 gap-y-3 sm:gap-x-4">
+            <div className="mt-4 flex flex-col gap-3">
               {pkg.tiers.map((tier) => (
                 <TierCard key={tier.slug} pkg={pkg} tier={tier} />
               ))}
