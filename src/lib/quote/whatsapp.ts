@@ -1,8 +1,19 @@
+import { formatPrice } from "@/lib/currency";
+
 export interface WhatsAppMessageInput {
   /** Omit or leave empty for a general inquiry with no kit attached. */
-  items?: { name: string; quantity: number }[];
+  items?: {
+    name: string;
+    quantity: number;
+    /** Day rate and line total — when known, each item lists its own price so the message carries enough to confirm payment on, not just a list of gear. */
+    dayRate?: number;
+    lineTotal?: number;
+    currency?: string;
+  }[];
   startDate?: string;
   endDate?: string;
+  /** Grand total across every item, formatted (e.g. "₵2,360") — shown as "Total:" when set. */
+  total?: string;
   projectLabel?: string;
   location?: string;
   customerName?: string;
@@ -48,9 +59,19 @@ export function buildWhatsAppMessage(input: WhatsAppMessageInput): string {
   if (items.length > 0) {
     lines.push("Equipment:", "");
     for (const item of items) {
-      lines.push(`${item.name} × ${item.quantity}`);
+      const hasPrice = typeof item.lineTotal === "number";
+      const priceSuffix = hasPrice
+        ? ` — ${formatPrice(item.lineTotal!, item.currency)}`
+        : typeof item.dayRate === "number"
+          ? ` — ${formatPrice(item.dayRate, item.currency)}/day`
+          : "";
+      lines.push(`${item.name} × ${item.quantity}${priceSuffix}`);
     }
     lines.push("");
+  }
+
+  if (input.total) {
+    lines.push(`Total: ${input.total}`, "");
   }
 
   if (input.location) {

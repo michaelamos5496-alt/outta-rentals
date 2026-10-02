@@ -13,6 +13,7 @@ import { useKitAvailability } from "@/components/kit/use-kit-availability";
 import { resolveKitLines } from "@/lib/kit/pricing";
 import { isValidPhone } from "@/lib/kit/phone";
 import { recordKitRequest, type KitRequestInput } from "@/lib/quote/actions";
+import { formatTotal } from "@/lib/currency";
 
 /**
  * The one "Send Kit" button — opens WhatsApp and records the request for
@@ -40,6 +41,7 @@ function SendKitButton({
   const lastRecorded = React.useRef<string | null>(null);
   const validStart = dateError ? undefined : startDate;
   const validEnd = dateError ? undefined : endDate;
+  const datesValid = Boolean(validStart && validEnd);
 
   function handleSend() {
     const request: KitRequestInput = {
@@ -122,7 +124,18 @@ function SendKitButton({
     <div className="flex flex-col gap-2">
       {phoneField}
       <WhatsAppButton
-        items={lines.map((l) => ({ name: l.product.name, quantity: l.quantity }))}
+        items={lines.map((l) => ({
+          name: l.product.name,
+          quantity: l.quantity,
+          dayRate: l.product.dayRate,
+          currency: l.product.currency,
+          lineTotal: datesValid ? l.lineTotal : undefined,
+        }))}
+        total={
+          datesValid
+            ? formatTotal(lines.map((l) => ({ amount: l.lineTotal, currency: l.product.currency })))
+            : undefined
+        }
         startDate={validStart}
         endDate={validEnd}
         projectLabel={projectInfo.projectName || projectInfo.productionType}
