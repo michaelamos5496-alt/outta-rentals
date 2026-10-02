@@ -176,7 +176,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
       </Section>
 
       {products.length > 1 ? (
-        <div className="h-[22svh] overflow-hidden border-b border-border bg-background lg:h-[22vh]">
+        <div className="h-[22svh] overflow-hidden border-b border-border bg-white lg:h-[22vh]">
           <div className="animate-marquee flex h-full w-max">
             {[0, 1].map((copy) =>
               products.map((p, i) => {
@@ -189,7 +189,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
                     aria-pressed={copy === 0 && i === index}
                     tabIndex={copy === 0 ? 0 : -1}
                     onClick={() => setIndex(i)}
-                    className={`relative aspect-square h-full shrink-0 overflow-hidden border-r border-border transition-all ${
+                    className={`relative aspect-square h-full shrink-0 overflow-hidden border-r border-border bg-white transition-all ${
                       copy === 0 && i === index ? "ring-brand ring-2 ring-inset" : ""
                     }`}
                   >
