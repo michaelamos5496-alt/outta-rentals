@@ -53,7 +53,7 @@ export default function KitPage() {
           <EmptyState
             icon={Package}
             title="Your cart is empty"
-            description="Browse the catalogue and add equipment — it'll show up here, ready for dates and a quote."
+            description="Browse the catalogue and add equipment — it'll show up here, ready for dates and checkout."
             action={
               <Button asChild variant="outline">
                 <Link href="/equipment">Browse equipment</Link>

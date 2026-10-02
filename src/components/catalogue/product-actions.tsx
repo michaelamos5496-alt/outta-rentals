@@ -42,7 +42,7 @@ function ProductActions({ productSlug }: ProductActionsProps) {
           router.push("/kit");
         }}
       >
-        <MessageCircle /> Request Quote
+        <MessageCircle /> Checkout via WhatsApp
       </Button>
     </div>
   );

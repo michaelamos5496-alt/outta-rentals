@@ -9,7 +9,7 @@ export interface WhatsAppMessageInput {
   customerPhone?: string;
   customerEmail?: string;
   notes?: string;
-  /** Defaults to "Please send me a quotation." — override for non-kit messages. */
+  /** Defaults to asking how to pay (prices are already fixed) — override for non-kit messages. */
   closingLine?: string;
   /** Defaults to "OUTTA RENTALS — KIT REQUEST". */
   heading?: string;
@@ -69,7 +69,7 @@ export function buildWhatsAppMessage(input: WhatsAppMessageInput): string {
     lines.push("Notes:", input.notes, "");
   }
 
-  const closingLine = input.closingLine ?? "Please send me a quotation.";
+  const closingLine = input.closingLine ?? "Please confirm this order and let me know the payment method.";
   if (closingLine) lines.push(closingLine);
 
   return lines.join("\n").trimEnd();
