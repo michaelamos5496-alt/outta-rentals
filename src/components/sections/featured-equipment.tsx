@@ -50,7 +50,9 @@ function FeaturedEquipment({ packages }: { packages: ProductionPackage[] }) {
         <p className="text-small max-w-sm">
           Preset kits for documentary and commercial work — customizable before you add them to your kit.
         </p>
-        <p className="text-meta">20% Package Discount • All Rates in Ghana Cedis (GHC)</p>
+        <p className="font-mono text-sm tracking-[0.08em] text-muted-foreground uppercase">
+          20% Package Discount • All Rates in Ghana Cedis (GHC)
+        </p>
       </div>
 
       {/* A 2x2 grid with a full cross-divider — each quadrant is one
