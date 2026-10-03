@@ -40,6 +40,12 @@ export default function KitPage() {
   const datesValid = !dateError && rentalDays !== null;
   const itemCount = items.reduce((n, i) => n + i.quantity, 0);
   const total = formatTotal(lines.map((l) => ({ amount: l.lineTotal, currency: l.product.currency })));
+  // Before dates are picked, show a per-day estimate instead of a blank
+  // dash — packages especially are checked out with a quoted "/day" price
+  // already visible, so the cart shouldn't look like it lost that number.
+  const perDayTotal = formatTotal(
+    lines.map((l) => ({ amount: l.product.dayRate * l.quantity, currency: l.product.currency }))
+  );
 
   const { results, unavailable, checking } = useKitAvailability();
 
@@ -132,7 +138,9 @@ export default function KitPage() {
                   {line.product.name} × {line.quantity}
                 </span>
                 <span className="shrink-0 font-mono">
-                  {datesValid ? formatPrice(line.lineTotal, line.product.currency) : "—"}
+                  {datesValid
+                    ? formatPrice(line.lineTotal, line.product.currency)
+                    : `${formatPrice(line.product.dayRate * line.quantity, line.product.currency)}/day`}
                 </span>
               </div>
             ))}
@@ -140,10 +148,10 @@ export default function KitPage() {
           <Divider className="my-4" />
           <div className="flex items-baseline justify-between gap-3">
             <span className="font-medium">Estimated total</span>
-            <span className="text-h3 font-mono">{datesValid ? total : "—"}</span>
+            <span className="text-h3 font-mono">{datesValid ? total : `${perDayTotal}/day`}</span>
           </div>
           {!datesValid ? (
-            <p className="text-meta mt-2">Set valid rental dates to see an estimate.</p>
+            <p className="text-meta mt-2">Set rental dates to see the total for your dates.</p>
           ) : null}
 
           <Divider className="my-6" />
@@ -238,7 +246,7 @@ export default function KitPage() {
               {itemCount} item{itemCount === 1 ? "" : "s"}
             </p>
             <p className="text-meta">
-              {datesValid ? `Est. ${total}` : "Set dates for an estimate"}
+              {datesValid ? `Est. ${total}` : `${perDayTotal}/day`}
             </p>
           </div>
           <Button

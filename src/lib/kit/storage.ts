@@ -53,8 +53,9 @@ export function loadKit(): KitState {
     const fallback = getDefaultKitState();
     return {
       items: Array.isArray(parsed.items) ? parsed.items.filter(isValidStoredItem) : fallback.items,
-      startDate: typeof parsed.startDate === "string" ? parsed.startDate : fallback.startDate,
-      endDate: typeof parsed.endDate === "string" ? parsed.endDate : fallback.endDate,
+      startDate:
+        typeof parsed.startDate === "string" && parsed.startDate ? parsed.startDate : fallback.startDate,
+      endDate: typeof parsed.endDate === "string" && parsed.endDate ? parsed.endDate : fallback.endDate,
       projectInfo: sanitizeProjectInfo(parsed.projectInfo, fallback.projectInfo),
     };
   } catch {
