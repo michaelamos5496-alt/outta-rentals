@@ -1,6 +1,11 @@
 export interface KitLineItem {
   productSlug: string;
   quantity: number;
+  /** Set when this line came from "Add Entire Package to Cart" while the
+   * bundle was still unmodified — lets the cart keep pricing the group at
+   * OUTTA's flat quoted rate instead of summing each item's own day rate. */
+  packageSlug?: string;
+  packageTierSlug?: string;
 }
 
 export interface ProjectInfo {

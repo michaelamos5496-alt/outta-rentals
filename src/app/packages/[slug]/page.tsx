@@ -48,7 +48,7 @@ export default async function PackagePage({ params, searchParams }: PackagePageP
       </p>
 
       <div className="mt-10 max-w-2xl">
-        <PackageTierSwitcher tiers={pkg.tiers} initialTierSlug={tier} />
+        <PackageTierSwitcher packageSlug={pkg.slug} tiers={pkg.tiers} initialTierSlug={tier} />
       </div>
     </Container>
   );

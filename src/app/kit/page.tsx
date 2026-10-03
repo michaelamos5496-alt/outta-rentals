@@ -22,7 +22,7 @@ import { EmptyState } from "@/components/ui/state";
 import { useKit } from "@/components/kit/kit-provider";
 import { KitItemRow } from "@/components/kit/kit-item-row";
 import { RentalDates } from "@/components/kit/rental-dates";
-import { resolveKitLines } from "@/lib/kit/pricing";
+import { resolveKitLines, resolveKitPricing } from "@/lib/kit/pricing";
 import { kitPresets } from "@/lib/placeholder-data";
 import { formatPrice, formatTotal } from "@/lib/currency";
 import { isValidPhone } from "@/lib/kit/phone";
@@ -39,13 +39,16 @@ export default function KitPage() {
   const lines = resolveKitLines(items, rentalDays ?? 0);
   const datesValid = !dateError && rentalDays !== null;
   const itemCount = items.reduce((n, i) => n + i.quantity, 0);
-  const total = formatTotal(lines.map((l) => ({ amount: l.lineTotal, currency: l.product.currency })));
+  // Prices any unmodified package group at OUTTA's flat quoted rate instead
+  // of the sum of each item's own day rate.
+  const pricing = resolveKitPricing(items, rentalDays ?? 0);
+  const total = formatTotal(pricing.totalEntries);
+  const subtotal = formatTotal(pricing.subtotalEntries);
   // Before dates are picked, show a per-day estimate instead of a blank
   // dash — packages especially are checked out with a quoted "/day" price
   // already visible, so the cart shouldn't look like it lost that number.
-  const perDayTotal = formatTotal(
-    lines.map((l) => ({ amount: l.product.dayRate * l.quantity, currency: l.product.currency }))
-  );
+  const perDayPricing = resolveKitPricing(items, 1);
+  const perDayTotal = formatTotal(perDayPricing.totalEntries);
 
   const { results, unavailable, checking } = useKitAvailability();
 
@@ -146,6 +149,22 @@ export default function KitPage() {
             ))}
           </div>
           <Divider className="my-4" />
+          {pricing.hasPackageDiscount ? (
+            <div className="mb-2 flex flex-col gap-1.5">
+              <div className="flex justify-between gap-3 text-sm">
+                <span className="text-muted-foreground">Subtotal</span>
+                <span className="shrink-0 font-mono">
+                  {datesValid ? subtotal : `${formatTotal(perDayPricing.subtotalEntries)}/day`}
+                </span>
+              </div>
+              <div className="flex justify-between gap-3 text-sm">
+                <span className="text-brand">Package discount</span>
+                <span className="shrink-0 font-mono text-brand">
+                  −{datesValid ? formatTotal(pricing.discountEntries) : `${formatTotal(perDayPricing.discountEntries)}/day`}
+                </span>
+              </div>
+            </div>
+          ) : null}
           <div className="flex items-baseline justify-between gap-3">
             <span className="font-medium">Estimated total</span>
             <span className="text-h3 font-mono">{datesValid ? total : `${perDayTotal}/day`}</span>

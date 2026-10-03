@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { useKit } from "@/components/kit/kit-provider";
 import { WhatsAppButton } from "@/components/quote/whatsapp-button";
 import { useKitAvailability } from "@/components/kit/use-kit-availability";
-import { resolveKitLines } from "@/lib/kit/pricing";
+import { resolveKitLines, resolveKitPricing } from "@/lib/kit/pricing";
 import { isValidPhone } from "@/lib/kit/phone";
 import { recordKitRequest, type KitRequestInput } from "@/lib/quote/actions";
 import { formatTotal } from "@/lib/currency";
@@ -35,6 +35,9 @@ function SendKitButton({
   const phoneOk = isValidPhone(phone);
   const [phoneTouched, setPhoneTouched] = React.useState(false);
   const lines = resolveKitLines(items, rentalDays ?? 0);
+  // Prices any unmodified package group at OUTTA's flat quoted rate instead
+  // of the sum of each item's own day rate.
+  const pricing = resolveKitPricing(items, rentalDays ?? 0);
   const { unavailable, checking } = useKitAvailability();
   // Remembers the last request recorded so tapping Send Kit twice for the
   // same kit doesn't create duplicate orders in admin.
@@ -131,11 +134,8 @@ function SendKitButton({
           currency: l.product.currency,
           lineTotal: datesValid ? l.lineTotal : undefined,
         }))}
-        total={
-          datesValid
-            ? formatTotal(lines.map((l) => ({ amount: l.lineTotal, currency: l.product.currency })))
-            : undefined
-        }
+        total={datesValid ? formatTotal(pricing.totalEntries) : undefined}
+        subtotal={datesValid && pricing.hasPackageDiscount ? formatTotal(pricing.subtotalEntries) : undefined}
         startDate={validStart}
         endDate={validEnd}
         projectLabel={projectInfo.projectName || projectInfo.productionType}

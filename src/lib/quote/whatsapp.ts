@@ -14,6 +14,12 @@ export interface WhatsAppMessageInput {
   endDate?: string;
   /** Grand total across every item, formatted (e.g. "₵2,360") — shown as "Total:" when set. */
   total?: string;
+  /**
+   * Full-price sum before any package discount, formatted — when set
+   * (alongside a lower `total`), shown as "Subtotal:" / "Package discount
+   * applied" so the two numbers don't read as a math error.
+   */
+  subtotal?: string;
   projectLabel?: string;
   location?: string;
   customerName?: string;
@@ -70,7 +76,9 @@ export function buildWhatsAppMessage(input: WhatsAppMessageInput): string {
     lines.push("");
   }
 
-  if (input.total) {
+  if (input.subtotal && input.total && input.subtotal !== input.total) {
+    lines.push(`Subtotal: ${input.subtotal}`, "Package discount applied", `Total: ${input.total}`, "");
+  } else if (input.total) {
     lines.push(`Total: ${input.total}`, "");
   }
 

@@ -8,6 +8,7 @@ import { PackageBuilder } from "@/components/packages/package-builder";
 import type { PackageTier } from "@/lib/packages/types";
 
 export interface PackageTierSwitcherProps {
+  packageSlug: string;
   tiers: PackageTier[];
   /** Pre-select a tier (e.g. from a per-tier card's ?tier= link) instead of
    * always opening on the first one. Falls back to the first tier if it
@@ -21,7 +22,7 @@ export interface PackageTierSwitcherProps {
  * tabs swaps both the item list and the price shown, and resets any
  * customization the customer made to the previous tier.
  */
-function PackageTierSwitcher({ tiers, initialTierSlug }: PackageTierSwitcherProps) {
+function PackageTierSwitcher({ packageSlug, tiers, initialTierSlug }: PackageTierSwitcherProps) {
   const [activeSlug, setActiveSlug] = React.useState(
     tiers.some((t) => t.slug === initialTierSlug) ? initialTierSlug! : tiers[0].slug
   );
@@ -58,6 +59,8 @@ function PackageTierSwitcher({ tiers, initialTierSlug }: PackageTierSwitcherProp
 
       <PackageBuilder
         key={active.slug}
+        packageSlug={packageSlug}
+        tierSlug={active.slug}
         items={active.items}
         quotedPrice={
           typeof active.price === "number" && active.currency

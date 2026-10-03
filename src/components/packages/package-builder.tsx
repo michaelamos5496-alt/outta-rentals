@@ -23,6 +23,11 @@ interface BuilderLine {
 }
 
 export interface PackageBuilderProps {
+  /** Identifies which package/tier this builder is for — tagged onto cart
+   * lines on add, so the cart can keep pricing this group at OUTTA's flat
+   * quoted rate instead of the sum of each item's own day rate. */
+  packageSlug: string;
+  tierSlug: string;
   /** The tier's line items — pass a new `key` from the parent when these change (e.g. the tier slug) so the builder's edits reset. */
   items: PackageLineItem[];
   /**
@@ -34,7 +39,7 @@ export interface PackageBuilderProps {
   quotedPrice?: { amount: number; currency: string };
 }
 
-function PackageBuilder({ items, quotedPrice }: PackageBuilderProps) {
+function PackageBuilder({ packageSlug, tierSlug, items, quotedPrice }: PackageBuilderProps) {
   const router = useRouter();
   const { addItem } = useKit();
   const [lines, setLines] = React.useState<BuilderLine[]>(
@@ -71,9 +76,13 @@ function PackageBuilder({ items, quotedPrice }: PackageBuilderProps) {
   const dailyTotal = useQuotedPrice ? formatPrice(quotedPrice.amount, quotedPrice.currency) : liveTotal;
 
   function handleAddPackage() {
+    // Only tag lines with this package/tier while the bundle is still
+    // exactly what OUTTA quoted — once customized, items go in as plain
+    // individual equipment so the cart prices them at their own day rate.
+    const tag = useQuotedPrice ? { packageSlug, packageTierSlug: tierSlug } : {};
     activeLines
       .filter((l) => l.line.active)
-      .forEach((l) => addItem(l.product.slug, l.line.quantity, { silent: true }));
+      .forEach((l) => addItem(l.product.slug, l.line.quantity, { silent: true, ...tag }));
     setAdded(true);
     router.push("/kit");
   }

@@ -19,8 +19,16 @@ export interface KitContextValue {
   /** The most recent add-to-cart, for the "Added to cart" confirmation sheet. */
   lastAdded: { slug: string; id: number } | null;
   addedSheetOpen: boolean;
-  /** `silent` skips the confirmation sheet — for flows that go straight to the cart. */
-  addItem: (productSlug: string, quantity?: number, options?: { silent?: boolean }) => void;
+  /**
+   * `silent` skips the confirmation sheet — for flows that go straight to
+   * the cart. `packageSlug`/`packageTierSlug` tag the line as part of an
+   * unmodified package bundle, so the cart prices it at OUTTA's flat rate.
+   */
+  addItem: (
+    productSlug: string,
+    quantity?: number,
+    options?: { silent?: boolean; packageSlug?: string; packageTierSlug?: string }
+  ) => void;
   dismissLastAdded: () => void;
   removeItem: (productSlug: string) => void;
   setQuantity: (productSlug: string, quantity: number) => void;
@@ -59,7 +67,11 @@ export function KitProvider({ children }: { children: React.ReactNode }) {
   }, [state, hydrated]);
 
   const addItem = React.useCallback(
-    (productSlug: string, quantity = 1, options?: { silent?: boolean }) => {
+    (
+      productSlug: string,
+      quantity = 1,
+      options?: { silent?: boolean; packageSlug?: string; packageTierSlug?: string }
+    ) => {
     if (!options?.silent) {
       setLastAdded((prev) => ({ slug: productSlug, id: (prev?.id ?? 0) + 1 }));
       setAddedSheetOpen(true);
@@ -68,9 +80,19 @@ export function KitProvider({ children }: { children: React.ReactNode }) {
       const existing = s.items.find((i) => i.productSlug === productSlug);
       const items = existing
         ? s.items.map((i) =>
-            i.productSlug === productSlug ? { ...i, quantity: i.quantity + quantity } : i
+            i.productSlug === productSlug
+              ? {
+                  ...i,
+                  quantity: i.quantity + quantity,
+                  packageSlug: i.packageSlug ?? options?.packageSlug,
+                  packageTierSlug: i.packageTierSlug ?? options?.packageTierSlug,
+                }
+              : i
           )
-        : [...s.items, { productSlug, quantity }];
+        : [
+            ...s.items,
+            { productSlug, quantity, packageSlug: options?.packageSlug, packageTierSlug: options?.packageTierSlug },
+          ];
       return { ...s, items };
     });
     },

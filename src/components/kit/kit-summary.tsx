@@ -7,7 +7,7 @@ import { Package, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
 import { EmptyState } from "@/components/ui/state";
-import { resolveKitLines } from "@/lib/kit/pricing";
+import { resolveKitLines, resolveKitPricing } from "@/lib/kit/pricing";
 import { useKit } from "@/components/kit/kit-provider";
 import { KitItemRow } from "@/components/kit/kit-item-row";
 import { RentalDates } from "@/components/kit/rental-dates";
@@ -23,14 +23,15 @@ export interface KitSummaryProps {
 function KitSummary({ compact = false, showDates = true, emptyAction, footer }: KitSummaryProps) {
   const { items, rentalDays, dateError, clearKit } = useKit();
   const lines = resolveKitLines(items, rentalDays ?? 0);
-  const total = formatTotal(lines.map((l) => ({ amount: l.lineTotal, currency: l.product.currency })));
+  // Prices any unmodified package group at OUTTA's flat quoted rate instead
+  // of the sum of each item's own day rate.
+  const pricing = resolveKitPricing(items, rentalDays ?? 0);
+  const total = formatTotal(pricing.totalEntries);
   const canPrice = !dateError && rentalDays !== null;
   // Before dates are picked, show a per-day estimate instead of a blank
   // dash — packages especially are checked out with a quoted "/day" price
   // already visible, so the cart shouldn't look like it lost that number.
-  const perDayTotal = formatTotal(
-    lines.map((l) => ({ amount: l.product.dayRate * l.quantity, currency: l.product.currency }))
-  );
+  const perDayTotal = formatTotal(resolveKitPricing(items, 1).totalEntries);
 
   if (items.length === 0) {
     return (
