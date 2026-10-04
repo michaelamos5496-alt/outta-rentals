@@ -25,6 +25,20 @@ import type { AdminProduct, AdminProductImage } from "@/lib/admin/types";
 const availabilityOptions = Object.keys(availabilityLabels) as ProductAvailability[];
 const MAX_IMAGES = 4;
 
+/** URL-friendly id from the product name, e.g. "Sony FX3" -> "sony-fx3". */
+function slugify(value: string): string {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+/** An internal-only inventory code — the admin never needs to think about this. */
+function generateSku(): string {
+  return `OUTTA-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+}
+
 export interface ProductFormProps {
   product?: AdminProduct;
 }
@@ -35,7 +49,11 @@ function ProductForm({ product }: ProductFormProps) {
 
   const [name, setName] = React.useState(product?.name ?? "");
   const [slug, setSlug] = React.useState(product?.slug ?? "");
-  const [sku, setSku] = React.useState(product?.sku ?? "");
+  const [sku, setSku] = React.useState(product?.sku ?? generateSku());
+  // Slug follows the name automatically until someone edits it by hand —
+  // an existing product's slug is already "hand-edited" in this sense, so
+  // it never gets silently rewritten by further name changes.
+  const slugEditedRef = React.useRef(isEdit);
   const [brandSlug, setBrandSlug] = React.useState(product?.brandSlug ?? brands[0]?.slug ?? "");
   const [categorySlug, setCategorySlug] = React.useState(
     product?.categorySlug ?? categories[0]?.slug ?? ""
@@ -104,15 +122,19 @@ function ProductForm({ product }: ProductFormProps) {
     };
 
     try {
-      if (isEdit && product) {
-        await updateProductAction(product.id, payload);
-      } else {
-        await createProductAction(payload);
+      const result =
+        isEdit && product
+          ? await updateProductAction(product.id, payload)
+          : await createProductAction(payload);
+      if (!result.ok) {
+        setError(result.error);
+        setSaving(false);
+        return;
       }
       router.push("/admin/products");
       router.refresh();
     } catch {
-      setError("Couldn't save this product. Please try again.");
+      setError("Couldn't reach the server. Check your connection and try again.");
       setSaving(false);
     }
   }
@@ -124,15 +146,36 @@ function ProductForm({ product }: ProductFormProps) {
       <section className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <Label htmlFor="name">Name</Label>
-          <Input id="name" className="mt-1.5" value={name} onChange={(e) => setName(e.target.value)} required />
+          <Input
+            id="name"
+            className="mt-1.5"
+            value={name}
+            onChange={(e) => {
+              const value = e.target.value;
+              setName(value);
+              if (!slugEditedRef.current) setSlug(slugify(value));
+            }}
+            required
+          />
         </div>
         <div>
           <Label htmlFor="slug">Slug</Label>
-          <Input id="slug" className="mt-1.5" value={slug} onChange={(e) => setSlug(e.target.value)} required />
+          <Input
+            id="slug"
+            className="mt-1.5"
+            value={slug}
+            onChange={(e) => {
+              slugEditedRef.current = true;
+              setSlug(e.target.value);
+            }}
+            required
+          />
+          <p className="text-meta mt-1">Fills in from the name — only change it if you need to.</p>
         </div>
         <div>
           <Label htmlFor="sku">SKU</Label>
           <Input id="sku" className="mt-1.5" value={sku} onChange={(e) => setSku(e.target.value)} required />
+          <p className="text-meta mt-1">An internal inventory code — generated for you, safe to leave as is.</p>
         </div>
         <div>
           <Label htmlFor="tags">Tags (comma separated)</Label>

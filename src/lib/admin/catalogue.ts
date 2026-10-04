@@ -157,6 +157,17 @@ export async function getProductById(id: string): Promise<AdminProduct | undefin
 
 export type AdminProductInput = Omit<AdminProduct, "id">;
 
+/** Turns a raw Postgres error into something an admin can actually act on. */
+function friendlyProductWriteError(message: string | undefined): string {
+  if (message?.includes("products_slug_key")) {
+    return "A product with this name already exists — try a different name, or edit the existing one instead.";
+  }
+  if (message?.includes("products_sku_key")) {
+    return "That SKU is already in use by another product — try a different one.";
+  }
+  return `Couldn't save this product (${message ?? "unknown error"}).`;
+}
+
 async function resolveBrandId(
   supabase: NonNullable<ReturnType<typeof getSupabaseServerClient>>,
   brandSlug: string
@@ -295,7 +306,7 @@ export async function createProduct(input: AdminProductInput): Promise<AdminProd
     })
     .select("id")
     .single();
-  if (error || !data) throw new Error(`Couldn't create product: ${error?.message}`);
+  if (error || !data) throw new Error(friendlyProductWriteError(error?.message));
 
   await writeProductRelations(supabase, data.id, input);
   const created = await getProductById(data.id);
@@ -337,7 +348,7 @@ export async function updateProduct(
       archived: merged.archived,
     })
     .eq("id", id);
-  if (error) throw new Error(`Couldn't update product: ${error.message}`);
+  if (error) throw new Error(friendlyProductWriteError(error.message));
 
   await writeProductRelations(supabase, id, merged);
   return getProductById(id);

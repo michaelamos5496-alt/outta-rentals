@@ -51,23 +51,39 @@ export async function uploadProductImageAction(formData: FormData): Promise<Uplo
   return uploadProductImage(file);
 }
 
-export async function createProductAction(input: AdminProductInput) {
+export type SaveProductResult =
+  | { ok: true; product: Awaited<ReturnType<typeof createProduct>> }
+  | { ok: false; error: string };
+
+export async function createProductAction(input: AdminProductInput): Promise<SaveProductResult> {
   await requireAdmin();
-  const product = await createProduct(input);
-  revalidatePath("/admin/products");
-  revalidatePath("/admin/inventory");
-  revalidateStorefront();
-  return product;
+  try {
+    const product = await createProduct(input);
+    revalidatePath("/admin/products");
+    revalidatePath("/admin/inventory");
+    revalidateStorefront();
+    return { ok: true, product };
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : "Couldn't create this product." };
+  }
 }
 
-export async function updateProductAction(id: string, patch: Partial<AdminProductInput>) {
+export async function updateProductAction(
+  id: string,
+  patch: Partial<AdminProductInput>
+): Promise<SaveProductResult> {
   await requireAdmin();
-  const product = await updateProduct(id, patch);
-  revalidatePath("/admin/products");
-  revalidatePath(`/admin/products/${id}`);
-  revalidatePath("/admin/inventory");
-  revalidateStorefront();
-  return product;
+  try {
+    const product = await updateProduct(id, patch);
+    if (!product) return { ok: false, error: "Product not found." };
+    revalidatePath("/admin/products");
+    revalidatePath(`/admin/products/${id}`);
+    revalidatePath("/admin/inventory");
+    revalidateStorefront();
+    return { ok: true, product };
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : "Couldn't save changes." };
+  }
 }
 
 export async function deleteProductAction(id: string) {
