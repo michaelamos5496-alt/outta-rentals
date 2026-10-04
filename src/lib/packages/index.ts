@@ -52,6 +52,14 @@ export function getFromPrice(pkg: ProductionPackage): { amount: number; currency
   return { amount: cheapest.price, currency: cheapest.currency };
 }
 
+/** Sum of each line item's own day rate — the price before any package discount. */
+function getTierItemsTotal(tier: PackageTier): { amount: number; currency: string }[] {
+  return tier.items.flatMap((item) => {
+    const product = getProductBySlug(item.productSlug);
+    return product ? [{ amount: product.dayRate * item.quantity, currency: product.currency }] : [];
+  });
+}
+
 /**
  * A tier's price as formattable entries — its flat quoted price when it has
  * one, otherwise each line item's day rate (for formatTotal, which sums per
@@ -62,10 +70,18 @@ export function getTierTotal(tier: PackageTier): { amount: number; currency: str
   if (typeof tier.price === "number" && tier.currency) {
     return [{ amount: tier.price, currency: tier.currency }];
   }
-  return tier.items.flatMap((item) => {
-    const product = getProductBySlug(item.productSlug);
-    return product ? [{ amount: product.dayRate * item.quantity, currency: product.currency }] : [];
-  });
+  return getTierItemsTotal(tier);
+}
+
+/**
+ * The tier's full price if every line item were rented at its own day rate —
+ * the "before discount" figure shown struck through next to the flat quoted
+ * rate. Only meaningful (and only worth showing) when it's actually higher
+ * than `getTierTotal`; a tier with no flat price has nothing to compare
+ * against, so callers should only show this alongside a real quoted price.
+ */
+export function getTierFullPrice(tier: PackageTier): { amount: number; currency: string }[] {
+  return getTierItemsTotal(tier);
 }
 
 export function getPackagesContainingProduct(productSlug: string): ProductionPackage[] {

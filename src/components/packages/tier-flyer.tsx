@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, Briefcase, Clapperboard, Music2, Video, type LucideIcon } from "lucide-react";
 
-import { getTierTotal, type PackageTier, type ProductionPackage } from "@/lib/packages";
+import { getTierFullPrice, getTierTotal, type PackageTier, type ProductionPackage } from "@/lib/packages";
 import { formatTotal } from "@/lib/currency";
 
 // One distinct silhouette per package, not tied to any single piece of
@@ -33,6 +33,14 @@ function TierFlyer({
 }) {
   const Icon = PACKAGE_ICONS[pkg.slug] ?? Video;
   const rates = getTierTotal(tier);
+  // The flat quoted rate is already discounted off the sum of the tier's own
+  // line items — show that full price struck through next to it, but only
+  // when there's an actual flat rate to discount off of and a real saving.
+  const fullPrice = getTierFullPrice(tier);
+  const fullPriceAmount = fullPrice.reduce((sum, r) => sum + r.amount, 0);
+  const discountedAmount = rates.reduce((sum, r) => sum + r.amount, 0);
+  const showFullPrice =
+    typeof tier.price === "number" && fullPrice.length > 0 && fullPriceAmount > discountedAmount;
 
   return (
     <div
@@ -72,16 +80,31 @@ function TierFlyer({
           >
             {tier.label}
           </p>
-          {rates.length > 0 ? (
-            <p
-              className={
-                premium
-                  ? "mt-1.5 font-mono text-xs font-semibold text-background/80"
-                  : "mt-1.5 font-mono text-xs font-semibold text-brand-foreground/90"
-              }
-            >
-              {formatTotal(rates)}/day
-            </p>
+          {showFullPrice || rates.length > 0 ? (
+            <div className="mt-1.5">
+              {showFullPrice ? (
+                <p
+                  className={
+                    premium
+                      ? "font-mono text-[0.625rem] text-background/50 line-through"
+                      : "font-mono text-[0.625rem] text-brand-foreground/60 line-through"
+                  }
+                >
+                  {formatTotal(fullPrice)}/day
+                </p>
+              ) : null}
+              {rates.length > 0 ? (
+                <p
+                  className={
+                    premium
+                      ? "font-mono text-xs font-semibold text-background/80"
+                      : "font-mono text-xs font-semibold text-brand-foreground/90"
+                  }
+                >
+                  {formatTotal(rates)}/day
+                </p>
+              ) : null}
+            </div>
           ) : null}
         </div>
       </div>
