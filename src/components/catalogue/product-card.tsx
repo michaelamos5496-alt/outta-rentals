@@ -25,6 +25,11 @@ export interface ProductCardProps {
   className?: string;
 }
 
+/** The admin-uploaded cover photo when there is one, else the editorial stock fallback. */
+function primaryImage(product: DemoProduct): string | undefined {
+  return product.images?.[0]?.url ?? getProductImage(product.slug, product.categorySlug);
+}
+
 function ProductCard({ product, view = "grid", className }: ProductCardProps) {
   const { addItem, items, openDrawer } = useKit();
   const { open: openQuickView } = useQuickView();
@@ -65,7 +70,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
         <div className="relative mt-1 flex-1">
           <div className="aspect-[16/11] w-full" />
           <MediaPlaceholder
-            src={getProductImage(product.slug, product.categorySlug)}
+            src={primaryImage(product)}
             alt={product.name}
             fit={showWholeOnCard.has(product.slug) ? "contain" : "cover"}
             className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
@@ -129,7 +134,7 @@ function ListProductCard({
         className="block w-32 shrink-0 overflow-hidden border border-border sm:w-48"
       >
         <MediaPlaceholder
-          src={getProductImage(product.slug, product.categorySlug)}
+          src={primaryImage(product)}
           alt={product.name}
           icon={icon}
           meta={product.sku}

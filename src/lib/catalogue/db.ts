@@ -111,6 +111,9 @@ async function fetchAllProductsFromDb(): Promise<DemoProduct[] | null> {
     const specifications: DemoProductSpec[] = [...row.product_specifications]
       .sort((a, b) => a.order - b.order)
       .map((s) => ({ label: s.label, value: s.value, group: s.group ?? undefined }));
+    const images = [...row.product_images]
+      .sort((a, b) => a.order - b.order)
+      .map((img) => ({ url: img.url, alt: img.alt }));
 
     return {
       id: row.id,
@@ -131,6 +134,7 @@ async function fetchAllProductsFromDb(): Promise<DemoProduct[] | null> {
       included: row.included ?? [],
       accessorySlugs: accessoryMap.get(row.id) ?? [],
       compatibleSlugs: compatMap.get(row.id) ?? [],
+      images: images.length > 0 ? images : undefined,
     };
   });
 }
@@ -140,14 +144,15 @@ async function fetchAllProductsFromDb(): Promise<DemoProduct[] | null> {
  * the admin store (`src/lib/admin/store.ts`) — seeded from the static demo
  * catalogue, then mutated directly by admin CRUD. That's what makes admin
  * edits show up on the public site in this environment: archived products
- * are excluded, and the admin-only `images`/`archived` fields are stripped
- * back down to the plain `DemoProduct` shape the storefront expects.
+ * are excluded, and the admin-only `archived` field is stripped back down
+ * to the plain `DemoProduct` shape the storefront expects (`images` stays —
+ * it's part of `DemoProduct` too now).
  */
 function getFallbackProducts(): DemoProduct[] {
   return listAdminProducts()
     .filter((p) => !p.archived)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    .map(({ images, archived, ...product }) => product);
+    .map(({ archived, ...product }) => product);
 }
 
 const STATUSES: ProductAvailability[] = [

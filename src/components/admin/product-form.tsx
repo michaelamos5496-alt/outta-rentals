@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { LoaderCircle, Plus, Trash2 } from "lucide-react";
+import { LoaderCircle, Plus, Trash2, Upload } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,10 +19,11 @@ import {
 } from "@/components/ui/select";
 import { brands, categories, availabilityLabels } from "@/lib/catalogue";
 import type { ProductAvailability } from "@/lib/catalogue";
-import { createProductAction, updateProductAction } from "@/lib/admin/actions";
+import { createProductAction, updateProductAction, uploadProductImageAction } from "@/lib/admin/actions";
 import type { AdminProduct, AdminProductImage } from "@/lib/admin/types";
 
 const availabilityOptions = Object.keys(availabilityLabels) as ProductAvailability[];
+const MAX_IMAGES = 4;
 
 export interface ProductFormProps {
   product?: AdminProduct;
@@ -55,6 +56,26 @@ function ProductForm({ product }: ProductFormProps) {
 
   const [saving, setSaving] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+  const [uploading, setUploading] = React.useState(false);
+  const [uploadError, setUploadError] = React.useState<string | null>(null);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+  async function handleFileSelected(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file || images.length >= MAX_IMAGES) return;
+    setUploading(true);
+    setUploadError(null);
+    const formData = new FormData();
+    formData.append("file", file);
+    const result = await uploadProductImageAction(formData);
+    setUploading(false);
+    if (!result.ok) {
+      setUploadError(result.error);
+      return;
+    }
+    setImages((imgs) => [...imgs, { url: result.url, alt: "" }]);
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -208,22 +229,52 @@ function ProductForm({ product }: ProductFormProps) {
 
       <section>
         <div className="flex items-center justify-between">
-          <p className="text-sm font-medium">Images</p>
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={() => setImages((imgs) => [...imgs, { url: "", alt: "" }])}
-          >
-            <Plus /> Add image
-          </Button>
+          <p className="text-sm font-medium">
+            Images <span className="text-muted-foreground">({images.length}/{MAX_IMAGES})</span>
+          </p>
+          <div className="flex gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              disabled={images.length >= MAX_IMAGES || uploading}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              {uploading ? <LoaderCircle className="animate-spin" /> : <Upload />} Upload
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              disabled={images.length >= MAX_IMAGES}
+              onClick={() => setImages((imgs) => [...imgs, { url: "", alt: "" }])}
+            >
+              <Plus /> Add by URL
+            </Button>
+          </div>
         </div>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          className="hidden"
+          onChange={handleFileSelected}
+        />
+        {uploadError ? <p className="mt-1 text-sm text-destructive">{uploadError}</p> : null}
         <p className="text-meta mt-1">
-          Image URLs only — no file storage connected yet.
+          Up to {MAX_IMAGES} photos — JPEG, PNG or WebP, under 8MB. Or paste a URL.
         </p>
         <div className="mt-3 flex flex-col gap-2">
           {images.map((image, i) => (
             <div key={i} className="flex gap-2">
+              {image.url ? (
+                // eslint-disable-next-line @next/next/no-img-element -- admin-only preview of an arbitrary pasted/uploaded URL, not an optimized storefront image
+                <img
+                  src={image.url}
+                  alt=""
+                  className="size-10 shrink-0 rounded-md border border-border object-cover"
+                />
+              ) : null}
               <Input
                 placeholder="https://…"
                 aria-label="Image URL"

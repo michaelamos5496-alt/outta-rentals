@@ -164,6 +164,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             categorySlug={product.categorySlug}
             sku={product.sku}
             name={product.name}
+            images={product.images}
           />
 
           <div>

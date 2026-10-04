@@ -3,7 +3,7 @@ import { getCategoryBySlug } from "./categories";
 import { products } from "./products";
 import type { DemoProduct } from "./types";
 
-export type { DemoProduct, DemoProductSpec, ProductAvailability } from "./types";
+export type { DemoProduct, DemoProductSpec, DemoProductImage, ProductAvailability } from "./types";
 export { brands, getBrandBySlug } from "./brands";
 export { categories, categoryIcons, getCategoryBySlug, getCategoryIcon, categorySlugs } from "./categories";
 export { products } from "./products";

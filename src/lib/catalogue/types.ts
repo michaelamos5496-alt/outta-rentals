@@ -16,6 +16,11 @@ export interface DemoProductSpec {
   group?: string;
 }
 
+export interface DemoProductImage {
+  url: string;
+  alt: string;
+}
+
 /**
  * Demo catalogue product. Deliberately denormalized (slug references
  * instead of joined rows) for easy hand-authoring and client-side
@@ -42,4 +47,7 @@ export interface DemoProduct {
   included: string[];
   accessorySlugs: string[];
   compatibleSlugs: string[];
+  /** Admin-uploaded real photos (up to 4), in display order. Empty/absent
+   * falls back to editorial stock photography — see `getProductImage`. */
+  images?: DemoProductImage[];
 }

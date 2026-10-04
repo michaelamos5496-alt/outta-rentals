@@ -14,6 +14,7 @@ import {
   type AdminCategoryInput,
 } from "./catalogue";
 import { invalidateProductCache } from "@/lib/catalogue/db";
+import { uploadProductImage, type UploadImageResult } from "./image-upload";
 import {
   addQuoteNote,
   deleteQuote,
@@ -42,6 +43,13 @@ function revalidateStorefront() {
 }
 
 // ---------------------------------------------------------------- Products
+
+export async function uploadProductImageAction(formData: FormData): Promise<UploadImageResult> {
+  await requireAdmin();
+  const file = formData.get("file");
+  if (!(file instanceof File)) return { ok: false, error: "No file provided." };
+  return uploadProductImage(file);
+}
 
 export async function createProductAction(input: AdminProductInput) {
   await requireAdmin();
