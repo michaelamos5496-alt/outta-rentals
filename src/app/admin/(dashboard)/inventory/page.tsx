@@ -1,4 +1,4 @@
-import { listProducts } from "@/lib/admin/store";
+import { listProducts } from "@/lib/admin/catalogue";
 import { availabilityLabels, getBrandBySlug, getCategoryBySlug } from "@/lib/catalogue";
 import {
   Table,
@@ -16,9 +16,9 @@ import { getSupabaseServerClient } from "@/lib/supabase/server";
 export const metadata = { title: "Inventory" };
 
 export default async function AdminInventoryPage() {
-  const stock = await listProductStock();
+  const [allProducts, stock] = await Promise.all([listProducts(), listProductStock()]);
   const stockSaved = Boolean(getSupabaseServerClient());
-  const products = listProducts()
+  const products = allProducts
     .filter((p) => !p.archived)
     .map((p) => ({ ...p, availability: stock.get(p.slug)?.status ?? p.availability }));
 

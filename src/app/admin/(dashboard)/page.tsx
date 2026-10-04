@@ -8,7 +8,7 @@ import {
   Sparkles,
 } from "lucide-react";
 
-import { listProducts } from "@/lib/admin/store";
+import { listProducts } from "@/lib/admin/catalogue";
 import { listProductStock, listQuotes } from "@/lib/admin/quotes";
 import { listEnquiries } from "@/lib/admin/enquiries";
 import {
@@ -31,10 +31,11 @@ export const metadata = { title: "Dashboard" };
 const DAY_MS = 86_400_000;
 
 export default async function AdminDashboardPage() {
-  const [quotes, enquiries, stock] = await Promise.all([
+  const [quotes, enquiries, stock, products] = await Promise.all([
     listQuotes(),
     listEnquiries(),
     listProductStock(),
+    listProducts(),
   ]);
   const today = todayIso();
   const monthAgo = new Date(`${today}T00:00:00Z`).getTime() - 30 * DAY_MS;
@@ -46,7 +47,7 @@ export default async function AdminDashboardPage() {
   const newOrders = quotes.filter((q) => q.status === "new");
   const inProgress = quotes.filter((q) => q.status === "reviewing" || q.status === "quoted");
   const recentEnquiries = enquiries.filter((e) => new Date(e.createdAt).getTime() >= monthAgo);
-  const outOfService = listProducts().filter((p) => {
+  const outOfService = products.filter((p) => {
     const status = stock.get(p.slug)?.status ?? p.availability;
     return !p.archived && (status === "maintenance" || status === "unavailable");
   });

@@ -57,6 +57,7 @@ create table products (
   included text[] not null default '{}', -- "what's included" bullet list
   featured boolean not null default false,
   is_new boolean not null default false,
+  archived boolean not null default false, -- hidden from the site entirely, distinct from `status`
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );

@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache";
 import { getAdminSession } from "./auth";
-import { catalogueEditable } from "./catalogue-editing";
 import {
   createProduct,
   updateProduct,
@@ -13,7 +12,8 @@ import {
   deleteCategory,
   type AdminProductInput,
   type AdminCategoryInput,
-} from "./store";
+} from "./catalogue";
+import { invalidateProductCache } from "@/lib/catalogue/db";
 import {
   addQuoteNote,
   deleteQuote,
@@ -35,13 +35,8 @@ async function requireAdmin() {
   return session;
 }
 
-function requireCatalogueEditing() {
-  if (!catalogueEditable) {
-    throw new Error("Product and category editing isn't available on the live site yet.");
-  }
-}
-
 function revalidateStorefront() {
+  invalidateProductCache();
   revalidatePath("/equipment", "layout");
   revalidatePath("/", "page");
 }
@@ -50,8 +45,7 @@ function revalidateStorefront() {
 
 export async function createProductAction(input: AdminProductInput) {
   await requireAdmin();
-  requireCatalogueEditing();
-  const product = createProduct(input);
+  const product = await createProduct(input);
   revalidatePath("/admin/products");
   revalidatePath("/admin/inventory");
   revalidateStorefront();
@@ -60,8 +54,7 @@ export async function createProductAction(input: AdminProductInput) {
 
 export async function updateProductAction(id: string, patch: Partial<AdminProductInput>) {
   await requireAdmin();
-  requireCatalogueEditing();
-  const product = updateProduct(id, patch);
+  const product = await updateProduct(id, patch);
   revalidatePath("/admin/products");
   revalidatePath(`/admin/products/${id}`);
   revalidatePath("/admin/inventory");
@@ -71,8 +64,7 @@ export async function updateProductAction(id: string, patch: Partial<AdminProduc
 
 export async function deleteProductAction(id: string) {
   await requireAdmin();
-  requireCatalogueEditing();
-  const ok = deleteProduct(id);
+  const ok = await deleteProduct(id);
   revalidatePath("/admin/products");
   revalidatePath("/admin/inventory");
   revalidateStorefront();
@@ -81,8 +73,7 @@ export async function deleteProductAction(id: string) {
 
 export async function setProductArchivedAction(id: string, archived: boolean) {
   await requireAdmin();
-  requireCatalogueEditing();
-  const product = setProductArchived(id, archived);
+  const product = await setProductArchived(id, archived);
   revalidatePath("/admin/products");
   revalidateStorefront();
   return product;
@@ -93,8 +84,7 @@ export async function setProductAvailabilityAction(
   availability: AdminProductInput["availability"]
 ) {
   await requireAdmin();
-  requireCatalogueEditing();
-  const product = updateProduct(id, { availability });
+  const product = await updateProduct(id, { availability });
   revalidatePath("/admin/products");
   revalidatePath("/admin/inventory");
   revalidateStorefront();
@@ -105,24 +95,21 @@ export async function setProductAvailabilityAction(
 
 export async function createCategoryAction(input: AdminCategoryInput) {
   await requireAdmin();
-  requireCatalogueEditing();
-  const category = createCategory(input);
+  const category = await createCategory(input);
   revalidatePath("/admin/categories");
   return category;
 }
 
 export async function updateCategoryAction(id: string, patch: Partial<AdminCategoryInput>) {
   await requireAdmin();
-  requireCatalogueEditing();
-  const category = updateCategory(id, patch);
+  const category = await updateCategory(id, patch);
   revalidatePath("/admin/categories");
   return category;
 }
 
 export async function deleteCategoryAction(id: string) {
   await requireAdmin();
-  requireCatalogueEditing();
-  const ok = deleteCategory(id);
+  const ok = await deleteCategory(id);
   revalidatePath("/admin/categories");
   return ok;
 }

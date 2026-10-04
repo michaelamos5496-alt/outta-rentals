@@ -1,12 +1,9 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
-import { getProductById } from "@/lib/admin/store";
+import { getProductById } from "@/lib/admin/catalogue";
 import { EmptyState } from "@/components/ui/state";
 import { Button } from "@/components/ui/button";
 import { ProductForm } from "@/components/admin/product-form";
-import { UnsavedEditsNotice } from "@/components/admin/unsaved-edits-notice";
-import { catalogueEditable } from "@/lib/admin/catalogue-editing";
 
 interface EditProductPageProps {
   params: Promise<{ id: string }>;
@@ -15,9 +12,8 @@ interface EditProductPageProps {
 export const metadata = { title: "Edit Product" };
 
 export default async function EditProductPage({ params }: EditProductPageProps) {
-  if (!catalogueEditable) redirect("/admin/products");
   const { id } = await params;
-  const product = getProductById(id);
+  const product = await getProductById(id);
 
   if (!product) {
     return (
@@ -37,7 +33,6 @@ export default async function EditProductPage({ params }: EditProductPageProps) 
     <div>
       <h1 className="text-h2">Edit product</h1>
       <p className="text-small mt-1">{product.name}</p>
-      <UnsavedEditsNotice />
       <div className="mt-6">
         <ProductForm product={product} />
       </div>

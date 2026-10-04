@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Plus } from "lucide-react";
 
-import { listProducts } from "@/lib/admin/store";
+import { listProducts } from "@/lib/admin/catalogue";
 import { availabilityLabels, availabilityVariant, getBrandBySlug, getCategoryBySlug } from "@/lib/catalogue";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -15,15 +15,13 @@ import {
 } from "@/components/ui/table";
 import { ProductRowActions } from "@/components/admin/product-row-actions";
 import { formatPrice } from "@/lib/currency";
-import { UnsavedEditsNotice } from "@/components/admin/unsaved-edits-notice";
-import { catalogueEditable } from "@/lib/admin/catalogue-editing";
 import { listProductStock } from "@/lib/admin/quotes";
 
 export const metadata = { title: "Products" };
 
 export default async function AdminProductsPage() {
-  const stock = await listProductStock();
-  const products = listProducts().map((p) => ({
+  const [allProducts, stock] = await Promise.all([listProducts(), listProductStock()]);
+  const products = allProducts.map((p) => ({
     ...p,
     availability: stock.get(p.slug)?.status ?? p.availability,
   }));
@@ -34,15 +32,12 @@ export default async function AdminProductsPage() {
         <div>
           <h1 className="text-h2">Products</h1>
           <p className="text-small mt-1">{products.length} total</p>
-          <UnsavedEditsNotice />
         </div>
-        {catalogueEditable ? (
-          <Button asChild>
-            <Link prefetch={false} href="/admin/products/new">
-              <Plus /> New Product
-            </Link>
-          </Button>
-        ) : null}
+        <Button asChild>
+          <Link prefetch={false} href="/admin/products/new">
+            <Plus /> New Product
+          </Link>
+        </Button>
       </div>
 
       <div className="mt-6 rounded-2xl border border-border bg-card">
@@ -55,22 +50,16 @@ export default async function AdminProductsPage() {
               <TableHead>Day rate</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Featured</TableHead>
-              {catalogueEditable ? <TableHead className="text-right">Actions</TableHead> : null}
+              <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {products.map((product) => (
               <TableRow key={product.id} className={product.archived ? "opacity-50" : undefined}>
                 <TableCell className="max-w-56 truncate font-medium">
-                  {catalogueEditable ? (
-                    <Link prefetch={false} href={`/admin/products/${product.id}`} className="hover:text-brand">
-                      {product.name}
-                    </Link>
-                  ) : (
-                    <Link prefetch={false} href={`/equipment/${product.slug}`} target="_blank" className="hover:text-brand">
-                      {product.name}
-                    </Link>
-                  )}
+                  <Link prefetch={false} href={`/admin/products/${product.id}`} className="hover:text-brand">
+                    {product.name}
+                  </Link>
                   {product.archived ? (
                     <span className="text-meta ml-2">Archived</span>
                   ) : null}
@@ -84,11 +73,9 @@ export default async function AdminProductsPage() {
                   </Badge>
                 </TableCell>
                 <TableCell>{product.featured ? "Yes" : "—"}</TableCell>
-                {catalogueEditable ? (
-                  <TableCell className="text-right">
-                    <ProductRowActions id={product.id} archived={product.archived} />
-                  </TableCell>
-                ) : null}
+                <TableCell className="text-right">
+                  <ProductRowActions id={product.id} archived={product.archived} />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

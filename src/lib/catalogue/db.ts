@@ -33,6 +33,16 @@ import type {
 
 let cachedProducts: DemoProduct[] | null = null;
 
+/**
+ * Clears the in-process product cache — call after an admin write (create,
+ * update, delete, archive) so the very next storefront request re-fetches
+ * from Supabase instead of serving whatever was cached earlier in this
+ * server instance's lifetime.
+ */
+export function invalidateProductCache(): void {
+  cachedProducts = null;
+}
+
 async function fetchAllProductsFromDb(): Promise<DemoProduct[] | null> {
   const supabase = getSupabaseServerClient();
   if (!supabase) return null;
@@ -42,7 +52,7 @@ async function fetchAllProductsFromDb(): Promise<DemoProduct[] | null> {
     .select(
       `
         id, slug, sku, name, short_description, description, status,
-        stock_quantity, tags, included, featured, is_new,
+        stock_quantity, tags, included, featured, is_new, archived,
         brand:brands ( slug ),
         category:categories ( slug ),
         product_images ( url, alt, is_primary, order ),
@@ -58,7 +68,8 @@ async function fetchAllProductsFromDb(): Promise<DemoProduct[] | null> {
     return null;
   }
 
-  const ids = rows.map((r) => r.id);
+  const visibleRows = rows.filter((r) => !r.archived);
+  const ids = visibleRows.map((r) => r.id);
 
   const [{ data: accessoryRows }, { data: compatRows }] = await Promise.all([
     supabase
@@ -95,7 +106,7 @@ async function fetchAllProductsFromDb(): Promise<DemoProduct[] | null> {
     compatMap.set(row.product_id, list);
   }
 
-  return rows.map((row): DemoProduct => {
+  return visibleRows.map((row): DemoProduct => {
     const dayRate = row.rental_rates.find((r) => r.period === "day");
     const specifications: DemoProductSpec[] = [...row.product_specifications]
       .sort((a, b) => a.order - b.order)

@@ -69,6 +69,7 @@ export interface ProductQueryRow {
   included: string[];
   featured: boolean;
   is_new: boolean;
+  archived: boolean;
   brand: { slug: string } | null;
   category: { slug: string } | null;
   product_images: ProductImageRow[];
