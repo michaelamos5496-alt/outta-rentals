@@ -71,7 +71,6 @@ export const heroProductImages: Record<string, string> = {
   "amaran-200x-s": "/equipment/amaran-200x-s-rig.jpg",
   "c-stand-kit": "/equipment/c-stand-kit-rig.jpg",
   "red-helium": "/equipment/red-helium-rig.jpg",
-  "blackmagic-6k": "/equipment/blackmagic-6k-rig.jpg",
   "dzofilm-vespid-prime-set-16-125mm": "/equipment/dzofilm-vespid-prime-set-16-125mm-rig.jpg",
   "laowa-12mm-ef": "/equipment/laowa-12mm-ef-rig.jpg",
   "dzofilm-pictor-zoom-50-125mm-t2-8": "/equipment/dzofilm-pictor-zoom-50-125mm-t2-8-rig.jpg",

@@ -12,7 +12,7 @@ import { duration, easeOutta } from "@/lib/motion";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { getProductImage, heroProductImages } from "@/lib/editorial-images";
+import { getProductImage, heroProductImages, isolatedProductPhotos } from "@/lib/editorial-images";
 import type { DemoProduct } from "@/lib/catalogue";
 
 if (typeof window !== "undefined") {
@@ -93,7 +93,12 @@ function Hero({ products }: { products: DemoProduct[] }) {
     );
   }
 
-  const image = heroProductImages[product.slug] ?? getProductImage(product.slug, product.categorySlug);
+  const dedicatedHeroImage = heroProductImages[product.slug];
+  const image = dedicatedHeroImage ?? getProductImage(product.slug, product.categorySlug);
+  // Without a dedicated wide hero shot, products with isolated studio
+  // photography (square, product centered) get cropped hard by a full-bleed
+  // object-cover — show the whole unit instead of cutting it off.
+  const fit = !dedicatedHeroImage && isolatedProductPhotos.has(product.slug) ? "object-contain" : "object-cover";
 
   return (
     <>
@@ -125,7 +130,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
                   fill
                   priority
                   sizes="100vw"
-                  className="object-cover opacity-80"
+                  className={`${fit} opacity-80`}
                 />
               ) : null}
             </motion.div>
