@@ -68,6 +68,7 @@ function QuickViewBody({ productSlug }: { productSlug: string }) {
         categorySlug={product.categorySlug}
         sku={product.sku}
         name={product.name}
+        images={product.images}
         frameCount={1}
       />
 
