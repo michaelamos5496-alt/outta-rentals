@@ -97,6 +97,13 @@ function ProductForm({ product }: ProductFormProps) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    // An image upload still in flight hasn't reached `images` state yet —
+    // saving now would submit without it, leaving the file orphaned in
+    // storage with nothing pointing at it.
+    if (uploading) {
+      setError("Still uploading — wait for it to finish, then save.");
+      return;
+    }
     setSaving(true);
     setError(null);
 
@@ -450,11 +457,12 @@ function ProductForm({ product }: ProductFormProps) {
         </div>
       </section>
 
-      <div className="flex gap-3">
-        <Button type="submit" disabled={saving}>
+      <div className="flex items-center gap-3">
+        <Button type="submit" disabled={saving || uploading}>
           {saving ? <LoaderCircle className="animate-spin" /> : null}
           {isEdit ? "Save changes" : "Create product"}
         </Button>
+        {uploading ? <p className="text-sm text-muted-foreground">Finishing image upload…</p> : null}
         <Button type="button" variant="outline" onClick={() => router.push("/admin/products")}>
           Cancel
         </Button>
