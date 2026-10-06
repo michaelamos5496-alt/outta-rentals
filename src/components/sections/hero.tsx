@@ -139,7 +139,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
         </div>
 
         <Container className="relative flex min-h-[78svh] items-end pb-14 sm:pb-16 lg:min-h-[78vh]">
-          <div className="max-w-xl">
+          <div className="max-w-3xl">
             <h1
               key={product.slug}
               ref={headingRef}
