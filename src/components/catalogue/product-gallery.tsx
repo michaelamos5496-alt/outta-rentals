@@ -35,7 +35,11 @@ function ProductGallery({
   // original single-photo layout.
   const hasGallery = hasRealPhotos || gallery.length > 1;
   const image = getProductImage(productSlug, categorySlug);
-  const fit = hasRealPhotos ? "cover" : isolatedProductPhotos.has(productSlug) ? "contain" : "cover";
+  // "contain" (whole unit visible, nothing cropped) is about the photo's own
+  // composition — a studio isolated shot — not where its URL is stored, so
+  // this still applies whether the gallery came from the DB or the static
+  // editorial map.
+  const fit = isolatedProductPhotos.has(productSlug) ? "contain" : "cover";
   const [active, setActive] = React.useState(0);
   const frames: { src: string | undefined; alt: string }[] = hasRealPhotos
     ? images!.map((img, i) => ({ src: img.url, alt: img.alt || `${name} ${i + 1}` }))
