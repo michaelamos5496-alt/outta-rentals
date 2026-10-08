@@ -30,7 +30,7 @@ function SendKitButton({
   /** Shows a contact-number field above the button — for places (like the cart drawer) that don't have one. */
   withPhoneField?: boolean;
 }) {
-  const { items, startDate, endDate, rentalDays, dateError, projectInfo, setProjectInfo } = useKit();
+  const { items, startDate, endDate, startTime, endTime, rentalDays, dateError, projectInfo, setProjectInfo } = useKit();
   const phone = projectInfo.customerPhone;
   const phoneOk = isValidPhone(phone);
   const [phoneTouched, setPhoneTouched] = React.useState(false);
@@ -138,6 +138,8 @@ function SendKitButton({
         subtotal={datesValid && pricing.hasPackageDiscount ? formatTotal(pricing.subtotalEntries) : undefined}
         startDate={validStart}
         endDate={validEnd}
+        startTime={validEnd ? startTime : undefined}
+        endTime={validEnd ? endTime : undefined}
         projectLabel={projectInfo.projectName || projectInfo.productionType}
         customerName={projectInfo.customerName.trim() || undefined}
         customerPhone={projectInfo.customerPhone.trim() || undefined}

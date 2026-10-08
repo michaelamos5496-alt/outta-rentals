@@ -11,6 +11,8 @@ export interface KitContextValue {
   itemCount: number;
   startDate: string;
   endDate: string;
+  startTime: string;
+  endTime: string;
   rentalDays: number | null;
   dateError: string | null;
   projectInfo: ProjectInfo;
@@ -35,6 +37,8 @@ export interface KitContextValue {
   clearKit: () => void;
   setStartDate: (date: string) => void;
   setEndDate: (date: string) => void;
+  setStartTime: (time: string) => void;
+  setEndTime: (time: string) => void;
   setProjectInfo: (patch: Partial<ProjectInfo>) => void;
   openDrawer: () => void;
   closeDrawer: () => void;
@@ -126,6 +130,14 @@ export function KitProvider({ children }: { children: React.ReactNode }) {
     setState((s) => ({ ...s, endDate: date }));
   }, []);
 
+  const setStartTime = React.useCallback((time: string) => {
+    setState((s) => ({ ...s, startTime: time }));
+  }, []);
+
+  const setEndTime = React.useCallback((time: string) => {
+    setState((s) => ({ ...s, endTime: time }));
+  }, []);
+
   const setProjectInfo = React.useCallback((patch: Partial<ProjectInfo>) => {
     setState((s) => ({ ...s, projectInfo: { ...s.projectInfo, ...patch } }));
   }, []);
@@ -139,6 +151,8 @@ export function KitProvider({ children }: { children: React.ReactNode }) {
     itemCount,
     startDate: state.startDate,
     endDate: state.endDate,
+    startTime: state.startTime,
+    endTime: state.endTime,
     rentalDays,
     dateError: error,
     projectInfo: state.projectInfo,
@@ -153,6 +167,8 @@ export function KitProvider({ children }: { children: React.ReactNode }) {
     clearKit,
     setStartDate,
     setEndDate,
+    setStartTime,
+    setEndTime,
     setProjectInfo,
     openDrawer: () => setDrawerOpen(true),
     closeDrawer: () => setDrawerOpen(false),

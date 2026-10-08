@@ -1,4 +1,5 @@
 import { formatPrice } from "@/lib/currency";
+import { formatTime } from "@/lib/kit/rental";
 
 export interface WhatsAppMessageInput {
   /** Omit or leave empty for a general inquiry with no kit attached. */
@@ -12,6 +13,9 @@ export interface WhatsAppMessageInput {
   }[];
   startDate?: string;
   endDate?: string;
+  /** Pickup / return times, 24h "HH:MM" — shown beside the dates when set. */
+  startTime?: string;
+  endTime?: string;
   /** Grand total across every item, formatted (e.g. "₵2,360") — shown as "Total:" when set. */
   total?: string;
   /**
@@ -60,6 +64,9 @@ export function buildWhatsAppMessage(input: WhatsAppMessageInput): string {
         ? formatShortDate(input.startDate)
         : `${formatShortDate(input.startDate)} – ${formatShortDate(input.endDate)}`;
     lines.push("Dates:", range, "");
+    if (input.startTime && input.endTime) {
+      lines.push(`Pickup ${formatTime(input.startTime)} · Return ${formatTime(input.endTime)}`, "");
+    }
   }
 
   if (items.length > 0) {

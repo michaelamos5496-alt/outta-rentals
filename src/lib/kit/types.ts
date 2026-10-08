@@ -20,6 +20,8 @@ export interface KitState {
   items: KitLineItem[];
   startDate: string; // ISO yyyy-mm-dd
   endDate: string; // ISO yyyy-mm-dd
+  startTime: string; // 24h HH:MM pickup
+  endTime: string; // 24h HH:MM return
   projectInfo: ProjectInfo;
 }
 

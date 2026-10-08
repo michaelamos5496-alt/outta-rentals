@@ -122,3 +122,62 @@ export async function searchCatalogueAction(query: string): Promise<CatalogueSea
       currency: p.currency,
     }));
 }
+
+export interface QuickViewAddOn {
+  slug: string;
+  name: string;
+  dayRate: number;
+  currency: string;
+  imageUrl: string | null;
+  categorySlug: string;
+  sku: string;
+  /** Units free for the chosen dates; `null` when stock isn't tracked. */
+  free: number | null;
+}
+
+/**
+ * Add-on suggestions for the equipment popup's "Add to your booking" list:
+ * in-service items sharing the product's brand, plus its listed accessories
+ * and compatible gear, with how many units are free for the dates.
+ */
+export async function getQuickViewAddOns(
+  productSlug: string,
+  startDate: string,
+  endDate: string
+): Promise<QuickViewAddOn[]> {
+  if (typeof productSlug !== "string" || typeof startDate !== "string" || typeof endDate !== "string") {
+    return [];
+  }
+  const [all, product] = await Promise.all([fetchAllProducts(), fetchProductBySlug(productSlug)]);
+  if (!product) return [];
+
+  const listed = new Set([...product.accessorySlugs, ...product.compatibleSlugs]);
+  const candidates = all
+    .filter(
+      (p) =>
+        p.slug !== product.slug &&
+        p.availability === "available" &&
+        p.dayRate > 0 &&
+        (listed.has(p.slug) || p.brandSlug === product.brandSlug)
+    )
+    // Explicitly listed accessories first, then same-brand gear, cheapest first.
+    .sort((a, b) => Number(listed.has(b.slug)) - Number(listed.has(a.slug)) || a.dayRate - b.dayRate)
+    .slice(0, 12);
+
+  const free = validateDateRange(startDate, endDate).valid
+    ? await getAvailableUnits(candidates.map((p) => p.slug), startDate, endDate)
+    : null;
+
+  return candidates
+    .map((p) => ({
+      slug: p.slug,
+      name: p.name,
+      dayRate: p.dayRate,
+      currency: p.currency,
+      imageUrl: p.images?.[0]?.url ?? null,
+      categorySlug: p.categorySlug,
+      sku: p.sku,
+      free: free?.get(p.slug) ?? null,
+    }))
+    .filter((p) => p.free === null || p.free > 0);
+}

@@ -1,5 +1,21 @@
 const MS_PER_DAY = 86_400_000;
 
+/** Pickup/return window, 24h "HH:MM". */
+export const OPENING_TIME = "07:00";
+export const CLOSING_TIME = "21:00";
+export const DEFAULT_TIME = "09:00";
+
+export function isWithinOpeningHours(time: string): boolean {
+  return /^\d{2}:\d{2}$/.test(time) && time >= OPENING_TIME && time <= CLOSING_TIME;
+}
+
+/** "08:30" -> "8:30 AM" */
+export function formatTime(time: string): string {
+  const [h, m] = time.split(":").map(Number);
+  if (Number.isNaN(h) || Number.isNaN(m)) return time;
+  return `${h % 12 || 12}:${String(m).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`;
+}
+
 function parseDate(iso: string): Date | null {
   if (!iso) return null;
   const date = new Date(`${iso}T00:00:00`);

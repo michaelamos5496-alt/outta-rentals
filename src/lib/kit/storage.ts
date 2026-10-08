@@ -1,4 +1,5 @@
 import { getProductBySlug } from "@/lib/catalogue";
+import { DEFAULT_TIME, isWithinOpeningHours } from "./rental";
 import { emptyProjectInfo, type KitLineItem, type KitState, type ProjectInfo } from "./types";
 
 const STORAGE_KEY = "outta-kit-v1";
@@ -32,7 +33,7 @@ function sanitizeProjectInfo(stored: unknown, fallback: ProjectInfo): ProjectInf
 
 export function getDefaultKitState(): KitState {
   const today = todayIso();
-  return { items: [], startDate: today, endDate: today, projectInfo: { ...emptyProjectInfo } };
+  return { items: [], startDate: today, endDate: today, startTime: DEFAULT_TIME, endTime: DEFAULT_TIME, projectInfo: { ...emptyProjectInfo } };
 }
 
 /**
@@ -56,6 +57,14 @@ export function loadKit(): KitState {
       startDate:
         typeof parsed.startDate === "string" && parsed.startDate ? parsed.startDate : fallback.startDate,
       endDate: typeof parsed.endDate === "string" && parsed.endDate ? parsed.endDate : fallback.endDate,
+      startTime:
+        typeof parsed.startTime === "string" && isWithinOpeningHours(parsed.startTime)
+          ? parsed.startTime
+          : fallback.startTime,
+      endTime:
+        typeof parsed.endTime === "string" && isWithinOpeningHours(parsed.endTime)
+          ? parsed.endTime
+          : fallback.endTime,
       projectInfo: sanitizeProjectInfo(parsed.projectInfo, fallback.projectInfo),
     };
   } catch {
