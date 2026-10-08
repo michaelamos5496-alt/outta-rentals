@@ -131,8 +131,6 @@ export interface QuickViewAddOn {
   imageUrl: string | null;
   categorySlug: string;
   sku: string;
-  /** Units free for the chosen dates; `null` when stock isn't tracked. */
-  free: number | null;
 }
 
 /** Which categories work alongside each category — drives cross-category add-on suggestions. */
@@ -210,20 +208,13 @@ export async function getQuickViewAddOns(
     }
   }
 
-  const free = validateDateRange(startDate, endDate).valid
-    ? await getAvailableUnits(candidates.map((p) => p.slug), startDate, endDate)
-    : null;
-
-  return candidates
-    .map((p) => ({
-      slug: p.slug,
-      name: p.name,
-      dayRate: p.dayRate,
-      currency: p.currency,
-      imageUrl: p.images?.[0]?.url ?? null,
-      categorySlug: p.categorySlug,
-      sku: p.sku,
-      free: free?.get(p.slug) ?? null,
-    }))
-    .filter((p) => p.free === null || p.free > 0);
+  return candidates.map((p) => ({
+    slug: p.slug,
+    name: p.name,
+    dayRate: p.dayRate,
+    currency: p.currency,
+    imageUrl: p.images?.[0]?.url ?? null,
+    categorySlug: p.categorySlug,
+    sku: p.sku,
+  }));
 }

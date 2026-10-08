@@ -95,9 +95,8 @@ function QuickViewBody({ productSlug }: { productSlug: string }) {
     });
   }
 
-  function setPickQty(slug: string, qty: number, free: number | null) {
-    const max = free ?? 99;
-    setPicked((p) => ({ ...p, [slug]: Math.min(Math.max(1, qty), max) }));
+  function setPickQty(slug: string, qty: number) {
+    setPicked((p) => ({ ...p, [slug]: Math.max(1, qty) }));
   }
 
   function handleAction() {
@@ -240,7 +239,7 @@ function QuickViewBody({ productSlug }: { productSlug: string }) {
                     addOn={a}
                     qty={picked[a.slug] ?? 0}
                     onToggle={() => togglePick(a.slug)}
-                    onQty={(q) => setPickQty(a.slug, q, a.free)}
+                    onQty={(q) => setPickQty(a.slug, q)}
                     disabled={inCart}
                   />
                 ))}
@@ -355,7 +354,6 @@ function AddOnRow({
   disabled: boolean;
 }) {
   const selected = qty > 0;
-  const max = addOn.free ?? 99;
   return (
     <li
       className={cn(
@@ -411,7 +409,7 @@ function AddOnRow({
           variant="ghost"
           size="icon-sm"
           aria-label={`Increase ${addOn.name} quantity`}
-          disabled={disabled || (selected && qty >= max)}
+          disabled={disabled}
           onClick={() => (selected ? onQty(qty + 1) : onToggle())}
         >
           <Plus />
