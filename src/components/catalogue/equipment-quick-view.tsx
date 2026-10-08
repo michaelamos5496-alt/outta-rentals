@@ -393,7 +393,6 @@ function AddOnRow({
               {formatPrice(addOn.dayRate, addOn.currency)}
             </span>
             /day
-            {addOn.free !== null ? ` · ${addOn.free} free` : ""}
           </span>
         </span>
       </button>
