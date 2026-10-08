@@ -15,6 +15,10 @@ import { Button } from "@/components/ui/button";
 import { getProductImage, heroProductImages, isolatedProductPhotos } from "@/lib/editorial-images";
 import type { DemoProduct } from "@/lib/catalogue";
 
+// Square studio shots the owner wants stretched edge-to-edge (cropped to fill)
+// rather than shown whole with a blurred backdrop.
+const fillHeroPhotos = new Set<string>(["dzofilm-pictor-zoom-12-25mm-t2-8"]);
+
 if (typeof window !== "undefined") {
   gsap.registerPlugin(SplitText);
 }
@@ -98,7 +102,10 @@ function Hero({ products }: { products: DemoProduct[] }) {
   // Without a dedicated wide hero shot, products with isolated studio
   // photography (square, product centered) get cropped hard by a full-bleed
   // object-cover — show the whole unit instead of cutting it off.
-  const fit = !dedicatedHeroImage && isolatedProductPhotos.has(product.slug) ? "object-contain" : "object-cover";
+  const fit =
+    !dedicatedHeroImage && isolatedProductPhotos.has(product.slug) && !fillHeroPhotos.has(product.slug)
+      ? "object-contain"
+      : "object-cover";
 
   return (
     <>
