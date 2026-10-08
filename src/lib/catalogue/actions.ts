@@ -135,10 +135,34 @@ export interface QuickViewAddOn {
   free: number | null;
 }
 
+/** Which categories work alongside each category — drives cross-category add-on suggestions. */
+const ADD_ON_CATEGORIES: Record<string, string[]> = {
+  cameras: ["lenses", "camera-accessories", "filters", "matte-boxes", "monitors", "audio", "grip", "lighting"],
+  lenses: ["camera-accessories", "filters", "matte-boxes", "lenses", "monitors", "grip"],
+  lighting: ["lighting-modifiers", "grip", "lighting", "camera-accessories"],
+  "lighting-modifiers": ["lighting", "grip", "lighting-modifiers"],
+  grip: ["camera-accessories", "grip", "monitors", "lighting", "audio"],
+  monitors: ["camera-accessories", "monitors", "grip", "cameras"],
+  "camera-accessories": ["cameras", "lenses", "camera-accessories", "monitors", "filters", "matte-boxes", "audio"],
+  filters: ["matte-boxes", "lenses", "cameras", "filters"],
+  "matte-boxes": ["filters", "lenses", "cameras", "camera-accessories"],
+  audio: ["audio", "camera-accessories", "cameras", "grip"],
+};
+
+const MOUNT_PATTERN = /\b(e|ef|rf|pl|lpl|mft|m|z|l|x)[- ]?mount\b/gi;
+
+function mountsOf(p: { tags: string[]; name: string; specifications: { value: string }[] }): Set<string> {
+  const text = [p.name, ...p.tags, ...p.specifications.map((s) => s.value)].join(" ");
+  return new Set([...text.matchAll(MOUNT_PATTERN)].map((m) => m[1].toLowerCase()));
+}
+
 /**
  * Add-on suggestions for the equipment popup's "Add to your booking" list:
- * in-service items sharing the product's brand, plus its listed accessories
- * and compatible gear, with how many units are free for the dates.
+ * the product's listed accessories and compatible gear first, then in-service
+ * items from categories that work alongside it (a camera suggests lenses,
+ * media, monitors, audio…; a light suggests modifiers and grip). Lens-mount
+ * items that don't match the product's mount are left out. Each suggested
+ * category is round-robined so one category can't crowd out the rest.
  */
 export async function getQuickViewAddOns(
   productSlug: string,
@@ -152,17 +176,39 @@ export async function getQuickViewAddOns(
   if (!product) return [];
 
   const listed = new Set([...product.accessorySlugs, ...product.compatibleSlugs]);
-  const candidates = all
-    .filter(
-      (p) =>
-        p.slug !== product.slug &&
-        p.availability === "available" &&
-        p.dayRate > 0 &&
-        (listed.has(p.slug) || p.brandSlug === product.brandSlug)
-    )
-    // Explicitly listed accessories first, then same-brand gear, cheapest first.
-    .sort((a, b) => Number(listed.has(b.slug)) - Number(listed.has(a.slug)) || a.dayRate - b.dayRate)
-    .slice(0, 12);
+  const allowed = ADD_ON_CATEGORIES[product.categorySlug] ?? [];
+  const mine = mountsOf(product);
+
+  const eligible = all.filter((p) => {
+    if (p.slug === product.slug || p.availability !== "available" || p.dayRate <= 0) return false;
+    if (listed.has(p.slug)) return true;
+    if (!allowed.includes(p.categorySlug)) return false;
+    // Don't suggest a lens/camera on a different mount.
+    const theirs = mountsOf(p);
+    if (mine.size > 0 && theirs.size > 0 && ![...theirs].some((m) => mine.has(m))) return false;
+    return true;
+  });
+
+  const score = (p: (typeof eligible)[number]) =>
+    (listed.has(p.slug) ? 100 : 0) +
+    p.tags.filter((t) => product.tags.includes(t)).length * 5 +
+    ([...mountsOf(p)].some((m) => mine.has(m)) ? 10 : 0);
+
+  // Round-robin across categories, best-scored first within each.
+  const buckets = new Map<string, typeof eligible>();
+  for (const p of [...eligible].sort((a, b) => score(b) - score(a) || a.dayRate - b.dayRate)) {
+    buckets.set(p.categorySlug, [...(buckets.get(p.categorySlug) ?? []), p]);
+  }
+  const order = [...buckets.keys()].sort(
+    (a, b) => (allowed.indexOf(a) + 1 || 99) - (allowed.indexOf(b) + 1 || 99)
+  );
+  const candidates: typeof eligible = [];
+  for (let i = 0; candidates.length < 16 && order.some((c) => buckets.get(c)![i]); i++) {
+    for (const c of order) {
+      const item = buckets.get(c)![i];
+      if (item && candidates.length < 16) candidates.push(item);
+    }
+  }
 
   const free = validateDateRange(startDate, endDate).valid
     ? await getAvailableUnits(candidates.map((p) => p.slug), startDate, endDate)
