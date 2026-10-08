@@ -123,6 +123,19 @@ function Hero({ products }: { products: DemoProduct[] }) {
               transition={{ duration: duration.base, ease: easeOutta }}
               className="absolute inset-0"
             >
+              {image && fit === "object-contain" ? (
+                // Square studio shots can't fill a wide hero without cropping
+                // the unit — a blurred, enlarged copy of the same photo fills
+                // the screen behind the whole, uncropped product.
+                <Image
+                  src={image}
+                  alt=""
+                  aria-hidden
+                  fill
+                  sizes="100vw"
+                  className="scale-125 object-cover opacity-70 blur-3xl"
+                />
+              ) : null}
               {image ? (
                 <Image
                   src={image}
