@@ -135,17 +135,20 @@ export interface QuickViewAddOn {
 
 /** Which categories work alongside each category — drives cross-category add-on suggestions. */
 const ADD_ON_CATEGORIES: Record<string, string[]> = {
-  cameras: ["lenses", "camera-accessories", "filters", "matte-boxes", "monitors", "audio", "grip", "lighting"],
-  lenses: ["camera-accessories", "filters", "matte-boxes", "lenses", "monitors", "grip"],
-  lighting: ["lighting-modifiers", "grip", "lighting", "camera-accessories"],
-  "lighting-modifiers": ["lighting", "grip", "lighting-modifiers"],
-  grip: ["camera-accessories", "grip", "monitors", "lighting", "audio"],
-  monitors: ["camera-accessories", "monitors", "grip", "cameras"],
-  "camera-accessories": ["cameras", "lenses", "camera-accessories", "monitors", "filters", "matte-boxes", "audio"],
-  filters: ["matte-boxes", "lenses", "cameras", "filters"],
-  "matte-boxes": ["filters", "lenses", "cameras", "camera-accessories"],
-  audio: ["audio", "camera-accessories", "cameras", "grip"],
+  cameras: ["lenses", "camera-accessories", "monitors", "matte-boxes", "filters"],
+  lenses: ["matte-boxes", "filters", "camera-accessories", "cameras"],
+  lighting: ["lighting-modifiers", "grip"],
+  "lighting-modifiers": ["lighting", "grip"],
+  grip: ["camera-accessories", "monitors"],
+  monitors: ["camera-accessories", "cameras"],
+  "camera-accessories": ["cameras", "monitors", "matte-boxes"],
+  filters: ["matte-boxes", "lenses", "cameras"],
+  "matte-boxes": ["filters", "lenses", "cameras"],
+  audio: ["audio", "camera-accessories"],
 };
+
+/** Most suggestions taken from any one category, so no single category floods the list. */
+const MAX_PER_CATEGORY = 4;
 
 const MOUNT_PATTERN = /\b(e|ef|rf|pl|lpl|mft|m|z|l|x)[- ]?mount\b/gi;
 
@@ -195,7 +198,8 @@ export async function getQuickViewAddOns(
   // Round-robin across categories, best-scored first within each.
   const buckets = new Map<string, typeof eligible>();
   for (const p of [...eligible].sort((a, b) => score(b) - score(a) || a.dayRate - b.dayRate)) {
-    buckets.set(p.categorySlug, [...(buckets.get(p.categorySlug) ?? []), p]);
+    const bucket = buckets.get(p.categorySlug) ?? [];
+    if (bucket.length < MAX_PER_CATEGORY) buckets.set(p.categorySlug, [...bucket, p]);
   }
   const order = [...buckets.keys()].sort(
     (a, b) => (allowed.indexOf(a) + 1 || 99) - (allowed.indexOf(b) + 1 || 99)
