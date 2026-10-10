@@ -4,16 +4,7 @@ import { Plus } from "lucide-react";
 import { listProducts } from "@/lib/admin/catalogue";
 import { availabilityLabels, availabilityVariant, getBrandBySlug, getCategoryBySlug } from "@/lib/catalogue";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { ProductRowActions } from "@/components/admin/product-row-actions";
+import { ProductsTable } from "@/components/admin/products-table";
 import { formatPrice } from "@/lib/currency";
 import { listProductStock } from "@/lib/admin/quotes";
 
@@ -40,47 +31,19 @@ export default async function AdminProductsPage() {
         </Button>
       </div>
 
-      <div className="mt-6 rounded-2xl border border-border bg-card">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Brand</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead>Day rate</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Featured</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {products.map((product) => (
-              <TableRow key={product.id} className={product.archived ? "opacity-50" : undefined}>
-                <TableCell className="max-w-56 truncate font-medium">
-                  <Link prefetch={false} href={`/admin/products/${product.id}`} className="hover:text-brand">
-                    {product.name}
-                  </Link>
-                  {product.archived ? (
-                    <span className="text-meta ml-2">Archived</span>
-                  ) : null}
-                </TableCell>
-                <TableCell>{getBrandBySlug(product.brandSlug)?.name ?? product.brandSlug}</TableCell>
-                <TableCell>{getCategoryBySlug(product.categorySlug)?.name ?? product.categorySlug}</TableCell>
-                <TableCell>{formatPrice(product.dayRate)}</TableCell>
-                <TableCell>
-                  <Badge variant={availabilityVariant[product.availability]}>
-                    {availabilityLabels[product.availability]}
-                  </Badge>
-                </TableCell>
-                <TableCell>{product.featured ? "Yes" : "—"}</TableCell>
-                <TableCell className="text-right">
-                  <ProductRowActions id={product.id} archived={product.archived} />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+      <ProductsTable
+        products={products.map((p) => ({
+          id: p.id,
+          name: p.name,
+          brandName: getBrandBySlug(p.brandSlug)?.name ?? p.brandSlug,
+          categoryName: getCategoryBySlug(p.categorySlug)?.name ?? p.categorySlug,
+          priceLabel: formatPrice(p.dayRate),
+          statusLabel: availabilityLabels[p.availability],
+          statusVariant: availabilityVariant[p.availability],
+          featured: Boolean(p.featured),
+          archived: Boolean(p.archived),
+        }))}
+      />
     </div>
   );
 }
