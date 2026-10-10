@@ -19,8 +19,7 @@ const TIER_COPY: Record<string, TierCopy> = {
   },
   yolo: {
     title: "Full-scale production package",
-    description:
-      "For high-end commercial and music-video productions requiring a more complete cinema setup.",
+    description: "For high-end productions requiring a more complete cinema setup.",
   },
 };
 
