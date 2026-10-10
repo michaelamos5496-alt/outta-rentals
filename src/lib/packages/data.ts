@@ -95,7 +95,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "lite",
         label: "LITE",
-        price: 2200,
+        price: 2040,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx3", quantity: 1 },
@@ -105,7 +105,6 @@ export const packages: ProductionPackage[] = [
           { role: "Lighting", productSlug: "amaran-200x-s", quantity: 1 },
           { role: "Lighting", productSlug: "amaran-300c", quantity: 1 },
           { role: "Audio", productSlug: "dji-mic", quantity: 1 },
-          { role: "Audio", productSlug: "zoom-recorder", quantity: 1 },
           { role: "Accessories", productSlug: "reflector", quantity: 1 },
         ],
       },
