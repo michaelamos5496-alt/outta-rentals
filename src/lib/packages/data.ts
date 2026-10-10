@@ -26,7 +26,7 @@ export const packages: ProductionPackage[] = [
         price: 3520,
         currency: "GHS",
         items: [
-          { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
+          { role: "Camera", productSlug: "sony-fx3", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-546gb", quantity: 1 },
           { role: "Monitoring", productSlug: "wireless-directors-monitor", quantity: 1 },
           { role: "Support", productSlug: "dji-rs3-pro-combo-with-ring", quantity: 1 },
@@ -48,6 +48,7 @@ export const packages: ProductionPackage[] = [
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
+          { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
           { role: "Lens", productSlug: "dzofilm-pictor-zoom-20-55mm-t2-8", quantity: 1 },
           { role: "Lens", productSlug: "dzofilm-pictor-zoom-50-125mm-t2-8", quantity: 1 },
           { role: "Accessories", productSlug: "lidar-focus-pro", quantity: 1 },
