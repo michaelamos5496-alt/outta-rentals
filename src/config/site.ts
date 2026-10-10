@@ -68,6 +68,7 @@ export const footerLinkGroups: FooterLinkGroup[] = [
     title: "Contact",
     links: [
       { label: "Instagram", href: siteConfig.instagramUrl },
+      { label: "Email", href: `mailto:${siteConfig.email}` },
       { label: "WhatsApp", href: whatsappDigits ? `https://wa.me/${whatsappDigits}` : "#" },
       { label: "Location", href: siteConfig.mapsUrl },
     ],
