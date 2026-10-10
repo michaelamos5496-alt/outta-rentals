@@ -29,7 +29,7 @@ export const packages: ProductionPackage[] = [
           { role: "Camera", productSlug: "sony-fx3", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-546gb", quantity: 1 },
           { role: "Monitoring", productSlug: "wireless-directors-monitor", quantity: 1 },
-          { role: "Support", productSlug: "dji-rs3-pro-combo-with-ring", quantity: 1 },
+          { role: "Support", productSlug: "dji-rs3-pro-with-ring", quantity: 1 },
           { role: "Lighting", productSlug: "aputure-600x", quantity: 1 },
           { role: "Lighting", productSlug: "amaran-300c", quantity: 1 },
           { role: "Lighting", productSlug: "amaran-200x-s", quantity: 1 },
