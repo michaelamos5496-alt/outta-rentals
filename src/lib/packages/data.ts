@@ -138,7 +138,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "yolo",
         label: "YOLO",
-        price: 10280,
+        price: 9480,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
@@ -146,7 +146,6 @@ export const packages: ProductionPackage[] = [
           { role: "Accessories", productSlug: "wireless-focus-system", quantity: 1 },
           { role: "Accessories", productSlug: "teradek-wireless-video-transmitter", quantity: 1 },
           { role: "Monitoring", productSlug: "smallhd-dir-monitor", quantity: 1 },
-          { role: "Monitoring", productSlug: "atomos-sumo-19-monitor", quantity: 1 },
           { role: "Accessories", productSlug: "tilta-3-way-matte-box", quantity: 1 },
           { role: "Accessories", productSlug: "tiffen-black-pro-mist", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-116-mrk3", quantity: 1 },
