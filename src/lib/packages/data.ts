@@ -114,7 +114,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "top-guy",
         label: "TOP GUY",
-        price: 4200,
+        price: 4520,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
@@ -130,6 +130,7 @@ export const packages: ProductionPackage[] = [
           { role: "Accessories", productSlug: "extension-cable", dayRate: 200, quantity: 1 },
           { role: "Audio", productSlug: "zoom-recorder", quantity: 1 },
           { role: "Audio", productSlug: "sennheiser-lapel-mic", quantity: 1 },
+          { role: "Audio", productSlug: "moma-solidcom-se-5s", quantity: 1 },
           { role: "Accessories", productSlug: "reflector", quantity: 1 },
           { role: "Accessories", productSlug: "8x8ft-diffusion", quantity: 1 },
           { role: "Accessories", productSlug: "floppy", quantity: 1 },
@@ -190,7 +191,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "top-guy",
         label: "TOP GUY",
-        price: 9240,
+        price: 9560,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
@@ -198,6 +199,7 @@ export const packages: ProductionPackage[] = [
           { role: "Lens", productSlug: "dzofilm-pictor-zoom-50-125mm-t2-8", quantity: 1 },
           { role: "Accessories", productSlug: "lidar-focus-pro", quantity: 1 },
           { role: "Monitoring", productSlug: "wireless-directors-monitor", quantity: 1 },
+          { role: "Audio", productSlug: "moma-solidcom-se-5s", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-116-mrk3", quantity: 1 },
           { role: "Support", productSlug: "freefly-movi-pro", quantity: 1 },
           { role: "Lighting", productSlug: "aputure-600x", quantity: 1 },
@@ -265,7 +267,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "top-guy",
         label: "TOP GUY",
-        price: 8680,
+        price: 9000,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
@@ -273,6 +275,7 @@ export const packages: ProductionPackage[] = [
           { role: "Lens", productSlug: "dzofilm-pictor-zoom-50-125mm-t2-8", quantity: 1 },
           { role: "Accessories", productSlug: "lidar-focus-pro", quantity: 1 },
           { role: "Monitoring", productSlug: "wireless-directors-monitor", quantity: 1 },
+          { role: "Audio", productSlug: "moma-solidcom-se-5s", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-116-mrk3", quantity: 1 },
           { role: "Support", productSlug: "dana-dolly-slider", quantity: 1 },
           { role: "Lighting", productSlug: "aputure-600x", quantity: 1 },
