@@ -53,6 +53,8 @@ export const packages: ProductionPackage[] = [
           { role: "Accessories", productSlug: "lidar-focus-pro", quantity: 1 },
           { role: "Accessories", productSlug: "tilta-3-way-matte-box", quantity: 1 },
           { role: "Accessories", productSlug: "tiffen-black-pro-mist", quantity: 1 },
+          { role: "Accessories", productSlug: "teradek-wireless-video-transmitter", quantity: 1 },
+          { role: "Monitoring", productSlug: "wireless-directors-monitor", quantity: 1 },
           { role: "Monitoring", productSlug: "pyro-7-transceiver-monitors-pair", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-116-mrk3", quantity: 1 },
           { role: "Lighting", productSlug: "aputure-600x", quantity: 1 },
