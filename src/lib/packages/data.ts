@@ -217,7 +217,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "yolo",
         label: "YOLO",
-        price: 11560,
+        price: 12520,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
@@ -229,6 +229,7 @@ export const packages: ProductionPackage[] = [
           { role: "Accessories", productSlug: "tilta-3-way-matte-box", quantity: 1 },
           { role: "Accessories", productSlug: "tiffen-black-pro-mist", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-116-mrk3", quantity: 1 },
+          { role: "Support", productSlug: "freefly-movi-pro", quantity: 1 },
           { role: "Lighting", productSlug: "aputure-600x", quantity: 1 },
           { role: "Lighting", productSlug: "nanlite-fc-720b", quantity: 1 },
           { role: "Lighting", productSlug: "aputure-ls-1200d", quantity: 1 },
