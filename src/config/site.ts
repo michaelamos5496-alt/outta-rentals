@@ -50,9 +50,9 @@ export const footerLinkGroups: FooterLinkGroup[] = [
   {
     title: "Services",
     links: [
-      { label: "Custom Packages", href: "/services" },
-      { label: "Production Support", href: "/services" },
-      { label: "Delivery & Collection", href: "/services" },
+      { label: "Packages", href: "/packages" },
+      { label: "Production Support", href: "/services/production-support" },
+      { label: "Delivery & Collection", href: "/services/delivery-collection" },
     ],
   },
   {
