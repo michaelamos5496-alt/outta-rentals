@@ -26,7 +26,7 @@ export const packages: ProductionPackage[] = [
         price: 2160,
         currency: "GHS",
         items: [
-          { role: "Camera", productSlug: "sony-fx3", quantity: 1 },
+          { role: "Camera", productSlug: "sony-fx3", orProductSlug: "blackmagic-6k-pro", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-546gb", quantity: 1 },
           { role: "Monitoring", productSlug: "cage-directors-monitor-hollyland", quantity: 1 },
           { role: "Support", productSlug: "dji-rs3-pro-with-ring", quantity: 1 },
@@ -98,7 +98,7 @@ export const packages: ProductionPackage[] = [
         price: 2040,
         currency: "GHS",
         items: [
-          { role: "Camera", productSlug: "sony-fx3", quantity: 1 },
+          { role: "Camera", productSlug: "sony-fx3", orProductSlug: "blackmagic-6k-pro", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-546gb", quantity: 1 },
           { role: "Accessories", productSlug: "tilta-mirage-matte-box-w-vnd", quantity: 1 },
           { role: "Support", productSlug: "dji-rs3-pro-combo-with-ring", quantity: 1 },
@@ -172,7 +172,7 @@ export const packages: ProductionPackage[] = [
         price: 2920,
         currency: "GHS",
         items: [
-          { role: "Camera", productSlug: "sony-fx3", quantity: 1 },
+          { role: "Camera", productSlug: "sony-fx3", orProductSlug: "blackmagic-6k-pro", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-546gb", quantity: 1 },
           { role: "Accessories", productSlug: "tilta-mirage-matte-box-w-vnd", quantity: 1 },
           { role: "Support", productSlug: "dji-rs3-pro-combo-with-ring", quantity: 1 },
@@ -265,7 +265,7 @@ export const packages: ProductionPackage[] = [
         price: 5520,
         currency: "GHS",
         items: [
-          { role: "Camera", productSlug: "sony-fx3", quantity: 1 },
+          { role: "Camera", productSlug: "sony-fx3", orProductSlug: "blackmagic-6k-pro", quantity: 1 },
           { role: "Lens", productSlug: "dzofilm-pictor-zoom-20-55mm-t2-8", quantity: 1 },
           { role: "Monitoring", productSlug: "wireless-directors-monitor-double", quantity: 1 },
           { role: "Audio", productSlug: "moma-solidcom-se-5s", quantity: 1 },
