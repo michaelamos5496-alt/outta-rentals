@@ -2,9 +2,11 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { LayoutGrid, List, SlidersHorizontal } from "lucide-react";
 
 import { useDebouncedValue } from "@/lib/use-debounced-value";
+import { slideUp, viewportOnce } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import {
   brands,
@@ -35,6 +37,7 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { ProductCard } from "@/components/catalogue/product-card";
+import { EquipmentRentalCard } from "@/components/catalogue/equipment-rental-card";
 import { FilterPanel, type CatalogueFilters } from "@/components/catalogue/filter-panel";
 
 type SortKey = "featured" | "name-asc" | "price-asc" | "price-desc";
@@ -356,7 +359,19 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
                 }
               >
                 {visible.map((product) => (
-                  <ProductCard key={product.id} product={product} view={view} />
+                  <motion.div
+                    key={product.id}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={viewportOnce}
+                    variants={slideUp(0, 16)}
+                  >
+                    {view === "grid" ? (
+                      <EquipmentRentalCard product={product} />
+                    ) : (
+                      <ProductCard product={product} view={view} />
+                    )}
+                  </motion.div>
                 ))}
               </div>
               {hasMore ? <div ref={loadMoreRef} aria-hidden className="h-10" /> : null}
