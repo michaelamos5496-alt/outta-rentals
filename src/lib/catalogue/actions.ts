@@ -147,6 +147,9 @@ const ADD_ON_CATEGORIES: Record<string, string[]> = {
   audio: ["audio", "camera-accessories"],
 };
 
+/** Generic utility items that aren't camera gear — never auto-suggested on a camera or lens. */
+const NOT_CAMERA_GEAR = new Set(["extension-cable"]);
+
 /** Most suggestions taken from any one category, so no single category floods the list. */
 const MAX_PER_CATEGORY = 4;
 
@@ -183,6 +186,9 @@ export async function getQuickViewAddOns(
   const eligible = all.filter((p) => {
     if (p.slug === product.slug || p.availability !== "available" || p.dayRate <= 0) return false;
     if (listed.has(p.slug)) return true;
+    if (NOT_CAMERA_GEAR.has(p.slug) && (product.categorySlug === "cameras" || product.categorySlug === "lenses")) {
+      return false;
+    }
     if (!allowed.includes(p.categorySlug)) return false;
     // Don't suggest a lens/camera on a different mount.
     const theirs = mountsOf(p);
