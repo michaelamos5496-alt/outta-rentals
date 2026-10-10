@@ -1,13 +1,19 @@
 /**
- * One-time catalogue seed: copies the static demo catalogue
+ * Catalogue sync: upserts the static demo catalogue
  * (src/lib/catalogue/{products,categories,brands}.ts) into the real
  * Supabase tables (brands, categories, products, product_specifications,
  * rental_rates, product_accessories, product_compatibility), so the admin
  * panel's create/edit/delete actions have real data to work on and the
  * public site reads from the database instead of the static fallback.
  *
- * Safe to re-run: it clears the catalogue tables first, then re-inserts
- * everything from the static source fresh.
+ * Safe to re-run after any catalogue.ts edit: everything here is matched
+ * and written by slug, not wiped and rebuilt — so existing products keep
+ * their database id (and everything that points at it: product_images,
+ * product_stock, rental_bookings, past quotes) instead of getting a new one
+ * every run. It never touches product_images or product_stock at all, and
+ * never deletes a product — including ones created straight in the admin
+ * panel that aren't in this static file. It only adds/updates products that
+ * *are* in catalogue.ts.
  *
  * Run with: npx tsx scripts/seed-supabase.ts
  */
@@ -38,50 +44,37 @@ async function main() {
   }
   const supabase = createClient(url, serviceRoleKey, { auth: { persistSession: false } });
 
-  console.log("Clearing existing catalogue rows…");
-  // Children first (FK references), then parents. Empty-table deletes are
-  // no-ops, so this is safe whether or not anything was seeded before.
-  for (const table of [
-    "product_compatibility",
-    "product_accessories",
-    "rental_rates",
-    "product_specifications",
-    "product_images",
-    "products",
-    "categories",
-    "brands",
-  ]) {
-    const { error } = await supabase.from(table).delete().not("id", "is", null);
-    if (error) throw new Error(`Failed clearing ${table}: ${error.message}`);
-  }
-
-  console.log(`Inserting ${brands.length} brands…`);
+  console.log(`Upserting ${brands.length} brands…`);
   const { data: brandRows, error: brandErr } = await supabase
     .from("brands")
-    .insert(brands.map((b) => ({ name: b.name, slug: b.slug, logo_url: b.logoUrl ?? null, description: b.description ?? null })))
+    .upsert(
+      brands.map((b) => ({ name: b.name, slug: b.slug, logo_url: b.logoUrl ?? null, description: b.description ?? null })),
+      { onConflict: "slug" }
+    )
     .select("id, slug");
-  if (brandErr) throw new Error(`Failed inserting brands: ${brandErr.message}`);
+  if (brandErr) throw new Error(`Failed upserting brands: ${brandErr.message}`);
   const brandIdBySlug = new Map((brandRows ?? []).map((r) => [r.slug, r.id as string]));
 
-  console.log(`Inserting ${categories.length} categories…`);
+  console.log(`Upserting ${categories.length} categories…`);
   const { data: categoryRows, error: categoryErr } = await supabase
     .from("categories")
-    .insert(
+    .upsert(
       categories.map((c) => ({
         name: c.name,
         slug: c.slug,
         description: c.description ?? null,
         image_url: c.imageUrl ?? null,
-      }))
+      })),
+      { onConflict: "slug" }
     )
     .select("id, slug");
-  if (categoryErr) throw new Error(`Failed inserting categories: ${categoryErr.message}`);
+  if (categoryErr) throw new Error(`Failed upserting categories: ${categoryErr.message}`);
   const categoryIdBySlug = new Map((categoryRows ?? []).map((r) => [r.slug, r.id as string]));
 
-  console.log(`Inserting ${products.length} products…`);
+  console.log(`Upserting ${products.length} products…`);
   const { data: productRows, error: productErr } = await supabase
     .from("products")
-    .insert(
+    .upsert(
       products.map((p) => ({
         name: p.name,
         slug: p.slug,
@@ -91,16 +84,26 @@ async function main() {
         short_description: p.shortDescription,
         description: p.description,
         status: p.availability,
-        stock_quantity: 1,
         tags: p.tags,
         included: p.included,
         featured: Boolean(p.featured),
         is_new: Boolean(p.isNew),
-      }))
+      })),
+      { onConflict: "slug" }
     )
     .select("id, slug");
-  if (productErr) throw new Error(`Failed inserting products: ${productErr.message}`);
+  if (productErr) throw new Error(`Failed upserting products: ${productErr.message}`);
   const productIdBySlug = new Map((productRows ?? []).map((r) => [r.slug, r.id as string]));
+  const catalogueProductIds = [...productIdBySlug.values()];
+
+  // These four tables are fully derived from catalogue.ts, so it's safe to
+  // replace them — but only for the products this static file knows about,
+  // never a blanket delete of the whole table.
+  console.log("Clearing derived rows for catalogue products…");
+  for (const table of ["rental_rates", "product_specifications", "product_accessories", "product_compatibility"]) {
+    const { error } = await supabase.from(table).delete().in("product_id", catalogueProductIds);
+    if (error) throw new Error(`Failed clearing ${table}: ${error.message}`);
+  }
 
   const rateRows = products
     .map((p) => {
