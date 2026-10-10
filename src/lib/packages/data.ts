@@ -61,7 +61,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "yolo",
         label: "YOLO",
-        price: 12120,
+        price: 12760,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
@@ -70,6 +70,7 @@ export const packages: ProductionPackage[] = [
           { role: "Accessories", productSlug: "teradek-wireless-video-transmitter", quantity: 1 },
           { role: "Monitoring", productSlug: "smallhd-dir-monitor", quantity: 1 },
           { role: "Monitoring", productSlug: "atomos-sumo-19-monitor", quantity: 1 },
+          { role: "Audio", productSlug: "hollyland-solidcom-se-pro-9s", quantity: 1 },
           { role: "Accessories", productSlug: "tilta-3-way-matte-box", quantity: 1 },
           { role: "Accessories", productSlug: "tiffen-black-pro-mist", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-116-mrk3", quantity: 1 },
@@ -139,7 +140,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "yolo",
         label: "YOLO",
-        price: 9480,
+        price: 10120,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
@@ -147,6 +148,7 @@ export const packages: ProductionPackage[] = [
           { role: "Accessories", productSlug: "wireless-focus-system", quantity: 1 },
           { role: "Accessories", productSlug: "teradek-wireless-video-transmitter", quantity: 1 },
           { role: "Monitoring", productSlug: "smallhd-dir-monitor", quantity: 1 },
+          { role: "Audio", productSlug: "hollyland-solidcom-se-pro-9s", quantity: 1 },
           { role: "Accessories", productSlug: "tilta-3-way-matte-box", quantity: 1 },
           { role: "Accessories", productSlug: "tiffen-black-pro-mist", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-116-mrk3", quantity: 1 },
@@ -215,7 +217,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "yolo",
         label: "YOLO",
-        price: 10920,
+        price: 11560,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
@@ -223,6 +225,7 @@ export const packages: ProductionPackage[] = [
           { role: "Accessories", productSlug: "wireless-focus-system", quantity: 1 },
           { role: "Accessories", productSlug: "teradek-wireless-video-transmitter", quantity: 1 },
           { role: "Monitoring", productSlug: "smallhd-dir-monitor", quantity: 1 },
+          { role: "Audio", productSlug: "hollyland-solidcom-se-pro-9s", quantity: 1 },
           { role: "Accessories", productSlug: "tilta-3-way-matte-box", quantity: 1 },
           { role: "Accessories", productSlug: "tiffen-black-pro-mist", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-116-mrk3", quantity: 1 },
