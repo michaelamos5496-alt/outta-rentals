@@ -60,9 +60,11 @@ function PackageTierSwitcher({ packageSlug, tiers, initialTierSlug }: PackageTie
       ) : null}
 
       {copy ? (
-        <div className="mb-6">
-          <p className="font-medium">{copy.title}</p>
-          <p className="text-small mt-1 max-w-xl">{copy.description}</p>
+        <div className="mb-6 border-l-4 border-brand bg-brand/10 px-4 py-3">
+          <p className="text-lg font-bold leading-snug text-foreground sm:text-xl">{copy.title}</p>
+          <p className="mt-1 max-w-xl text-base font-semibold leading-snug text-foreground/80">
+            {copy.description}
+          </p>
         </div>
       ) : null}
 
