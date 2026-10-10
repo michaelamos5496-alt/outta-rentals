@@ -1,0 +1,4838 @@
+{
+  "takenAt": "2026-10-10T20:36:02.691Z",
+  "brands": [
+    {
+      "id": "5dcbb3f9-5587-4602-a686-26825e2a094b",
+      "name": "Sony",
+      "slug": "sony",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "69ce2d05-7209-4e92-8c6c-0d999e06b379",
+      "name": "Canon",
+      "slug": "canon",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "9fec510e-4c59-40d2-a087-138690232fc0",
+      "name": "ARRI",
+      "slug": "arri",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "a7752e71-9160-4b36-b134-154280a26fbe",
+      "name": "RED",
+      "slug": "red",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "a6a6047f-92a4-4c09-a031-a9da97680d1f",
+      "name": "Sigma",
+      "slug": "sigma",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "77e9439c-2721-4f54-9813-bd57a11d585e",
+      "name": "Aputure",
+      "slug": "aputure",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "0cea8ba8-8513-4402-b1b2-95e4565425b4",
+      "name": "Amaran",
+      "slug": "amaran",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "083c6f76-edb3-4f38-a619-c702f32d263f",
+      "name": "Godox",
+      "slug": "godox",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "c5ace1e4-5595-4fdb-9c1b-29dd901b1c59",
+      "name": "SmallHD",
+      "slug": "smallhd",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "4d95764d-3978-4ba1-a46f-fffdc1606b76",
+      "name": "DJI",
+      "slug": "dji",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "3bba4620-229d-4f91-8002-b86744e1a277",
+      "name": "Sachtler",
+      "slug": "sachtler",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "4099fc2d-ca90-47ab-b02a-c9772063014a",
+      "name": "Sennheiser",
+      "slug": "sennheiser",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "a9c670da-8866-4a14-9ba1-923987345bb1",
+      "name": "Blackmagic Design",
+      "slug": "blackmagic",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "2998cbf7-decc-469c-9822-3f678465db00",
+      "name": "DZOFilm",
+      "slug": "dzofilm",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "88d13b2d-0754-4439-8163-2a73c100b5bf",
+      "name": "Laowa",
+      "slug": "laowa",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "35b8fa25-3da2-4267-9421-a25a5fac0ed3",
+      "name": "Wooden Camera",
+      "slug": "wooden-camera",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "8a748e1e-fc58-4a74-9397-902752fadc1e",
+      "name": "Tilta",
+      "slug": "tilta",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "92df2f8b-53ac-4119-820f-1b46b1bbb995",
+      "name": "Tiffen",
+      "slug": "tiffen",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "016c2455-d6d6-46e9-9838-d65a959097f9",
+      "name": "Nanlux",
+      "slug": "nanlux",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "d13b4e98-44af-4aff-91fb-11008282e386",
+      "name": "Infinibar",
+      "slug": "infinibar",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "038002ec-04f8-455b-8807-f02fd9f59fd7",
+      "name": "Nanlite",
+      "slug": "nanlite",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "5c1cfef9-3bb6-47b3-a788-fdb3dbac0935",
+      "name": "Atomos",
+      "slug": "atomos",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "f7149969-e793-443c-a8c9-5260b06718c8",
+      "name": "Teradek",
+      "slug": "teradek",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "d233a8d0-95c4-4dcd-b38b-f282448079a4",
+      "name": "Freefly",
+      "slug": "freefly",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "149ebb75-3039-494c-bb39-b0b2699ea0af",
+      "name": "Manfrotto",
+      "slug": "manfrotto",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "c6a499aa-a6b8-444b-ae7e-184bb83ea495",
+      "name": "SmallRig",
+      "slug": "smallrig",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "0f6e2583-15d9-4934-9218-ce33bd5405c5",
+      "name": "Zoom",
+      "slug": "zoom",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "b8753fea-f6cd-417f-805f-cccb902bd828",
+      "name": "Hollyland",
+      "slug": "hollyland",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "6fb87c16-b5d7-44f5-8a40-946564913e20",
+      "name": "Pyro",
+      "slug": "pyro",
+      "logo_url": null,
+      "description": null
+    },
+    {
+      "id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "name": "OUTTA Essentials",
+      "slug": "outta-essentials",
+      "logo_url": null,
+      "description": null
+    }
+  ],
+  "categories": [
+    {
+      "id": "23daa22f-693b-4f13-ae48-62c02375f884",
+      "name": "Cameras",
+      "slug": "cameras",
+      "description": "Cinema and mirrorless camera bodies for every production scale.",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "id": "9058dc28-01fd-4deb-a278-9e1bac9b322f",
+      "name": "Lenses",
+      "slug": "lenses",
+      "description": "Cine primes, zooms and specialty glass.",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "name": "Lighting",
+      "slug": "lighting",
+      "description": "LED, HMI and tungsten fixtures for any setup.",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "name": "Grip",
+      "slug": "grip",
+      "description": "Tripods, gimbals, jibs, sliders, stands and camera support.",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "id": "0f5813e1-2135-4bb8-bd8e-1365f1eebff4",
+      "name": "Monitors",
+      "slug": "monitors",
+      "description": "On-camera and production monitoring.",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "id": "fa3c43b5-0cdd-4554-9143-1a177900297f",
+      "name": "Camera Accessories",
+      "slug": "camera-accessories",
+      "description": "Wireless focus, video transmitters and on-set camera support.",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "name": "Lighting Modifiers",
+      "slug": "lighting-modifiers",
+      "description": "Bounce, diffusion, flags and grip for lighting.",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "id": "bbe859a5-4acb-41d9-b084-1e08e62543f3",
+      "name": "Filters",
+      "slug": "filters",
+      "description": "ND, diffusion and polarizing filters.",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "id": "a4c39130-a6d3-4e7e-ba03-3405a1c81e6d",
+      "name": "Matte Boxes",
+      "slug": "matte-boxes",
+      "description": "Lens shading and filter-mounting systems.",
+      "parent_id": null,
+      "image_url": null
+    },
+    {
+      "id": "b4e5ad94-37b6-494e-bf8d-80c61451f0c7",
+      "name": "Audio",
+      "slug": "audio",
+      "description": "Wireless mics, boom and field recording gear.",
+      "parent_id": null,
+      "image_url": null
+    }
+  ],
+  "products": [
+    {
+      "id": "3382e880-68dd-4927-a26a-92d3fedd2185",
+      "name": "ARRI Alexa Mini (Foreign)",
+      "slug": "arri-alexa-mini-foreign",
+      "sku": "OUTTA-CAM-0108",
+      "brand_id": "9fec510e-4c59-40d2-a087-138690232fc0",
+      "category_id": "23daa22f-693b-4f13-ae48-62c02375f884",
+      "short_description": "Real OUTTA inventory — camera body, available to rent.",
+      "description": "ARRI Alexa Mini (Foreign) — camera body from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "cameras"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "0a2f7542-50c2-4e71-9cf2-5f66982402ac",
+      "name": "DJI RS3 Pro with Ring",
+      "slug": "dji-rs3-pro-with-ring",
+      "sku": "OUTTA-GRP-0407",
+      "brand_id": "4d95764d-3978-4ba1-a46f-fffdc1606b76",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Real OUTTA inventory — 3-axis motorized gimbal with ring grip, available to rent.",
+      "description": "DJI RS3 Pro with Ring — 3-axis motorized gimbal with its ring grip, from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "grip"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "67bba17e-700b-4ded-8887-0d2adadd4d71",
+      "name": "DJI RS3 Pro Ring Grip",
+      "slug": "dji-rs3-pro-ring-grip",
+      "sku": "OUTTA-GRP-0406",
+      "brand_id": "4d95764d-3978-4ba1-a46f-fffdc1606b76",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Real OUTTA inventory — gimbal ring grip, available to rent.",
+      "description": "DJI RS3 Pro Ring Grip — handheld ring grip accessory for the RS3 Pro, from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "grip"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "ba67535c-12b6-49cf-98ed-590eec4725e1",
+      "name": "Sachtler Video 25 Plus Tripod",
+      "slug": "sachtler-video-25-plus-tripod",
+      "sku": "OUTTA-CAC-0912",
+      "brand_id": "3bba4620-229d-4f91-8002-b86744e1a277",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Real OUTTA inventory — video tripod, available to rent.",
+      "description": "Sachtler Video 25 Plus Tripod — video tripod from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "grip"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "7dae0a31-862f-43cc-a27c-b4f2fed9c72d",
+      "name": "Aputure MC (LS Mini)",
+      "slug": "aputure-mc-ls-mini",
+      "sku": "OUTTA-LGT-0314",
+      "brand_id": "77e9439c-2721-4f54-9813-bd57a11d585e",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — pocket-size RGBWW light, available to rent.",
+      "description": "Aputure MC (LS Mini) — pocket-size RGBWW light from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "134efd4b-29d9-4600-a4de-78875906f1df",
+      "name": "Amaran F22c",
+      "slug": "amaran-f22c",
+      "sku": "OUTTA-LGT-0315",
+      "brand_id": "0cea8ba8-8513-4402-b1b2-95e4565425b4",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — RGBWW soft panel, available to rent.",
+      "description": "Amaran F22c — RGBWW soft panel from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "bfdb4b11-d42d-45df-b9c5-139273b6ec3a",
+      "name": "Amaran 300c",
+      "slug": "amaran-300c",
+      "sku": "OUTTA-LGT-0316",
+      "brand_id": "0cea8ba8-8513-4402-b1b2-95e4565425b4",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — RGBWW LED fixture, available to rent.",
+      "description": "Amaran 300c — RGBWW LED fixture from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "a87214e7-123c-4fd6-a2a9-b8c2c86bcd5c",
+      "name": "Amaran 150c",
+      "slug": "amaran-150c",
+      "sku": "OUTTA-LGT-0317",
+      "brand_id": "0cea8ba8-8513-4402-b1b2-95e4565425b4",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — RGBWW LED fixture, available to rent.",
+      "description": "Amaran 150c — RGBWW LED fixture from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "37ce7209-5f88-4c18-8432-d19ae07c7e35",
+      "name": "Godox KNOWLED Mat Light 4x4",
+      "slug": "godox-knowled-mat-light-4x4",
+      "sku": "OUTTA-LGT-0318",
+      "brand_id": "083c6f76-edb3-4f38-a619-c702f32d263f",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — flexible LED mat light, available to rent.",
+      "description": "Godox KNOWLED Mat Light 4x4 — flexible LED mat light from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "ed81c74d-2a03-4174-80ae-8aedbc33e431",
+      "name": "Godox Mat Light 4x2",
+      "slug": "godox-mat-light-4x2",
+      "sku": "OUTTA-LGT-0319",
+      "brand_id": "083c6f76-edb3-4f38-a619-c702f32d263f",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — flexible LED mat light, available to rent.",
+      "description": "Godox Mat Light 4x2 — flexible LED mat light from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "b543f95c-91fb-4e75-b6a0-57d91cafde36",
+      "name": "Godox Mat Light 2x2",
+      "slug": "godox-mat-light-2x2",
+      "sku": "OUTTA-LGT-0320",
+      "brand_id": "083c6f76-edb3-4f38-a619-c702f32d263f",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — flexible LED mat light, available to rent.",
+      "description": "Godox Mat Light 2x2 — flexible LED mat light from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "1dd07ff5-eff3-4aa5-8d1b-3c0af20e61af",
+      "name": "Godox Airtube Light",
+      "slug": "godox-airtube-light",
+      "sku": "OUTTA-LGT-0321",
+      "brand_id": "083c6f76-edb3-4f38-a619-c702f32d263f",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — flexible tube light, available to rent.",
+      "description": "Godox Airtube Light — flexible tube light from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "d1d47f53-a6a5-40a5-a0d4-c04787761b13",
+      "name": "Infinibar Full Set",
+      "slug": "infinibar-full-set",
+      "sku": "OUTTA-LGT-0322",
+      "brand_id": "d13b4e98-44af-4aff-91fb-11008282e386",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — LED bar light set, available to rent.",
+      "description": "Infinibar Full Set — LED bar light set from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "cc73b746-622b-4e2e-bbf3-f8174330846b",
+      "name": "Nanlite PavoTube 4ft",
+      "slug": "nanlite-pavotube-4ft",
+      "sku": "OUTTA-LGT-0323",
+      "brand_id": "038002ec-04f8-455b-8807-f02fd9f59fd7",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — RGBWW tube light, available to rent.",
+      "description": "Nanlite PavoTube 4ft — RGBWW tube light from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "62be676f-7f6a-4174-aedf-623b2847ffcc",
+      "name": "Nanlite PavoTube 1ft",
+      "slug": "nanlite-pavotube-1ft",
+      "sku": "OUTTA-LGT-0324",
+      "brand_id": "038002ec-04f8-455b-8807-f02fd9f59fd7",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — RGBWW tube light, available to rent.",
+      "description": "Nanlite PavoTube 1ft — RGBWW tube light from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "d22419e0-0eb4-4eb5-a713-9b62c82573c1",
+      "name": "Nanlite F60",
+      "slug": "nanlite-f60",
+      "sku": "OUTTA-LGT-0325",
+      "brand_id": "038002ec-04f8-455b-8807-f02fd9f59fd7",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — LED fresnel light, available to rent.",
+      "description": "Nanlite F60 — LED fresnel light from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "fcc5c5d3-d556-4ff7-85e0-18bcf046809b",
+      "name": "12x12ft Butterfly",
+      "slug": "12x12ft-butterfly",
+      "sku": "OUTTA-LGM-1201",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — butterfly frame, available to rent.",
+      "description": "12x12ft Butterfly — butterfly frame from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "021d44c1-6339-4042-8466-86d86f00c1a9",
+      "name": "12x12ft Checkerboard",
+      "slug": "12x12ft-checkerboard",
+      "sku": "OUTTA-LGM-1202",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — checkerboard net, available to rent.",
+      "description": "12x12ft Checkerboard — checkerboard net from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "d8d72381-4d0a-4569-b6f8-6d75b32e3551",
+      "name": "12x12ft Ultrabounce",
+      "slug": "12x12ft-ultrabounce",
+      "sku": "OUTTA-LGM-1203",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — ultrabounce silk, available to rent.",
+      "description": "12x12ft Ultrabounce — ultrabounce silk from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "15806e89-3782-4a01-b992-d4ee58e24d5c",
+      "name": "8x8ft Butterfly",
+      "slug": "8x8ft-butterfly",
+      "sku": "OUTTA-LGM-1205",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — butterfly frame, available to rent.",
+      "description": "8x8ft Butterfly — butterfly frame from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "2b0108d7-6f37-4516-a087-2678deef903d",
+      "name": "8x8ft Ultrabounce",
+      "slug": "8x8ft-ultrabounce",
+      "sku": "OUTTA-LGM-1206",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — ultrabounce silk, available to rent.",
+      "description": "8x8ft Ultrabounce — ultrabounce silk from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "7e568a54-bb0d-4757-ac45-8b8bad6f27c2",
+      "name": "8x8ft Checkerboard",
+      "slug": "8x8ft-checkerboard",
+      "sku": "OUTTA-LGM-1204",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — checkerboard net, available to rent.",
+      "description": "8x8ft Checkerboard — checkerboard net from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "6b8bc88e-fd3d-4f83-93e4-75685e0bd003",
+      "name": "8x8ft Black Out",
+      "slug": "8x8ft-black-out",
+      "sku": "OUTTA-LGM-1207",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — blackout silk, available to rent.",
+      "description": "8x8ft Black Out — blackout silk from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "0587897d-02be-46fd-9381-06d82b16c59d",
+      "name": "6x6ft Ultrabounce",
+      "slug": "6x6ft-ultrabounce",
+      "sku": "OUTTA-LGM-1208",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — ultrabounce silk, available to rent.",
+      "description": "6x6ft Ultrabounce — ultrabounce silk from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "be9692ad-3efe-4dfe-adcf-e996d1e22ff6",
+      "name": "6x6ft Checkerboard",
+      "slug": "6x6ft-checkerboard",
+      "sku": "OUTTA-LGM-1209",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — checkerboard net, available to rent.",
+      "description": "6x6ft Checkerboard — checkerboard net from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "356ddb42-3d70-45cf-8b50-52db4fef998e",
+      "name": "4x4ft Checkerboard",
+      "slug": "4x4ft-checkerboard",
+      "sku": "OUTTA-LGM-1210",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — checkerboard net, available to rent.",
+      "description": "4x4ft Checkerboard — checkerboard net from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "5e12cf1c-19c0-4491-8783-a71b28ed14e5",
+      "name": "ARRI Alexa Mini LF",
+      "slug": "arri-alexa-mini-lf",
+      "sku": "OUTTA-CAM-0112",
+      "brand_id": "9fec510e-4c59-40d2-a087-138690232fc0",
+      "category_id": "23daa22f-693b-4f13-ae48-62c02375f884",
+      "short_description": "Real OUTTA inventory — camera body, available to rent.",
+      "description": "ARRI Alexa Mini LF — camera body from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "cameras"
+      ],
+      "included": [
+        "ARRI Alexa Mini LF body",
+        "Tilta body cage for ARRI",
+        "D-Tap splitter",
+        "2× SanDisk 512GB CFast cards",
+        "SanDisk 256GB CFast card",
+        "Wooden A-box",
+        "7in Portkeys / SmallHD monitor",
+        "Baseplate with dovetail plate",
+        "2× SmallRig 212Wh V-mounts",
+        "2× 198Wh V-mounts",
+        "Camera case"
+      ],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "2673dd76-1a02-4c98-9f6e-bf7575b7593d",
+      "name": "Sony FX6 (Cine Style)",
+      "slug": "sony-fx6",
+      "sku": "OUTTA-CAM-0114",
+      "brand_id": "5dcbb3f9-5587-4602-a686-26825e2a094b",
+      "category_id": "23daa22f-693b-4f13-ae48-62c02375f884",
+      "short_description": "Real OUTTA inventory — camera body, available to rent.",
+      "description": "Sony FX6 (Cine Style) — camera body from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "cameras"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "03e54829-dd67-44a5-b9f7-5d978ae5e763",
+      "name": "Sony FX5",
+      "slug": "sony-fx5",
+      "sku": "OUTTA-CAM-0116",
+      "brand_id": "5dcbb3f9-5587-4602-a686-26825e2a094b",
+      "category_id": "23daa22f-693b-4f13-ae48-62c02375f884",
+      "short_description": "Coming soon to OUTTA's rental inventory.",
+      "description": "Sony FX5 — coming soon to OUTTA's real rental inventory.",
+      "status": "coming_soon",
+      "stock_quantity": 1,
+      "tags": [
+        "cameras"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T18:26:31.46956+00:00",
+      "updated_at": "2026-10-10T18:26:31.46956+00:00",
+      "archived": false
+    },
+    {
+      "id": "172803e1-b779-4cc5-9007-d2db6c773b8d",
+      "name": "Blackmagic PYXIS 6K",
+      "slug": "blackmagic-pyxis-6k",
+      "sku": "OUTTA-CAM-0117",
+      "brand_id": "a9c670da-8866-4a14-9ba1-923987345bb1",
+      "category_id": "23daa22f-693b-4f13-ae48-62c02375f884",
+      "short_description": "Coming soon to OUTTA's rental inventory.",
+      "description": "Blackmagic PYXIS 6K — coming soon to OUTTA's real rental inventory.",
+      "status": "coming_soon",
+      "stock_quantity": 1,
+      "tags": [
+        "cameras"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T18:26:31.46956+00:00",
+      "updated_at": "2026-10-10T18:26:31.46956+00:00",
+      "archived": false
+    },
+    {
+      "id": "f1733848-8ca6-4f2f-9af2-29c2dd9e34e3",
+      "name": "Heavy Duty Tripod",
+      "slug": "heavy-duty-tripod",
+      "sku": "OUTTA-CAC-0901",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Real OUTTA inventory — camera support, available to rent.",
+      "description": "Heavy Duty Tripod — camera support from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "grip"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "1ee11a3a-1008-4b84-adff-dd908307a4bc",
+      "name": "Hi-Hat",
+      "slug": "hi-hat",
+      "sku": "OUTTA-CAC-0916",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Real OUTTA inventory — low-angle camera support, available to rent.",
+      "description": "Hi-Hat — low-angle camera support from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "grip"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "59cd0b3f-5280-42e7-9885-cf1e7f0d2d8e",
+      "name": "Mini Jib (12ft)",
+      "slug": "mini-jib-12ft",
+      "sku": "OUTTA-CAC-0909",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Real OUTTA inventory — camera jib, available to rent.",
+      "description": "Mini Jib (12ft) — camera jib from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "grip"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "5a3ecc2b-cfe7-480a-b797-5f1f81675865",
+      "name": "Retractable Jib",
+      "slug": "retractable-jib",
+      "sku": "OUTTA-CAC-0910",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Real OUTTA inventory — camera jib, available to rent.",
+      "description": "Retractable Jib — camera jib from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "grip"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "d8b15283-a528-412c-ba0c-64a08e04d1b0",
+      "name": "Dana Dolly Slider",
+      "slug": "dana-dolly-slider",
+      "sku": "OUTTA-CAC-0919",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Real OUTTA inventory — camera slider, available to rent.",
+      "description": "Dana Dolly Slider — camera slider from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "grip"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "236a4fad-6a53-468f-8002-84ce2c654fdd",
+      "name": "C-Stand Kit with Grip Head & Arm",
+      "slug": "c-stand-kit",
+      "sku": "OUTTA-GRP-0403",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Standard C-stand with grip head and arm — the set workhorse.",
+      "description": "A 40\" C-stand with a turtle base, grip head and extension arm — the standard support for flags, nets, small fixtures and bounce boards on any set.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "c-stand",
+        "grip",
+        "rigging"
+      ],
+      "included": [
+        "C-stand",
+        "Grip head",
+        "20\" arm",
+        "Sandbag"
+      ],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "ff3de450-c472-4432-b89c-23fd50560ce6",
+      "name": "Tiffen Glimmerglass",
+      "slug": "tiffen-glimmerglass",
+      "sku": "OUTTA-FIL-1007",
+      "brand_id": "92df2f8b-53ac-4119-820f-1b46b1bbb995",
+      "category_id": "bbe859a5-4acb-41d9-b084-1e08e62543f3",
+      "short_description": "Real OUTTA inventory — diffusion filter, available to rent.",
+      "description": "Tiffen Glimmerglass — diffusion filter from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "filters"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "a331dd0b-32b5-431e-b4df-480791ed14e5",
+      "name": "4x4ft Egg Crate",
+      "slug": "4x4ft-egg-crate",
+      "sku": "OUTTA-LGM-1216",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — egg crate light control, available to rent.",
+      "description": "4x4ft Egg Crate — egg crate light control from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "3062a6c0-03c1-4c0d-84a7-66ab1023e683",
+      "name": "6x6ft Egg Crate",
+      "slug": "6x6ft-egg-crate",
+      "sku": "OUTTA-LGM-1217",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — egg crate light control, available to rent.",
+      "description": "6x6ft Egg Crate — egg crate light control from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "13e7a92e-4978-4539-9f4d-9d16a5a91645",
+      "name": "Extension Cable",
+      "slug": "extension-cable",
+      "sku": "OUTTA-CAC-0921",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "fa3c43b5-0cdd-4554-9143-1a177900297f",
+      "short_description": "Real OUTTA inventory — power extension cable, available to rent.",
+      "description": "Extension Cable — power extension cable from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "camera-accessories"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "be87e2eb-a48b-43a9-9286-d336875c6966",
+      "name": "6x6ft Diffusion",
+      "slug": "6x6ft-diffusion",
+      "sku": "OUTTA-LGM-1221",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — diffusion frame, available to rent.",
+      "description": "6x6ft Diffusion — diffusion frame from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "37805ff1-d9bc-498e-9e11-07e94dba0cc4",
+      "name": "Pyro 7 Transceiver Monitors Pair",
+      "slug": "pyro-7-transceiver-monitors-pair",
+      "sku": "OUTTA-MON-0905",
+      "brand_id": "b8753fea-f6cd-417f-805f-cccb902bd828",
+      "category_id": "0f5813e1-2135-4bb8-bd8e-1365f1eebff4",
+      "short_description": "Real OUTTA inventory — wireless transceiver monitor pair, available to rent.",
+      "description": "Pyro 7 Transceiver Monitors Pair — wireless 7in transceiver monitor pair from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "monitors",
+        "wireless-video"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "1513cd28-f461-40bc-b6a1-b89a9abd37ff",
+      "name": "Pyro 7 S Transmitter",
+      "slug": "pyro-7-s-transmitter",
+      "sku": "OUTTA-CAC-0922",
+      "brand_id": "b8753fea-f6cd-417f-805f-cccb902bd828",
+      "category_id": "fa3c43b5-0cdd-4554-9143-1a177900297f",
+      "short_description": "Real OUTTA inventory — wireless video transmitter, available to rent.",
+      "description": "Pyro 7 S Transmitter — wireless video transmitter from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "camera-accessories",
+        "wireless-video"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "56fadeae-a7db-4c86-914a-7bc371b00bdc",
+      "name": "Hollyland Mars 400 Transmitter",
+      "slug": "hollyland-mars-400-transmitter",
+      "sku": "OUTTA-CAC-0923",
+      "brand_id": "b8753fea-f6cd-417f-805f-cccb902bd828",
+      "category_id": "fa3c43b5-0cdd-4554-9143-1a177900297f",
+      "short_description": "Real OUTTA inventory — wireless video transmitter, available to rent.",
+      "description": "Hollyland Mars 400 Transmitter — wireless video transmitter from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "camera-accessories",
+        "wireless-video"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "95d5d225-a7ca-42f1-8cdc-244ee4b5bb4c",
+      "name": "ARRI Alexa Mini",
+      "slug": "arri-alexa-mini",
+      "sku": "OUTTA-CAM-0107",
+      "brand_id": "9fec510e-4c59-40d2-a087-138690232fc0",
+      "category_id": "23daa22f-693b-4f13-ae48-62c02375f884",
+      "short_description": "Real OUTTA inventory — camera body, available to rent.",
+      "description": "ARRI Alexa Mini — camera body from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "cameras"
+      ],
+      "included": [
+        "ARRI Alexa Mini S35 body",
+        "Tilta body cage for ARRI",
+        "D-Tap splitter",
+        "2× SanDisk 512GB CFast cards",
+        "SanDisk 256GB CFast card",
+        "Wooden A-box",
+        "7in Portkeys / SmallHD monitor",
+        "Baseplate with dovetail plate",
+        "2× SmallRig 212Wh V-mounts",
+        "2× 198Wh V-mounts",
+        "Camera case"
+      ],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "c5f8f812-36d0-4333-8e26-105cb8d1e1f4",
+      "name": "RED Helium",
+      "slug": "red-helium",
+      "sku": "OUTTA-CAM-0109",
+      "brand_id": "a7752e71-9160-4b36-b134-154280a26fbe",
+      "category_id": "23daa22f-693b-4f13-ae48-62c02375f884",
+      "short_description": "Real OUTTA inventory — camera body, available to rent.",
+      "description": "RED Helium — camera body from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "cameras"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "1dfefe98-b19d-4ff3-809d-0e504aeacdfa",
+      "name": "Laowa 12mm EF",
+      "slug": "laowa-12mm-ef",
+      "sku": "OUTTA-LEN-0211",
+      "brand_id": "88d13b2d-0754-4439-8163-2a73c100b5bf",
+      "category_id": "9058dc28-01fd-4deb-a278-9e1bac9b322f",
+      "short_description": "Real OUTTA inventory — cine lens, available to rent.",
+      "description": "Laowa 12mm EF — cine lens from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lenses"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "7dd1903d-4217-421d-902e-41ddcfddb4a8",
+      "name": "Sigma 18-35mm",
+      "slug": "sigma-18-35mm",
+      "sku": "OUTTA-LEN-0212",
+      "brand_id": "a6a6047f-92a4-4c09-a031-a9da97680d1f",
+      "category_id": "9058dc28-01fd-4deb-a278-9e1bac9b322f",
+      "short_description": "Real OUTTA inventory — zoom lens, available to rent.",
+      "description": "Sigma 18-35mm — zoom lens from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lenses"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "d090b507-debc-4fe1-ad86-6ddbadaf3432",
+      "name": "Canon 24-105mm",
+      "slug": "canon-24-105mm",
+      "sku": "OUTTA-LEN-0213",
+      "brand_id": "69ce2d05-7209-4e92-8c6c-0d999e06b379",
+      "category_id": "9058dc28-01fd-4deb-a278-9e1bac9b322f",
+      "short_description": "Real OUTTA inventory — zoom lens, available to rent.",
+      "description": "Canon 24-105mm — zoom lens from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lenses"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "bbb81620-033c-4cf2-a6d0-971a7a5a6ec5",
+      "name": "Canon 70-200mm",
+      "slug": "canon-70-200mm",
+      "sku": "OUTTA-LEN-0214",
+      "brand_id": "69ce2d05-7209-4e92-8c6c-0d999e06b379",
+      "category_id": "9058dc28-01fd-4deb-a278-9e1bac9b322f",
+      "short_description": "Real OUTTA inventory — telephoto zoom lens, available to rent.",
+      "description": "Canon 70-200mm — telephoto zoom lens from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lenses"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "86c8373c-ac92-4dfd-a32c-94a357fa89be",
+      "name": "SmallHD DOP Monitor",
+      "slug": "smallhd-dop-monitor",
+      "sku": "OUTTA-MON-0903",
+      "brand_id": "c5ace1e4-5595-4fdb-9c1b-29dd901b1c59",
+      "category_id": "0f5813e1-2135-4bb8-bd8e-1365f1eebff4",
+      "short_description": "Real OUTTA inventory — production monitor, available to rent.",
+      "description": "SmallHD DOP Monitor — production monitor from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "monitors"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "5d0813d9-37e7-4327-9f12-11a9091a60f3",
+      "name": "DJI RS3 Pro Gimbal",
+      "slug": "dji-rs3-pro-gimbal",
+      "sku": "OUTTA-GRP-0405",
+      "brand_id": "4d95764d-3978-4ba1-a46f-fffdc1606b76",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Real OUTTA inventory — 3-axis motorized gimbal, available to rent.",
+      "description": "DJI RS3 Pro — 3-axis motorized gimbal, gimbal only, from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "grip"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "5d1f4672-6e40-4731-989a-aa40e5d238fb",
+      "name": "DJI RS3 Pro Combo with Ring",
+      "slug": "dji-rs3-pro-combo-with-ring",
+      "sku": "OUTTA-GRP-0404",
+      "brand_id": "4d95764d-3978-4ba1-a46f-fffdc1606b76",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Real OUTTA inventory — 3-axis motorized gimbal combo set, available to rent.",
+      "description": "DJI RS3 Pro Combo with Ring — 3-axis motorized gimbal with the full combo set, from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "grip"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "55b8f9a5-8c8a-453e-b885-57fd4701ed08",
+      "name": "Aputure Nova P300c",
+      "slug": "aputure-nova-p300c",
+      "sku": "OUTTA-LGT-0313",
+      "brand_id": "77e9439c-2721-4f54-9813-bd57a11d585e",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — RGBWW soft panel, available to rent.",
+      "description": "Aputure Nova P300c — RGBWW soft panel from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "29d18143-3ada-417f-9106-680ee41c1614",
+      "name": "Manfrotto 116 MRK3",
+      "slug": "manfrotto-116-mrk3",
+      "sku": "OUTTA-CAC-0913",
+      "brand_id": "149ebb75-3039-494c-bb39-b0b2699ea0af",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Real OUTTA inventory — video tripod, available to rent.",
+      "description": "Manfrotto 116 MRK3 — video tripod from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "grip"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "e4a3dcc2-54ef-457e-b340-36dc95e5b3c4",
+      "name": "Manfrotto 546GB",
+      "slug": "manfrotto-546gb",
+      "sku": "OUTTA-CAC-0914",
+      "brand_id": "149ebb75-3039-494c-bb39-b0b2699ea0af",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Real OUTTA inventory — video tripod, available to rent.",
+      "description": "Manfrotto 546GB — video tripod from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "grip"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "afa082a6-e27c-4617-99dc-5db53b674f54",
+      "name": "Tiffen ND Filter (Single)",
+      "slug": "tiffen-nd-filter-single",
+      "sku": "OUTTA-FIL-1001",
+      "brand_id": "92df2f8b-53ac-4119-820f-1b46b1bbb995",
+      "category_id": "bbe859a5-4acb-41d9-b084-1e08e62543f3",
+      "short_description": "Real OUTTA inventory — neutral density filter, available to rent.",
+      "description": "Tiffen ND Filter (Single) — neutral density filter from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "filters"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "f9a9821e-2b24-4085-92b5-f2993e892a57",
+      "name": "Tiffen Black Pro-Mist",
+      "slug": "tiffen-black-pro-mist",
+      "sku": "OUTTA-FIL-1002",
+      "brand_id": "92df2f8b-53ac-4119-820f-1b46b1bbb995",
+      "category_id": "bbe859a5-4acb-41d9-b084-1e08e62543f3",
+      "short_description": "Real OUTTA inventory — diffusion filter, available to rent.",
+      "description": "Tiffen Black Pro-Mist — diffusion filter from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "filters"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "5ff4b14f-f10f-47d0-b7de-be9734a43de8",
+      "name": "Tiffen Hollywood Black Magic",
+      "slug": "tiffen-hollywood-black-magic",
+      "sku": "OUTTA-FIL-1003",
+      "brand_id": "92df2f8b-53ac-4119-820f-1b46b1bbb995",
+      "category_id": "bbe859a5-4acb-41d9-b084-1e08e62543f3",
+      "short_description": "Real OUTTA inventory — diffusion filter, available to rent.",
+      "description": "Tiffen Hollywood Black Magic — diffusion filter from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "filters"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "6c2bf472-3d49-4504-9fdc-753baea6aacc",
+      "name": "Tiffen Black Satin",
+      "slug": "tiffen-black-satin",
+      "sku": "OUTTA-FIL-1004",
+      "brand_id": "92df2f8b-53ac-4119-820f-1b46b1bbb995",
+      "category_id": "bbe859a5-4acb-41d9-b084-1e08e62543f3",
+      "short_description": "Real OUTTA inventory — diffusion filter, available to rent.",
+      "description": "Tiffen Black Satin — diffusion filter from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "filters"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "e36a48fb-9d3e-4e2c-83c6-cac9148f7d6c",
+      "name": "Circular Polarizer",
+      "slug": "circular-polarizer",
+      "sku": "OUTTA-FIL-1005",
+      "brand_id": "92df2f8b-53ac-4119-820f-1b46b1bbb995",
+      "category_id": "bbe859a5-4acb-41d9-b084-1e08e62543f3",
+      "short_description": "Real OUTTA inventory — polarizing filter, available to rent.",
+      "description": "Circular Polarizer — polarizing filter from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "filters"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "8c595d15-29e3-48e6-8b7b-43c8ccd19737",
+      "name": "Rota Polarizer",
+      "slug": "rota-polarizer",
+      "sku": "OUTTA-FIL-1006",
+      "brand_id": "92df2f8b-53ac-4119-820f-1b46b1bbb995",
+      "category_id": "bbe859a5-4acb-41d9-b084-1e08e62543f3",
+      "short_description": "Real OUTTA inventory — rotating polarizing filter, available to rent.",
+      "description": "Rota Polarizer — rotating polarizing filter from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "filters"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "0389e8b5-b49f-485f-ba00-e5a4f83dd1ba",
+      "name": "Wooden Camera Universal Matte Box",
+      "slug": "wooden-camera-universal-matte-box",
+      "sku": "OUTTA-MTB-1101",
+      "brand_id": "35b8fa25-3da2-4267-9421-a25a5fac0ed3",
+      "category_id": "a4c39130-a6d3-4e7e-ba03-3405a1c81e6d",
+      "short_description": "Real OUTTA inventory — matte box, available to rent.",
+      "description": "Wooden Camera Universal Matte Box — matte box from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "matte-boxes"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "a696832a-df56-4a19-a5ca-14252c652e83",
+      "name": "Tilta Mirage Matte Box w/ VND",
+      "slug": "tilta-mirage-matte-box-w-vnd",
+      "sku": "OUTTA-MTB-1102",
+      "brand_id": "8a748e1e-fc58-4a74-9397-902752fadc1e",
+      "category_id": "a4c39130-a6d3-4e7e-ba03-3405a1c81e6d",
+      "short_description": "Real OUTTA inventory — matte box with built-in variable ND, available to rent.",
+      "description": "Tilta Mirage Matte Box w/ VND — matte box with built-in variable ND from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "matte-boxes"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "7f6ee99c-f492-409e-8480-99c4e71e8f47",
+      "name": "Tilta 3-Way Matte Box",
+      "slug": "tilta-3-way-matte-box",
+      "sku": "OUTTA-MTB-1103",
+      "brand_id": "8a748e1e-fc58-4a74-9397-902752fadc1e",
+      "category_id": "a4c39130-a6d3-4e7e-ba03-3405a1c81e6d",
+      "short_description": "Real OUTTA inventory — matte box, available to rent.",
+      "description": "Tilta 3-Way Matte Box — matte box from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "matte-boxes"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "57b1a4e3-993a-4c9c-9f03-0a01c033d027",
+      "name": "Tilta Mini Matte Box",
+      "slug": "tilta-mini-matte-box",
+      "sku": "OUTTA-MTB-1104",
+      "brand_id": "8a748e1e-fc58-4a74-9397-902752fadc1e",
+      "category_id": "a4c39130-a6d3-4e7e-ba03-3405a1c81e6d",
+      "short_description": "Real OUTTA inventory — compact matte box, available to rent.",
+      "description": "Tilta Mini Matte Box — compact matte box from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "matte-boxes"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "0d14894c-344a-44a8-8647-15028507f94f",
+      "name": "ARRI 4K HMI M40",
+      "slug": "arri-4k-hmi-m40",
+      "sku": "OUTTA-LGT-0305",
+      "brand_id": "9fec510e-4c59-40d2-a087-138690232fc0",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — HMI fixture, available to rent.",
+      "description": "ARRI 4K HMI M40 — HMI fixture from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "fc760cb7-3c6a-4bdd-9422-1df988edfd3e",
+      "name": "Nanlux Evoke 2400B",
+      "slug": "nanlux-evoke-2400b",
+      "sku": "OUTTA-LGT-0306",
+      "brand_id": "016c2455-d6d6-46e9-9838-d65a959097f9",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — high-output LED fixture, available to rent.",
+      "description": "Nanlux Evoke 2400B — high-output LED fixture from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "9929427b-abb2-4dd7-b6a4-8e21d1062eae",
+      "name": "Aputure LS 1200X",
+      "slug": "aputure-ls-1200x",
+      "sku": "OUTTA-LGT-0307",
+      "brand_id": "77e9439c-2721-4f54-9813-bd57a11d585e",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — bi-color LED fixture, available to rent.",
+      "description": "Aputure LS 1200X — bi-color LED fixture from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "7e9161a8-e32e-404a-8f2f-51790c611320",
+      "name": "Aputure LS 1000C",
+      "slug": "aputure-ls-1000c",
+      "sku": "OUTTA-LGT-0308",
+      "brand_id": "77e9439c-2721-4f54-9813-bd57a11d585e",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — RGBWW LED fixture, available to rent.",
+      "description": "Aputure LS 1000C — RGBWW LED fixture from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "3c23b448-4c0c-4bee-8429-c6635f6ead54",
+      "name": "Aputure LS 1200D",
+      "slug": "aputure-ls-1200d",
+      "sku": "OUTTA-LGT-0309",
+      "brand_id": "77e9439c-2721-4f54-9813-bd57a11d585e",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — daylight LED fixture, available to rent.",
+      "description": "Aputure LS 1200D — daylight LED fixture from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "7cffeac0-7807-4525-8d7f-2ea0dbcbac4e",
+      "name": "Aputure LS 600C",
+      "slug": "aputure-ls-600c",
+      "sku": "OUTTA-LGT-0310",
+      "brand_id": "77e9439c-2721-4f54-9813-bd57a11d585e",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — RGBWW LED fixture, available to rent.",
+      "description": "Aputure LS 600C — RGBWW LED fixture from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "0548699d-91c1-4aff-9c5f-972ddff7e2d3",
+      "name": "Aputure LS 300d II",
+      "slug": "aputure-ls-300d-ii",
+      "sku": "OUTTA-LGT-0311",
+      "brand_id": "77e9439c-2721-4f54-9813-bd57a11d585e",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — daylight LED fixture, available to rent.",
+      "description": "Aputure LS 300d II — daylight LED fixture from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "de42eb10-1150-4f11-8f73-a8efd779eb54",
+      "name": "Aputure LS 120d II",
+      "slug": "aputure-ls-120d-ii",
+      "sku": "OUTTA-LGT-0312",
+      "brand_id": "77e9439c-2721-4f54-9813-bd57a11d585e",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Real OUTTA inventory — daylight LED fixture, available to rent.",
+      "description": "Aputure LS 120d II — daylight LED fixture from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "5f3545d4-9f36-4ed6-824d-94d993e20be3",
+      "name": "Sony FX3 (Cine Style)",
+      "slug": "sony-fx3",
+      "sku": "OUTTA-CAM-0101",
+      "brand_id": "5dcbb3f9-5587-4602-a686-26825e2a094b",
+      "category_id": "23daa22f-693b-4f13-ae48-62c02375f884",
+      "short_description": "Compact full-frame cinema camera built for handheld work.",
+      "description": "A compact, full-frame cinema camera body with in-body stabilization and a fan-cooled body for extended recording. Popular for run-and-gun and gimbal work.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "full-frame",
+        "cinema camera",
+        "compact",
+        "4k",
+        "e-mount"
+      ],
+      "included": [
+        "Camera body",
+        "Cine-style cage",
+        "Sigma 24-70mm E-mount lens",
+        "MC-11 EF–E mount adapter",
+        "5\" monitor",
+        "160GB Type A card",
+        "2× Sony batteries",
+        "V-mount battery"
+      ],
+      "featured": true,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "9f462314-a104-4b7f-a3a7-cde3b9ea81f7",
+      "name": "Sony FX3 (Body Only)",
+      "slug": "sony-fx3-body-only",
+      "sku": "OUTTA-CAM-0115",
+      "brand_id": "5dcbb3f9-5587-4602-a686-26825e2a094b",
+      "category_id": "23daa22f-693b-4f13-ae48-62c02375f884",
+      "short_description": "Compact full-frame cinema camera body, no lens or rig — just the essentials.",
+      "description": "A compact, full-frame cinema camera body with in-body stabilization and a fan-cooled body for extended recording. Body-only rental with media, a reader and spare power — bring your own lens and support.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "full-frame",
+        "cinema camera",
+        "compact",
+        "4k",
+        "e-mount"
+      ],
+      "included": [
+        "Camera body only",
+        "160GB Type A card",
+        "Type-C card reader",
+        "2× Sony batteries",
+        "Sony battery charger"
+      ],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "9e3ac33c-f9f6-4035-97de-dc67335d2b82",
+      "name": "Aputure LS 600d Pro",
+      "slug": "aputure-600d",
+      "sku": "OUTTA-LGT-0301",
+      "brand_id": "77e9439c-2721-4f54-9813-bd57a11d585e",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "600W daylight-balanced LED, a common key light for interiors.",
+      "description": "A high-output daylight LED fixture with a Bowens mount, built for punching through diffusion or bouncing off large surfaces as a key light.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "led",
+        "daylight",
+        "key light",
+        "600w"
+      ],
+      "included": [
+        "Fixture head",
+        "Ballast/PSU",
+        "Light stand",
+        "Reflector",
+        "Cables"
+      ],
+      "featured": true,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "cb725b14-450b-40f6-b8cf-57c577770d39",
+      "name": "Aputure LS 600x Pro",
+      "slug": "aputure-600x",
+      "sku": "OUTTA-LGT-0302",
+      "brand_id": "77e9439c-2721-4f54-9813-bd57a11d585e",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "600W bi-color LED for scenes that need adjustable color temperature.",
+      "description": "The bi-color counterpart to the 600d — full CCT adjustment from warm tungsten to daylight, at the same 600W output class.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "led",
+        "bi-color",
+        "key light",
+        "600w"
+      ],
+      "included": [
+        "Fixture head",
+        "Ballast/PSU",
+        "Light stand",
+        "Reflector",
+        "Cables"
+      ],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "427b91de-62e6-42f2-95ff-a53a356bf888",
+      "name": "Amaran 200x S Bi-Color",
+      "slug": "amaran-200x-s",
+      "sku": "OUTTA-LGT-0303",
+      "brand_id": "0cea8ba8-8513-4402-b1b2-95e4565425b4",
+      "category_id": "6f291e21-80e0-49d8-9f13-d227cd5bb24e",
+      "short_description": "Compact 200W bi-color LED for fill and secondary lighting.",
+      "description": "A lightweight bi-color fixture that punches above its size class — a practical fill or backlight for two- and three-light setups.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "led",
+        "bi-color",
+        "budget-friendly",
+        "200w"
+      ],
+      "included": [
+        "Fixture head",
+        "PSU",
+        "Light stand",
+        "Reflector"
+      ],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "9ad38d7a-2152-4b32-b085-d7f672e2218e",
+      "name": "Freefly MoVI Pro",
+      "slug": "freefly-movi-pro",
+      "sku": "OUTTA-CAC-0908",
+      "brand_id": "d233a8d0-95c4-4dcd-b38b-f282448079a4",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Real OUTTA inventory — 3-axis motorized gimbal, available to rent.",
+      "description": "Freefly MoVI Pro — 3-axis motorized gimbal from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "grip"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "68ffed8d-229b-4c83-a32e-fb77dc3a77ab",
+      "name": "Blackmagic 6K Pro (Cine Style)",
+      "slug": "blackmagic-6k-pro",
+      "sku": "OUTTA-CAM-0110",
+      "brand_id": "a9c670da-8866-4a14-9ba1-923987345bb1",
+      "category_id": "23daa22f-693b-4f13-ae48-62c02375f884",
+      "short_description": "Real OUTTA inventory — camera body, available to rent.",
+      "description": "Blackmagic 6K Pro — camera body from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "cameras"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "c706be5e-df71-4279-a4e8-6105010a57fd",
+      "name": "Blackmagic 6K",
+      "slug": "blackmagic-6k",
+      "sku": "OUTTA-CAM-0111",
+      "brand_id": "a9c670da-8866-4a14-9ba1-923987345bb1",
+      "category_id": "23daa22f-693b-4f13-ae48-62c02375f884",
+      "short_description": "Real OUTTA inventory — camera body, available to rent.",
+      "description": "Blackmagic 6K — camera body from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "cameras"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "c59dcfd5-1f0e-4cd9-a3cf-31bb2e1b2c0e",
+      "name": "DZOFilm Arles Prime Set (25/35/50/75/100mm)",
+      "slug": "dzofilm-arles-prime-set-25-35-50-75-100mm",
+      "sku": "OUTTA-LEN-0204",
+      "brand_id": "2998cbf7-decc-469c-9822-3f678465db00",
+      "category_id": "9058dc28-01fd-4deb-a278-9e1bac9b322f",
+      "short_description": "Real OUTTA inventory — cine prime lens set, available to rent.",
+      "description": "DZOFilm Arles Prime Set (25/35/50/75/100mm) — cine prime lens set from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lenses"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "60ea1424-47b7-4602-a65b-231ee1173251",
+      "name": "DZOFilm Arles Prime (Single)",
+      "slug": "dzofilm-arles-prime-single",
+      "sku": "OUTTA-LEN-0205",
+      "brand_id": "2998cbf7-decc-469c-9822-3f678465db00",
+      "category_id": "9058dc28-01fd-4deb-a278-9e1bac9b322f",
+      "short_description": "Real OUTTA inventory — cine prime lens, available to rent.",
+      "description": "DZOFilm Arles Prime (Single) — cine prime lens from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lenses"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "90cea3e2-02b6-4832-91fc-526dc5d879dc",
+      "name": "DZOFilm Vespid Prime Set (16-125mm)",
+      "slug": "dzofilm-vespid-prime-set-16-125mm",
+      "sku": "OUTTA-LEN-0206",
+      "brand_id": "2998cbf7-decc-469c-9822-3f678465db00",
+      "category_id": "9058dc28-01fd-4deb-a278-9e1bac9b322f",
+      "short_description": "Real OUTTA inventory — cine prime lens set, available to rent.",
+      "description": "DZOFilm Vespid Prime Set (16-125mm) — cine prime lens set from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lenses"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "a1cf3f1f-934e-4e68-ad45-9c680230d395",
+      "name": "DZOFilm Pictor Zoom 12-25mm T2.8",
+      "slug": "dzofilm-pictor-zoom-12-25mm-t2-8",
+      "sku": "OUTTA-LEN-0207",
+      "brand_id": "2998cbf7-decc-469c-9822-3f678465db00",
+      "category_id": "9058dc28-01fd-4deb-a278-9e1bac9b322f",
+      "short_description": "Real OUTTA inventory — cine zoom lens, available to rent.",
+      "description": "DZOFilm Pictor Zoom 12-25mm T2.8 — cine zoom lens from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lenses"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "8eceda9f-b8c9-401a-8766-dbefca58c81c",
+      "name": "DZOFilm Pictor Zoom 20-55mm T2.8",
+      "slug": "dzofilm-pictor-zoom-20-55mm-t2-8",
+      "sku": "OUTTA-LEN-0208",
+      "brand_id": "2998cbf7-decc-469c-9822-3f678465db00",
+      "category_id": "9058dc28-01fd-4deb-a278-9e1bac9b322f",
+      "short_description": "Real OUTTA inventory — cine zoom lens, available to rent.",
+      "description": "DZOFilm Pictor Zoom 20-55mm T2.8 — cine zoom lens from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lenses"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "90e1ae71-da7c-478e-89fe-299d85d169e9",
+      "name": "DZOFilm Pictor Zoom 50-125mm T2.8",
+      "slug": "dzofilm-pictor-zoom-50-125mm-t2-8",
+      "sku": "OUTTA-LEN-0209",
+      "brand_id": "2998cbf7-decc-469c-9822-3f678465db00",
+      "category_id": "9058dc28-01fd-4deb-a278-9e1bac9b322f",
+      "short_description": "Real OUTTA inventory — cine zoom lens, available to rent.",
+      "description": "DZOFilm Pictor Zoom 50-125mm T2.8 — cine zoom lens from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lenses"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "d748cbea-3054-43d6-aa5f-41312657bb5d",
+      "name": "ARRI Distagon 12mm",
+      "slug": "arri-distagon-12mm",
+      "sku": "OUTTA-LEN-0210",
+      "brand_id": "9fec510e-4c59-40d2-a087-138690232fc0",
+      "category_id": "9058dc28-01fd-4deb-a278-9e1bac9b322f",
+      "short_description": "Real OUTTA inventory — cine prime lens, available to rent.",
+      "description": "ARRI Distagon 12mm — cine prime lens from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lenses"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "7de7f568-0c65-4fc3-90e8-576261ae31e9",
+      "name": "EZ FX Slider",
+      "slug": "ez-fx-slider",
+      "sku": "OUTTA-CAC-0920",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Real OUTTA inventory — camera slider, available to rent.",
+      "description": "EZ FX Slider — camera slider from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "grip"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "6917154c-9a70-4664-b737-d2316aa625f5",
+      "name": "Camera Cart",
+      "slug": "camera-cart",
+      "sku": "OUTTA-CAC-0911",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Real OUTTA inventory — equipment cart, available to rent.",
+      "description": "Camera Cart — equipment cart from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "grip"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "6a7f51e9-c137-4d90-b1f0-836ef21bf5a5",
+      "name": "DJI Ronin 2",
+      "slug": "dji-ronin-2",
+      "sku": "OUTTA-CAC-0918",
+      "brand_id": "4d95764d-3978-4ba1-a46f-fffdc1606b76",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Real OUTTA inventory — 3-axis motorized gimbal, available to rent.",
+      "description": "DJI Ronin 2 — 3-axis motorized gimbal from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "grip"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "759e71df-12e4-4f74-aee3-f923a2789bc7",
+      "name": "Wireless Focus System",
+      "slug": "wireless-focus-system",
+      "sku": "OUTTA-CAC-0902",
+      "brand_id": "8a748e1e-fc58-4a74-9397-902752fadc1e",
+      "category_id": "fa3c43b5-0cdd-4554-9143-1a177900297f",
+      "short_description": "Real OUTTA inventory — wireless follow focus system, available to rent.",
+      "description": "Wireless Focus System — wireless follow focus system from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "camera-accessories"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "d03b64a8-c643-43f3-bd5c-00a08e732e0a",
+      "name": "Lidar Focus Pro",
+      "slug": "lidar-focus-pro",
+      "sku": "OUTTA-CAC-0903",
+      "brand_id": "8a748e1e-fc58-4a74-9397-902752fadc1e",
+      "category_id": "fa3c43b5-0cdd-4554-9143-1a177900297f",
+      "short_description": "Real OUTTA inventory — lidar autofocus system, available to rent.",
+      "description": "Lidar Focus Pro — lidar autofocus system from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "camera-accessories"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "d2e09a2a-6d29-4b04-a66f-c098574e6da0",
+      "name": "Teradek Wireless Video Transmitter",
+      "slug": "teradek-wireless-video-transmitter",
+      "sku": "OUTTA-CAC-0904",
+      "brand_id": "f7149969-e793-443c-a8c9-5260b06718c8",
+      "category_id": "fa3c43b5-0cdd-4554-9143-1a177900297f",
+      "short_description": "Real OUTTA inventory — wireless video transmitter, available to rent.",
+      "description": "Teradek Wireless Video Transmitter — wireless video transmitter from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "camera-accessories"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "67d18f00-4523-4e6b-82aa-05358badb58a",
+      "name": "SmallHD DIR Monitor",
+      "slug": "smallhd-dir-monitor",
+      "sku": "OUTTA-MON-0901",
+      "brand_id": "c5ace1e4-5595-4fdb-9c1b-29dd901b1c59",
+      "category_id": "0f5813e1-2135-4bb8-bd8e-1365f1eebff4",
+      "short_description": "Real OUTTA inventory — on-camera monitor, available to rent.",
+      "description": "SmallHD DIR Monitor — on-camera monitor from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "monitors"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "effba843-f2bb-4111-875c-0e20849d40ca",
+      "name": "Atomos Sumo 19\" Monitor",
+      "slug": "atomos-sumo-19-monitor",
+      "sku": "OUTTA-MON-0902",
+      "brand_id": "5c1cfef9-3bb6-47b3-a788-fdb3dbac0935",
+      "category_id": "0f5813e1-2135-4bb8-bd8e-1365f1eebff4",
+      "short_description": "Real OUTTA inventory — production monitor/recorder, available to rent.",
+      "description": "Atomos Sumo 19\" Monitor — production monitor/recorder from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "monitors"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "04cadc65-070c-4a62-ab41-38280f4483fa",
+      "name": "Cine Saddle",
+      "slug": "cine-saddle",
+      "sku": "OUTTA-CAC-0917",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Real OUTTA inventory — camera support, available to rent.",
+      "description": "Cine Saddle — camera support from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "grip"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "57c8f9e7-41cf-4741-82ee-890124a3ad3c",
+      "name": "8x8ft Egg Crate",
+      "slug": "8x8ft-egg-crate",
+      "sku": "OUTTA-LGM-1218",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — egg crate light control, available to rent.",
+      "description": "8x8ft Egg Crate — egg crate light control from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "9f20b149-e531-4324-8da6-e32a5eb568e0",
+      "name": "American Stand",
+      "slug": "american-stand",
+      "sku": "OUTTA-LGM-1213",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Real OUTTA inventory — grip stand, available to rent.",
+      "description": "American Stand — grip stand from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "grip"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "b831f89f-de71-4dac-a37c-65f99345c4f5",
+      "name": "Pyro 7 Wireless Director's Monitor Single",
+      "slug": "wireless-directors-monitor",
+      "sku": "OUTTA-MON-0904",
+      "brand_id": "b8753fea-f6cd-417f-805f-cccb902bd828",
+      "category_id": "0f5813e1-2135-4bb8-bd8e-1365f1eebff4",
+      "short_description": "Real OUTTA inventory — wireless on-set director's monitor, available to rent.",
+      "description": "Wireless Director's Monitor — wireless on-set director's monitor from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "monitors"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "9322ce51-c80d-482f-8a62-487796e2b19c",
+      "name": "8x8ft Diffusion",
+      "slug": "8x8ft-diffusion",
+      "sku": "OUTTA-LGM-1220",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — diffusion frame, available to rent.",
+      "description": "8x8ft Diffusion — diffusion frame from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "91d3342c-24a1-496d-9676-4901a8562331",
+      "name": "Flags Set",
+      "slug": "flags-set",
+      "sku": "OUTTA-LGM-1211",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — flag set, available to rent.",
+      "description": "Flags Set — flag set from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "55a5a131-c1b9-4121-9e87-9ebc1b5ff789",
+      "name": "Floppy",
+      "slug": "floppy",
+      "sku": "OUTTA-LGM-1212",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — floppy flag, available to rent.",
+      "description": "Floppy — floppy flag from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "e06e40ec-1e45-4c21-ac1c-611b5874db72",
+      "name": "SmallRig Tripod",
+      "slug": "smallrig-tripod",
+      "sku": "OUTTA-CAC-0915",
+      "brand_id": "c6a499aa-a6b8-444b-ae7e-184bb83ea495",
+      "category_id": "859beff6-9e11-4e92-a0f8-7ec02366a17a",
+      "short_description": "Real OUTTA inventory — tripod, available to rent.",
+      "description": "SmallRig Tripod — tripod from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "grip"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "64214149-ee95-439c-a876-f8b996b8211a",
+      "name": "Haze Machine",
+      "slug": "haze-machine",
+      "sku": "OUTTA-LGM-1214",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — atmosphere machine, available to rent.",
+      "description": "Haze Machine — atmosphere machine from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "d545a634-2613-41cc-99cc-f2669c253f4f",
+      "name": "Smoke Machine",
+      "slug": "smoke-machine",
+      "sku": "OUTTA-LGM-1215",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — atmosphere machine, available to rent.",
+      "description": "Smoke Machine — atmosphere machine from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "ac325dfb-9b10-4984-9a4a-e40233be4988",
+      "name": "RED Komodo",
+      "slug": "red-komodo",
+      "sku": "OUTTA-CAM-0113",
+      "brand_id": "a7752e71-9160-4b36-b134-154280a26fbe",
+      "category_id": "23daa22f-693b-4f13-ae48-62c02375f884",
+      "short_description": "Real OUTTA inventory — camera body, available to rent.",
+      "description": "RED Komodo — camera body from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "cameras"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "0cc7f50f-8199-4644-a6cb-4f483a72b3eb",
+      "name": "DJI Mic",
+      "slug": "dji-mic",
+      "sku": "OUTTA-AUD-0501",
+      "brand_id": "4d95764d-3978-4ba1-a46f-fffdc1606b76",
+      "category_id": "b4e5ad94-37b6-494e-bf8d-80c61451f0c7",
+      "short_description": "Real OUTTA inventory — wireless microphone system, available to rent.",
+      "description": "DJI Mic — wireless microphone system from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "audio"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "4fe21361-ecf2-4261-a3cb-ebd2e00a074f",
+      "name": "Zoom Recorder",
+      "slug": "zoom-recorder",
+      "sku": "OUTTA-AUD-0502",
+      "brand_id": "0f6e2583-15d9-4934-9218-ce33bd5405c5",
+      "category_id": "b4e5ad94-37b6-494e-bf8d-80c61451f0c7",
+      "short_description": "Real OUTTA inventory — portable field audio recorder, available to rent.",
+      "description": "Zoom Recorder — portable field audio recorder from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "audio"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "8c6607f8-8a41-4ec7-83f2-067938ad3eb4",
+      "name": "Sennheiser Lapel Mic",
+      "slug": "sennheiser-lapel-mic",
+      "sku": "OUTTA-AUD-0503",
+      "brand_id": "4099fc2d-ca90-47ab-b02a-c9772063014a",
+      "category_id": "b4e5ad94-37b6-494e-bf8d-80c61451f0c7",
+      "short_description": "Real OUTTA inventory — wireless lavalier microphone, available to rent.",
+      "description": "Sennheiser Lapel Mic — wireless lavalier microphone from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "audio"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "fa816932-db95-428d-a77a-e11d54474d65",
+      "name": "Boom Mic",
+      "slug": "boom-mic",
+      "sku": "OUTTA-AUD-0504",
+      "brand_id": "4099fc2d-ca90-47ab-b02a-c9772063014a",
+      "category_id": "b4e5ad94-37b6-494e-bf8d-80c61451f0c7",
+      "short_description": "Real OUTTA inventory — shotgun boom microphone, available to rent.",
+      "description": "Boom Mic — shotgun boom microphone from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "audio"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "1c1aca42-b06a-4b6e-a44d-30a8005cde31",
+      "name": "Reflector",
+      "slug": "reflector",
+      "sku": "OUTTA-LGM-1219",
+      "brand_id": "236be110-83af-43e6-8e31-41c96dafae41",
+      "category_id": "6960d45b-192e-4a59-9468-1bc32616381a",
+      "short_description": "Real OUTTA inventory — 5-in-1 collapsible reflector, available to rent.",
+      "description": "Reflector — 5-in-1 collapsible reflector from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "lighting-modifiers"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "65d3cd13-b1da-4f4c-ab01-296484fa5755",
+      "name": "Cage Director's Monitor with Hollyland Transmitter",
+      "slug": "cage-directors-monitor-hollyland",
+      "sku": "OUTTA-MON-0906",
+      "brand_id": "b8753fea-f6cd-417f-805f-cccb902bd828",
+      "category_id": "0f5813e1-2135-4bb8-bd8e-1365f1eebff4",
+      "short_description": "Real OUTTA inventory — caged director's monitor with a Hollyland wireless transmitter, available to rent.",
+      "description": "Cage Director's Monitor with Hollyland Transmitter — caged on-set director's monitor paired with a Hollyland wireless video transmitter, from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "monitors",
+        "wireless-video"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "40fc18cb-8edb-4b90-ad99-cd3fbafee8ef",
+      "name": "Pyro 7 Wireless Director's Monitor Double",
+      "slug": "wireless-directors-monitor-double",
+      "sku": "OUTTA-MON-0907",
+      "brand_id": "b8753fea-f6cd-417f-805f-cccb902bd828",
+      "category_id": "0f5813e1-2135-4bb8-bd8e-1365f1eebff4",
+      "short_description": "Real OUTTA inventory — wireless on-set director's monitor, double set, available to rent.",
+      "description": "Pyro 7 Wireless Director's Monitor Double — two wireless on-set director's monitors, from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "monitors"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    },
+    {
+      "id": "5f063e66-fe25-418e-ae20-d66d81640b8e",
+      "name": "Hollyland SE Headset (10pcs)",
+      "slug": "hollyland-se-headset-10pcs",
+      "sku": "OUTTA-AUD-0505",
+      "brand_id": "b8753fea-f6cd-417f-805f-cccb902bd828",
+      "category_id": "b4e5ad94-37b6-494e-bf8d-80c61451f0c7",
+      "short_description": "Real OUTTA inventory — wireless intercom headset set (10pcs), available to rent.",
+      "description": "Hollyland SE Headset (10pcs) — wireless intercom headset set from OUTTA's real rental inventory.",
+      "status": "available",
+      "stock_quantity": 1,
+      "tags": [
+        "audio",
+        "wireless-intercom"
+      ],
+      "included": [],
+      "featured": false,
+      "is_new": false,
+      "created_at": "2026-10-10T17:56:49.33791+00:00",
+      "updated_at": "2026-10-10T17:56:49.33791+00:00",
+      "archived": false
+    }
+  ],
+  "productImages": [
+    {
+      "id": "0fe44309-9352-4495-8bcf-02970157dd4f",
+      "product_id": "5f3545d4-9f36-4ed6-824d-94d993e20be3",
+      "url": "/equipment/sony-fx3-cinestyle.jpg",
+      "alt": "Sony FX3 (Cine Style)",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "7472496a-a22f-4ad8-a795-58a7c8d73b1c",
+      "product_id": "9e3ac33c-f9f6-4035-97de-dc67335d2b82",
+      "url": "/equipment/aputure-600d.webp",
+      "alt": "Aputure LS 600d Pro 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "fb451d93-0bb3-4dca-b1e1-3ae2805c5889",
+      "product_id": "9e3ac33c-f9f6-4035-97de-dc67335d2b82",
+      "url": "/equipment/aputure-600d-2.jpg",
+      "alt": "Aputure LS 600d Pro 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "1b89c502-1f88-4577-92ec-fb2f2d6446be",
+      "product_id": "9e3ac33c-f9f6-4035-97de-dc67335d2b82",
+      "url": "/equipment/aputure-600d-3.webp",
+      "alt": "Aputure LS 600d Pro 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "7adc86f3-472e-467c-be38-ca025863b346",
+      "product_id": "9e3ac33c-f9f6-4035-97de-dc67335d2b82",
+      "url": "/equipment/aputure-600d-4.webp",
+      "alt": "Aputure LS 600d Pro 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "81db4e6f-a3b2-4706-afd1-ed90a968c375",
+      "product_id": "cb725b14-450b-40f6-b8cf-57c577770d39",
+      "url": "/equipment/aputure-600x-main.webp",
+      "alt": "Aputure LS 600x Pro 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "e2a16c16-10ca-47f5-b565-f83a09d7f377",
+      "product_id": "cb725b14-450b-40f6-b8cf-57c577770d39",
+      "url": "/equipment/aputure-600x-2.webp",
+      "alt": "Aputure LS 600x Pro 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "31f0a647-98db-4c4b-a165-5c403b6d6f80",
+      "product_id": "cb725b14-450b-40f6-b8cf-57c577770d39",
+      "url": "/equipment/aputure-600x-3.webp",
+      "alt": "Aputure LS 600x Pro 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "914419eb-0be8-44ff-8a9f-eee9f1a923c7",
+      "product_id": "cb725b14-450b-40f6-b8cf-57c577770d39",
+      "url": "/equipment/aputure-600x-4.webp",
+      "alt": "Aputure LS 600x Pro 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "9f07a781-2570-4ce1-bf0f-bcd2db273418",
+      "product_id": "427b91de-62e6-42f2-95ff-a53a356bf888",
+      "url": "/equipment/amaran-200x-s-main.webp",
+      "alt": "Amaran 200x S Bi-Color 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "291c4d58-8950-4023-8126-a5e7be2439f4",
+      "product_id": "427b91de-62e6-42f2-95ff-a53a356bf888",
+      "url": "/equipment/amaran-200x-s-2.webp",
+      "alt": "Amaran 200x S Bi-Color 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "7ccec3d4-4f80-4bdf-acd1-c5d96a2d47c3",
+      "product_id": "427b91de-62e6-42f2-95ff-a53a356bf888",
+      "url": "/equipment/amaran-200x-s-3.webp",
+      "alt": "Amaran 200x S Bi-Color 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "0a3374f0-520b-425c-9405-095ae6cac75f",
+      "product_id": "427b91de-62e6-42f2-95ff-a53a356bf888",
+      "url": "/equipment/amaran-200x-s-4.webp",
+      "alt": "Amaran 200x S Bi-Color 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "e2a49837-a6fd-4f92-9f99-d760c7c85a2e",
+      "product_id": "9ad38d7a-2152-4b32-b085-d7f672e2218e",
+      "url": "/equipment/freefly-movi-pro.jpg",
+      "alt": "Freefly MoVI Pro 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "a907c280-748b-4fdc-a2e4-6375b1fc0f33",
+      "product_id": "9ad38d7a-2152-4b32-b085-d7f672e2218e",
+      "url": "/equipment/freefly-movi-pro-2.jpg",
+      "alt": "Freefly MoVI Pro 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "291307d4-190c-4467-bfd3-02a5b81d7358",
+      "product_id": "9ad38d7a-2152-4b32-b085-d7f672e2218e",
+      "url": "/equipment/freefly-movi-pro-3.jpg",
+      "alt": "Freefly MoVI Pro 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "92864ac7-bb1e-49cc-a42e-4cada5a43cbe",
+      "product_id": "95d5d225-a7ca-42f1-8cdc-244ee4b5bb4c",
+      "url": "/equipment/arri-alexa-mini.webp",
+      "alt": "ARRI Alexa Mini 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "c2dc72bf-377f-4dd4-9191-07120b376b24",
+      "product_id": "95d5d225-a7ca-42f1-8cdc-244ee4b5bb4c",
+      "url": "/equipment/arri-alexa-mini-shared-2.jpg",
+      "alt": "ARRI Alexa Mini 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "99b58e33-afe8-4fab-9601-8c6173d620dd",
+      "product_id": "95d5d225-a7ca-42f1-8cdc-244ee4b5bb4c",
+      "url": "/equipment/arri-alexa-mini-shared-3.jpg",
+      "alt": "ARRI Alexa Mini 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "c7937484-5551-409f-a55d-95dbfd2985f2",
+      "product_id": "3382e880-68dd-4927-a26a-92d3fedd2185",
+      "url": "https://images.pexels.com/photos/37593303/pexels-photo-37593303.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "ARRI Alexa Mini (Foreign) 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "e5776ca8-0e9d-432a-bc48-3f6309bed4c3",
+      "product_id": "3382e880-68dd-4927-a26a-92d3fedd2185",
+      "url": "/equipment/arri-alexa-mini-shared-2.jpg",
+      "alt": "ARRI Alexa Mini (Foreign) 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "1e33fa54-6b24-448b-9629-3582edfae9ce",
+      "product_id": "3382e880-68dd-4927-a26a-92d3fedd2185",
+      "url": "/equipment/arri-alexa-mini-shared-3.jpg",
+      "alt": "ARRI Alexa Mini (Foreign) 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "3de5a6a4-07bf-43ca-8cfd-77b962503e78",
+      "product_id": "c5f8f812-36d0-4333-8e26-105cb8d1e1f4",
+      "url": "/equipment/red-helium.jpg",
+      "alt": "RED Helium 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "9f114723-d3a4-4208-a32a-65ee48908155",
+      "product_id": "c5f8f812-36d0-4333-8e26-105cb8d1e1f4",
+      "url": "/equipment/red-helium-2.webp",
+      "alt": "RED Helium 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "a152d143-181f-4535-a6c5-9cb17154b2c3",
+      "product_id": "c5f8f812-36d0-4333-8e26-105cb8d1e1f4",
+      "url": "/equipment/red-helium-3.jpg",
+      "alt": "RED Helium 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "adc79ef2-5bdb-43f2-9600-eb4d74615196",
+      "product_id": "c5f8f812-36d0-4333-8e26-105cb8d1e1f4",
+      "url": "/equipment/red-helium-4.webp",
+      "alt": "RED Helium 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "25bad557-b07a-4805-9aac-7042dbdc63ea",
+      "product_id": "c706be5e-df71-4279-a4e8-6105010a57fd",
+      "url": "/equipment/blackmagic-6k.jpg",
+      "alt": "Blackmagic 6K 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "e529faae-e645-47e3-9bb8-feb6b4073e01",
+      "product_id": "c706be5e-df71-4279-a4e8-6105010a57fd",
+      "url": "/equipment/blackmagic-6k-2.jpg",
+      "alt": "Blackmagic 6K 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "fc2266fa-13b8-4d88-bb59-ddb70c9f9b91",
+      "product_id": "c706be5e-df71-4279-a4e8-6105010a57fd",
+      "url": "/equipment/blackmagic-6k-3.webp",
+      "alt": "Blackmagic 6K 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "7cba072d-e2dd-4644-8aa3-ebe1e4565b1c",
+      "product_id": "c706be5e-df71-4279-a4e8-6105010a57fd",
+      "url": "/equipment/blackmagic-6k-4.jpg",
+      "alt": "Blackmagic 6K 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "f8f16b46-665d-4276-a2f4-30eb5ca505d8",
+      "product_id": "c59dcfd5-1f0e-4cd9-a3cf-31bb2e1b2c0e",
+      "url": "/equipment/dzofilm-arles-prime-set-25-35-50-75-100mm.jpg",
+      "alt": "DZOFilm Arles Prime Set (25/35/50/75/100mm) 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "04924c74-575f-4986-917c-f216d0a4b403",
+      "product_id": "c59dcfd5-1f0e-4cd9-a3cf-31bb2e1b2c0e",
+      "url": "/equipment/dzofilm-arles-prime-set-25-35-50-75-100mm-2.jpg",
+      "alt": "DZOFilm Arles Prime Set (25/35/50/75/100mm) 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "659e7460-ebea-4c7d-aa92-d00ae2e58748",
+      "product_id": "c59dcfd5-1f0e-4cd9-a3cf-31bb2e1b2c0e",
+      "url": "/equipment/dzofilm-arles-prime-set-25-35-50-75-100mm-3.jpg",
+      "alt": "DZOFilm Arles Prime Set (25/35/50/75/100mm) 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "78e294e0-49cd-4aeb-aa74-ebafa8473dc6",
+      "product_id": "c59dcfd5-1f0e-4cd9-a3cf-31bb2e1b2c0e",
+      "url": "/equipment/dzofilm-arles-prime-set-25-35-50-75-100mm-4.jpg",
+      "alt": "DZOFilm Arles Prime Set (25/35/50/75/100mm) 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "5528ced3-aeee-4dde-a026-8b505a8839ec",
+      "product_id": "60ea1424-47b7-4602-a65b-231ee1173251",
+      "url": "/equipment/dzofilm-arles-prime-single.jpg",
+      "alt": "DZOFilm Arles Prime (Single) 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "32d18af9-eb3f-45d0-b306-d398797ff45a",
+      "product_id": "60ea1424-47b7-4602-a65b-231ee1173251",
+      "url": "/equipment/dzofilm-arles-prime-single-2.webp",
+      "alt": "DZOFilm Arles Prime (Single) 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "d1fabd00-eaf1-4e19-8d2b-5c41ecfc3be7",
+      "product_id": "60ea1424-47b7-4602-a65b-231ee1173251",
+      "url": "/equipment/dzofilm-arles-prime-single-3.webp",
+      "alt": "DZOFilm Arles Prime (Single) 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "1334696c-fc0a-44f0-ab55-9756ccb85f61",
+      "product_id": "60ea1424-47b7-4602-a65b-231ee1173251",
+      "url": "/equipment/dzofilm-arles-prime-single-4.jpg",
+      "alt": "DZOFilm Arles Prime (Single) 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "4622147a-cc1f-49bf-97a7-28b118430845",
+      "product_id": "90cea3e2-02b6-4832-91fc-526dc5d879dc",
+      "url": "/equipment/dzofilm-vespid-prime-set-16-125mm.jpg",
+      "alt": "DZOFilm Vespid Prime Set (16-125mm) 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "aa22ca7a-8fa6-4623-bc05-64f503a9df5f",
+      "product_id": "90cea3e2-02b6-4832-91fc-526dc5d879dc",
+      "url": "/equipment/dzofilm-vespid-prime-set-16-125mm-2.jpg",
+      "alt": "DZOFilm Vespid Prime Set (16-125mm) 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "298b621a-6244-49ee-86ab-104fca587743",
+      "product_id": "90cea3e2-02b6-4832-91fc-526dc5d879dc",
+      "url": "/equipment/dzofilm-vespid-prime-set-16-125mm-3.jpg",
+      "alt": "DZOFilm Vespid Prime Set (16-125mm) 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "82a9adc8-ae1b-4080-b9ad-0314fe299d2e",
+      "product_id": "90cea3e2-02b6-4832-91fc-526dc5d879dc",
+      "url": "/equipment/dzofilm-vespid-prime-set-16-125mm-4.webp",
+      "alt": "DZOFilm Vespid Prime Set (16-125mm) 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "812cb6bc-46c3-4bf1-8cdb-f926e104bbe9",
+      "product_id": "a1cf3f1f-934e-4e68-ad45-9c680230d395",
+      "url": "/equipment/dzofilm-pictor-zoom-12-25mm-t2-8-main.jpg",
+      "alt": "DZOFilm Pictor Zoom 12-25mm T2.8 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "d70aff62-1a24-4f49-9544-0cbbfa6e19ac",
+      "product_id": "a1cf3f1f-934e-4e68-ad45-9c680230d395",
+      "url": "/equipment/dzofilm-pictor-zoom-12-25mm-t2-8-2.jpg",
+      "alt": "DZOFilm Pictor Zoom 12-25mm T2.8 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "74dd39c2-6a11-4bd9-8d5c-ee5c8ada5ff5",
+      "product_id": "a1cf3f1f-934e-4e68-ad45-9c680230d395",
+      "url": "/equipment/dzofilm-pictor-zoom-12-25mm-t2-8-3.jpg",
+      "alt": "DZOFilm Pictor Zoom 12-25mm T2.8 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "720a2cb9-ee81-4f44-909b-5fc91d406cfd",
+      "product_id": "a1cf3f1f-934e-4e68-ad45-9c680230d395",
+      "url": "/equipment/dzofilm-pictor-zoom-12-25mm-t2-8-4.jpg",
+      "alt": "DZOFilm Pictor Zoom 12-25mm T2.8 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "a1306bff-fcc8-4d92-b104-fb659df56f8b",
+      "product_id": "8eceda9f-b8c9-401a-8766-dbefca58c81c",
+      "url": "/equipment/dzofilm-pictor-zoom-20-55mm-t2-8.jpg",
+      "alt": "DZOFilm Pictor Zoom 20-55mm T2.8 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "41e98ff7-e8c5-4dff-9aeb-35a108fd1054",
+      "product_id": "8eceda9f-b8c9-401a-8766-dbefca58c81c",
+      "url": "/equipment/dzofilm-pictor-zoom-20-55mm-t2-8-2.jpg",
+      "alt": "DZOFilm Pictor Zoom 20-55mm T2.8 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "341044b2-472b-48ed-af48-1b3316147aa3",
+      "product_id": "8eceda9f-b8c9-401a-8766-dbefca58c81c",
+      "url": "/equipment/dzofilm-pictor-zoom-20-55mm-t2-8-3.jpg",
+      "alt": "DZOFilm Pictor Zoom 20-55mm T2.8 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "452a3c9c-d311-4710-b9f4-6bb9bbd2806c",
+      "product_id": "8eceda9f-b8c9-401a-8766-dbefca58c81c",
+      "url": "/equipment/dzofilm-pictor-zoom-20-55mm-t2-8-4.jpg",
+      "alt": "DZOFilm Pictor Zoom 20-55mm T2.8 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "1ca8c35d-8819-485a-87a8-18a7c7099ef3",
+      "product_id": "90e1ae71-da7c-478e-89fe-299d85d169e9",
+      "url": "/equipment/dzofilm-pictor-zoom-50-125mm-t2-8-main.jpg",
+      "alt": "DZOFilm Pictor Zoom 50-125mm T2.8 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "4980aa16-e012-4f9f-8818-3c51f88c1ce3",
+      "product_id": "90e1ae71-da7c-478e-89fe-299d85d169e9",
+      "url": "/equipment/dzofilm-pictor-zoom-50-125mm-t2-8-2.jpg",
+      "alt": "DZOFilm Pictor Zoom 50-125mm T2.8 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "331791ec-57b4-4cc1-b046-de9efea4f778",
+      "product_id": "d748cbea-3054-43d6-aa5f-41312657bb5d",
+      "url": "/equipment/arri-distagon-12mm-main.jpg",
+      "alt": "ARRI Distagon 12mm 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "0c348466-bc75-4526-bcd2-281dec0dd6f3",
+      "product_id": "d748cbea-3054-43d6-aa5f-41312657bb5d",
+      "url": "/equipment/arri-distagon-12mm-2.jpg",
+      "alt": "ARRI Distagon 12mm 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "f8807254-8250-4426-b053-455d0280fc1e",
+      "product_id": "d748cbea-3054-43d6-aa5f-41312657bb5d",
+      "url": "/equipment/arri-distagon-12mm-3.jpg",
+      "alt": "ARRI Distagon 12mm 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "14279450-1eff-407e-b2b3-8a8a14ef1ae1",
+      "product_id": "d748cbea-3054-43d6-aa5f-41312657bb5d",
+      "url": "/equipment/arri-distagon-12mm-4.jpg",
+      "alt": "ARRI Distagon 12mm 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "569b8a31-f6e1-4a83-ada9-6dd91086e107",
+      "product_id": "1dfefe98-b19d-4ff3-809d-0e504aeacdfa",
+      "url": "/equipment/laowa-12mm-ef.jpg",
+      "alt": "Laowa 12mm EF 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "918dfbf8-e406-46f3-895e-19e1162696a9",
+      "product_id": "1dfefe98-b19d-4ff3-809d-0e504aeacdfa",
+      "url": "/equipment/laowa-12mm-ef-2.jpg",
+      "alt": "Laowa 12mm EF 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "a81f5fd2-3593-466f-b365-3add5817ab3b",
+      "product_id": "1dfefe98-b19d-4ff3-809d-0e504aeacdfa",
+      "url": "/equipment/laowa-12mm-ef-3.jpg",
+      "alt": "Laowa 12mm EF 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "039ea1e2-2828-4c34-8f5b-4b42402a3242",
+      "product_id": "1dfefe98-b19d-4ff3-809d-0e504aeacdfa",
+      "url": "/equipment/laowa-12mm-ef-4.jpg",
+      "alt": "Laowa 12mm EF 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "aaa2b8af-905f-4184-9831-f5e020ec5f68",
+      "product_id": "7dd1903d-4217-421d-902e-41ddcfddb4a8",
+      "url": "/equipment/sigma-18-35mm-main.jpg",
+      "alt": "Sigma 18-35mm 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "9a19a2f0-b0b2-4ba7-a15a-964c8c2d2fc3",
+      "product_id": "7dd1903d-4217-421d-902e-41ddcfddb4a8",
+      "url": "/equipment/sigma-18-35mm-2.jpg",
+      "alt": "Sigma 18-35mm 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "a8ca27af-0cf4-412a-87f5-12b6382f3419",
+      "product_id": "7dd1903d-4217-421d-902e-41ddcfddb4a8",
+      "url": "/equipment/sigma-18-35mm-3.jpg",
+      "alt": "Sigma 18-35mm 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "81b4e917-5143-409b-81be-068e6fd2c7fa",
+      "product_id": "7dd1903d-4217-421d-902e-41ddcfddb4a8",
+      "url": "/equipment/sigma-18-35mm-4.jpg",
+      "alt": "Sigma 18-35mm 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "76b6b6c5-afd0-4c85-b1ac-425235cf2d21",
+      "product_id": "d090b507-debc-4fe1-ad86-6ddbadaf3432",
+      "url": "/equipment/canon-24-105mm.png",
+      "alt": "Canon 24-105mm 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "00eff16c-0987-49cc-ab5b-1c73b2833a17",
+      "product_id": "d090b507-debc-4fe1-ad86-6ddbadaf3432",
+      "url": "/equipment/canon-24-105mm-2.jpg",
+      "alt": "Canon 24-105mm 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "8c163fe2-b2f9-4caa-a336-af5c8d8d29ea",
+      "product_id": "d090b507-debc-4fe1-ad86-6ddbadaf3432",
+      "url": "/equipment/canon-24-105mm-3.jpg",
+      "alt": "Canon 24-105mm 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "85b58080-a685-4acd-9be0-4ed031d27b8c",
+      "product_id": "d090b507-debc-4fe1-ad86-6ddbadaf3432",
+      "url": "/equipment/canon-24-105mm-4.jpg",
+      "alt": "Canon 24-105mm 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "8eb7983e-99be-4d4c-87f9-c9c2ffcb287e",
+      "product_id": "6a7f51e9-c137-4d90-b1f0-836ef21bf5a5",
+      "url": "/equipment/dji-ronin-2.png",
+      "alt": "DJI Ronin 2 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "47706696-53aa-4a16-b7f4-866e69f8d264",
+      "product_id": "6a7f51e9-c137-4d90-b1f0-836ef21bf5a5",
+      "url": "/equipment/dji-ronin-2-2.jpg",
+      "alt": "DJI Ronin 2 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "ecff3fd0-3047-48a5-be0b-c1acda450c85",
+      "product_id": "6a7f51e9-c137-4d90-b1f0-836ef21bf5a5",
+      "url": "/equipment/dji-ronin-2-3.jpg",
+      "alt": "DJI Ronin 2 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "3634b87c-50c7-4ea3-81e5-473d22b60508",
+      "product_id": "6a7f51e9-c137-4d90-b1f0-836ef21bf5a5",
+      "url": "/equipment/dji-ronin-2-4.webp",
+      "alt": "DJI Ronin 2 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "27e5610a-ceb4-443d-944b-4ca550e99194",
+      "product_id": "759e71df-12e4-4f74-aee3-f923a2789bc7",
+      "url": "/equipment/wireless-focus-system.jpg",
+      "alt": "Wireless Focus System",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "01e59b1c-606b-4d29-9b2c-b3060a218367",
+      "product_id": "d03b64a8-c643-43f3-bd5c-00a08e732e0a",
+      "url": "/equipment/lidar-focus-pro.webp",
+      "alt": "Lidar Focus Pro 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "974b05f5-dea8-4443-9d20-178a978b0aa3",
+      "product_id": "d03b64a8-c643-43f3-bd5c-00a08e732e0a",
+      "url": "/equipment/lidar-focus-pro-2.webp",
+      "alt": "Lidar Focus Pro 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "355f5b71-a179-4577-8778-ec6316b164cf",
+      "product_id": "d03b64a8-c643-43f3-bd5c-00a08e732e0a",
+      "url": "/equipment/lidar-focus-pro-3.webp",
+      "alt": "Lidar Focus Pro 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "86639fe9-114b-4dd1-bb31-2cc364288771",
+      "product_id": "67d18f00-4523-4e6b-82aa-05358badb58a",
+      "url": "/equipment/smallhd-dir-monitor.png",
+      "alt": "SmallHD DIR Monitor",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "d6e067f2-d119-48ac-a413-1978b9cba11b",
+      "product_id": "effba843-f2bb-4111-875c-0e20849d40ca",
+      "url": "/equipment/atomos-sumo-19-monitor.webp",
+      "alt": "Atomos Sumo 19\" Monitor 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "e7cbf023-9a23-4e56-8bf3-b81a90efdfa0",
+      "product_id": "effba843-f2bb-4111-875c-0e20849d40ca",
+      "url": "/equipment/atomos-sumo-19-monitor-2.webp",
+      "alt": "Atomos Sumo 19\" Monitor 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "cd5bc14b-6c88-444c-946b-d3ff33fa736b",
+      "product_id": "effba843-f2bb-4111-875c-0e20849d40ca",
+      "url": "/equipment/atomos-sumo-19-monitor-3.webp",
+      "alt": "Atomos Sumo 19\" Monitor 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "8201986f-406a-4013-a1e1-274bada17daf",
+      "product_id": "86c8373c-ac92-4dfd-a32c-94a357fa89be",
+      "url": "/equipment/smallhd-dop-monitor.jpg",
+      "alt": "SmallHD DOP Monitor",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "61937000-1ab1-4e73-9d63-a18a075efa63",
+      "product_id": "5d1f4672-6e40-4731-989a-aa40e5d238fb",
+      "url": "/equipment/dji-rs3-pro-combo-with-ring.jpg",
+      "alt": "DJI RS3 Pro Combo with Ring 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "73a376c9-1d30-4d71-88cc-b12394c4a2c2",
+      "product_id": "5d1f4672-6e40-4731-989a-aa40e5d238fb",
+      "url": "/equipment/dji-rs3-pro-combo-with-ring-2.webp",
+      "alt": "DJI RS3 Pro Combo with Ring 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "a1edaad2-576d-4187-afb6-7f5c0c082aff",
+      "product_id": "5d1f4672-6e40-4731-989a-aa40e5d238fb",
+      "url": "/equipment/dji-rs3-pro-combo-with-ring-3.jpg",
+      "alt": "DJI RS3 Pro Combo with Ring 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "4e51e056-b81a-4631-808b-b2540b4734b9",
+      "product_id": "5d1f4672-6e40-4731-989a-aa40e5d238fb",
+      "url": "/equipment/dji-rs3-pro-combo-with-ring-4.webp",
+      "alt": "DJI RS3 Pro Combo with Ring 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "811ef90a-bf7e-4f7f-a9fb-e46e26ed524a",
+      "product_id": "0a2f7542-50c2-4e71-9cf2-5f66982402ac",
+      "url": "/equipment/dji-rs3-pro-combo-with-ring.jpg",
+      "alt": "DJI RS3 Pro with Ring 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "1d2f88bb-506d-481c-a285-28f81b870841",
+      "product_id": "0a2f7542-50c2-4e71-9cf2-5f66982402ac",
+      "url": "/equipment/dji-rs3-pro-combo-with-ring-2.webp",
+      "alt": "DJI RS3 Pro with Ring 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "5577631a-18e5-4211-8850-268a0606d1c7",
+      "product_id": "0a2f7542-50c2-4e71-9cf2-5f66982402ac",
+      "url": "/equipment/dji-rs3-pro-combo-with-ring-3.jpg",
+      "alt": "DJI RS3 Pro with Ring 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "396f7860-05c4-420f-a9b7-294b60cdcfe8",
+      "product_id": "0a2f7542-50c2-4e71-9cf2-5f66982402ac",
+      "url": "/equipment/dji-rs3-pro-combo-with-ring-4.webp",
+      "alt": "DJI RS3 Pro with Ring 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "605d78b4-887e-4bcc-8736-d96e8db06821",
+      "product_id": "ba67535c-12b6-49cf-98ed-590eec4725e1",
+      "url": "/equipment/sachtler-video-25-plus-tripod.webp",
+      "alt": "Sachtler Video 25 Plus Tripod 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "35e3039e-ad9e-494d-a9fb-1f86a88d1039",
+      "product_id": "ba67535c-12b6-49cf-98ed-590eec4725e1",
+      "url": "/equipment/sachtler-video-25-plus-tripod-2.jpg",
+      "alt": "Sachtler Video 25 Plus Tripod 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "0fc5a487-53dc-4776-902f-e73b27a7d93c",
+      "product_id": "ba67535c-12b6-49cf-98ed-590eec4725e1",
+      "url": "/equipment/sachtler-video-25-plus-tripod-3.jpg",
+      "alt": "Sachtler Video 25 Plus Tripod 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "9b34672e-af05-4195-ba26-e766491b1519",
+      "product_id": "29d18143-3ada-417f-9106-680ee41c1614",
+      "url": "/equipment/manfrotto-116-mrk3.webp",
+      "alt": "Manfrotto 116 MRK3 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "b8b121e7-a8be-469d-969c-fd9356438fab",
+      "product_id": "29d18143-3ada-417f-9106-680ee41c1614",
+      "url": "/equipment/manfrotto-116-mrk3-2.jpg",
+      "alt": "Manfrotto 116 MRK3 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "8647987e-a3c1-43c0-9248-ab6b1d91a8fd",
+      "product_id": "e4a3dcc2-54ef-457e-b340-36dc95e5b3c4",
+      "url": "/equipment/manfrotto-546gb.jpg",
+      "alt": "Manfrotto 546GB 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "72c3ef83-716b-46c4-90d6-1c14320e6c1c",
+      "product_id": "e4a3dcc2-54ef-457e-b340-36dc95e5b3c4",
+      "url": "/equipment/manfrotto-546gb-2.jpg",
+      "alt": "Manfrotto 546GB 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "9e629d13-5f82-4685-b833-234d1323443f",
+      "product_id": "e4a3dcc2-54ef-457e-b340-36dc95e5b3c4",
+      "url": "/equipment/manfrotto-546gb-3.jpg",
+      "alt": "Manfrotto 546GB 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "44f8fd50-d3af-44c2-aaff-841b3b91d8a8",
+      "product_id": "afa082a6-e27c-4617-99dc-5db53b674f54",
+      "url": "/equipment/tiffen-nd-filter-single.jpg",
+      "alt": "Tiffen ND Filter (Single)",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "5b0081d1-6744-4cab-84a6-94e50d647099",
+      "product_id": "f9a9821e-2b24-4085-92b5-f2993e892a57",
+      "url": "/equipment/tiffen-black-pro-mist.webp",
+      "alt": "Tiffen Black Pro-Mist",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "88c523d4-fb93-494d-97d2-1beb08b688f0",
+      "product_id": "5ff4b14f-f10f-47d0-b7de-be9734a43de8",
+      "url": "/equipment/tiffen-hollywood-black-magic.jpg",
+      "alt": "Tiffen Hollywood Black Magic",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "2e8680a2-eaa3-4b2a-8c3f-f01697c00a89",
+      "product_id": "6c2bf472-3d49-4504-9fdc-753baea6aacc",
+      "url": "/equipment/tiffen-black-satin.webp",
+      "alt": "Tiffen Black Satin",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "418247e6-8fcd-4254-a6e0-dd4b936aea1a",
+      "product_id": "e36a48fb-9d3e-4e2c-83c6-cac9148f7d6c",
+      "url": "/equipment/circular-polarizer.jpg",
+      "alt": "Circular Polarizer",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "77699fd3-1b0e-4631-b229-ef31d6e400b4",
+      "product_id": "8c595d15-29e3-48e6-8b7b-43c8ccd19737",
+      "url": "/equipment/rota-polarizer.webp",
+      "alt": "Rota Polarizer",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "f88a10a7-bf40-40b0-afc9-2debc898fe8b",
+      "product_id": "0389e8b5-b49f-485f-ba00-e5a4f83dd1ba",
+      "url": "/equipment/wooden-camera-universal-matte-box.webp",
+      "alt": "Wooden Camera Universal Matte Box 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "48c6728d-9da4-4540-aaa6-92bed8ed64e4",
+      "product_id": "0389e8b5-b49f-485f-ba00-e5a4f83dd1ba",
+      "url": "/equipment/wooden-camera-universal-matte-box-2.webp",
+      "alt": "Wooden Camera Universal Matte Box 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "25137b06-cf00-4eda-acf5-9725d320bbc3",
+      "product_id": "0389e8b5-b49f-485f-ba00-e5a4f83dd1ba",
+      "url": "/equipment/wooden-camera-universal-matte-box-3.webp",
+      "alt": "Wooden Camera Universal Matte Box 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "a7451d42-f7ae-4725-81d0-e33acf3fdfbb",
+      "product_id": "a696832a-df56-4a19-a5ca-14252c652e83",
+      "url": "/equipment/tilta-mirage-matte-box-w-vnd.webp",
+      "alt": "Tilta Mirage Matte Box w/ VND 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "65ba1c4f-379f-4ff9-bb7f-e4b1bff579e2",
+      "product_id": "a696832a-df56-4a19-a5ca-14252c652e83",
+      "url": "/equipment/tilta-mirage-matte-box-w-vnd-2.jpg",
+      "alt": "Tilta Mirage Matte Box w/ VND 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "ccd5fa80-fa00-4bdf-b680-52bad096497f",
+      "product_id": "7f6ee99c-f492-409e-8480-99c4e71e8f47",
+      "url": "/equipment/tilta-3-way-matte-box.webp",
+      "alt": "Tilta 3-Way Matte Box 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "ed47022f-1345-49c5-9cab-c448c1a29271",
+      "product_id": "7f6ee99c-f492-409e-8480-99c4e71e8f47",
+      "url": "/equipment/tilta-3-way-matte-box-2.webp",
+      "alt": "Tilta 3-Way Matte Box 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "6220dbd2-374a-4b29-b703-c6875d14fe54",
+      "product_id": "7f6ee99c-f492-409e-8480-99c4e71e8f47",
+      "url": "/equipment/tilta-3-way-matte-box-3.webp",
+      "alt": "Tilta 3-Way Matte Box 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "264af273-61c9-4e4b-b9fe-e33fe9f42eea",
+      "product_id": "7f6ee99c-f492-409e-8480-99c4e71e8f47",
+      "url": "/equipment/tilta-3-way-matte-box-4.webp",
+      "alt": "Tilta 3-Way Matte Box 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "8f1e9ca9-3fdf-47f0-9314-eab649bb5a8e",
+      "product_id": "57b1a4e3-993a-4c9c-9f03-0a01c033d027",
+      "url": "/equipment/tilta-mini-matte-box.webp",
+      "alt": "Tilta Mini Matte Box 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "9a04cc15-1b41-433f-b61d-3e29c0c09be7",
+      "product_id": "57b1a4e3-993a-4c9c-9f03-0a01c033d027",
+      "url": "/equipment/tilta-mini-matte-box-2.webp",
+      "alt": "Tilta Mini Matte Box 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "2795d197-8b4f-4fae-a74e-048a1e4e255d",
+      "product_id": "57b1a4e3-993a-4c9c-9f03-0a01c033d027",
+      "url": "/equipment/tilta-mini-matte-box-3.webp",
+      "alt": "Tilta Mini Matte Box 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "05c6b4b0-19f5-4579-8605-8d9270ae1d16",
+      "product_id": "57b1a4e3-993a-4c9c-9f03-0a01c033d027",
+      "url": "/equipment/tilta-mini-matte-box-4.webp",
+      "alt": "Tilta Mini Matte Box 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "502df482-0f83-4447-8885-82bf4efea681",
+      "product_id": "0d14894c-344a-44a8-8647-15028507f94f",
+      "url": "/equipment/arri-4k-hmi-m40-main.jpg",
+      "alt": "ARRI 4K HMI M40 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "5d6ccbaf-2bf4-4ce2-ad87-fdf952792934",
+      "product_id": "0d14894c-344a-44a8-8647-15028507f94f",
+      "url": "/equipment/arri-4k-hmi-m40-2.jpg",
+      "alt": "ARRI 4K HMI M40 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "0b77afb6-d858-4247-8d20-664174329f88",
+      "product_id": "0d14894c-344a-44a8-8647-15028507f94f",
+      "url": "/equipment/arri-4k-hmi-m40-3.jpg",
+      "alt": "ARRI 4K HMI M40 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "55d3f3c2-05ad-4fb0-8135-fbfb69f47872",
+      "product_id": "0d14894c-344a-44a8-8647-15028507f94f",
+      "url": "/equipment/arri-4k-hmi-m40.jpg",
+      "alt": "ARRI 4K HMI M40 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "0bf82949-1f64-41c2-8744-ad7c1a79403f",
+      "product_id": "fc760cb7-3c6a-4bdd-9422-1df988edfd3e",
+      "url": "/equipment/nanlux-evoke-2400b-main.webp",
+      "alt": "Nanlux Evoke 2400B 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "4361c663-bb0d-4815-9324-80ba1417292d",
+      "product_id": "fc760cb7-3c6a-4bdd-9422-1df988edfd3e",
+      "url": "/equipment/nanlux-evoke-2400b-2.webp",
+      "alt": "Nanlux Evoke 2400B 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "4e133c55-e46e-4f14-9ac5-549300b82597",
+      "product_id": "fc760cb7-3c6a-4bdd-9422-1df988edfd3e",
+      "url": "/equipment/nanlux-evoke-2400b-3.webp",
+      "alt": "Nanlux Evoke 2400B 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "bb68d8ba-b116-4a33-87ef-dd944d0e9728",
+      "product_id": "9929427b-abb2-4dd7-b6a4-8e21d1062eae",
+      "url": "/equipment/aputure-ls-1200x.jpg",
+      "alt": "Aputure LS 1200X 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "37681322-298d-4fca-ab82-a54b38e73112",
+      "product_id": "9929427b-abb2-4dd7-b6a4-8e21d1062eae",
+      "url": "/equipment/aputure-ls-1200x-2.webp",
+      "alt": "Aputure LS 1200X 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "665d24b1-fd32-4f7b-ad79-550da38e36d5",
+      "product_id": "9929427b-abb2-4dd7-b6a4-8e21d1062eae",
+      "url": "/equipment/aputure-ls-1200x-3.webp",
+      "alt": "Aputure LS 1200X 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "b4723f02-3247-4424-a0d2-1087adfd958c",
+      "product_id": "9929427b-abb2-4dd7-b6a4-8e21d1062eae",
+      "url": "/equipment/aputure-ls-1200x-4.webp",
+      "alt": "Aputure LS 1200X 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "2c2f6626-544a-47fb-9b74-0d048a5c2c5e",
+      "product_id": "7e9161a8-e32e-404a-8f2f-51790c611320",
+      "url": "/equipment/aputure-ls-1000c.jpg",
+      "alt": "Aputure LS 1000C 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "e20c14e7-0062-4577-8d69-1c1be68a8eda",
+      "product_id": "7e9161a8-e32e-404a-8f2f-51790c611320",
+      "url": "/equipment/aputure-ls-1000c-2.webp",
+      "alt": "Aputure LS 1000C 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "01c3cfbf-9d83-40e4-bda0-2b817cde2006",
+      "product_id": "7e9161a8-e32e-404a-8f2f-51790c611320",
+      "url": "/equipment/aputure-ls-1000c-3.webp",
+      "alt": "Aputure LS 1000C 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "e5fb0049-aee5-4e64-870a-a18a86a0660f",
+      "product_id": "3c23b448-4c0c-4bee-8429-c6635f6ead54",
+      "url": "/equipment/aputure-ls-1200d.jpg",
+      "alt": "Aputure LS 1200D 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "bf46a344-24f0-46e9-bc01-6b97d73fac96",
+      "product_id": "3c23b448-4c0c-4bee-8429-c6635f6ead54",
+      "url": "/equipment/aputure-ls-1200d-2.webp",
+      "alt": "Aputure LS 1200D 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "85ca4702-c7a8-4fe9-970f-16ead372f1d3",
+      "product_id": "3c23b448-4c0c-4bee-8429-c6635f6ead54",
+      "url": "/equipment/aputure-ls-1200d-3.webp",
+      "alt": "Aputure LS 1200D 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "ed88eb10-8c44-4c8c-b187-1ca071bfb761",
+      "product_id": "7cffeac0-7807-4525-8d7f-2ea0dbcbac4e",
+      "url": "/equipment/aputure-ls-600c.jpg",
+      "alt": "Aputure LS 600C 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "86f3b7d7-a961-4ef3-8fe1-4eefef57d089",
+      "product_id": "7cffeac0-7807-4525-8d7f-2ea0dbcbac4e",
+      "url": "/equipment/aputure-ls-600c-2.webp",
+      "alt": "Aputure LS 600C 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "f432fe9e-4a19-434c-9165-9be6b8b9fb67",
+      "product_id": "7cffeac0-7807-4525-8d7f-2ea0dbcbac4e",
+      "url": "/equipment/aputure-ls-600c-3.webp",
+      "alt": "Aputure LS 600C 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "4204f64d-2dc4-45b1-b975-f463f598f244",
+      "product_id": "7cffeac0-7807-4525-8d7f-2ea0dbcbac4e",
+      "url": "/equipment/aputure-ls-600c-4.webp",
+      "alt": "Aputure LS 600C 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "bbdf19f5-29a3-487d-b36f-dbcfc61006b0",
+      "product_id": "0548699d-91c1-4aff-9c5f-972ddff7e2d3",
+      "url": "/equipment/aputure-ls-300d-ii.jpg",
+      "alt": "Aputure LS 300d II 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "828d8a87-ff90-41dc-9770-11e7b8725b60",
+      "product_id": "0548699d-91c1-4aff-9c5f-972ddff7e2d3",
+      "url": "/equipment/aputure-ls-300d-ii-2.webp",
+      "alt": "Aputure LS 300d II 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "8d1672cb-0db5-4cfe-975c-9d844822e4fe",
+      "product_id": "0548699d-91c1-4aff-9c5f-972ddff7e2d3",
+      "url": "/equipment/aputure-ls-300d-ii-3.webp",
+      "alt": "Aputure LS 300d II 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "29e95588-4f4f-4e2a-9e1e-b30062b873f5",
+      "product_id": "de42eb10-1150-4f11-8f73-a8efd779eb54",
+      "url": "/equipment/aputure-ls-120d-ii.jpg",
+      "alt": "Aputure LS 120d II 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "848c5b80-8409-4245-a414-01c41abfc2af",
+      "product_id": "de42eb10-1150-4f11-8f73-a8efd779eb54",
+      "url": "/equipment/aputure-ls-120d-ii-2.webp",
+      "alt": "Aputure LS 120d II 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "a6001e00-da44-4657-952e-48afa1ebcd58",
+      "product_id": "55b8f9a5-8c8a-453e-b885-57fd4701ed08",
+      "url": "/equipment/aputure-nova-p300c.avif",
+      "alt": "Aputure Nova P300c 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "3b9d599a-c2bb-4233-98d5-8b84b2b70e24",
+      "product_id": "55b8f9a5-8c8a-453e-b885-57fd4701ed08",
+      "url": "/equipment/aputure-nova-p300c-2.webp",
+      "alt": "Aputure Nova P300c 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "d207f4f2-8c90-4ea9-bf63-797094b24e0e",
+      "product_id": "55b8f9a5-8c8a-453e-b885-57fd4701ed08",
+      "url": "/equipment/aputure-nova-p300c-3.webp",
+      "alt": "Aputure Nova P300c 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "687e55fd-4a5f-4143-b415-b92773824957",
+      "product_id": "7dae0a31-862f-43cc-a27c-b4f2fed9c72d",
+      "url": "/equipment/aputure-mc-ls-mini-main.webp",
+      "alt": "Aputure MC (LS Mini) 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "2dc4500a-d67c-4213-b796-36310ce38d64",
+      "product_id": "7dae0a31-862f-43cc-a27c-b4f2fed9c72d",
+      "url": "/equipment/aputure-mc-ls-mini-3.webp",
+      "alt": "Aputure MC (LS Mini) 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "72dd137c-d849-4005-b430-b6f7132c46b7",
+      "product_id": "7dae0a31-862f-43cc-a27c-b4f2fed9c72d",
+      "url": "/equipment/aputure-mc-ls-mini-4.webp",
+      "alt": "Aputure MC (LS Mini) 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "f0bf45a5-832b-4bdd-95c6-69c16ffaaf82",
+      "product_id": "134efd4b-29d9-4600-a4de-78875906f1df",
+      "url": "/equipment/amaran-f22c.webp",
+      "alt": "Amaran F22c 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "0514fc3e-5037-4728-9ee4-67090f7874ee",
+      "product_id": "134efd4b-29d9-4600-a4de-78875906f1df",
+      "url": "/equipment/amaran-f22c-2.webp",
+      "alt": "Amaran F22c 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "289e9d4e-3dab-448d-aa89-96336ca45e65",
+      "product_id": "134efd4b-29d9-4600-a4de-78875906f1df",
+      "url": "/equipment/amaran-f22c-3.webp",
+      "alt": "Amaran F22c 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "c6d22d28-f4f0-4bd0-8c25-aaf2b253abaa",
+      "product_id": "134efd4b-29d9-4600-a4de-78875906f1df",
+      "url": "/equipment/amaran-f22c-4.webp",
+      "alt": "Amaran F22c 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "ed069a4b-b29e-4dfd-b31f-4f390915dca3",
+      "product_id": "bfdb4b11-d42d-45df-b9c5-139273b6ec3a",
+      "url": "/equipment/amaran-300c.jpg",
+      "alt": "Amaran 300c 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "ab5d34ef-86cd-4d29-b43f-1ee628b2e771",
+      "product_id": "bfdb4b11-d42d-45df-b9c5-139273b6ec3a",
+      "url": "/equipment/amaran-300c-2.webp",
+      "alt": "Amaran 300c 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "71846107-1754-4f04-8838-24f8b1c67f09",
+      "product_id": "bfdb4b11-d42d-45df-b9c5-139273b6ec3a",
+      "url": "/equipment/amaran-300c-3.webp",
+      "alt": "Amaran 300c 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "f62aa368-6760-4ee3-8d11-593d5eab24b8",
+      "product_id": "bfdb4b11-d42d-45df-b9c5-139273b6ec3a",
+      "url": "/equipment/amaran-300c-4.webp",
+      "alt": "Amaran 300c 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "751a4d22-4171-48d9-8018-5422c6e455e7",
+      "product_id": "a87214e7-123c-4fd6-a2a9-b8c2c86bcd5c",
+      "url": "/equipment/amaran-150c.webp",
+      "alt": "Amaran 150c 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "bece4ad9-df98-4d60-bd4b-9eac577fa5c3",
+      "product_id": "a87214e7-123c-4fd6-a2a9-b8c2c86bcd5c",
+      "url": "/equipment/amaran-150c-2.webp",
+      "alt": "Amaran 150c 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "fde0b06b-e443-4d96-af7f-122a3444bfad",
+      "product_id": "a87214e7-123c-4fd6-a2a9-b8c2c86bcd5c",
+      "url": "/equipment/amaran-150c-3.webp",
+      "alt": "Amaran 150c 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "d6bc1386-1d8a-4d89-b9d4-c3abbb0c6936",
+      "product_id": "37ce7209-5f88-4c18-8432-d19ae07c7e35",
+      "url": "/equipment/godox-knowled-mat-light-4x4.webp",
+      "alt": "Godox KNOWLED Mat Light 4x4",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "783320b1-d265-4b6a-bca9-73de47f00c88",
+      "product_id": "ed81c74d-2a03-4174-80ae-8aedbc33e431",
+      "url": "/equipment/godox-mat-light-4x2.webp",
+      "alt": "Godox Mat Light 4x2",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "e702499d-c863-430d-aa1e-d6c749838dd3",
+      "product_id": "b543f95c-91fb-4e75-b6a0-57d91cafde36",
+      "url": "/equipment/godox-mat-light-2x2.jpg",
+      "alt": "Godox Mat Light 2x2",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "d1334d84-83cd-420d-8d36-295472d709be",
+      "product_id": "1dd07ff5-eff3-4aa5-8d1b-3c0af20e61af",
+      "url": "/equipment/godox-airtube-light.jpg",
+      "alt": "Godox Airtube Light 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "374fdd4c-f888-4497-a6dc-608a1264afb2",
+      "product_id": "1dd07ff5-eff3-4aa5-8d1b-3c0af20e61af",
+      "url": "/equipment/godox-airtube-light-2.webp",
+      "alt": "Godox Airtube Light 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "9046747a-b422-4ba8-82fa-6bebef0290b8",
+      "product_id": "1dd07ff5-eff3-4aa5-8d1b-3c0af20e61af",
+      "url": "/equipment/godox-airtube-light-3.webp",
+      "alt": "Godox Airtube Light 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "b9c94eaf-ab7c-4d7b-9885-980f202f9be0",
+      "product_id": "1dd07ff5-eff3-4aa5-8d1b-3c0af20e61af",
+      "url": "/equipment/godox-airtube-light-4.webp",
+      "alt": "Godox Airtube Light 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "e1f3d349-8fd1-45cd-8e77-0dd4f9f8d9fc",
+      "product_id": "cc73b746-622b-4e2e-bbf3-f8174330846b",
+      "url": "/equipment/nanlite-pavotube-4ft.jpg",
+      "alt": "Nanlite PavoTube 4ft 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "ca8d7671-1203-492c-88ff-2ae9f50e1ca7",
+      "product_id": "cc73b746-622b-4e2e-bbf3-f8174330846b",
+      "url": "/equipment/nanlite-pavotube-4ft-2.webp",
+      "alt": "Nanlite PavoTube 4ft 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "6506b65d-c357-4e34-875d-67cfcd05e673",
+      "product_id": "62be676f-7f6a-4174-aedf-623b2847ffcc",
+      "url": "/equipment/nanlite-pavotube-1ft.jpg",
+      "alt": "Nanlite PavoTube 1ft 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "5ab7b640-4c3c-4c91-83c8-03e39ce10bbf",
+      "product_id": "62be676f-7f6a-4174-aedf-623b2847ffcc",
+      "url": "/equipment/nanlite-pavotube-1ft-2.webp",
+      "alt": "Nanlite PavoTube 1ft 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "fdcb7beb-5f14-47d4-9dec-9d03e04ed9d3",
+      "product_id": "fcc5c5d3-d556-4ff7-85e0-18bcf046809b",
+      "url": "/equipment/12x12ft-butterfly.jpg",
+      "alt": "12x12ft Butterfly 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "4e1c0e20-f8d7-44a3-9c1a-fee6b5b9651b",
+      "product_id": "fcc5c5d3-d556-4ff7-85e0-18bcf046809b",
+      "url": "/equipment/butterfly-frame-kit.jpg",
+      "alt": "12x12ft Butterfly 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "6c5509bc-836b-46ab-90bb-542727f15475",
+      "product_id": "021d44c1-6339-4042-8466-86d86f00c1a9",
+      "url": "/equipment/12x12ft-checkerboard.jpg",
+      "alt": "12x12ft Checkerboard",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "3c3e1e75-b2a8-45d0-8bad-becb333970fa",
+      "product_id": "d8d72381-4d0a-4569-b6f8-6d75b32e3551",
+      "url": "/equipment/12x12ft-ultrabounce.jpg",
+      "alt": "12x12ft Ultrabounce",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "80a420c0-3637-472a-b387-3d05ae5662f8",
+      "product_id": "7e568a54-bb0d-4757-ac45-8b8bad6f27c2",
+      "url": "/equipment/12x12ft-checkerboard.jpg",
+      "alt": "8x8ft Checkerboard",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "e640a566-6034-4c68-b4ae-798be4b17111",
+      "product_id": "15806e89-3782-4a01-b992-d4ee58e24d5c",
+      "url": "/equipment/12x12ft-butterfly.jpg",
+      "alt": "8x8ft Butterfly 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "b956711f-d90a-4e45-bc05-6269b8a864fe",
+      "product_id": "15806e89-3782-4a01-b992-d4ee58e24d5c",
+      "url": "/equipment/butterfly-frame-kit.jpg",
+      "alt": "8x8ft Butterfly 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "d46c5c3f-cb18-40e9-83c1-0b8ee08f9cab",
+      "product_id": "2b0108d7-6f37-4516-a087-2678deef903d",
+      "url": "/equipment/12x12ft-ultrabounce.jpg",
+      "alt": "8x8ft Ultrabounce",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "bb21f15d-c566-4558-9cb1-4e7ce1e3235e",
+      "product_id": "6b8bc88e-fd3d-4f83-93e4-75685e0bd003",
+      "url": "/equipment/8x8ft-black-out.jpg",
+      "alt": "8x8ft Black Out",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "97cf444b-9533-4fe7-a6b5-8a78f5b4427f",
+      "product_id": "0587897d-02be-46fd-9381-06d82b16c59d",
+      "url": "/equipment/12x12ft-ultrabounce.jpg",
+      "alt": "6x6ft Ultrabounce",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "25516836-7947-4496-a598-b4dcc0bb7f28",
+      "product_id": "be9692ad-3efe-4dfe-adcf-e996d1e22ff6",
+      "url": "/equipment/12x12ft-checkerboard.jpg",
+      "alt": "6x6ft Checkerboard",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "1d69734b-c804-444b-8c84-baad22be748e",
+      "product_id": "356ddb42-3d70-45cf-8b50-52db4fef998e",
+      "url": "/equipment/12x12ft-checkerboard.jpg",
+      "alt": "4x4ft Checkerboard",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "ab140cb1-cab6-49e2-8e8d-ef348ec09edc",
+      "product_id": "91d3342c-24a1-496d-9676-4901a8562331",
+      "url": "/equipment/flags-set.jpg",
+      "alt": "Flags Set 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "d5ff07e4-d196-424f-853f-200908258a83",
+      "product_id": "91d3342c-24a1-496d-9676-4901a8562331",
+      "url": "/equipment/flags-set-2.jpg",
+      "alt": "Flags Set 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "6534fee1-00c2-4de8-a26b-4eac9417e271",
+      "product_id": "91d3342c-24a1-496d-9676-4901a8562331",
+      "url": "/equipment/flags-set-3.webp",
+      "alt": "Flags Set 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "bd3a9f36-d270-47d3-abb6-857f95562be9",
+      "product_id": "55a5a131-c1b9-4121-9e87-9ebc1b5ff789",
+      "url": "/equipment/floppy.png",
+      "alt": "Floppy 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "4472ef23-c4da-4ad8-924a-fc4e0882bd34",
+      "product_id": "55a5a131-c1b9-4121-9e87-9ebc1b5ff789",
+      "url": "/equipment/floppy-2.jpg",
+      "alt": "Floppy 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "d266711a-1c54-403e-87c5-774496dcb64f",
+      "product_id": "e06e40ec-1e45-4c21-ac1c-611b5874db72",
+      "url": "/equipment/smallrig-tripod.jpg",
+      "alt": "SmallRig Tripod 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "3dfe500d-01e3-4279-927c-3da7265f3f8b",
+      "product_id": "e06e40ec-1e45-4c21-ac1c-611b5874db72",
+      "url": "/equipment/smallrig-tripod-2.jpg",
+      "alt": "SmallRig Tripod 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "c0c8ea22-a451-41ee-93d0-e20af4ef9290",
+      "product_id": "e06e40ec-1e45-4c21-ac1c-611b5874db72",
+      "url": "/equipment/smallrig-tripod-3.jpg",
+      "alt": "SmallRig Tripod 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "ed62a86e-ae1e-4150-9fc4-ccf126ac339f",
+      "product_id": "64214149-ee95-439c-a876-f8b996b8211a",
+      "url": "/equipment/haze-machine.avif",
+      "alt": "Haze Machine",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "560b399a-f02f-477e-96ae-70303a6eb6a4",
+      "product_id": "d545a634-2613-41cc-99cc-f2669c253f4f",
+      "url": "/equipment/smoke-machine.jpg",
+      "alt": "Smoke Machine",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "a97ddf1b-255e-436d-a332-bc1e290300e7",
+      "product_id": "5e12cf1c-19c0-4491-8783-a71b28ed14e5",
+      "url": "/equipment/arri-alexa-mini-lf.webp",
+      "alt": "ARRI Alexa Mini LF 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "571a4cce-3760-4582-be39-e7c7751bcfb2",
+      "product_id": "5e12cf1c-19c0-4491-8783-a71b28ed14e5",
+      "url": "/equipment/arri-alexa-mini-lf-2.jpg",
+      "alt": "ARRI Alexa Mini LF 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "85f2af60-2203-4a37-a64f-ef23f2f1697a",
+      "product_id": "5e12cf1c-19c0-4491-8783-a71b28ed14e5",
+      "url": "/equipment/arri-alexa-mini-lf-3.jpg",
+      "alt": "ARRI Alexa Mini LF 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "b222cf30-7926-4698-8548-8875d4cf88ae",
+      "product_id": "5e12cf1c-19c0-4491-8783-a71b28ed14e5",
+      "url": "/equipment/arri-alexa-mini-lf-4.jpg",
+      "alt": "ARRI Alexa Mini LF 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "3ee7cccd-c2a1-4a66-aad2-83e71d6057ef",
+      "product_id": "ac325dfb-9b10-4984-9a4a-e40233be4988",
+      "url": "/equipment/red-komodo.jpg",
+      "alt": "RED Komodo 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "788f4ee5-b3e4-468b-83f5-445a41eacacf",
+      "product_id": "ac325dfb-9b10-4984-9a4a-e40233be4988",
+      "url": "/equipment/red-komodo-2.jpg",
+      "alt": "RED Komodo 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "08a694f9-acad-41fc-831a-69b883b46694",
+      "product_id": "ac325dfb-9b10-4984-9a4a-e40233be4988",
+      "url": "/equipment/red-komodo-3.png",
+      "alt": "RED Komodo 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "a164fb33-6c0b-46b0-8512-b311f69a6de5",
+      "product_id": "ac325dfb-9b10-4984-9a4a-e40233be4988",
+      "url": "/equipment/red-komodo-4.webp",
+      "alt": "RED Komodo 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "626e2357-480a-4f43-bc07-0a1d934d0ba5",
+      "product_id": "2673dd76-1a02-4c98-9f6e-bf7575b7593d",
+      "url": "/equipment/sony-fx6.jpg",
+      "alt": "Sony FX6 (Cine Style) 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "5eb2aeef-2ae1-4891-980f-1e678f9e739e",
+      "product_id": "2673dd76-1a02-4c98-9f6e-bf7575b7593d",
+      "url": "/equipment/sony-fx6-2.jpg",
+      "alt": "Sony FX6 (Cine Style) 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "f9717b4e-e2af-4287-a9fb-c7e2bf73c4a2",
+      "product_id": "2673dd76-1a02-4c98-9f6e-bf7575b7593d",
+      "url": "/equipment/sony-fx6-3.jpg",
+      "alt": "Sony FX6 (Cine Style) 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "3716efd1-1e31-498a-931c-1c6d8fa15e88",
+      "product_id": "2673dd76-1a02-4c98-9f6e-bf7575b7593d",
+      "url": "/equipment/sony-fx6-4.jpg",
+      "alt": "Sony FX6 (Cine Style) 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "86fab944-4bad-451d-be89-3703789fbb57",
+      "product_id": "f1733848-8ca6-4f2f-9af2-29c2dd9e34e3",
+      "url": "/equipment/heavy-duty-tripod.webp",
+      "alt": "Heavy Duty Tripod",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "8b053dba-8161-4f5e-a5ab-955cb3a34768",
+      "product_id": "1ee11a3a-1008-4b84-adff-dd908307a4bc",
+      "url": "/equipment/hi-hat.webp",
+      "alt": "Hi-Hat 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "3eb6b85d-fbc6-415d-bef6-2954f59188c4",
+      "product_id": "1ee11a3a-1008-4b84-adff-dd908307a4bc",
+      "url": "/equipment/hi-hat-2.webp",
+      "alt": "Hi-Hat 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "ce3584b5-512d-4921-9134-403fce6028e2",
+      "product_id": "59cd0b3f-5280-42e7-9885-cf1e7f0d2d8e",
+      "url": "/equipment/mini-jib-12ft.jpg",
+      "alt": "Mini Jib (12ft)",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "b5aeb0fe-d95c-454e-a0ee-e77d8bb09c3b",
+      "product_id": "5a3ecc2b-cfe7-480a-b797-5f1f81675865",
+      "url": "/equipment/retractable-jib.jpg",
+      "alt": "Retractable Jib",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "4afa2da4-8e24-4c1d-9e8a-03a71731dd7c",
+      "product_id": "d8b15283-a528-412c-ba0c-64a08e04d1b0",
+      "url": "/equipment/dana-dolly-slider.jpg",
+      "alt": "Dana Dolly Slider 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "fbcc610e-18c3-499a-928d-a39b91f9547f",
+      "product_id": "d8b15283-a528-412c-ba0c-64a08e04d1b0",
+      "url": "/equipment/dana-dolly-slider-2.jpg",
+      "alt": "Dana Dolly Slider 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "80966e1a-fb76-4c57-ac31-ed9aa03cbe3c",
+      "product_id": "7de7f568-0c65-4fc3-90e8-576261ae31e9",
+      "url": "/equipment/ez-fx-slider.jpg",
+      "alt": "EZ FX Slider 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "3a06620c-082b-46b3-85a4-5b8599022f6b",
+      "product_id": "7de7f568-0c65-4fc3-90e8-576261ae31e9",
+      "url": "/equipment/ez-fx-slider-2.jpg",
+      "alt": "EZ FX Slider 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "00347a1a-fbc7-4906-8457-27f9bfd005b4",
+      "product_id": "6917154c-9a70-4664-b737-d2316aa625f5",
+      "url": "/equipment/camera-cart.jpg",
+      "alt": "Camera Cart",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "2bae8356-b1d5-4085-bcdf-9d234e576ccd",
+      "product_id": "04cadc65-070c-4a62-ab41-38280f4483fa",
+      "url": "/equipment/cine-saddle.webp",
+      "alt": "Cine Saddle 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "bccd5dbd-76c3-462c-9c88-ec857314cf41",
+      "product_id": "04cadc65-070c-4a62-ab41-38280f4483fa",
+      "url": "/equipment/cine-saddle-2.webp",
+      "alt": "Cine Saddle 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "0f1a0b0a-8c05-45dc-a4ab-6ef6410a66c2",
+      "product_id": "04cadc65-070c-4a62-ab41-38280f4483fa",
+      "url": "/equipment/cine-saddle-3.webp",
+      "alt": "Cine Saddle 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "cbdf9c76-2748-4951-a590-4705f0497fbe",
+      "product_id": "236a4fad-6a53-468f-8002-84ce2c654fdd",
+      "url": "/equipment/c-stand-kit.png",
+      "alt": "C-Stand Kit with Grip Head & Arm",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "8685bfc5-973b-4940-a7e4-d6f53b2a38ff",
+      "product_id": "ff3de450-c472-4432-b89c-23fd50560ce6",
+      "url": "/equipment/tiffen-glimmerglass.jpg",
+      "alt": "Tiffen Glimmerglass",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "51c246f7-99cf-4884-9785-1bdf9cdb5633",
+      "product_id": "a331dd0b-32b5-431e-b4df-480791ed14e5",
+      "url": "/equipment/4x4ft-egg-crate.jpg",
+      "alt": "4x4ft Egg Crate",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "ccb33eb0-1913-414e-b264-591427c1eafc",
+      "product_id": "3062a6c0-03c1-4c0d-84a7-66ab1023e683",
+      "url": "/equipment/6x6ft-egg-crate.jpg",
+      "alt": "6x6ft Egg Crate 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "84afbfbd-5f87-4bff-97b6-1f0dcadf32a5",
+      "product_id": "3062a6c0-03c1-4c0d-84a7-66ab1023e683",
+      "url": "/equipment/6x6ft-egg-crate-2.jpg",
+      "alt": "6x6ft Egg Crate 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "b96e8e13-7468-4109-9664-c73bc5865ff9",
+      "product_id": "57c8f9e7-41cf-4741-82ee-890124a3ad3c",
+      "url": "/equipment/8x8ft-egg-crate.jpg",
+      "alt": "8x8ft Egg Crate 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "2534419e-97f0-4b98-a0e3-6a30bcf2f284",
+      "product_id": "57c8f9e7-41cf-4741-82ee-890124a3ad3c",
+      "url": "/equipment/8x8ft-egg-crate-2.jpg",
+      "alt": "8x8ft Egg Crate 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "1a9928fb-e464-4a61-b648-c6a9aaf481a9",
+      "product_id": "9f20b149-e531-4324-8da6-e32a5eb568e0",
+      "url": "/equipment/american-stand.png",
+      "alt": "American Stand",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "10b3860b-2432-49f7-80e2-63c6722d011f",
+      "product_id": "0cc7f50f-8199-4644-a6cb-4f483a72b3eb",
+      "url": "/equipment/dji-mic.jpg",
+      "alt": "DJI Mic 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "5a2bce0f-8461-485f-be96-08deeef8d0ac",
+      "product_id": "0cc7f50f-8199-4644-a6cb-4f483a72b3eb",
+      "url": "/equipment/dji-mic-2.jpg",
+      "alt": "DJI Mic 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "9d2820ec-ddba-45fc-8e24-f7ef4e4216e1",
+      "product_id": "0cc7f50f-8199-4644-a6cb-4f483a72b3eb",
+      "url": "/equipment/dji-mic-3.jpg",
+      "alt": "DJI Mic 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "3af8bd61-266f-48be-aa14-c4f3839cdf01",
+      "product_id": "4fe21361-ecf2-4261-a3cb-ebd2e00a074f",
+      "url": "/equipment/zoom-recorder.jpg",
+      "alt": "Zoom Recorder",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "88fd5f08-01ea-4b75-bdd7-50cec81a2055",
+      "product_id": "8c6607f8-8a41-4ec7-83f2-067938ad3eb4",
+      "url": "/equipment/sennheiser-lapel-mic.jpg",
+      "alt": "Sennheiser Lapel Mic 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "bdd1bf0e-2c3a-435b-a8f1-43b6b3aba4f8",
+      "product_id": "8c6607f8-8a41-4ec7-83f2-067938ad3eb4",
+      "url": "/equipment/sennheiser-lapel-mic-2.jpg",
+      "alt": "Sennheiser Lapel Mic 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "ddcda42e-0ac5-4319-9456-bb22e9d442e7",
+      "product_id": "8c6607f8-8a41-4ec7-83f2-067938ad3eb4",
+      "url": "/equipment/sennheiser-lapel-mic-3.jpg",
+      "alt": "Sennheiser Lapel Mic 3",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "b1f9fcee-f08f-41a4-8fb2-0e4eae6172c6",
+      "product_id": "8c6607f8-8a41-4ec7-83f2-067938ad3eb4",
+      "url": "/equipment/sennheiser-lapel-mic-4.jpg",
+      "alt": "Sennheiser Lapel Mic 4",
+      "is_primary": false,
+      "order": 3
+    },
+    {
+      "id": "903a7d00-b525-4160-904f-ae182d31b701",
+      "product_id": "fa816932-db95-428d-a77a-e11d54474d65",
+      "url": "/equipment/boom-mic.jpg",
+      "alt": "Boom Mic",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "a993f9c9-89f4-4ba5-bd27-32deb53f89ba",
+      "product_id": "1c1aca42-b06a-4b6e-a44d-30a8005cde31",
+      "url": "/equipment/reflector.jpg",
+      "alt": "Reflector 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "90768a14-6ddb-4376-8ba9-f6ed32751b45",
+      "product_id": "1c1aca42-b06a-4b6e-a44d-30a8005cde31",
+      "url": "/equipment/reflector-2.jpg",
+      "alt": "Reflector 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "3dfe860e-aaa4-47c3-8f61-c167710bb65d",
+      "product_id": "65d3cd13-b1da-4f4c-ab01-296484fa5755",
+      "url": "/equipment/cage-directors-monitor-hollyland.jpg",
+      "alt": "Cage Director's Monitor with Hollyland Transmitter 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "4e2d2e0e-bfff-48cb-827f-9740a0205fc4",
+      "product_id": "65d3cd13-b1da-4f4c-ab01-296484fa5755",
+      "url": "/equipment/cage-directors-monitor-hollyland-2.jpg",
+      "alt": "Cage Director's Monitor with Hollyland Transmitter 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "f6d01d09-113a-4523-b479-cd6ed502eb83",
+      "product_id": "40fc18cb-8edb-4b90-ad99-cd3fbafee8ef",
+      "url": "/equipment/wireless-directors-monitor.jpg",
+      "alt": "Pyro 7 Wireless Director's Monitor Double 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "181d937f-9cd8-4532-854b-9cc0b24cf0dd",
+      "product_id": "40fc18cb-8edb-4b90-ad99-cd3fbafee8ef",
+      "url": "/equipment/wireless-directors-monitor-2.jpg",
+      "alt": "Pyro 7 Wireless Director's Monitor Double 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "170a3c57-bc06-4c09-a60c-fae3e56e5d6c",
+      "product_id": "b831f89f-de71-4dac-a37c-65f99345c4f5",
+      "url": "/equipment/wireless-directors-monitor.jpg",
+      "alt": "Pyro 7 Wireless Director's Monitor Single 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "ddc11ecb-581b-4c3a-9c9e-703714af2e6f",
+      "product_id": "b831f89f-de71-4dac-a37c-65f99345c4f5",
+      "url": "/equipment/wireless-directors-monitor-2.jpg",
+      "alt": "Pyro 7 Wireless Director's Monitor Single 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "340f20e9-3c60-4fe1-891d-09f700e393d3",
+      "product_id": "13e7a92e-4978-4539-9f4d-9d16a5a91645",
+      "url": "/equipment/extension-cable.jpg",
+      "alt": "Extension Cable",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "1835028d-22af-4e62-932c-fb760753a4cd",
+      "product_id": "9322ce51-c80d-482f-8a62-487796e2b19c",
+      "url": "/equipment/8x8ft-diffusion.jpg",
+      "alt": "8x8ft Diffusion",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "fa87628c-b266-4806-a0b2-afed4b2dba1f",
+      "product_id": "be87e2eb-a48b-43a9-9286-d336875c6966",
+      "url": "/equipment/6x6ft-diffusion.jpg",
+      "alt": "6x6ft Diffusion",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "ba13aca4-ebc7-4cab-8a72-4d5d469277bb",
+      "product_id": "d1d47f53-a6a5-40a5-a0d4-c04787761b13",
+      "url": "https://www.youtube.com/watch?v=ll0SKzBkgx0",
+      "alt": "Infinibar Full Set",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "f1869c1a-dcaf-408f-a58a-e017687a32bf",
+      "product_id": "d1d47f53-a6a5-40a5-a0d4-c04787761b13",
+      "url": "https://ebnftyksismdgkdozwgk.supabase.co/storage/v1/object/public/product-images/products/0d9d7420-d298-4c6d-bd42-0ea4f9531c03.jpg",
+      "alt": "Infinibar Full Set",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "8b9e9037-dad3-489a-a592-db1aa1d6b13d",
+      "product_id": "d1d47f53-a6a5-40a5-a0d4-c04787761b13",
+      "url": "https://ebnftyksismdgkdozwgk.supabase.co/storage/v1/object/public/product-images/products/395d2629-35e3-4c1e-b525-0137c1d66280.jpg",
+      "alt": "Infinibar Full Set",
+      "is_primary": false,
+      "order": 2
+    },
+    {
+      "id": "ebc235a9-b752-4da8-96ad-13b140225494",
+      "product_id": "68ffed8d-229b-4c83-a32e-fb77dc3a77ab",
+      "url": "/equipment/blackmagic-6k-pro-cinestyle.webp",
+      "alt": "Blackmagic 6K Pro (Cine Style) 1",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "8b39c79e-fe0f-4034-a20a-c5d15b275308",
+      "product_id": "68ffed8d-229b-4c83-a32e-fb77dc3a77ab",
+      "url": "/equipment/blackmagic-6k-pro-cinestyle-2.jpg",
+      "alt": "Blackmagic 6K Pro (Cine Style) 2",
+      "is_primary": false,
+      "order": 1
+    },
+    {
+      "id": "34959714-ac5e-4fcd-b217-181462233081",
+      "product_id": "d2e09a2a-6d29-4b04-a66f-c098574e6da0",
+      "url": "https://ebnftyksismdgkdozwgk.supabase.co/storage/v1/object/public/product-images/products/697d6770-86ae-46af-a896-83011ce4194e.jpg",
+      "alt": "",
+      "is_primary": true,
+      "order": 0
+    },
+    {
+      "id": "6807f34e-8d28-472e-919d-59b4e002a100",
+      "product_id": "d2e09a2a-6d29-4b04-a66f-c098574e6da0",
+      "url": "https://ebnftyksismdgkdozwgk.supabase.co/storage/v1/object/public/product-images/products/31af8072-b547-45a5-96fa-de44f17c63db.jpg",
+      "alt": "",
+      "is_primary": false,
+      "order": 1
+    }
+  ]
+}
