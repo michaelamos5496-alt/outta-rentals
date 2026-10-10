@@ -152,6 +152,7 @@ export const productImages: Record<string, string> = {
   "8x8ft-diffusion": "/equipment/8x8ft-diffusion.jpg",
   "reflector": "/equipment/reflector.jpg",
   "wireless-directors-monitor": "/equipment/wireless-directors-monitor.jpg",
+  "wireless-directors-monitor-double": "/equipment/wireless-directors-monitor.jpg",
   "cage-directors-monitor-hollyland": "/equipment/cage-directors-monitor-hollyland.jpg",
   "extension-cable": "/equipment/extension-cable.jpg",
   "sennheiser-lapel-mic": "/equipment/sennheiser-lapel-mic.jpg",
@@ -239,6 +240,7 @@ export const extraProductImages: Record<string, string[]> = {
   "amaran-150c": ["/equipment/amaran-150c-2.webp", "/equipment/amaran-150c-3.webp"],
   "reflector": ["/equipment/reflector-2.jpg"],
   "wireless-directors-monitor": ["/equipment/wireless-directors-monitor-2.jpg"],
+  "wireless-directors-monitor-double": ["/equipment/wireless-directors-monitor-2.jpg"],
   "cage-directors-monitor-hollyland": ["/equipment/cage-directors-monitor-hollyland-2.jpg"],
   "dji-mic": ["/equipment/dji-mic-2.jpg", "/equipment/dji-mic-3.jpg"],
   "sennheiser-lapel-mic": [

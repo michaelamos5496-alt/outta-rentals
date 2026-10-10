@@ -114,7 +114,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "top-guy",
         label: "TOP GUY",
-        price: 4360,
+        price: 4520,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
@@ -190,7 +190,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "top-guy",
         label: "TOP GUY",
-        price: 9160,
+        price: 9240,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
@@ -244,7 +244,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "lite",
         label: "LITE",
-        price: 3840,
+        price: 3920,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "blackmagic-6k-pro", quantity: 1 },
@@ -265,7 +265,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "top-guy",
         label: "TOP GUY",
-        price: 8600,
+        price: 8680,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
