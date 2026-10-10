@@ -174,7 +174,7 @@ export const productImages: Record<string, string> = {
   "american-stand": "/equipment/american-stand.png",
   "haze-machine": "/equipment/haze-machine.avif",
   "smoke-machine": "/equipment/smoke-machine.jpg",
-  "sony-fx3": "/equipment/sony-fx3.webp",
+  "sony-fx3": "/equipment/sony-fx3-cinestyle.jpg",
   "sony-fx6": "/equipment/sony-fx6.jpg",
   "sachtler-video-25-plus-tripod": "/equipment/sachtler-video-25-plus-tripod.webp",
   "manfrotto-116-mrk3": "/equipment/manfrotto-116-mrk3.webp",
