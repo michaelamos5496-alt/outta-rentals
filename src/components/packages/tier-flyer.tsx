@@ -133,9 +133,9 @@ function TierCard({
       <Link
         href={href}
         aria-label={`View ${pkg.name} ${tier.label} package`}
-        className="absolute bottom-2 left-2 flex size-7 items-center justify-center rounded-full bg-white text-foreground transition-transform active:scale-90"
+        className="absolute bottom-2 left-2 flex size-5 items-center justify-center rounded-full bg-white text-foreground transition-transform active:scale-90"
       >
-        <ArrowUpRight className="size-3.5" />
+        <ArrowUpRight className="size-3" />
       </Link>
     </article>
   );
