@@ -125,7 +125,7 @@ function NavbarSearch({ onNavigate }: { onNavigate: () => void }) {
   );
 }
 
-// The real equipment taxonomy (all 9 real categories, every one reachable)
+// The real equipment taxonomy (all 10 real categories, every one reachable)
 // collapsed into the client's requested tab set — Camera and Light each
 // group a few closely related real categories under one tab. Rendered as
 // flat, always-visible tabs in the main nav row (711rent-style), not
@@ -143,8 +143,8 @@ const equipmentTabs: EquipmentTab[] = [
       { label: "Monitoring", href: "/equipment/monitors" },
       { label: "Lens Control", href: "/equipment/camera-accessories" },
       { label: "Wireless Video", href: "/equipment/camera-accessories" },
-      { label: "Matte Box", href: "/equipment/camera-accessories" },
-      { label: "Filters", href: "/equipment/camera-accessories" },
+      { label: "Matte Box", href: "/equipment/matte-boxes" },
+      { label: "Filters", href: "/equipment/filters" },
     ],
   },
   { label: "Lens", href: "/equipment/lenses" },
@@ -152,7 +152,6 @@ const equipmentTabs: EquipmentTab[] = [
   { label: "Modifiers", href: "/equipment/lighting-modifiers" },
   { label: "Grip", href: "/equipment/grip" },
   { label: "Audio", href: "/equipment/audio" },
-  { label: "Wireless", href: "/equipment/wireless-systems" },
   { label: "Packages", href: "/packages" },
 ];
 

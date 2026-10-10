@@ -2,12 +2,13 @@ import type { LucideIcon } from "lucide-react";
 import {
   Aperture,
   Camera,
+  Frame,
+  Layers,
   Mic2,
   MonitorPlay,
   Settings2,
   Spotlight,
   Sun,
-  Wifi,
   Wrench,
 } from "lucide-react";
 
@@ -57,6 +58,18 @@ export const categories: Category[] = [
     description: "Wireless focus, video transmitters and on-set camera support.",
   },
   {
+    id: "cat-filters",
+    name: "Filters",
+    slug: "filters",
+    description: "ND, diffusion and polarizing filters.",
+  },
+  {
+    id: "cat-matte-boxes",
+    name: "Matte Boxes",
+    slug: "matte-boxes",
+    description: "Lens shading and filter-mounting systems.",
+  },
+  {
     id: "cat-lighting-modifiers",
     name: "Lighting Modifiers",
     slug: "lighting-modifiers",
@@ -68,12 +81,6 @@ export const categories: Category[] = [
     slug: "audio",
     description: "Wireless mics, boom and field recording gear.",
   },
-  {
-    id: "cat-wireless-systems",
-    name: "Wireless Systems",
-    slug: "wireless-systems",
-    description: "Wireless video transmitters, receivers and monitoring links.",
-  },
 ];
 
 export const categoryIcons: Record<string, LucideIcon> = {
@@ -83,9 +90,10 @@ export const categoryIcons: Record<string, LucideIcon> = {
   grip: Wrench,
   monitors: MonitorPlay,
   "camera-accessories": Settings2,
+  filters: Layers,
+  "matte-boxes": Frame,
   "lighting-modifiers": Sun,
   audio: Mic2,
-  "wireless-systems": Wifi,
 };
 
 export function getCategoryBySlug(slug: string): Category | undefined {
