@@ -170,13 +170,14 @@ export const packages: ProductionPackage[] = [
       {
         slug: "lite",
         label: "LITE",
-        price: 2520,
+        price: 2920,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx3", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-546gb", quantity: 1 },
           { role: "Accessories", productSlug: "tilta-mirage-matte-box-w-vnd", quantity: 1 },
           { role: "Support", productSlug: "dji-rs3-pro-combo-with-ring", quantity: 1 },
+          { role: "Monitoring", productSlug: "cage-directors-monitor-hollyland", quantity: 1 },
           { role: "Lighting", productSlug: "amaran-200x-s", quantity: 1 },
           { role: "Lighting", productSlug: "amaran-150c", quantity: 1 },
           { role: "Lighting", productSlug: "amaran-300c", quantity: 1 },
@@ -243,7 +244,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "lite",
         label: "LITE",
-        price: 3440,
+        price: 3840,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "blackmagic-6k-pro", quantity: 1 },
@@ -251,6 +252,7 @@ export const packages: ProductionPackage[] = [
           { role: "Support", productSlug: "manfrotto-546gb", quantity: 1 },
           { role: "Monitoring", productSlug: "wireless-directors-monitor", quantity: 1 },
           { role: "Support", productSlug: "ez-fx-slider", quantity: 1 },
+          { role: "Monitoring", productSlug: "cage-directors-monitor-hollyland", quantity: 1 },
           { role: "Lighting", productSlug: "godox-mat-light-2x2", quantity: 1 },
           { role: "Lighting", productSlug: "nanlite-fc-720b", quantity: 1 },
           { role: "Lighting", productSlug: "amaran-200x-s", quantity: 1 },
