@@ -37,7 +37,7 @@ export const packages: ProductionPackage[] = [
       },
       {
         slug: "top-boy-mid",
-        label: "TOP BOY",
+        label: "TOP GUY",
         price: 6320,
         currency: "GHS",
         items: [

@@ -5,7 +5,7 @@ export interface TierCopy {
 
 /**
  * The shared description for each kind of tier — the same wording on every
- * package (Commercial's "TOP BOY" and the others' "TOP GUY" are the
+ * package (Commercial's tier slug "top-boy-mid" and the others' "top-guy" are the
  * same professional tier).
  */
 const TIER_COPY: Record<string, TierCopy> = {
