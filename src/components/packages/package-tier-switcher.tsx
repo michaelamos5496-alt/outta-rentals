@@ -42,15 +42,15 @@ function PackageTierSwitcher({ packageSlug, tiers, initialTierSlug }: PackageTie
               aria-selected={tier.slug === activeSlug}
               onClick={() => setActiveSlug(tier.slug)}
               className={cn(
-                "flex flex-1 flex-col items-start gap-0.5 border px-4 py-3 text-left transition-colors",
+                "flex flex-1 flex-col items-start gap-1 border-2 px-4 py-4 text-left transition-colors",
                 tier.slug === activeSlug
-                  ? "border-brand bg-brand text-brand-foreground"
-                  : "border-border hover:border-foreground/40"
+                  ? "border-brand bg-brand text-brand-foreground shadow-md"
+                  : "border-foreground/30 text-foreground hover:border-foreground"
               )}
             >
-              <span className="text-label">{tier.label}</span>
+              <span className="text-lg font-extrabold tracking-wide uppercase sm:text-xl">{tier.label}</span>
               {tier.price && tier.currency ? (
-                <span className="font-mono text-sm font-semibold">
+                <span className="font-mono text-base font-bold">
                   {formatPrice(tier.price, tier.currency)}/day
                 </span>
               ) : null}
