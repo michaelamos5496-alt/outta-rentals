@@ -18,9 +18,11 @@ export interface KitSummaryProps {
   showDates?: boolean;
   emptyAction?: React.ReactNode;
   footer?: React.ReactNode;
+  /** Rendered directly under the total, above the Clear cart row. */
+  underTotal?: React.ReactNode;
 }
 
-function KitSummary({ compact = false, showDates = true, emptyAction, footer }: KitSummaryProps) {
+function KitSummary({ compact = false, showDates = true, emptyAction, footer, underTotal }: KitSummaryProps) {
   const { items, rentalDays, dateError, clearKit } = useKit();
   const lines = resolveKitLines(items, rentalDays ?? 0);
   // Prices any unmodified package group at OUTTA's flat quoted rate instead
@@ -73,6 +75,8 @@ function KitSummary({ compact = false, showDates = true, emptyAction, footer }: 
         </div>
         {!canPrice ? <p className="text-meta">Set rental dates to see the total for your dates.</p> : null}
       </div>
+
+      {underTotal ? <div className="mb-3">{underTotal}</div> : null}
 
       <div className="flex items-center justify-between gap-3">
         <Button variant="outline" size="sm" onClick={clearKit}>
