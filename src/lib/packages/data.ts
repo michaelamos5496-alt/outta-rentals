@@ -47,7 +47,6 @@ export const packages: ProductionPackage[] = [
         price: 9160,
         currency: "GHS",
         items: [
-          { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
           { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
           { role: "Lens", productSlug: "dzofilm-pictor-zoom-20-55mm-t2-8", quantity: 1 },
           { role: "Lens", productSlug: "dzofilm-pictor-zoom-50-125mm-t2-8", quantity: 1 },
