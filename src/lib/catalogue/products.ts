@@ -240,7 +240,7 @@ export const products: DemoProduct[] = [
     id: "prod-blackmagic-6k-pro",
     slug: "blackmagic-6k-pro",
     sku: "OUTTA-CAM-0110",
-    name: "Blackmagic 6K Pro",
+    name: "Blackmagic 6K Pro (Cine Style)",
     brandSlug: "blackmagic",
     categorySlug: "cameras",
     tags: ["cameras"],
