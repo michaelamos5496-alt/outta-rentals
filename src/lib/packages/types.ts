@@ -10,6 +10,10 @@ export type PackageRole =
 export interface PackageLineItem {
   role: PackageRole;
   productSlug: string;
+  /** When set, this line is a choice between `productSlug` and this
+   * alternative ("X or Y") — the customer picks one; `productSlug` is the
+   * default. Priced at the dearer of the two when totalling the tier. */
+  orProductSlug?: string;
   quantity: number;
 }
 

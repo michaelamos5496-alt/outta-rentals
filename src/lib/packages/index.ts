@@ -55,8 +55,13 @@ export function getFromPrice(pkg: ProductionPackage): { amount: number; currency
 /** Sum of each line item's own day rate — the price before any package discount. */
 function getTierItemsTotal(tier: PackageTier): { amount: number; currency: string }[] {
   return tier.items.flatMap((item) => {
-    const product = getProductBySlug(item.productSlug);
-    return product ? [{ amount: product.dayRate * item.quantity, currency: product.currency }] : [];
+    // An "X or Y" line counts at whichever option costs more.
+    const options = [item.productSlug, item.orProductSlug]
+      .flatMap((slug) => (slug ? [getProductBySlug(slug)] : []))
+      .filter((p): p is DemoProduct => Boolean(p));
+    if (options.length === 0) return [];
+    const product = options.reduce((max, p) => (p.dayRate > max.dayRate ? p : max));
+    return [{ amount: product.dayRate * item.quantity, currency: product.currency }];
   });
 }
 
@@ -86,7 +91,7 @@ export function getTierFullPrice(tier: PackageTier): { amount: number; currency:
 
 export function getPackagesContainingProduct(productSlug: string): ProductionPackage[] {
   return getAllPackages().filter((p) =>
-    p.tiers.some((tier) => tier.items.some((item) => item.productSlug === productSlug))
+    p.tiers.some((tier) => tier.items.some((item) => item.productSlug === productSlug || item.orProductSlug === productSlug))
   );
 }
 

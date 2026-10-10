@@ -50,6 +50,25 @@ function slugQuantityTotals(items: { productSlug: string; quantity: number }[]):
   return totals;
 }
 
+/**
+ * What the tier's group should contain. An "X or Y" line accepts either
+ * option: if the group holds the alternative (and not the default), the
+ * alternative is expected in its place.
+ */
+function expectedTierTotals(
+  tier: { items: { productSlug: string; orProductSlug?: string; quantity: number }[] },
+  groupItems: KitLineItem[]
+): Map<string, number> {
+  const held = slugQuantityTotals(groupItems);
+  return slugQuantityTotals(
+    tier.items.map((item) => {
+      const useAlt =
+        item.orProductSlug && !held.has(item.productSlug) && held.has(item.orProductSlug);
+      return { productSlug: useAlt ? item.orProductSlug! : item.productSlug, quantity: item.quantity };
+    })
+  );
+}
+
 function slugQuantityMapsEqual(a: Map<string, number>, b: Map<string, number>): boolean {
   if (a.size !== b.size) return false;
   for (const [slug, quantity] of a) {
@@ -106,7 +125,7 @@ export function resolveKitPricing(items: KitLineItem[], rentalDays: number): Kit
       tier &&
       typeof tier.price === "number" &&
       tier.currency &&
-      slugQuantityMapsEqual(slugQuantityTotals(groupItems), slugQuantityTotals(tier.items));
+      slugQuantityMapsEqual(slugQuantityTotals(groupItems), expectedTierTotals(tier, groupItems));
 
     if (matches) {
       hasPackageDiscount = true;

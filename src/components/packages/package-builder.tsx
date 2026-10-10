@@ -18,6 +18,8 @@ import { formatPrice, formatTotal } from "@/lib/currency";
 interface BuilderLine {
   role: string;
   productSlug: string;
+  /** The other option when this line is an "X or Y" choice. */
+  orProductSlug?: string;
   quantity: number;
   active: boolean;
 }
@@ -51,6 +53,18 @@ function PackageBuilder({ packageSlug, tierSlug, items, quotedPrice }: PackageBu
   function setQuantity(index: number, quantity: number) {
     setLines((ls) => ls.map((l, i) => (i === index ? { ...l, quantity: Math.max(1, quantity) } : l)));
     setCustomized(true);
+  }
+
+  // Swaps which option of an "X or Y" line is picked. It's one of the two
+  // options OUTTA quoted, so it doesn't count as customizing the package.
+  function chooseOption(index: number, slug: string) {
+    setLines((ls) =>
+      ls.map((l, i) =>
+        i === index && l.orProductSlug && slug !== l.productSlug
+          ? { ...l, productSlug: slug, orProductSlug: l.productSlug }
+          : l
+      )
+    );
   }
 
   function toggleActive(index: number, active: boolean) {
@@ -93,10 +107,11 @@ function PackageBuilder({ packageSlug, tierSlug, items, quotedPrice }: PackageBu
         {activeLines.map(({ line, index, product }) => {
           const brand = getBrandBySlug(product.brandSlug)?.name ?? product.brandSlug;
           const icon = getCategoryIcon(product.categorySlug);
+          const alternative = line.orProductSlug ? getProductBySlug(line.orProductSlug) : undefined;
 
           if (!line.active) {
             return (
-              <div key={line.role} className="flex items-center justify-between py-4">
+              <div key={`${line.role}-${index}`} className="flex items-center justify-between py-4">
                 <div>
                   <p className="text-label">{line.role}</p>
                   <p className="text-small mt-0.5">Removed from this package</p>
@@ -109,7 +124,7 @@ function PackageBuilder({ packageSlug, tierSlug, items, quotedPrice }: PackageBu
           }
 
           return (
-            <div key={line.role} className="flex gap-4 py-4">
+            <div key={`${line.role}-${index}`} className="flex gap-4 py-4">
               <Link
                 href={`/equipment/${product.slug}`}
                 className="block size-16 shrink-0 overflow-hidden rounded-lg sm:size-20"
@@ -133,6 +148,18 @@ function PackageBuilder({ packageSlug, tierSlug, items, quotedPrice }: PackageBu
                         {product.name}
                       </h3>
                     </Link>
+                    {alternative ? (
+                      <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-xs">
+                        <span className="text-muted-foreground">or</span>
+                        <button
+                          type="button"
+                          onClick={() => chooseOption(index, alternative.slug)}
+                          className="rounded-full border border-input px-2.5 py-1 text-left font-medium hover:border-brand hover:text-brand"
+                        >
+                          Switch to {alternative.name}
+                        </button>
+                      </div>
+                    ) : null}
                   </div>
                   <Button
                     variant="ghost"

@@ -38,7 +38,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "top-boy-mid",
         label: "TOP BOY · MID",
-        price: 6800,
+        price: 6360,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
@@ -49,8 +49,7 @@ export const packages: ProductionPackage[] = [
           { role: "Accessories", productSlug: "tiffen-black-pro-mist", quantity: 1 },
           { role: "Monitoring", productSlug: "pyro-7-s-transmitter", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-116-mrk3", quantity: 1 },
-          { role: "Lighting", productSlug: "aputure-600x", quantity: 1 },
-          { role: "Lighting", productSlug: "godox-knowled-mat-light-4x4", quantity: 1 },
+          { role: "Lighting", productSlug: "aputure-600x", orProductSlug: "godox-knowled-mat-light-4x4", quantity: 1 },
           { role: "Lighting", productSlug: "nanlite-forza-750b", quantity: 1 },
           { role: "Lighting", productSlug: "aputure-ls-1200d", quantity: 1 },
           { role: "Accessories", productSlug: "extension-cable", quantity: 1 },
