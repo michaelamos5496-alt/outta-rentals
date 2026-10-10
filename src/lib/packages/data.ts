@@ -114,13 +114,13 @@ export const packages: ProductionPackage[] = [
       {
         slug: "top-guy",
         label: "TOP GUY",
-        price: 4520,
+        price: 4200,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-546gb", quantity: 1 },
           { role: "Support", productSlug: "dji-rs3-pro-combo-with-ring", quantity: 1 },
-          { role: "Monitoring", productSlug: "wireless-directors-monitor-double", quantity: 1 },
+          { role: "Monitoring", productSlug: "wireless-directors-monitor", quantity: 1 },
           { role: "Monitoring", productSlug: "pyro-7-s-transmitter", quantity: 1 },
           { role: "Lighting", productSlug: "amaran-300c", quantity: 1 },
           { role: "Lighting", productSlug: "aputure-600d", quantity: 1 },
