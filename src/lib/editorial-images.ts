@@ -154,7 +154,6 @@ export const productImages: Record<string, string> = {
   "wireless-directors-monitor": "/equipment/wireless-directors-monitor.jpg",
   "cage-directors-monitor-hollyland": "/equipment/cage-directors-monitor-hollyland.jpg",
   "extension-cable": "/equipment/extension-cable.jpg",
-  "nanlite-forza-750b": "/equipment/nanlite-forza-750b.jpg",
   "sennheiser-lapel-mic": "/equipment/sennheiser-lapel-mic.jpg",
   "infinibar-full-set": "/equipment/infinibar-full-set.webp",
   "nanlite-pavotube-4ft": "/equipment/nanlite-pavotube-4ft.jpg",
@@ -242,12 +241,6 @@ export const extraProductImages: Record<string, string[]> = {
   "wireless-directors-monitor": ["/equipment/wireless-directors-monitor-2.jpg"],
   "cage-directors-monitor-hollyland": ["/equipment/cage-directors-monitor-hollyland-2.jpg"],
   "dji-mic": ["/equipment/dji-mic-2.jpg", "/equipment/dji-mic-3.jpg"],
-  "nanlite-forza-750b": [
-    "/equipment/nanlite-forza-750b-2.jpg",
-    "/equipment/nanlite-forza-750b-3.jpg",
-    "/equipment/nanlite-forza-750b-4.jpg",
-    "/equipment/nanlite-forza-750b-5.jpg",
-  ],
   "sennheiser-lapel-mic": [
     "/equipment/sennheiser-lapel-mic-2.jpg",
     "/equipment/sennheiser-lapel-mic-3.jpg",
