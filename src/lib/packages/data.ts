@@ -23,7 +23,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "lite",
         label: "LITE",
-        price: 3520,
+        price: 2160,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx3", quantity: 1 },
