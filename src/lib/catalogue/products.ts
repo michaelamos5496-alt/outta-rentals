@@ -1884,7 +1884,7 @@ export const products: DemoProduct[] = [
     tags: ["audio"],
     shortDescription: "Real OUTTA inventory — wireless lavalier microphone, available to rent.",
     description: "Sennheiser Lapel Mic — wireless lavalier microphone from OUTTA's real rental inventory.",
-    dayRate: 200,
+    dayRate: 300,
     currency: "GHS",
     availability: "available",
     specifications: [],
