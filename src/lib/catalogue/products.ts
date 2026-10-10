@@ -624,7 +624,7 @@ export const products: DemoProduct[] = [
     tags: ["grip"],
     shortDescription: "Real OUTTA inventory — 3-axis motorized gimbal combo set, available to rent.",
     description: "DJI RS3 Pro Combo with Ring — 3-axis motorized gimbal with the full combo set, from OUTTA's real rental inventory.",
-    dayRate: 300,
+    dayRate: 500,
     currency: "GHS",
     availability: "available",
     specifications: [],
