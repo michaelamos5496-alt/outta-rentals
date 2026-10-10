@@ -32,6 +32,14 @@ import type {
  */
 
 let cachedProducts: DemoProduct[] | null = null;
+let cachedAt = 0;
+/**
+ * How long a server instance reuses its copy of the product list. Without an
+ * expiry, each serverless instance kept whatever it first read for its whole
+ * lifetime, so after an edit different instances (and so different pages)
+ * disagreed — old name/price/photo on one page, new on another.
+ */
+const PRODUCT_CACHE_MS = 30_000;
 
 /**
  * Clears the in-process product cache — call after an admin write (create,
@@ -41,6 +49,7 @@ let cachedProducts: DemoProduct[] | null = null;
  */
 export function invalidateProductCache(): void {
   cachedProducts = null;
+  cachedAt = 0;
 }
 
 async function fetchAllProductsFromDb(): Promise<DemoProduct[] | null> {
@@ -199,13 +208,14 @@ function applyStatus(
 /** Fetches once per request/build and reuses the result for every helper below. */
 async function getProductPool(): Promise<{ products: DemoProduct[]; fromDb: boolean }> {
   const overridesPromise = fetchStatusOverrides();
-  if (cachedProducts) {
+  if (cachedProducts && Date.now() - cachedAt < PRODUCT_CACHE_MS) {
     return { products: applyStatus(cachedProducts, await overridesPromise), fromDb: true };
   }
 
   const dbProducts = await fetchAllProductsFromDb();
   if (dbProducts && dbProducts.length > 0) {
     cachedProducts = dbProducts;
+    cachedAt = Date.now();
     return { products: applyStatus(dbProducts, await overridesPromise), fromDb: true };
   }
 
