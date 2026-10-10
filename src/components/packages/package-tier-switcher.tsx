@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/currency";
 import { PackageBuilder } from "@/components/packages/package-builder";
 import type { PackageTier } from "@/lib/packages/types";
+import { getTierCopy } from "@/lib/packages/tier-copy";
 
 export interface PackageTierSwitcherProps {
   packageSlug: string;
@@ -27,6 +28,7 @@ function PackageTierSwitcher({ packageSlug, tiers, initialTierSlug }: PackageTie
     tiers.some((t) => t.slug === initialTierSlug) ? initialTierSlug! : tiers[0].slug
   );
   const active = tiers.find((t) => t.slug === activeSlug) ?? tiers[0];
+  const copy = getTierCopy(active.slug);
 
   return (
     <div>
@@ -54,6 +56,13 @@ function PackageTierSwitcher({ packageSlug, tiers, initialTierSlug }: PackageTie
               ) : null}
             </button>
           ))}
+        </div>
+      ) : null}
+
+      {copy ? (
+        <div className="mb-6">
+          <p className="font-medium">{copy.title}</p>
+          <p className="text-small mt-1 max-w-xl">{copy.description}</p>
         </div>
       ) : null}
 
