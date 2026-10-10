@@ -193,7 +193,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "top-guy",
         label: "TOP GUY",
-        price: 10120,
+        price: 10000,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
@@ -206,7 +206,7 @@ export const packages: ProductionPackage[] = [
           { role: "Support", productSlug: "manfrotto-116-mrk3", quantity: 1 },
           { role: "Support", productSlug: "freefly-movi-pro", quantity: 1 },
           { role: "Lighting", productSlug: "aputure-600x", quantity: 1 },
-          { role: "Lighting", productSlug: "nanlite-fc-720b", quantity: 1 },
+          { role: "Lighting", productSlug: "aputure-600d", quantity: 1 },
           { role: "Lighting", productSlug: "aputure-ls-1200d", quantity: 1 },
           { role: "Lighting", productSlug: "godox-knowled-mat-light-4x4", quantity: 1 },
           { role: "Accessories", productSlug: "extension-cable", dayRate: 200, quantity: 1 },
