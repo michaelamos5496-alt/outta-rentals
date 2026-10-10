@@ -61,7 +61,7 @@ function getTierItemsTotal(tier: PackageTier): { amount: number; currency: strin
       .filter((p): p is DemoProduct => Boolean(p));
     if (options.length === 0) return [];
     const product = options.reduce((max, p) => (p.dayRate > max.dayRate ? p : max));
-    return [{ amount: product.dayRate * item.quantity, currency: product.currency }];
+    return [{ amount: (item.dayRate ?? product.dayRate) * item.quantity, currency: product.currency }];
   });
 }
 

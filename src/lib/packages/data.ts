@@ -61,7 +61,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "yolo",
         label: "YOLO",
-        price: 12000,
+        price: 12120,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
@@ -78,7 +78,7 @@ export const packages: ProductionPackage[] = [
           { role: "Lighting", productSlug: "nanlite-fc-720b", quantity: 1 },
           { role: "Lighting", productSlug: "aputure-ls-1200d", quantity: 1 },
           { role: "Lighting", productSlug: "godox-knowled-mat-light-4x4", quantity: 1 },
-          { role: "Accessories", productSlug: "extension-cable", quantity: 1 },
+          { role: "Accessories", productSlug: "extension-cable", dayRate: 200, quantity: 1 },
           { role: "Accessories", productSlug: "reflector", quantity: 1 },
           { role: "Accessories", productSlug: "8x8ft-diffusion", quantity: 1 },
           { role: "Accessories", productSlug: "6x6ft-checkerboard", quantity: 1 },
@@ -113,7 +113,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "top-guy",
         label: "TOP GUY",
-        price: 3800,
+        price: 3880,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
@@ -125,7 +125,7 @@ export const packages: ProductionPackage[] = [
           { role: "Lighting", productSlug: "nanlite-fc-720b", quantity: 1 },
           { role: "Lighting", productSlug: "nanlite-pavotube-4ft", quantity: 1 },
           { role: "Lighting", productSlug: "nanlite-pavotube-1ft", quantity: 1 },
-          { role: "Accessories", productSlug: "extension-cable", quantity: 1 },
+          { role: "Accessories", productSlug: "extension-cable", dayRate: 200, quantity: 1 },
           { role: "Audio", productSlug: "zoom-recorder", quantity: 1 },
           { role: "Audio", productSlug: "sennheiser-lapel-mic", quantity: 1 },
           { role: "Accessories", productSlug: "reflector", quantity: 1 },
@@ -136,7 +136,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "yolo",
         label: "YOLO",
-        price: 10200,
+        price: 10280,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
@@ -153,7 +153,7 @@ export const packages: ProductionPackage[] = [
           { role: "Lighting", productSlug: "nanlite-fc-720b", quantity: 1 },
           { role: "Lighting", productSlug: "aputure-ls-1200d", quantity: 1 },
           { role: "Lighting", productSlug: "godox-knowled-mat-light-4x4", quantity: 1 },
-          { role: "Accessories", productSlug: "extension-cable", quantity: 1 },
+          { role: "Accessories", productSlug: "extension-cable", dayRate: 200, quantity: 1 },
           { role: "Accessories", productSlug: "reflector", quantity: 1 },
           { role: "Accessories", productSlug: "8x8ft-diffusion", quantity: 1 },
           { role: "Accessories", productSlug: "6x6ft-checkerboard", quantity: 1 },
@@ -188,7 +188,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "top-guy",
         label: "TOP GUY",
-        price: 9480,
+        price: 9160,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
@@ -202,7 +202,7 @@ export const packages: ProductionPackage[] = [
           { role: "Lighting", productSlug: "nanlite-fc-720b", quantity: 1 },
           { role: "Lighting", productSlug: "aputure-ls-1200d", quantity: 1 },
           { role: "Lighting", productSlug: "godox-knowled-mat-light-4x4", quantity: 1 },
-          { role: "Accessories", productSlug: "extension-cable", quantity: 1 },
+          { role: "Accessories", productSlug: "extension-cable", dayRate: 200, quantity: 1 },
           { role: "Accessories", productSlug: "reflector", quantity: 1 },
           { role: "Accessories", productSlug: "8x8ft-diffusion", quantity: 1 },
           { role: "Accessories", productSlug: "6x6ft-checkerboard", quantity: 1 },
@@ -211,7 +211,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "yolo",
         label: "YOLO",
-        price: 10840,
+        price: 10920,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
@@ -226,7 +226,7 @@ export const packages: ProductionPackage[] = [
           { role: "Lighting", productSlug: "nanlite-fc-720b", quantity: 1 },
           { role: "Lighting", productSlug: "aputure-ls-1200d", quantity: 1 },
           { role: "Lighting", productSlug: "godox-knowled-mat-light-4x4", quantity: 1 },
-          { role: "Accessories", productSlug: "extension-cable", quantity: 1 },
+          { role: "Accessories", productSlug: "extension-cable", dayRate: 200, quantity: 1 },
           { role: "Accessories", productSlug: "reflector", quantity: 1 },
           { role: "Accessories", productSlug: "8x8ft-diffusion", quantity: 1 },
           { role: "Accessories", productSlug: "6x6ft-checkerboard", quantity: 1 },
@@ -262,7 +262,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "top-guy",
         label: "TOP GUY",
-        price: 9080,
+        price: 8600,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
@@ -276,7 +276,7 @@ export const packages: ProductionPackage[] = [
           { role: "Lighting", productSlug: "nanlite-fc-720b", quantity: 1 },
           { role: "Lighting", productSlug: "aputure-ls-1200d", quantity: 1 },
           { role: "Lighting", productSlug: "godox-knowled-mat-light-4x4", quantity: 1 },
-          { role: "Accessories", productSlug: "extension-cable", quantity: 1 },
+          { role: "Accessories", productSlug: "extension-cable", dayRate: 200, quantity: 1 },
           { role: "Accessories", productSlug: "reflector", quantity: 1 },
           { role: "Accessories", productSlug: "8x8ft-diffusion", quantity: 1 },
           { role: "Accessories", productSlug: "6x6ft-checkerboard", quantity: 1 },

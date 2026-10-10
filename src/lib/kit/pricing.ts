@@ -116,7 +116,21 @@ export function resolveKitPricing(items: KitLineItem[], rentalDays: number): Kit
   }
 
   for (const groupItems of groups.values()) {
-    for (const item of groupItems) addItemAmount(subtotalByCurrency, item);
+    const groupPackage = groupItems[0].packageSlug ? getPackageBySlug(groupItems[0].packageSlug) : undefined;
+    const groupTier =
+      groupPackage && groupItems[0].packageTierSlug
+        ? getTierBySlug(groupPackage, groupItems[0].packageTierSlug)
+        : undefined;
+    for (const item of groupItems) {
+      // A tier can count a line at its own rate (see PackageLineItem.dayRate).
+      const tierRate = groupTier?.items.find((t) => t.productSlug === item.productSlug)?.dayRate;
+      const product = getProductBySlug(item.productSlug);
+      if (tierRate !== undefined && product) {
+        addAmount(subtotalByCurrency, product.currency, tierRate * item.quantity * days);
+      } else {
+        addItemAmount(subtotalByCurrency, item);
+      }
+    }
 
     const { packageSlug, packageTierSlug } = groupItems[0];
     const pkg = packageSlug ? getPackageBySlug(packageSlug) : undefined;

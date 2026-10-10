@@ -14,6 +14,10 @@ export interface PackageLineItem {
    * alternative ("X or Y") — the customer picks one; `productSlug` is the
    * default. Priced at the dearer of the two when totalling the tier. */
   orProductSlug?: string;
+  /** Day rate to count this line at inside this tier, instead of the
+   * product's own rate — e.g. the extension cable at GHS 200 in tiers with
+   * a big lighting setup. */
+  dayRate?: number;
   quantity: number;
 }
 

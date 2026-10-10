@@ -20,6 +20,8 @@ interface BuilderLine {
   productSlug: string;
   /** The other option when this line is an "X or Y" choice. */
   orProductSlug?: string;
+  /** This tier's own rate for the line, when it differs from the product's. */
+  dayRate?: number;
   quantity: number;
   active: boolean;
 }
@@ -82,7 +84,7 @@ function PackageBuilder({ packageSlug, tierSlug, items, quotedPrice }: PackageBu
   const liveTotal = formatTotal(
     activeLines
       .filter((l) => l.line.active)
-      .map((l) => ({ amount: l.product.dayRate * l.line.quantity, currency: l.product.currency }))
+      .map((l) => ({ amount: (l.line.dayRate ?? l.product.dayRate) * l.line.quantity, currency: l.product.currency }))
   );
   // OUTTA's flat quote for the preset bundle, until the customer changes it —
   // then the total has to reflect what's actually in the kit.
@@ -91,7 +93,7 @@ function PackageBuilder({ packageSlug, tierSlug, items, quotedPrice }: PackageBu
   // meaningful for a single-currency kit with a real saving.
   const liveEntries = activeLines
     .filter((l) => l.line.active)
-    .map((l) => ({ amount: l.product.dayRate * l.line.quantity, currency: l.product.currency }));
+    .map((l) => ({ amount: (l.line.dayRate ?? l.product.dayRate) * l.line.quantity, currency: l.product.currency }));
   const liveAmount = liveEntries.reduce((sum, e) => sum + e.amount, 0);
   const savings =
     quotedPrice && liveEntries.every((e) => e.currency === quotedPrice.currency) && liveAmount > quotedPrice.amount
@@ -208,7 +210,7 @@ function PackageBuilder({ packageSlug, tierSlug, items, quotedPrice }: PackageBu
                     </Button>
                   </div>
                   <p className="text-sm font-medium">
-                    <span className="font-mono">{formatPrice(product.dayRate * line.quantity, product.currency)}</span>
+                    <span className="font-mono">{formatPrice((line.dayRate ?? product.dayRate) * line.quantity, product.currency)}</span>
                     <span className="font-sans text-muted-foreground"> /day</span>
                   </p>
                 </div>
