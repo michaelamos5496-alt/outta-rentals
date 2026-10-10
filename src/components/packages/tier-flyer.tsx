@@ -86,8 +86,8 @@ function TierFlyer({
                 <p
                   className={
                     premium
-                      ? "font-mono text-[0.625rem] text-background/50 line-through"
-                      : "font-mono text-[0.625rem] text-brand-foreground/60 line-through"
+                      ? "font-mono text-sm font-medium text-background/80 line-through decoration-2 sm:text-base"
+                      : "font-mono text-sm font-medium text-brand-foreground/85 line-through decoration-2 sm:text-base"
                   }
                 >
                   {formatTotal(fullPrice)}/day
@@ -97,8 +97,8 @@ function TierFlyer({
                 <p
                   className={
                     premium
-                      ? "font-mono text-xs font-semibold text-background/80"
-                      : "font-mono text-xs font-semibold text-brand-foreground/90"
+                      ? "font-mono text-lg font-bold text-background sm:text-xl"
+                      : "font-mono text-lg font-bold text-brand-foreground sm:text-xl"
                   }
                 >
                   {formatTotal(rates)}/day
