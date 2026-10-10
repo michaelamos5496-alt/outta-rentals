@@ -94,13 +94,14 @@ export const packages: ProductionPackage[] = [
       {
         slug: "lite",
         label: "LITE",
-        price: 2360,
+        price: 2760,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx3", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-546gb", quantity: 1 },
           { role: "Accessories", productSlug: "tilta-mirage-matte-box-w-vnd", quantity: 1 },
           { role: "Support", productSlug: "dji-rs3-pro-combo-with-ring", quantity: 1 },
+          { role: "Monitoring", productSlug: "cage-directors-monitor-hollyland", quantity: 1 },
           { role: "Lighting", productSlug: "amaran-200x-s", quantity: 1 },
           { role: "Lighting", productSlug: "amaran-300c", quantity: 1 },
           { role: "Lighting", productSlug: "nanlite-pavotube-4ft", quantity: 1 },
