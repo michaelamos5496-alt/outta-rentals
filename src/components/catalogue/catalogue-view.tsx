@@ -37,7 +37,6 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { ProductCard } from "@/components/catalogue/product-card";
-import { EquipmentRentalCard } from "@/components/catalogue/equipment-rental-card";
 import { FilterPanel, type CatalogueFilters } from "@/components/catalogue/filter-panel";
 
 type SortKey = "featured" | "name-asc" | "price-asc" | "price-desc";
@@ -354,7 +353,7 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
               <div
                 className={
                   view === "grid"
-                    ? "grid grid-cols-2 gap-x-2.5 gap-y-3 sm:grid-cols-2 sm:gap-x-4 sm:gap-y-5 lg:grid-cols-3 xl:grid-cols-4"
+                    ? "grid grid-cols-2 gap-x-2.5 gap-y-3 sm:grid-cols-2 sm:gap-x-4 sm:gap-y-5 lg:grid-cols-3"
                     : "flex flex-col gap-8"
                 }
               >
@@ -366,11 +365,7 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
                     viewport={viewportOnce}
                     variants={slideUp(0, 16)}
                   >
-                    {view === "grid" ? (
-                      <EquipmentRentalCard product={product} />
-                    ) : (
-                      <ProductCard product={product} view={view} />
-                    )}
+                    <ProductCard product={product} view={view} />
                   </motion.div>
                 ))}
               </div>
