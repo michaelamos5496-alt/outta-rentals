@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { getTierCopy } from "@/lib/packages/tier-copy";
 import type { ChooserPackage } from "@/lib/packages/chooser";
 
-/** Short card line for each kind of tier (Commercial's "TOP BOY · MID" is the TOP GUY tier). */
+/** Short card line for each kind of tier (Commercial's "TOP BOY" is the TOP GUY tier). */
 const CARD_BLURBS: Record<string, string> = {
   lite: "Essential gear for lean productions.",
   "top-guy": "A more complete professional setup.",
