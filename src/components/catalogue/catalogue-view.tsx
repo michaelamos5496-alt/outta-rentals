@@ -2,11 +2,9 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { LayoutGrid, List, SlidersHorizontal } from "lucide-react";
 
 import { useDebouncedValue } from "@/lib/use-debounced-value";
-import { slideUp, viewportOnce } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import {
   brands,
@@ -353,20 +351,12 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
               <div
                 className={
                   view === "grid"
-                    ? "grid grid-cols-2 gap-x-2.5 gap-y-3 sm:grid-cols-2 sm:gap-x-4 sm:gap-y-5 lg:grid-cols-3"
+                    ? "grid grid-cols-2 gap-x-2.5 gap-y-3 sm:grid-cols-2 sm:gap-x-4 sm:gap-y-5 lg:grid-cols-3 xl:grid-cols-4"
                     : "flex flex-col gap-8"
                 }
               >
                 {visible.map((product) => (
-                  <motion.div
-                    key={product.id}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={viewportOnce}
-                    variants={slideUp(0, 16)}
-                  >
-                    <ProductCard product={product} view={view} />
-                  </motion.div>
+                  <ProductCard key={product.id} product={product} view={view} />
                 ))}
               </div>
               {hasMore ? <div ref={loadMoreRef} aria-hidden className="h-10" /> : null}
