@@ -151,6 +151,7 @@ export const productImages: Record<string, string> = {
   "8x8ft-diffusion": "/equipment/8x8ft-diffusion.jpg",
   "reflector": "/equipment/reflector.jpg",
   "wireless-directors-monitor": "/equipment/wireless-directors-monitor.jpg",
+  "cage-directors-monitor-hollyland": "/equipment/cage-directors-monitor-hollyland.jpg",
   "extension-cable": "/equipment/extension-cable.jpg",
   "nanlite-forza-750b": "/equipment/nanlite-forza-750b.jpg",
   "sennheiser-lapel-mic": "/equipment/sennheiser-lapel-mic.jpg",
@@ -315,6 +316,7 @@ export function getProductImage(productSlug: string, categorySlug: string): stri
  * instead of object-cover.
  */
 export const isolatedProductPhotos = new Set<string>([
+  "cage-directors-monitor-hollyland",
   "arri-alexa-mini",
   "arri-alexa-mini-lf",
   "red-komodo",
