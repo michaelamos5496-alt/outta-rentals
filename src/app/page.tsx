@@ -1,5 +1,6 @@
 import { Hero } from "@/components/sections/hero";
 import { loadLiveCatalogue } from "@/lib/catalogue/live-server";
+import { toChooserData } from "@/lib/packages/chooser";
 import { FeaturedEquipment } from "@/components/sections/featured-equipment";
 import { CategoryExperience } from "@/components/sections/category-experience";
 import { WhyOutta } from "@/components/sections/why-outta";
@@ -66,7 +67,7 @@ export default async function Home() {
     <div className="flex flex-col">
       <Hero products={spotlightProducts} />
       <CategoryExperience products={products} />
-      <FeaturedEquipment packages={featuredPackages} />
+      <FeaturedEquipment packages={toChooserData(featuredPackages)} />
       {showWorkSection ? <WorkShowcase /> : null}
       <WhyOutta />
       <Services />
