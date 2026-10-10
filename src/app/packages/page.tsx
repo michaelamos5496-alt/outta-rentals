@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { loadLiveCatalogue } from "@/lib/catalogue/live-server";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
 import { TierCard } from "@/components/packages/tier-flyer";
@@ -29,7 +30,8 @@ function PackageCell({ pkg }: { pkg: ProductionPackage }) {
   );
 }
 
-export default function PackagesPage() {
+export default async function PackagesPage() {
+  await loadLiveCatalogue();
   const packages = getAllPackages();
   // Two packages per row, so each row's own divide-x only lines up its own
   // pair — a plain divide-x/divide-y on one flat grid would also put a

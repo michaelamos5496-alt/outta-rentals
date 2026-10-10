@@ -1,3 +1,4 @@
+import { getLiveFields } from "@/lib/catalogue/live";
 /**
  * Editorial stock photography (Pexels, free-to-use license) for brand/category
  * imagery — homepage sections, category tiles, work showcase, services,
@@ -306,7 +307,8 @@ export const showWholeOnCard = new Set<string>([
 
 /** Resolves a product's best-effort photo, falling back to its category photo. */
 export function getProductImage(productSlug: string, categorySlug: string): string | undefined {
-  return productImages[productSlug] ?? categoryImages[categorySlug];
+  // A photo set in admin wins over the built-in editorial one.
+  return getLiveFields(productSlug)?.imageUrl ?? productImages[productSlug] ?? categoryImages[categorySlug];
 }
 
 /**

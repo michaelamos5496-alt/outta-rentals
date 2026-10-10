@@ -1,6 +1,7 @@
 import { getBrandBySlug } from "./brands";
 import { getCategoryBySlug } from "./categories";
 import { products } from "./products";
+import { getLiveFields } from "./live";
 import type { DemoProduct } from "./types";
 
 export type { DemoProduct, DemoProductSpec, DemoProductImage, ProductAvailability } from "./types";
@@ -12,8 +13,46 @@ export function getAllProducts(): DemoProduct[] {
   return products;
 }
 
+/**
+ * The static catalogue entry, with its name, price, status and main photo
+ * overlaid from the database when known (see `./live`) — so packages and
+ * the cart show the same numbers and pictures as the equipment pages.
+ * Products that only exist in the database come back as a minimal entry.
+ */
 export function getProductBySlug(slug: string): DemoProduct | undefined {
-  return products.find((p) => p.slug === slug);
+  const base = products.find((p) => p.slug === slug);
+  const liveFields = getLiveFields(slug);
+  if (!liveFields) return base;
+  const image = liveFields.imageUrl ? [{ url: liveFields.imageUrl, alt: liveFields.name }] : undefined;
+  if (!base) {
+    return {
+      id: `live-${slug}`,
+      slug,
+      sku: liveFields.sku,
+      name: liveFields.name,
+      brandSlug: liveFields.brandSlug,
+      categorySlug: liveFields.categorySlug,
+      tags: [],
+      shortDescription: "",
+      description: "",
+      dayRate: liveFields.dayRate,
+      currency: liveFields.currency,
+      availability: liveFields.availability,
+      specifications: [],
+      included: [],
+      accessorySlugs: [],
+      compatibleSlugs: [],
+      images: image,
+    };
+  }
+  return {
+    ...base,
+    name: liveFields.name,
+    dayRate: liveFields.dayRate,
+    currency: liveFields.currency,
+    availability: liveFields.availability,
+    images: image ?? base.images,
+  };
 }
 
 export function getProductsByCategory(categorySlug: string): DemoProduct[] {

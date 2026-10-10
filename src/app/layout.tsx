@@ -3,6 +3,8 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 
 import { KitProvider } from "@/components/kit/kit-provider";
+import { LiveCatalogue } from "@/components/catalogue/live-catalogue";
+import { loadLiveCatalogue } from "@/lib/catalogue/live-server";
 import { SiteChrome } from "@/components/layout/site-chrome";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
@@ -51,7 +53,11 @@ const organizationJsonLd = {
   sameAs: [siteConfig.instagramUrl],
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+// Re-read prices/names/photos from the database at most once a minute.
+export const revalidate = 60;
+
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const liveCatalogue = await loadLiveCatalogue();
   return (
     <html
       lang="en"
@@ -62,6 +68,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
+        <LiveCatalogue items={liveCatalogue} />
         <KitProvider>
           <SiteChrome>{children}</SiteChrome>
         </KitProvider>

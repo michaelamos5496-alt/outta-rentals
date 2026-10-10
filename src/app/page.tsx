@@ -1,4 +1,5 @@
 import { Hero } from "@/components/sections/hero";
+import { loadLiveCatalogue } from "@/lib/catalogue/live-server";
 import { FeaturedEquipment } from "@/components/sections/featured-equipment";
 import { CategoryExperience } from "@/components/sections/category-experience";
 import { WhyOutta } from "@/components/sections/why-outta";
@@ -42,6 +43,7 @@ const HERO_SLUGS = [
 
 export default async function Home() {
   const products = await fetchAllProducts();
+  await loadLiveCatalogue();
   const bySlug = new Map(products.map((p) => [p.slug, p]));
   const spotlightProducts = HERO_SLUGS.flatMap((slug) => {
     const product = bySlug.get(slug);

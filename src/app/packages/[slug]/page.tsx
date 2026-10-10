@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { loadLiveCatalogue } from "@/lib/catalogue/live-server";
 import { Container } from "@/components/ui/container";
 import { Heading } from "@/components/ui/heading";
 import { getPackageBySlug } from "@/lib/packages";
@@ -24,6 +25,7 @@ export async function generateMetadata({ params }: PackagePageProps): Promise<Me
 export default async function PackagePage({ params, searchParams }: PackagePageProps) {
   const { slug } = await params;
   const { tier } = await searchParams;
+  await loadLiveCatalogue();
   const pkg = getPackageBySlug(slug);
 
   if (!pkg) notFound();
