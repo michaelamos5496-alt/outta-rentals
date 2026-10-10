@@ -87,6 +87,20 @@ function PackageBuilder({ packageSlug, tierSlug, items, quotedPrice }: PackageBu
   // OUTTA's flat quote for the preset bundle, until the customer changes it —
   // then the total has to reflect what's actually in the kit.
   const useQuotedPrice = quotedPrice && !customized;
+  // Full price (every item at its own day rate) vs OUTTA's flat quote — only
+  // meaningful for a single-currency kit with a real saving.
+  const liveEntries = activeLines
+    .filter((l) => l.line.active)
+    .map((l) => ({ amount: l.product.dayRate * l.line.quantity, currency: l.product.currency }));
+  const liveAmount = liveEntries.reduce((sum, e) => sum + e.amount, 0);
+  const savings =
+    quotedPrice && liveEntries.every((e) => e.currency === quotedPrice.currency) && liveAmount > quotedPrice.amount
+      ? {
+          amount: liveAmount - quotedPrice.amount,
+          currency: quotedPrice.currency,
+          percent: Math.round(((liveAmount - quotedPrice.amount) / liveAmount) * 100),
+        }
+      : null;
   const dailyTotal = useQuotedPrice ? formatPrice(quotedPrice.amount, quotedPrice.currency) : liveTotal;
 
   function handleAddPackage() {
@@ -211,9 +225,24 @@ function PackageBuilder({ packageSlug, tierSlug, items, quotedPrice }: PackageBu
           <p className="text-sm">
             {activeCount} item{activeCount === 1 ? "" : "s"} in this package
           </p>
-          <p className="text-meta mt-0.5">
-            {dailyTotal}/day{useQuotedPrice ? " — OUTTA's quoted rate" : ""}
-          </p>
+          {useQuotedPrice && savings ? (
+            <div className="mt-1.5">
+              <p className="flex flex-wrap items-baseline gap-x-2">
+                <span className="font-mono text-base text-muted-foreground line-through decoration-2">
+                  {liveTotal}/day
+                </span>
+                <span className="font-mono text-xl font-bold">{dailyTotal}/day</span>
+              </p>
+              <p className="text-meta mt-0.5">
+                OUTTA&apos;s quoted package rate — you save {formatPrice(savings.amount, savings.currency)}
+                {savings.percent > 0 ? ` (${savings.percent}% off)` : ""} a day
+              </p>
+            </div>
+          ) : (
+            <p className="text-meta mt-0.5">
+              {dailyTotal}/day{useQuotedPrice ? " — OUTTA's quoted rate" : ""}
+            </p>
+          )}
         </div>
         <Button
           size="lg"
