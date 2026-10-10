@@ -193,12 +193,11 @@ export const packages: ProductionPackage[] = [
       {
         slug: "top-guy",
         label: "TOP GUY",
-        price: 10000,
+        price: 9440,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
           { role: "Lens", productSlug: "dzofilm-pictor-zoom-20-55mm-t2-8", quantity: 1 },
-          { role: "Lens", productSlug: "dzofilm-pictor-zoom-50-125mm-t2-8", quantity: 1 },
           { role: "Accessories", productSlug: "wireless-focus-system", quantity: 1 },
           { role: "Monitoring", productSlug: "wireless-directors-monitor-double", quantity: 1 },
           { role: "Monitoring", productSlug: "pyro-7-s-transmitter", quantity: 1 },
