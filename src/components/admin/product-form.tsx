@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { LoaderCircle, Plus, Trash2, Upload } from "lucide-react";
+import { ArrowDown, ArrowUp, LoaderCircle, Plus, Trash2, Upload } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,6 +24,15 @@ import type { AdminProduct, AdminProductImage } from "@/lib/admin/types";
 
 const availabilityOptions = Object.keys(availabilityLabels) as ProductAvailability[];
 const MAX_IMAGES = 4;
+
+/** Moves the image at `from` to `to`, shifting the others — the first image is the one shown on the website. */
+function moveImage(images: AdminProductImage[], from: number, to: number): AdminProductImage[] {
+  if (to < 0 || to >= images.length || from === to) return images;
+  const next = [...images];
+  const [moved] = next.splice(from, 1);
+  next.splice(to, 0, moved);
+  return next;
+}
 
 /** URL-friendly id from the product name, e.g. "Sony FX3" -> "sony-fx3". */
 function slugify(value: string): string {
@@ -312,19 +321,52 @@ function ProductForm({ product }: ProductFormProps) {
         />
         {uploadError ? <p className="mt-1 text-sm text-destructive">{uploadError}</p> : null}
         <p className="text-meta mt-1">
-          Up to {MAX_IMAGES} photos — JPEG, PNG or WebP, under 8MB. Or paste a URL.
+          Up to {MAX_IMAGES} photos — JPEG, PNG or WebP, under 8MB. Or paste a URL. The
+          first photo is the main one shown on the website — use the arrows to put them in
+          order.
         </p>
         <div className="mt-3 flex flex-col gap-2">
           {images.map((image, i) => (
-            <div key={i} className="flex gap-2">
+            <div key={i} className="flex items-center gap-2">
+              <div className="flex shrink-0 flex-col">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-sm"
+                  aria-label="Move image up"
+                  disabled={i === 0}
+                  onClick={() => setImages((imgs) => moveImage(imgs, i, i - 1))}
+                >
+                  <ArrowUp />
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-sm"
+                  aria-label="Move image down"
+                  disabled={i === images.length - 1}
+                  onClick={() => setImages((imgs) => moveImage(imgs, i, i + 1))}
+                >
+                  <ArrowDown />
+                </Button>
+              </div>
               {image.url ? (
                 // eslint-disable-next-line @next/next/no-img-element -- admin-only preview of an arbitrary pasted/uploaded URL, not an optimized storefront image
                 <img
                   src={image.url}
                   alt=""
-                  className="size-10 shrink-0 rounded-md border border-border object-cover"
+                  className="size-14 shrink-0 rounded-md border border-border object-cover"
                 />
               ) : null}
+              <span
+                className={
+                  i === 0
+                    ? "shrink-0 rounded-full bg-brand px-2 py-0.5 text-[0.625rem] font-bold tracking-wide text-brand-foreground uppercase"
+                    : "w-12 shrink-0 text-center text-xs text-muted-foreground"
+                }
+              >
+                {i === 0 ? "Main" : `#${i + 1}`}
+              </span>
               <Input
                 placeholder="https://…"
                 aria-label="Image URL"
