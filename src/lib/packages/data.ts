@@ -199,7 +199,7 @@ export const packages: ProductionPackage[] = [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
           { role: "Lens", productSlug: "dzofilm-pictor-zoom-20-55mm-t2-8", quantity: 1 },
           { role: "Lens", productSlug: "dzofilm-pictor-zoom-50-125mm-t2-8", quantity: 1 },
-          { role: "Accessories", productSlug: "lidar-focus-pro", quantity: 1 },
+          { role: "Accessories", productSlug: "wireless-focus-system", quantity: 1 },
           { role: "Monitoring", productSlug: "wireless-directors-monitor", quantity: 1 },
           { role: "Audio", productSlug: "moma-solidcom-se-5s", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-116-mrk3", quantity: 1 },
