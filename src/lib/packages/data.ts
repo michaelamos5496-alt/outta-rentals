@@ -38,7 +38,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "top-boy-mid",
         label: "TOP BOY · MID",
-        price: 6320,
+        price: 6280,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
@@ -61,7 +61,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "yolo",
         label: "YOLO",
-        price: 12040,
+        price: 12000,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
