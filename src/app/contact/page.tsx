@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 
 import { Section } from "@/components/ui/section";
 import { Divider } from "@/components/ui/divider";
@@ -17,6 +17,7 @@ const infoRows: { icon: typeof Phone; label: string; value: string; href?: strin
   ...(phone
     ? [{ icon: Phone, label: "Phone", value: phone, href: `tel:${phone.replace(/[^\d+]/g, "")}` }]
     : []),
+  { icon: Mail, label: "Email", value: siteConfig.email, href: `mailto:${siteConfig.email}` },
   { icon: MapPin, label: "Location", value: siteConfig.location, href: siteConfig.mapsUrl },
 ];
 
