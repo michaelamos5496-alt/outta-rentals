@@ -93,7 +93,7 @@ function TierLink({ pkg, tier }: { pkg: ChooserPackage; tier: ChooserTier }) {
           <MediaPlaceholder
             src={tier.imageUrl}
             alt={`${tier.label} package`}
-            fit="cover"
+            fit="contain"
             className="absolute inset-0 h-full w-full"
           />
         </div>
