@@ -35,6 +35,7 @@ import { useMobileNav } from "@/components/layout/mobile-nav-provider";
 import { useKit } from "@/components/kit/kit-provider";
 import { getWhatsAppLink } from "@/lib/quote/whatsapp";
 import { formatPrice } from "@/lib/currency";
+import { useElasticHoverScale } from "@/lib/elastic-hover";
 
 function useDebouncedValue<T>(value: T, delayMs: number): T {
   const [debounced, setDebounced] = React.useState(value);
@@ -220,6 +221,8 @@ function NavFab() {
   const timelineRef = React.useRef<gsap.core.Timeline | null>(null);
   const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const [open, setOpen] = React.useState(false);
+  const fabButtonRef = React.useRef<HTMLButtonElement>(null);
+  const fabHover = useElasticHoverScale(fabButtonRef, 1.1);
   const whatsappLink = getWhatsAppLink({
     heading: "OUTTA RENTALS — ENQUIRY",
     closingLine: "I'd like to talk about an upcoming shoot.",
@@ -315,12 +318,19 @@ function NavFab() {
       </div>
 
       <button
+        ref={fabButtonRef}
         type="button"
         aria-expanded={open}
         aria-label={open ? "Close menu" : "Open menu"}
         onClick={toggle}
-        onMouseEnter={open_}
-        onMouseLeave={scheduleClose}
+        onMouseEnter={() => {
+          open_();
+          fabHover.onMouseEnter();
+        }}
+        onMouseLeave={() => {
+          scheduleClose();
+          fabHover.onMouseLeave();
+        }}
         className="bg-brand text-brand-foreground relative z-10 flex size-14 items-center justify-center rounded-full shadow-xl lg:size-16"
       >
         <span ref={iconWrapRef} className="flex items-center justify-center">
@@ -361,6 +371,115 @@ const mobileNavGroups: { title: string; items: NavItem[] }[] = [
     ],
   },
 ];
+
+/**
+ * One top-level nav tab. Tabs with `children` get a GSAP-driven elastic
+ * mega menu — arrow rotate, panel scale/alpha-in, staggered item reveal —
+ * instead of a plain CSS fade, triggered on hover. Reverses at a higher
+ * timeScale on mouse-leave so it snaps shut instead of bouncing both ways.
+ */
+function EquipmentNavTab({
+  tab,
+  isPackagesDivider,
+}: {
+  tab: EquipmentTab;
+  isPackagesDivider: boolean;
+}) {
+  const arrowRef = React.useRef<SVGSVGElement>(null);
+  const menuRef = React.useRef<HTMLDivElement>(null);
+  const tlRef = React.useRef<gsap.core.Timeline | null>(null);
+  const [open, setOpen] = React.useState(false);
+
+  React.useLayoutEffect(() => {
+    const menu = menuRef.current;
+    if (!tab.children || !menu) return;
+
+    gsap.set(menu, { autoAlpha: 0, yPercent: -6, scale: 0.96 });
+    const arrow = arrowRef.current;
+    if (arrow) gsap.set(arrow, { rotate: 0 });
+    const items = menu.querySelectorAll<HTMLElement>("[data-dropdown-item]");
+    gsap.set(items, { opacity: 0, x: -10 });
+
+    const tl = gsap.timeline({ paused: true });
+    if (arrow) {
+      tl.to(arrow, { rotate: 180, duration: 0.5, ease: "elastic.out(1, 0.5)" }, 0);
+    }
+    tl.to(menu, { autoAlpha: 1, yPercent: 0, scale: 1, duration: 0.5, ease: "elastic.out(1, 0.45)" }, 0);
+    tl.to(items, { opacity: 1, x: 0, duration: 0.3, ease: "back.out(2)", stagger: 0.035 }, 0.08);
+
+    tlRef.current = tl;
+    return () => {
+      tl.kill();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- tab.children is static per-render config, not reactive state
+  }, []);
+
+  const show = React.useCallback(() => {
+    if (!tab.children) return;
+    setOpen(true);
+    tlRef.current?.timeScale(1).play();
+  }, [tab.children]);
+
+  const hide = React.useCallback(() => {
+    if (!tab.children) return;
+    setOpen(false);
+    tlRef.current?.timeScale(2.2).reverse();
+  }, [tab.children]);
+
+  return (
+    <React.Fragment>
+      {isPackagesDivider ? <li aria-hidden className="h-4 w-px self-center bg-white/25" /> : null}
+      <li
+        className="relative flex h-full items-center"
+        onMouseEnter={tab.children ? show : undefined}
+        onMouseLeave={tab.children ? hide : undefined}
+      >
+        <Link
+          href={tab.href}
+          aria-expanded={tab.children ? open : undefined}
+          className="text-label relative flex items-center gap-1 !text-white/80 whitespace-nowrap transition-colors hover:!text-white"
+        >
+          {tab.label}
+          {tab.children ? (
+            <ChevronDown ref={arrowRef} className="size-3" strokeWidth={2.5} aria-hidden />
+          ) : null}
+        </Link>
+
+        {tab.children ? (
+          <div
+            ref={menuRef}
+            className={cn("fixed inset-x-0 top-14 z-50 sm:top-16", open ? "pointer-events-auto" : "pointer-events-none")}
+          >
+            <div className="relative w-full overflow-hidden bg-background">
+              <div aria-hidden className="absolute inset-x-0 top-0 h-[3px] bg-brand" />
+              <Container>
+                <div className="flex gap-16 py-8">
+                  {tab.children.map((column) => (
+                    <div key={column.heading} className="flex min-w-[11rem] flex-col gap-4">
+                      <p className="text-xs font-bold tracking-wider text-foreground/50 uppercase">
+                        {column.heading}
+                      </p>
+                      {column.items.map((child) => (
+                        <Link
+                          key={child.label}
+                          href={child.href}
+                          data-dropdown-item
+                          className="text-sm whitespace-nowrap text-foreground/70 transition-colors hover:text-brand"
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </Container>
+            </div>
+          </div>
+        ) : null}
+      </li>
+    </React.Fragment>
+  );
+}
 
 function useScrolled(threshold = 8) {
   const [scrolled, setScrolled] = React.useState(false);
@@ -417,51 +536,7 @@ function Navbar() {
 
             <ul className="hidden h-full items-stretch gap-6 lg:flex">
               {equipmentTabs.map((tab) => (
-                <React.Fragment key={tab.href}>
-                  {tab.label === "Packages" ? (
-                    <li aria-hidden className="h-4 w-px self-center bg-white/25" />
-                  ) : null}
-                  <li className="group/tab relative flex h-full items-center">
-                    <Link
-                      href={tab.href}
-                      className="text-label relative flex items-center gap-1 !text-white/80 whitespace-nowrap transition-colors hover:!text-white"
-                    >
-                      {tab.label}
-                      {tab.children ? (
-                        <ChevronDown className="size-3" strokeWidth={2.5} aria-hidden />
-                      ) : null}
-                    </Link>
-
-                    {tab.children ? (
-                      <div className="pointer-events-none fixed inset-x-0 top-14 z-50 translate-y-1 opacity-0 transition-[opacity,transform] duration-200 ease-[var(--ease-outta)] group-hover/tab:pointer-events-auto group-hover/tab:translate-y-0 group-hover/tab:opacity-100 sm:top-16">
-                        <div className="relative w-full overflow-hidden bg-background">
-                          <div aria-hidden className="absolute inset-x-0 top-0 h-[3px] bg-brand" />
-                          <Container>
-                            <div className="flex gap-16 py-8">
-                              {tab.children.map((column, ci) => (
-                                <div key={column.heading} className="flex min-w-[11rem] flex-col gap-4">
-                                  <p className="text-xs font-bold tracking-wider text-foreground/50 uppercase">
-                                    {column.heading}
-                                  </p>
-                                  {column.items.map((child, i) => (
-                                    <Link
-                                      key={child.label}
-                                      href={child.href}
-                                      style={{ transitionDelay: `${(ci * 3 + i) * 30}ms` }}
-                                      className="translate-y-1 text-sm whitespace-nowrap text-foreground/70 opacity-0 transition-[opacity,color,transform] duration-200 ease-[var(--ease-outta)] group-hover/tab:translate-y-0 group-hover/tab:opacity-100 hover:text-brand"
-                                    >
-                                      {child.label}
-                                    </Link>
-                                  ))}
-                                </div>
-                              ))}
-                            </div>
-                          </Container>
-                        </div>
-                      </div>
-                    ) : null}
-                  </li>
-                </React.Fragment>
+                <EquipmentNavTab key={tab.href} tab={tab} isPackagesDivider={tab.label === "Packages"} />
               ))}
             </ul>
 

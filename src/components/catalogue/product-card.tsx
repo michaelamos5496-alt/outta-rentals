@@ -18,6 +18,7 @@ import { useKit } from "@/components/kit/kit-provider";
 import { useQuickView } from "@/components/catalogue/quick-view-provider";
 import { getProductGallery, getProductImage } from "@/lib/editorial-images";
 import { formatPrice } from "@/lib/currency";
+import { useElasticHoverScale } from "@/lib/elastic-hover";
 
 export interface ProductCardProps {
   product: DemoProduct;
@@ -40,6 +41,8 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
   const { open: openQuickView } = useQuickView();
   // Stays "In Cart" for as long as the item is in the cart, so it can't be added twice by accident.
   const added = items.some((i) => i.productSlug === product.slug);
+  const cartButtonRef = React.useRef<HTMLButtonElement>(null);
+  const cartHover = useElasticHoverScale(cartButtonRef, 1.14);
 
   if (view === "list") {
     return <ListProductCard product={product} className={className} />;
@@ -95,6 +98,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
       {/* Round cart button on the photo's corner — the "+" badge makes it read
           as add-to-cart; it turns into a check once the item is in the cart. */}
       <button
+        ref={cartButtonRef}
         type="button"
         aria-label={added ? "In cart — view cart" : `Add ${product.name} to cart`}
         onClick={(e) => {
@@ -103,6 +107,8 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
           if (added) openDrawer();
           else addItem(product.slug);
         }}
+        onMouseEnter={cartHover.onMouseEnter}
+        onMouseLeave={cartHover.onMouseLeave}
         className={cn(
           // Frosted green glass: translucent brand-green fill, heavy blur +
           // saturation, a bright top edge and a soft green-tinted glow.
