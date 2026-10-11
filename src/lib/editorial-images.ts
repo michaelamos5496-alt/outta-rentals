@@ -248,6 +248,7 @@ export const extraProductImages: Record<string, string[]> = {
     "/equipment/sennheiser-lapel-mic-5.jpg",
   ],
   "godox-airtube-light": ["/equipment/godox-airtube-light-2.webp", "/equipment/godox-airtube-light-3.webp", "/equipment/godox-airtube-light-4.webp"],
+  "godox-mat-light-2x2": ["/equipment/godox-mat-light-2x2-2.jpeg"],
   "infinibar-full-set": ["/equipment/infinibar-full-set-2.webp", "/equipment/infinibar-full-set-3.webp", "/equipment/infinibar-full-set-4.webp"],
   "nanlite-pavotube-4ft": ["/equipment/nanlite-pavotube-4ft-2.webp"],
   "nanlite-f60": ["/equipment/nanlite-f60-2.jpg"],
