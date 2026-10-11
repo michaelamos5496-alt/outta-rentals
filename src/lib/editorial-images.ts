@@ -101,6 +101,7 @@ export const productImages: Record<string, string> = {
   "wireless-focus-system": "/equipment/wireless-focus-system.jpg",
   "lidar-focus-pro": "/equipment/lidar-focus-pro.webp",
   "teradek-wireless-video-transmitter": "/equipment/teradek-wireless-video-transmitter.jpg",
+  "pyro-7-s-transmitter": "/equipment/pyro-7-s-transmitter.jpg",
   "smallhd-dir-monitor": "/equipment/smallhd-dir-monitor.png",
   "atomos-sumo-19-monitor": "/equipment/atomos-sumo-19-monitor.webp",
   "smallhd-dop-monitor": "/equipment/smallhd-dop-monitor.jpg",
@@ -240,6 +241,7 @@ export const extraProductImages: Record<string, string[]> = {
   "wireless-directors-monitor": ["/equipment/wireless-directors-monitor-2.jpg"],
   "wireless-directors-monitor-double": ["/equipment/wireless-directors-monitor-2.jpg"],
   "cage-directors-monitor-hollyland": ["/equipment/cage-directors-monitor-hollyland-2.jpg"],
+  "pyro-7-s-transmitter": ["/equipment/pyro-7-s-transmitter-2.jpg"],
   "dji-mic": ["/equipment/dji-mic-2.jpg", "/equipment/dji-mic-3.jpg"],
   "sennheiser-lapel-mic": [
     "/equipment/sennheiser-lapel-mic-2.jpg",
