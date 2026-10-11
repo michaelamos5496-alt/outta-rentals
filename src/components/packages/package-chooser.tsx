@@ -2,10 +2,15 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Plus } from "lucide-react";
+import { List, Plus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Modal } from "@/components/ui/modal";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
+import { getProductBySlug } from "@/lib/catalogue";
+import { getProductImage } from "@/lib/editorial-images";
+import { formatPrice } from "@/lib/currency";
 import { useKit } from "@/components/kit/kit-provider";
 import { useElasticHoverScale } from "@/lib/elastic-hover";
 import type { ChooserPackage, ChooserTier } from "@/lib/packages/chooser";
@@ -19,16 +24,18 @@ function formatGhc(amount: number, currency: string): string {
 /**
  * Photo-led tier card: the tier's hero camera photo fills the whole card;
  * on hover it slides up to reveal a white panel underneath with the tier
- * name and price, plus a quick-add button over the photo.
+ * name and price, plus two buttons over the photo — a quick-add, and a
+ * "view list" that previews what's in the tier before it's added.
  */
 function TierLink({ pkg, tier }: { pkg: ChooserPackage; tier: ChooserTier }) {
   const { addItem, openDrawer } = useKit();
   const addButtonRef = React.useRef<HTMLButtonElement>(null);
   const addHover = useElasticHoverScale(addButtonRef, 1.15);
+  const listButtonRef = React.useRef<HTMLButtonElement>(null);
+  const listHover = useElasticHoverScale(listButtonRef, 1.15);
+  const [listOpen, setListOpen] = React.useState(false);
 
-  function handleQuickAdd(e: React.MouseEvent) {
-    e.preventDefault();
-    e.stopPropagation();
+  function addTierToKit() {
     tier.items.forEach((item) => {
       addItem(item.productSlug, item.quantity, {
         silent: true,
@@ -36,47 +43,121 @@ function TierLink({ pkg, tier }: { pkg: ChooserPackage; tier: ChooserTier }) {
         packageTierSlug: tier.slug,
       });
     });
+  }
+
+  function handleQuickAdd(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    addTierToKit();
     openDrawer();
   }
 
+  function handleOpenList(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    setListOpen(true);
+  }
+
+  const resolvedItems = tier.items
+    .map((item) => ({ item, product: getProductBySlug(item.productSlug) }))
+    .filter((l): l is { item: (typeof tier.items)[number]; product: NonNullable<ReturnType<typeof getProductBySlug>> } =>
+      Boolean(l.product)
+    );
+
   return (
-    <Link
-      href={`/packages/${pkg.slug}?tier=${tier.slug}`}
-      aria-label={`Explore the ${pkg.name} ${tier.label} package`}
-      className="group relative block h-80 overflow-hidden rounded-2xl shadow-md transition-shadow duration-300 hover:shadow-xl sm:h-96"
-    >
-      {/* Name + price panel, always present but fully covered by the photo
-          until hover slides the photo up to reveal it. */}
-      <div className="absolute inset-x-0 bottom-0 z-0 flex h-24 flex-col justify-center bg-card px-5 sm:h-28 sm:px-6">
-        <p className="font-heading text-xl font-extrabold tracking-wide uppercase sm:text-2xl">
-          {tier.label}
-        </p>
-        <p className="text-small mt-1 font-mono">
-          {formatGhc(tier.amount, tier.currency)} <span className="text-muted-foreground">/day</span>
-        </p>
-      </div>
-
-      <div className="absolute inset-0 z-10 transition-transform duration-500 ease-[var(--ease-outta)] group-hover:-translate-y-24 sm:group-hover:-translate-y-28">
-        <MediaPlaceholder
-          src={tier.imageUrl}
-          alt={`${tier.label} package`}
-          fit="cover"
-          className="absolute inset-0 h-full w-full"
-        />
-      </div>
-
-      <button
-        ref={addButtonRef}
-        type="button"
-        aria-label={`Quick-add the ${tier.label} package to your kit`}
-        onClick={handleQuickAdd}
-        onMouseEnter={addHover.onMouseEnter}
-        onMouseLeave={addHover.onMouseLeave}
-        className="absolute top-[38%] left-1/2 z-20 flex size-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-foreground opacity-0 shadow-lg transition-opacity duration-300 group-hover:opacity-100"
+    <>
+      <Link
+        href={`/packages/${pkg.slug}?tier=${tier.slug}`}
+        aria-label={`Explore the ${pkg.name} ${tier.label} package`}
+        className="group relative block h-80 overflow-hidden rounded-2xl shadow-md transition-shadow duration-300 hover:shadow-xl sm:h-96"
       >
-        <Plus className="size-5" strokeWidth={2.25} />
-      </button>
-    </Link>
+        {/* Name + price panel, always present but fully covered by the photo
+            until hover slides the photo up to reveal it. */}
+        <div className="absolute inset-x-0 bottom-0 z-0 flex h-24 flex-col justify-center bg-card px-5 sm:h-28 sm:px-6">
+          <p className="font-heading text-xl font-extrabold tracking-wide uppercase sm:text-2xl">
+            {tier.label}
+          </p>
+          <p className="text-small mt-1 font-mono">
+            {formatGhc(tier.amount, tier.currency)} <span className="text-muted-foreground">/day</span>
+          </p>
+        </div>
+
+        <div className="absolute inset-0 z-10 transition-transform duration-500 ease-[var(--ease-outta)] group-hover:-translate-y-24 sm:group-hover:-translate-y-28">
+          <MediaPlaceholder
+            src={tier.imageUrl}
+            alt={`${tier.label} package`}
+            fit="cover"
+            className="absolute inset-0 h-full w-full"
+          />
+        </div>
+
+        <div className="absolute top-[38%] left-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 gap-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <button
+            ref={listButtonRef}
+            type="button"
+            aria-label={`See what's in the ${tier.label} package`}
+            onClick={handleOpenList}
+            onMouseEnter={listHover.onMouseEnter}
+            onMouseLeave={listHover.onMouseLeave}
+            className="flex size-12 items-center justify-center rounded-full bg-white text-foreground shadow-lg"
+          >
+            <List className="size-5" strokeWidth={2.25} />
+          </button>
+          <button
+            ref={addButtonRef}
+            type="button"
+            aria-label={`Quick-add the ${tier.label} package to your kit`}
+            onClick={handleQuickAdd}
+            onMouseEnter={addHover.onMouseEnter}
+            onMouseLeave={addHover.onMouseLeave}
+            className="flex size-12 items-center justify-center rounded-full bg-white text-foreground shadow-lg"
+          >
+            <Plus className="size-5" strokeWidth={2.25} />
+          </button>
+        </div>
+      </Link>
+
+      <Modal
+        open={listOpen}
+        onOpenChange={setListOpen}
+        title={`${tier.label} — What's Included`}
+        description={`${formatGhc(tier.amount, tier.currency)}/day, before anything's added to your kit.`}
+        footer={
+          <Button
+            onClick={() => {
+              addTierToKit();
+              setListOpen(false);
+              openDrawer();
+            }}
+          >
+            <Plus /> Add Package to Kit
+          </Button>
+        }
+      >
+        <ul className="flex max-h-[50vh] flex-col gap-3 overflow-y-auto">
+          {resolvedItems.map(({ item, product }, i) => (
+            <li key={`${item.productSlug}-${i}`} className="flex items-center gap-3">
+              <MediaPlaceholder
+                src={product.images?.[0]?.url ?? getProductImage(product.slug, product.categorySlug)}
+                alt={product.name}
+                fit="contain"
+                className="size-12 shrink-0 rounded-lg border border-border"
+              />
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-medium">{product.name}</p>
+                <p className="text-small">{item.role}</p>
+              </div>
+              <div className="shrink-0 text-right">
+                {item.quantity > 1 ? <p className="font-mono text-sm">×{item.quantity}</p> : null}
+                <p className="text-small font-mono whitespace-nowrap">
+                  {formatPrice(item.dayRate ?? product.dayRate, product.currency)}/day
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Modal>
+    </>
   );
 }
 
