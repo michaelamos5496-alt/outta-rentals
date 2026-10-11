@@ -3,10 +3,8 @@ import { loadLiveCatalogue } from "@/lib/catalogue/live-server";
 import { toChooserData } from "@/lib/packages/chooser";
 import { FeaturedEquipment } from "@/components/sections/featured-equipment";
 import { CategoryExperience } from "@/components/sections/category-experience";
-import { WhyOutta } from "@/components/sections/why-outta";
 import { WorkShowcase } from "@/components/sections/work-showcase";
 import { showWorkSection } from "@/config/site";
-import { Services } from "@/components/sections/services";
 import { LocationMap } from "@/components/sections/location-map";
 import { FinalCta } from "@/components/sections/final-cta";
 import { fetchAllProducts } from "@/lib/catalogue/db";
@@ -70,8 +68,6 @@ export default async function Home() {
       <FeaturedEquipment packages={toChooserData(featuredPackages)} />
       {showWorkSection ? <WorkShowcase /> : null}
       <FinalCta />
-      <WhyOutta />
-      <Services />
       <LocationMap />
     </div>
   );
