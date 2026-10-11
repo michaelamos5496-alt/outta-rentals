@@ -130,8 +130,13 @@ function NavbarSearch({ onNavigate }: { onNavigate: () => void }) {
 // group a few closely related real categories under one tab. Rendered as
 // flat, always-visible tabs in the main nav row (711rent-style), not
 // hidden behind a single "Equipment" trigger.
+interface EquipmentTabColumn {
+  heading: string;
+  items: NavItem[];
+}
+
 interface EquipmentTab extends NavItem {
-  children?: NavItem[];
+  children?: EquipmentTabColumn[];
 }
 
 const equipmentTabs: EquipmentTab[] = [
@@ -139,12 +144,25 @@ const equipmentTabs: EquipmentTab[] = [
     label: "Camera",
     href: "/equipment/cameras",
     children: [
-      { label: "Body", href: "/equipment/cameras" },
-      { label: "Monitoring", href: "/equipment/monitors" },
-      { label: "Lens Control", href: "/equipment/camera-accessories" },
-      { label: "Wireless Video", href: "/equipment/camera-accessories" },
-      { label: "Matte Box", href: "/equipment/matte-boxes" },
-      { label: "Filters", href: "/equipment/filters" },
+      {
+        heading: "Camera",
+        items: [{ label: "Body", href: "/equipment/cameras" }],
+      },
+      {
+        heading: "Monitoring & Control",
+        items: [
+          { label: "Monitoring", href: "/equipment/monitors" },
+          { label: "Lens Control", href: "/equipment/camera-accessories" },
+          { label: "Wireless Video", href: "/equipment/camera-accessories" },
+        ],
+      },
+      {
+        heading: "Accessories",
+        items: [
+          { label: "Matte Box", href: "/equipment/matte-boxes" },
+          { label: "Filters", href: "/equipment/filters" },
+        ],
+      },
     ],
   },
   { label: "Lens", href: "/equipment/lenses" },
@@ -414,17 +432,25 @@ function Navbar() {
                     </Link>
 
                     {tab.children ? (
-                      <div className="pointer-events-none absolute top-full left-0 z-50 w-72 translate-y-2 scale-95 pt-3 opacity-0 transition-[opacity,transform] duration-200 ease-[var(--ease-outta)] [transform-origin:top_left] group-hover/tab:pointer-events-auto group-hover/tab:translate-y-0 group-hover/tab:scale-100 group-hover/tab:opacity-100">
-                        <div className="flex flex-col gap-1 rounded-2xl border border-border bg-background p-3 text-foreground shadow-lg">
-                          {tab.children.map((child, i) => (
-                            <Link
-                              key={child.label}
-                              href={child.href}
-                              style={{ transitionDelay: `${i * 30}ms` }}
-                              className="translate-y-1 rounded-xl px-3 py-2 text-sm font-medium whitespace-nowrap opacity-0 transition-[opacity,transform] duration-200 ease-[var(--ease-outta)] group-hover/tab:translate-y-0 group-hover/tab:opacity-100 hover:bg-muted hover:text-brand"
-                            >
-                              {child.label}
-                            </Link>
+                      <div className="pointer-events-none absolute top-full left-0 z-50 w-max min-w-max translate-y-2 scale-95 pt-3 opacity-0 transition-[opacity,transform] duration-200 ease-[var(--ease-outta)] [transform-origin:top_left] group-hover/tab:pointer-events-auto group-hover/tab:translate-y-0 group-hover/tab:scale-100 group-hover/tab:opacity-100">
+                        <div className="relative flex gap-10 overflow-hidden rounded-2xl bg-foreground p-6 shadow-xl">
+                          <div aria-hidden className="absolute inset-x-0 top-0 h-0.5 bg-brand" />
+                          {tab.children.map((column, ci) => (
+                            <div key={column.heading} className="flex min-w-[11rem] flex-col gap-2">
+                              <p className="text-xs font-bold tracking-wide text-background/90 uppercase">
+                                {column.heading}
+                              </p>
+                              {column.items.map((child, i) => (
+                                <Link
+                                  key={child.label}
+                                  href={child.href}
+                                  style={{ transitionDelay: `${(ci * 3 + i) * 30}ms` }}
+                                  className="translate-y-1 text-sm whitespace-nowrap text-background/60 opacity-0 transition-[opacity,color,transform] duration-200 ease-[var(--ease-outta)] group-hover/tab:translate-y-0 group-hover/tab:opacity-100 hover:text-background"
+                                >
+                                  {child.label}
+                                </Link>
+                              ))}
+                            </div>
                           ))}
                         </div>
                       </div>
