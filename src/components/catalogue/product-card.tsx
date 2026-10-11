@@ -61,16 +61,14 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
         className="flex flex-1 flex-col text-left active:opacity-80"
       >
         <div className="flex items-start justify-between gap-2 p-2.5 pb-1 sm:p-3 sm:pb-1">
-          <div className="min-w-0">
-            <p className="line-clamp-2 text-sm leading-tight font-bold text-white">
-              {product.name}
+          <p className="line-clamp-2 min-w-0 text-sm leading-tight font-bold text-white">
+            {product.name}
+          </p>
+          {product.dayRate > 0 ? (
+            <p className="shrink-0 font-mono text-sm leading-none font-bold whitespace-nowrap text-white">
+              {formatPrice(product.dayRate, product.currency)}/day
             </p>
-            {product.dayRate > 0 ? (
-              <p className="mt-1 font-mono text-sm leading-none font-bold text-white">
-                {formatPrice(product.dayRate, product.currency)}/day
-              </p>
-            ) : null}
-          </div>
+          ) : null}
         </div>
 
         {/* The photo area fills whatever height the card has, so a longer name
