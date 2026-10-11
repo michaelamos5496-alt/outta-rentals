@@ -11,7 +11,7 @@ import { siteConfig } from "@/config/site";
 
 // No-API-key Google Maps embed pattern — pinned at OUTTA's resolved
 // coordinates from siteConfig.mapsUrl (Mantse Boi St, Accra).
-const MAP_EMBED_SRC = "https://maps.google.com/maps?q=5.5717533,-0.2345765&z=16&output=embed";
+const MAP_EMBED_SRC = "https://maps.google.com/maps?q=5.5703901,-0.2403115&z=16&output=embed";
 
 function LocationMap() {
   return (

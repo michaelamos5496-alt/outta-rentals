@@ -1,6 +1,6 @@
 import { getProductBySlug } from "@/lib/catalogue";
 import { getProductImage } from "@/lib/editorial-images";
-import { getTierTotal } from "./index";
+import { getTierFullPrice, getTierTotal } from "./index";
 import type { PackageLineItem, PackageTier, ProductionPackage } from "./types";
 
 export interface ChooserTier {
@@ -9,6 +9,10 @@ export interface ChooserTier {
   /** The tier's day rate — OUTTA's flat quote, or the live item sum when it has none. */
   amount: number;
   currency: string;
+  /** The pre-discount sum of each item's own day rate — set only when it's
+   * actually higher than `amount`, so a card can show it struck through
+   * next to OUTTA's flat quote. */
+  fullAmount?: number;
   /** A representative photo — the tier's main camera, when it has one. */
   imageUrl?: string;
   /** Passed through so a card can quick-add the whole tier to the kit. */
@@ -47,12 +51,19 @@ export function toChooserData(packages: ProductionPackage[]): ChooserPackage[] {
       tiers: pkg.tiers.flatMap((tier) => {
         const total = getTierTotal(tier);
         if (total.length === 0) return [];
+        const amount = total.reduce((sum, t) => sum + t.amount, 0);
+        const fullPrice = getTierFullPrice(tier);
+        const fullAmount = fullPrice.reduce((sum, t) => sum + t.amount, 0);
+        // Only worth showing struck through when there's a real flat quote
+        // (not just a live item sum) and an actual saving off it.
+        const showFullPrice = typeof tier.price === "number" && fullPrice.length > 0 && fullAmount > amount;
         return [
           {
             slug: tier.slug,
             label: tier.label,
-            amount: total.reduce((sum, t) => sum + t.amount, 0),
+            amount,
             currency: total[0].currency,
+            fullAmount: showFullPrice ? fullAmount : undefined,
             imageUrl: getTierImage(tier),
             items: tier.items,
           },

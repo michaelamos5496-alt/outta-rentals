@@ -7,7 +7,7 @@ export const siteConfig = {
   instagramUrl: "https://www.instagram.com/outtarentals/",
   email: "hello@outtarentals.com",
   location: "Mantse Boi St, Accra, Ghana",
-  mapsUrl: "https://maps.app.goo.gl/3YKMNyU5pUCgFWXs5",
+  mapsUrl: "https://maps.app.goo.gl/w34baLapHWuV6Nzh8",
 } as const;
 
 const whatsappDigits = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "").replace(/[^\d]/g, "");

@@ -77,8 +77,15 @@ function TierLink({ pkg, tier }: { pkg: ChooserPackage; tier: ChooserTier }) {
           <p className="font-heading text-xl font-extrabold tracking-wide uppercase sm:text-2xl">
             {tier.label}
           </p>
-          <p className="text-small mt-1 font-mono">
-            {formatGhc(tier.amount, tier.currency)} <span className="text-muted-foreground">/day</span>
+          <p className="text-small mt-1 flex flex-wrap items-baseline gap-x-2 font-mono">
+            {tier.fullAmount ? (
+              <span className="text-muted-foreground line-through decoration-2">
+                {formatGhc(tier.fullAmount, tier.currency)}
+              </span>
+            ) : null}
+            <span>
+              {formatGhc(tier.amount, tier.currency)} <span className="text-muted-foreground">/day</span>
+            </span>
           </p>
         </div>
 
