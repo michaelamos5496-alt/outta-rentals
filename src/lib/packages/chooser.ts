@@ -1,5 +1,5 @@
 import { getProductBySlug } from "@/lib/catalogue";
-import { getProductImage } from "@/lib/editorial-images";
+import { getProductGallery, getProductImage } from "@/lib/editorial-images";
 import { getTierFullPrice, getTierTotal } from "./index";
 import type { PackageLineItem, PackageTier, ProductionPackage } from "./types";
 
@@ -22,19 +22,28 @@ export interface ChooserTier {
 /**
  * Manual photo swaps, keyed `${packageSlug}:${tierSlug}` — for a tier whose
  * auto-derived Camera-role photo would otherwise match a sibling tier's in
- * the same package (e.g. Music Video's TOP GUY and YOLO are both quoted on
- * an Alexa Mini). Swapping to a different real product's photo is purely
- * cosmetic for the card — the tier's actual gear/pricing is untouched.
+ * the same package. Either a different real product's photo (Music Video's
+ * TOP GUY and YOLO are both quoted on an Alexa Mini — TOP GUY gets the
+ * Alexa Mini LF instead) or a different photo of the *same* product
+ * (Documentary's TOP GUY and YOLO are both on the FX6 — TOP GUY gets its
+ * second gallery shot). Purely cosmetic for the card — the tier's actual
+ * gear/pricing is untouched either way.
  */
-const TIER_IMAGE_OVERRIDE_PRODUCT: Record<string, string> = {
-  "music-video:top-guy": "arri-alexa-mini-lf",
+const TIER_IMAGE_OVERRIDES: Record<string, () => string | undefined> = {
+  "music-video:top-guy": () => {
+    const product = getProductBySlug("arri-alexa-mini-lf");
+    return product ? (product.images?.[0]?.url ?? getProductImage(product.slug, product.categorySlug)) : undefined;
+  },
+  "documentary:top-guy": () => getProductGallery("sony-fx6")[1],
 };
 
 /** The tier's hero shot — its Camera-role line item's photo, else its first item's. */
 function getTierImage(pkg: ProductionPackage, tier: PackageTier): string | undefined {
-  const overrideSlug = TIER_IMAGE_OVERRIDE_PRODUCT[`${pkg.slug}:${tier.slug}`];
+  const override = TIER_IMAGE_OVERRIDES[`${pkg.slug}:${tier.slug}`];
+  if (override) return override();
   const line = tier.items.find((i) => i.role === "Camera") ?? tier.items[0];
-  const product = overrideSlug ? getProductBySlug(overrideSlug) : line ? getProductBySlug(line.productSlug) : undefined;
+  if (!line) return undefined;
+  const product = getProductBySlug(line.productSlug);
   if (!product) return undefined;
   return product.images?.[0]?.url ?? getProductImage(product.slug, product.categorySlug);
 }
