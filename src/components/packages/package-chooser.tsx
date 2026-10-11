@@ -2,60 +2,80 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { Plus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { getTierCopy } from "@/lib/packages/tier-copy";
+import { MediaPlaceholder } from "@/components/ui/media-placeholder";
+import { useKit } from "@/components/kit/kit-provider";
+import { useElasticHoverScale } from "@/lib/elastic-hover";
 import type { ChooserPackage, ChooserTier } from "@/lib/packages/chooser";
 import { SlideIndicators, scrollToSlide, useSlideIndex } from "@/components/ui/slide-indicators";
-
-/** Short card line for each kind of tier (Commercial's middle tier shares the TOP GUY wording). */
-const CARD_BLURBS: Record<string, string> = {
-  lite: "Essential gear for lean productions.",
-  "top-guy": "A more complete professional setup.",
-  yolo: "For productions that want to go all out.",
-};
-const BLURB_ALIASES: Record<string, string> = { "top-boy-mid": "top-guy" };
 
 function formatGhc(amount: number, currency: string): string {
   const figure = amount.toLocaleString("en-GB");
   return currency === "GHS" ? `GHC ${figure}` : `${currency} ${figure}`;
 }
 
-function TierLink({ pkg, tier, index }: { pkg: ChooserPackage; tier: ChooserTier; index: number }) {
-  const key = BLURB_ALIASES[tier.slug] ?? tier.slug;
-  const dark = index === 1;
-  const brand = index >= 2;
+/**
+ * Photo-led tier card: the tier's hero camera photo fills the whole card;
+ * on hover it slides up to reveal a white panel underneath with the tier
+ * name and price, plus a quick-add button over the photo.
+ */
+function TierLink({ pkg, tier }: { pkg: ChooserPackage; tier: ChooserTier }) {
+  const { addItem, openDrawer } = useKit();
+  const addButtonRef = React.useRef<HTMLButtonElement>(null);
+  const addHover = useElasticHoverScale(addButtonRef, 1.15);
+
+  function handleQuickAdd(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    tier.items.forEach((item) => {
+      addItem(item.productSlug, item.quantity, {
+        silent: true,
+        packageSlug: pkg.slug,
+        packageTierSlug: tier.slug,
+      });
+    });
+    openDrawer();
+  }
+
   return (
     <Link
       href={`/packages/${pkg.slug}?tier=${tier.slug}`}
       aria-label={`Explore the ${pkg.name} ${tier.label} package`}
-      className={cn(
-        "group flex h-full flex-col rounded-2xl border-2 p-6 shadow-md transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1 hover:shadow-xl active:scale-[0.99] sm:p-7",
-        dark && "border-foreground bg-foreground text-background",
-        brand && "border-brand bg-brand text-brand-foreground",
-        !dark && !brand && "border-foreground/30 bg-card text-foreground hover:border-foreground"
-      )}
+      className="group relative block h-80 overflow-hidden rounded-2xl shadow-md transition-shadow duration-300 hover:shadow-xl sm:h-96"
     >
-      <p className="font-heading text-3xl font-extrabold tracking-wide uppercase sm:text-4xl">
-        {tier.label}
-      </p>
-      <p className="mt-1 text-sm font-semibold opacity-80">{getTierCopy(tier.slug)?.title}</p>
-
-      <div className="mt-6">
-        <p className="text-xs font-semibold tracking-widest uppercase opacity-70">Starting from</p>
-        <p className="mt-1 font-mono text-2xl font-bold sm:text-3xl">
-          {formatGhc(tier.amount, tier.currency)}
-          <span className="text-sm font-medium opacity-70"> /day</span>
+      {/* Name + price panel, always present but fully covered by the photo
+          until hover slides the photo up to reveal it. */}
+      <div className="absolute inset-x-0 bottom-0 z-0 flex h-24 flex-col justify-center bg-card px-5 sm:h-28 sm:px-6">
+        <p className="font-heading text-xl font-extrabold tracking-wide uppercase sm:text-2xl">
+          {tier.label}
+        </p>
+        <p className="text-small mt-1 font-mono">
+          {formatGhc(tier.amount, tier.currency)} <span className="text-muted-foreground">/day</span>
         </p>
       </div>
 
-      <p className="mt-4 text-base font-medium opacity-90">{CARD_BLURBS[key]}</p>
+      <div className="absolute inset-0 z-10 transition-transform duration-500 ease-[var(--ease-outta)] group-hover:-translate-y-24 sm:group-hover:-translate-y-28">
+        <MediaPlaceholder
+          src={tier.imageUrl}
+          alt={`${tier.label} package`}
+          fit="cover"
+          className="absolute inset-0 h-full w-full"
+        />
+      </div>
 
-      <span className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-bold tracking-wide uppercase">
-        Explore Packages
-        <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-      </span>
+      <button
+        ref={addButtonRef}
+        type="button"
+        aria-label={`Quick-add the ${tier.label} package to your kit`}
+        onClick={handleQuickAdd}
+        onMouseEnter={addHover.onMouseEnter}
+        onMouseLeave={addHover.onMouseLeave}
+        className="absolute top-[38%] left-1/2 z-20 flex size-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-foreground opacity-0 shadow-lg transition-opacity duration-300 group-hover:opacity-100"
+      >
+        <Plus className="size-5" strokeWidth={2.25} />
+      </button>
     </Link>
   );
 }
@@ -71,9 +91,9 @@ function TierSlides({ pkg }: { pkg: ChooserPackage }) {
         ref={ref}
         className="scrollbar-none flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2"
       >
-        {pkg.tiers.map((tier, i) => (
+        {pkg.tiers.map((tier) => (
           <div key={tier.slug} className="w-full shrink-0 snap-center">
-            <TierLink pkg={pkg} tier={tier} index={i} />
+            <TierLink pkg={pkg} tier={tier} />
           </div>
         ))}
       </div>
@@ -131,8 +151,8 @@ function PackageChooser({ packages }: { packages: ChooserPackage[] }) {
           active.tiers.length >= 3 ? "max-w-5xl sm:grid-cols-3" : "max-w-3xl sm:grid-cols-2"
         )}
       >
-        {active.tiers.map((tier, i) => (
-          <TierLink key={tier.slug} pkg={active} tier={tier} index={i} />
+        {active.tiers.map((tier) => (
+          <TierLink key={tier.slug} pkg={active} tier={tier} />
         ))}
       </div>
     </div>
