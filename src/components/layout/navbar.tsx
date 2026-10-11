@@ -434,13 +434,13 @@ function Navbar() {
 
                     {tab.children ? (
                       <div className="pointer-events-none fixed inset-x-0 top-14 z-50 translate-y-1 opacity-0 transition-[opacity,transform] duration-200 ease-[var(--ease-outta)] group-hover/tab:pointer-events-auto group-hover/tab:translate-y-0 group-hover/tab:opacity-100 sm:top-16">
-                        <div className="relative w-full overflow-hidden bg-foreground">
+                        <div className="relative w-full overflow-hidden bg-background">
                           <div aria-hidden className="absolute inset-x-0 top-0 h-[3px] bg-brand" />
                           <Container>
                             <div className="flex gap-16 py-8">
                               {tab.children.map((column, ci) => (
                                 <div key={column.heading} className="flex min-w-[11rem] flex-col gap-4">
-                                  <p className="text-xs font-bold tracking-wider text-white/50 uppercase">
+                                  <p className="text-xs font-bold tracking-wider text-foreground/50 uppercase">
                                     {column.heading}
                                   </p>
                                   {column.items.map((child, i) => (
@@ -448,7 +448,7 @@ function Navbar() {
                                       key={child.label}
                                       href={child.href}
                                       style={{ transitionDelay: `${(ci * 3 + i) * 30}ms` }}
-                                      className="translate-y-1 text-sm whitespace-nowrap text-white/60 opacity-0 transition-[opacity,color,transform] duration-200 ease-[var(--ease-outta)] group-hover/tab:translate-y-0 group-hover/tab:opacity-100 hover:text-white"
+                                      className="translate-y-1 text-sm whitespace-nowrap text-foreground/70 opacity-0 transition-[opacity,color,transform] duration-200 ease-[var(--ease-outta)] group-hover/tab:translate-y-0 group-hover/tab:opacity-100 hover:text-brand"
                                     >
                                       {child.label}
                                     </Link>
