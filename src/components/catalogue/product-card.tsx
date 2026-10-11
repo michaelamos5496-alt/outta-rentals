@@ -16,7 +16,7 @@ import {
 } from "@/lib/catalogue";
 import { useKit } from "@/components/kit/kit-provider";
 import { useQuickView } from "@/components/catalogue/quick-view-provider";
-import { getProductImage } from "@/lib/editorial-images";
+import { getProductGallery, getProductImage } from "@/lib/editorial-images";
 import { formatPrice } from "@/lib/currency";
 
 export interface ProductCardProps {
@@ -28,6 +28,11 @@ export interface ProductCardProps {
 /** The admin-uploaded cover photo when there is one, else the editorial stock fallback. */
 function primaryImage(product: DemoProduct): string | undefined {
   return product.images?.[0]?.url ?? getProductImage(product.slug, product.categorySlug);
+}
+
+/** A second photo to reveal on hover, when the product has one. */
+function secondaryImage(product: DemoProduct): string | undefined {
+  return product.images?.[1]?.url ?? getProductGallery(product.slug)[1];
 }
 
 function ProductCard({ product, view = "grid", className }: ProductCardProps) {
@@ -73,8 +78,17 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
             src={primaryImage(product)}
             alt={product.name}
             fit="contain"
-            className="absolute inset-0 h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"
+            className="absolute inset-0 h-full w-full"
           />
+          {/* On hover, crossfade to a second photo instead of zooming in. */}
+          {secondaryImage(product) ? (
+            <MediaPlaceholder
+              src={secondaryImage(product)}
+              alt={product.name}
+              fit="contain"
+              className="absolute inset-0 h-full w-full opacity-0 transition-opacity duration-500 ease-[var(--ease-outta)] group-hover/product:opacity-100"
+            />
+          ) : null}
         </div>
       </button>
 
