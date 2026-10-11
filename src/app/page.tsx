@@ -7,6 +7,7 @@ import { WhyOutta } from "@/components/sections/why-outta";
 import { WorkShowcase } from "@/components/sections/work-showcase";
 import { showWorkSection } from "@/config/site";
 import { Services } from "@/components/sections/services";
+import { LocationMap } from "@/components/sections/location-map";
 import { FinalCta } from "@/components/sections/final-cta";
 import { fetchAllProducts } from "@/lib/catalogue/db";
 import { getAllPackages } from "@/lib/packages";
@@ -71,6 +72,7 @@ export default async function Home() {
       <FinalCta />
       <WhyOutta />
       <Services />
+      <LocationMap />
     </div>
   );
 }
