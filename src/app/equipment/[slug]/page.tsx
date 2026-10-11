@@ -189,7 +189,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <BookedDates ranges={bookedRanges} />
 
             <div className="mt-6 hidden lg:block">
-              <ProductActions productSlug={product.slug} productName={product.name} />
+              <ProductActions
+                productSlug={product.slug}
+                productName={product.name}
+                isAvailable={product.availability === "available"}
+              />
             </div>
 
             {shotWithThis ? (
@@ -280,6 +284,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         productSlug={product.slug}
         dayRate={product.dayRate}
         currency={product.currency}
+        isAvailable={product.availability === "available"}
       />
 
       <Container>

@@ -42,6 +42,9 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
   const added = items.some((i) => i.productSlug === product.slug);
   const cartButtonRef = React.useRef<HTMLButtonElement>(null);
   const cartHover = useElasticHoverScale(cartButtonRef, 1.14);
+  // Nothing to rent yet — no quick-add, just a flag so people don't expect
+  // to book it today.
+  const isAvailable = product.availability === "available";
 
   if (view === "list") {
     return <ListProductCard product={product} className={className} />;
@@ -89,41 +92,50 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
               className="absolute inset-0 h-full w-full opacity-0 transition-opacity duration-500 ease-[var(--ease-outta)] group-hover/product:opacity-100"
             />
           ) : null}
+
+          {!isAvailable ? (
+            <Badge variant={availabilityVariant[product.availability]} className="absolute top-2 left-2">
+              {availabilityLabels[product.availability]}
+            </Badge>
+          ) : null}
         </div>
       </button>
 
       {/* Round cart button on the photo's corner — the "+" badge makes it read
-          as add-to-cart; it turns into a check once the item is in the cart. */}
-      <button
-        ref={cartButtonRef}
-        type="button"
-        aria-label={added ? "In cart — view cart" : `Add ${product.name} to cart`}
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          if (added) openDrawer();
-          else addItem(product.slug);
-        }}
-        onMouseEnter={cartHover.onMouseEnter}
-        onMouseLeave={cartHover.onMouseLeave}
-        className={cn(
-          // Frosted green glass: translucent brand-green fill, heavy blur +
-          // saturation, a bright top edge and a soft green-tinted glow.
-          "absolute right-2 bottom-2 flex size-11 items-center justify-center rounded-full border text-white backdrop-blur-xl backdrop-saturate-200 transition-all active:scale-90",
-          "shadow-[0_6px_20px_rgba(0,110,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.75),inset_0_-1px_1px_rgba(255,255,255,0.2)]",
-          added ? "border-white/60 bg-brand/90" : "border-white/45 bg-brand/70"
-        )}
-      >
-        <ShoppingCart className="size-[1.125rem] drop-shadow-sm" strokeWidth={1.75} />
-        <span
+          as add-to-cart; it turns into a check once the item is in the cart.
+          Nothing to quick-add for a not-yet-available product. */}
+      {isAvailable ? (
+        <button
+          ref={cartButtonRef}
+          type="button"
+          aria-label={added ? "In cart — view cart" : `Add ${product.name} to cart`}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (added) openDrawer();
+            else addItem(product.slug);
+          }}
+          onMouseEnter={cartHover.onMouseEnter}
+          onMouseLeave={cartHover.onMouseLeave}
           className={cn(
-            "absolute -top-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full shadow-sm",
-            "bg-white text-brand"
+            // Frosted green glass: translucent brand-green fill, heavy blur +
+            // saturation, a bright top edge and a soft green-tinted glow.
+            "absolute right-2 bottom-2 flex size-11 items-center justify-center rounded-full border text-white backdrop-blur-xl backdrop-saturate-200 transition-all active:scale-90",
+            "shadow-[0_6px_20px_rgba(0,110,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.75),inset_0_-1px_1px_rgba(255,255,255,0.2)]",
+            added ? "border-white/60 bg-brand/90" : "border-white/45 bg-brand/70"
           )}
         >
-          {added ? <Check className="size-2.5" strokeWidth={3} /> : <Plus className="size-2.5" strokeWidth={3} />}
-        </span>
-      </button>
+          <ShoppingCart className="size-[1.125rem] drop-shadow-sm" strokeWidth={1.75} />
+          <span
+            className={cn(
+              "absolute -top-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full shadow-sm",
+              "bg-white text-brand"
+            )}
+          >
+            {added ? <Check className="size-2.5" strokeWidth={3} /> : <Plus className="size-2.5" strokeWidth={3} />}
+          </span>
+        </button>
+      ) : null}
     </article>
   );
 }

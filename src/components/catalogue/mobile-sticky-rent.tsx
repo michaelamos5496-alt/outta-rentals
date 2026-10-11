@@ -12,11 +12,13 @@ export interface MobileStickyRentProps {
   productSlug: string;
   dayRate: number;
   currency: string;
+  /** Nothing to book yet (e.g. "coming soon") — both actions disable. */
+  isAvailable?: boolean;
 }
 
 // Mobile-only sticky action bar for the product detail page — desktop keeps
 // its existing inline `ProductActions` untouched (this renders `lg:hidden`).
-function MobileStickyRent({ productSlug, dayRate, currency }: MobileStickyRentProps) {
+function MobileStickyRent({ productSlug, dayRate, currency, isAvailable = true }: MobileStickyRentProps) {
   const router = useRouter();
   const { addItem, items, openDrawer } = useKit();
   // Stays "In Cart" for as long as the item is in the cart, so it can't be added twice by accident.
@@ -39,16 +41,18 @@ function MobileStickyRent({ productSlug, dayRate, currency }: MobileStickyRentPr
             variant={added ? "secondary" : "outline"}
             size="lg"
             aria-label={added ? "In cart — view cart" : "Add to cart"}
+            disabled={!added && !isAvailable}
             onClick={() => {
               if (added) openDrawer();
               else addItem(productSlug);
             }}
           >
             {added ? <Check /> : <Plus />}
-            {added ? "In Cart" : "Add to Cart"}
+            {!isAvailable && !added ? "Coming Soon" : added ? "In Cart" : "Add to Cart"}
           </Button>
           <Button
             size="lg"
+            disabled={!isAvailable}
             onClick={() => {
               addItem(productSlug, 1, { silent: true });
               router.push("/kit");

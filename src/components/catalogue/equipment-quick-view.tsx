@@ -74,6 +74,7 @@ function QuickViewBody({ productSlug }: { productSlug: string }) {
   const addOns = useAddOns(productSlug, startDate, endDate);
 
   const brand = getBrandBySlug(product.brandSlug)?.name ?? product.brandSlug;
+  const isAvailable = product.availability === "available";
   const inCart = items.some((i) => i.productSlug === productSlug);
   const datesValid = !dateError && rentalDays !== null;
   const timeError = !isWithinOpeningHours(startTime) || !isWithinOpeningHours(endTime)
@@ -263,13 +264,20 @@ function QuickViewBody({ productSlug }: { productSlug: string }) {
           <p className="text-meta mt-1.5">Choose valid pickup and return dates for a full estimate.</p>
         ) : null}
 
-        <Button size="lg" className="mt-5 w-full" onClick={handleAction} disabled={!inCart && Boolean(timeError)}>
+        <Button
+          size="lg"
+          className="mt-5 w-full"
+          onClick={handleAction}
+          disabled={!inCart && (Boolean(timeError) || !isAvailable)}
+        >
           {inCart ? <ShoppingCart /> : <Plus />}
-          {inCart
-            ? "View Cart"
-            : pickedAddOns.length > 0
-              ? `Add to Cart (+${pickedAddOns.length} add-on${pickedAddOns.length === 1 ? "" : "s"})`
-              : "Add to Cart"}
+          {!isAvailable && !inCart
+            ? "Coming Soon"
+            : inCart
+              ? "View Cart"
+              : pickedAddOns.length > 0
+                ? `Add to Cart (+${pickedAddOns.length} add-on${pickedAddOns.length === 1 ? "" : "s"})`
+                : "Add to Cart"}
         </Button>
       </div>
     </div>

@@ -10,9 +10,11 @@ import { useKit } from "@/components/kit/kit-provider";
 export interface ProductActionsProps {
   productSlug: string;
   productName: string;
+  /** Nothing to book yet (e.g. "coming soon") — both actions disable. */
+  isAvailable?: boolean;
 }
 
-function ProductActions({ productSlug }: ProductActionsProps) {
+function ProductActions({ productSlug, isAvailable = true }: ProductActionsProps) {
   const router = useRouter();
   const { addItem, items, openDrawer } = useKit();
   // Stays "In Cart" for as long as the item is in the cart, so it can't be added twice by accident.
@@ -25,18 +27,20 @@ function ProductActions({ productSlug }: ProductActionsProps) {
         size="lg"
         variant={added ? "secondary" : "default"}
         className="flex-1"
+        disabled={!added && !isAvailable}
         onClick={() => {
           if (added) openDrawer();
           else addItem(productSlug);
         }}
       >
         {added ? <Check /> : <Plus />}
-        {added ? "In Cart — view cart" : "Add to Cart"}
+        {!isAvailable && !added ? "Coming Soon" : added ? "In Cart — view cart" : "Add to Cart"}
       </Button>
       <Button
         size="lg"
         variant="outline"
         className="flex-1"
+        disabled={!isAvailable}
         onClick={() => {
           addItem(productSlug, 1, { silent: true });
           router.push("/kit");
