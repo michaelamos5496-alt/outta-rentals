@@ -31,6 +31,11 @@ import type {
  * this phase.
  */
 
+/** A product_images.url that points at a video page, not an image file. */
+function isVideoUrl(url: string): boolean {
+  return /(^https?:\/\/)?(www\.)?(youtube\.com|youtu\.be|vimeo\.com)\//i.test(url);
+}
+
 let cachedProducts: DemoProduct[] | null = null;
 let cachedAt = 0;
 /**
@@ -120,8 +125,14 @@ async function fetchAllProductsFromDb(): Promise<DemoProduct[] | null> {
     const specifications: DemoProductSpec[] = [...row.product_specifications]
       .sort((a, b) => a.order - b.order)
       .map((s) => ({ label: s.label, value: s.value, group: s.group ?? undefined }));
+    // A row's "image" can be a YouTube link saved during an earlier recovery
+    // (not a real photo) — next/image throws on an unconfigured host for
+    // any URL that isn't a real image file, crashing the whole page. Drop
+    // those here so every consumer of `product.images` only ever sees
+    // renderable photos.
     const images = [...row.product_images]
       .sort((a, b) => a.order - b.order)
+      .filter((img) => !isVideoUrl(img.url))
       .map((img) => ({ url: img.url, alt: img.alt }));
 
     return {
