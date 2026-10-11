@@ -145,7 +145,7 @@ function PackageBuilder({ packageSlug, tierSlug, items, quotedPrice }: PackageBu
                 className="block size-16 shrink-0 overflow-hidden rounded-lg sm:size-20"
               >
                 <MediaPlaceholder
-                  src={getProductImage(product.slug, product.categorySlug)}
+                  src={getProductImage(product.slug)}
                   alt={product.name}
                   className="size-full"
                 />

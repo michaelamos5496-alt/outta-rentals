@@ -26,7 +26,7 @@ function KitItemRow({ line, compact = false }: KitItemRowProps) {
     <div className="flex gap-4 py-4">
       <Link href={href} className="block size-16 shrink-0 overflow-hidden rounded-lg sm:size-20">
         <MediaPlaceholder
-          src={getProductImage(product.slug, product.categorySlug)}
+          src={getProductImage(product.slug)}
           alt={product.name}
           className="size-full"
         />

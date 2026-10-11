@@ -55,7 +55,7 @@ function AddedToCartSheet() {
         <div className="flex gap-4">
           <div className="size-20 shrink-0 overflow-hidden rounded-lg">
             <MediaPlaceholder
-              src={getProductImage(p.slug, p.categorySlug)}
+              src={getProductImage(p.slug)}
               alt={p.name}
               className="size-full"
             />

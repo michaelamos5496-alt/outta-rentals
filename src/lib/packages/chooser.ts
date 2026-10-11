@@ -32,7 +32,7 @@ export interface ChooserTier {
 const TIER_IMAGE_OVERRIDES: Record<string, () => string | undefined> = {
   "music-video:top-guy": () => {
     const product = getProductBySlug("arri-alexa-mini-lf");
-    return product ? (product.images?.[0]?.url ?? getProductImage(product.slug, product.categorySlug)) : undefined;
+    return product ? (product.images?.[0]?.url ?? getProductImage(product.slug)) : undefined;
   },
   "documentary:top-guy": () => getProductGallery("sony-fx6")[1],
 };
@@ -45,7 +45,7 @@ function getTierImage(pkg: ProductionPackage, tier: PackageTier): string | undef
   if (!line) return undefined;
   const product = getProductBySlug(line.productSlug);
   if (!product) return undefined;
-  return product.images?.[0]?.url ?? getProductImage(product.slug, product.categorySlug);
+  return product.images?.[0]?.url ?? getProductImage(product.slug);
 }
 
 export interface ChooserPackage {

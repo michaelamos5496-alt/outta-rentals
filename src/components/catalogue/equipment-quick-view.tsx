@@ -116,7 +116,6 @@ function QuickViewBody({ productSlug }: { productSlug: string }) {
 
       <ProductGallery
         productSlug={product.slug}
-        categorySlug={product.categorySlug}
         sku={product.sku}
         name={product.name}
         images={product.images}
@@ -380,7 +379,7 @@ function AddOnRow({
         </span>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={addOn.imageUrl ?? getProductImage(addOn.slug, addOn.categorySlug)}
+          src={addOn.imageUrl ?? getProductImage(addOn.slug)}
           alt=""
           className="size-10 shrink-0 rounded-md bg-white object-contain"
         />

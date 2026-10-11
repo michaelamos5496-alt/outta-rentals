@@ -9,7 +9,6 @@ import { getProductGallery, getProductImage, isolatedProductPhotos } from "@/lib
 
 export interface ProductGalleryProps {
   productSlug: string;
-  categorySlug: string;
   sku: string;
   name: string;
   /** Real admin-uploaded photos, when there are any — takes priority over
@@ -21,7 +20,6 @@ export interface ProductGalleryProps {
 
 function ProductGallery({
   productSlug,
-  categorySlug,
   sku,
   name,
   images,
@@ -32,7 +30,7 @@ function ProductGallery({
   // Real multi-photo gallery when there's more than one photo; otherwise the
   // original single-photo layout.
   const hasGallery = hasRealPhotos || gallery.length > 1;
-  const image = getProductImage(productSlug, categorySlug);
+  const image = getProductImage(productSlug);
   // "contain" (whole unit visible, nothing cropped) is about the photo's own
   // composition — a studio isolated shot — not where its URL is stored, so
   // this still applies whether the gallery came from the DB or the static

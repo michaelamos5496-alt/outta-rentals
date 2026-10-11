@@ -1,26 +1,14 @@
 import { getLiveFields } from "@/lib/catalogue/live";
 /**
- * Editorial stock photography (Pexels, free-to-use license) for brand/category
- * imagery — homepage sections, category tiles, work showcase, services,
- * packages, and per-product cards/galleries (see `productImages` below).
+ * Editorial stock photography (Pexels, free-to-use license) for brand/theme
+ * imagery — homepage sections, work showcase, services, and packages.
+ * Per-product photos live in `productImages` below; a product with no real
+ * photo gets MediaPlaceholder's logo fallback, not a generic stock photo.
  */
 
 function pexelsUrl(id: number, width = 1200): string {
   return `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${width}`;
 }
-
-export const categoryImages: Record<string, string> = {
-  cameras: pexelsUrl(6794832),
-  lighting: pexelsUrl(4417017),
-  grip: pexelsUrl(20101684),
-  monitors: pexelsUrl(11234306),
-  // Added alongside the real inventory import — reuse the closest existing
-  // category photo rather than sourcing new stock for a first pass.
-  "camera-accessories": pexelsUrl(11234306), // shares the monitors/support photo
-  "matte-boxes": pexelsUrl(20101684), // shares the grip photo
-  "lighting-modifiers": pexelsUrl(4417017), // shares the lighting photo
-  audio: pexelsUrl(347700),
-};
 
 /** Stock headshots for the testimonials hover-carousel — paired by index with `testimonials` in placeholder-data.ts. */
 export const testimonialImages: string[] = [
@@ -300,10 +288,14 @@ export const showWholeOnCard = new Set<string>([
   "arri-distagon-12mm",
 ]);
 
-/** Resolves a product's best-effort photo, falling back to its category photo. */
-export function getProductImage(productSlug: string, categorySlug: string): string | undefined {
+/**
+ * Resolves a product's real photo, when it has one. No generic category
+ * stock-photo fallback — a product with no real photo gets MediaPlaceholder's
+ * logo placeholder instead of a stand-in picture of different gear.
+ */
+export function getProductImage(productSlug: string): string | undefined {
   // A photo set in admin wins over the built-in editorial one.
-  return getLiveFields(productSlug)?.imageUrl ?? productImages[productSlug] ?? categoryImages[categorySlug];
+  return getLiveFields(productSlug)?.imageUrl ?? productImages[productSlug];
 }
 
 /**

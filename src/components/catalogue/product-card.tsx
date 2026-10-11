@@ -27,7 +27,7 @@ export interface ProductCardProps {
 
 /** The admin-uploaded cover photo when there is one, else the editorial stock fallback. */
 function primaryImage(product: DemoProduct): string | undefined {
-  return product.images?.[0]?.url ?? getProductImage(product.slug, product.categorySlug);
+  return product.images?.[0]?.url ?? getProductImage(product.slug);
 }
 
 /** A second photo to reveal on hover, when the product has one. */

@@ -94,7 +94,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
   }
 
   const dedicatedHeroImage = heroProductImages[product.slug];
-  const image = dedicatedHeroImage ?? getProductImage(product.slug, product.categorySlug);
+  const image = dedicatedHeroImage ?? getProductImage(product.slug);
   // Without a dedicated wide hero shot, products with isolated studio
   // photography (square, product centered) get cropped hard by a full-bleed
   // object-cover — show the whole unit instead of cutting it off.
@@ -198,7 +198,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
           <div className="animate-marquee flex h-full w-max">
             {[0, 1].map((copy) =>
               products.map((p, i) => {
-                const thumb = getProductImage(p.slug, p.categorySlug);
+                const thumb = getProductImage(p.slug);
                 return (
                   <button
                     key={`${copy}-${p.slug}`}

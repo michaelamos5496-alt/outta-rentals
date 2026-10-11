@@ -145,7 +145,7 @@ function TierLink({ pkg, tier }: { pkg: ChooserPackage; tier: ChooserTier }) {
           {resolvedItems.map(({ item, product }, i) => (
             <li key={`${item.productSlug}-${i}`} className="flex items-center gap-3">
               <MediaPlaceholder
-                src={product.images?.[0]?.url ?? getProductImage(product.slug, product.categorySlug)}
+                src={product.images?.[0]?.url ?? getProductImage(product.slug)}
                 alt={product.name}
                 fit="contain"
                 className="size-12 shrink-0 rounded-lg border border-border"
