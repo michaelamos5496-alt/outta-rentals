@@ -1,15 +1,14 @@
 import * as React from "react";
 import Image from "next/image";
-import type { LucideIcon } from "lucide-react";
-import { ImageIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
 /**
- * Cinematic stand-in for real photography/video. Phase 2 has no production
- * imagery yet — this renders a deliberate, on-brand placeholder (grain +
- * gradient + glow) instead of an empty gray box, so layout and rhythm read
- * correctly and can be swapped for real media without touching layout code.
+ * Cinematic stand-in for real photography/video. When a product has no
+ * real photo, this renders the OUTTA logo on a deliberate, on-brand
+ * gradient (instead of an empty gray box or a generic icon), so layout and
+ * rhythm read correctly and can be swapped for real media without touching
+ * layout code.
  */
 
 const grainStyle: React.CSSProperties = {
@@ -18,7 +17,6 @@ const grainStyle: React.CSSProperties = {
 };
 
 export interface MediaPlaceholderProps extends React.ComponentProps<"div"> {
-  icon?: LucideIcon;
   /** Small technical caption in the corner, e.g. "16:9 · CAM-042". */
   meta?: string;
   /** Larger, brighter glow — used for hero / full-bleed placements. */
@@ -38,7 +36,6 @@ export interface MediaPlaceholderProps extends React.ComponentProps<"div"> {
 }
 
 function MediaPlaceholder({
-  icon: Icon = ImageIcon,
   meta,
   tone = "default",
   src,
@@ -106,15 +103,16 @@ function MediaPlaceholder({
       />
       <div className="absolute inset-0 mix-blend-overlay opacity-[0.06]" style={grainStyle} />
       <div className="absolute inset-0 ring-1 ring-inset ring-foreground/10" />
-      <Icon
-        className={cn(
-          "relative text-foreground/25",
-          tone === "hero"
-            ? "hidden size-16 sm:inline-block sm:size-20"
-            : "size-7 sm:size-8"
-        )}
-        strokeWidth={1.25}
+      <Image
+        src="/brand/outta-logo.png"
+        alt=""
         aria-hidden
+        width={595}
+        height={225}
+        className={cn(
+          "relative w-auto opacity-30 select-none",
+          tone === "hero" ? "hidden h-10 sm:inline-block sm:h-12" : "h-6 sm:h-7"
+        )}
       />
       {meta ? (
         <span className="text-meta absolute bottom-3 left-3 text-foreground/40">

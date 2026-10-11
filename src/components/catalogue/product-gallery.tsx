@@ -4,7 +4,6 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
-import { getCategoryIcon } from "@/lib/catalogue";
 import type { DemoProductImage } from "@/lib/catalogue";
 import { getProductGallery, getProductImage, isolatedProductPhotos } from "@/lib/editorial-images";
 
@@ -28,7 +27,6 @@ function ProductGallery({
   images,
   frameCount = 4,
 }: ProductGalleryProps) {
-  const icon = getCategoryIcon(categorySlug);
   const hasRealPhotos = Boolean(images && images.length > 0);
   const gallery = hasRealPhotos ? [] : getProductGallery(productSlug);
   // Real multi-photo gallery when there's more than one photo; otherwise the
@@ -54,7 +52,6 @@ function ProductGallery({
         <MediaPlaceholder
           src={frames[active]?.src}
           alt={frames[active]?.alt ?? name}
-          icon={icon}
           meta={`${sku} · ${active + 1}/${frameTotal}`}
           fit={fit}
           className="aspect-square w-full sm:aspect-4/3"
@@ -78,7 +75,6 @@ function ProductGallery({
             <MediaPlaceholder
               src={frame.src}
               alt={frame.alt}
-              icon={icon}
               fit={fit}
               className="aspect-square w-full"
             />

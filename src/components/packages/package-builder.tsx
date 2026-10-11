@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Divider } from "@/components/ui/divider";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
-import { getBrandBySlug, getCategoryIcon, getProductBySlug } from "@/lib/catalogue";
+import { getBrandBySlug, getProductBySlug } from "@/lib/catalogue";
 import { useKit } from "@/components/kit/kit-provider";
 import type { PackageLineItem } from "@/lib/packages/types";
 import { getProductImage } from "@/lib/editorial-images";
@@ -122,7 +122,6 @@ function PackageBuilder({ packageSlug, tierSlug, items, quotedPrice }: PackageBu
       <div className="flex flex-col divide-y divide-border border-y border-border">
         {activeLines.map(({ line, index, product }) => {
           const brand = getBrandBySlug(product.brandSlug)?.name ?? product.brandSlug;
-          const icon = getCategoryIcon(product.categorySlug);
           const alternative = line.orProductSlug ? getProductBySlug(line.orProductSlug) : undefined;
 
           if (!line.active) {
@@ -148,7 +147,6 @@ function PackageBuilder({ packageSlug, tierSlug, items, quotedPrice }: PackageBu
                 <MediaPlaceholder
                   src={getProductImage(product.slug, product.categorySlug)}
                   alt={product.name}
-                  icon={icon}
                   className="size-full"
                 />
               </Link>

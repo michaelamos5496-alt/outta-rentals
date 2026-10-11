@@ -11,7 +11,6 @@ import {
   availabilityLabels,
   availabilityVariant,
   getBrandBySlug,
-  getCategoryIcon,
   type DemoProduct,
 } from "@/lib/catalogue";
 import { useKit } from "@/components/kit/kit-provider";
@@ -141,7 +140,6 @@ function ListProductCard({
   // Stays "In Cart" for as long as the item is in the cart, so it can't be added twice by accident.
   const added = items.some((i) => i.productSlug === product.slug);
   const brand = getBrandBySlug(product.brandSlug)?.name ?? product.brandSlug;
-  const icon = getCategoryIcon(product.categorySlug);
 
   return (
     <article className={cn("group/product flex flex-row gap-5", className)}>
@@ -154,7 +152,6 @@ function ListProductCard({
         <MediaPlaceholder
           src={primaryImage(product)}
           alt={product.name}
-          icon={icon}
           meta={product.sku}
           fit="contain"
           className="aspect-square h-full w-full transition-transform duration-500 ease-[var(--ease-outta)] group-hover/product:scale-105"

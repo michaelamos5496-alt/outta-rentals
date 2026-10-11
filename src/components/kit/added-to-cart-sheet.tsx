@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
-import { getBrandBySlug, getCategoryIcon, getProductBySlug } from "@/lib/catalogue";
+import { getBrandBySlug, getProductBySlug } from "@/lib/catalogue";
 import { getProductImage } from "@/lib/editorial-images";
 import { useKit } from "@/components/kit/kit-provider";
 
@@ -57,7 +57,6 @@ function AddedToCartSheet() {
             <MediaPlaceholder
               src={getProductImage(p.slug, p.categorySlug)}
               alt={p.name}
-              icon={getCategoryIcon(p.categorySlug)}
               className="size-full"
             />
           </div>

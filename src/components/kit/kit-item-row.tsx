@@ -5,7 +5,7 @@ import { Minus, Plus, Trash2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { MediaPlaceholder } from "@/components/ui/media-placeholder";
-import { getBrandBySlug, getCategoryIcon } from "@/lib/catalogue";
+import { getBrandBySlug } from "@/lib/catalogue";
 import type { ResolvedKitLine } from "@/lib/kit/pricing";
 import { useKit } from "@/components/kit/kit-provider";
 import { getProductImage } from "@/lib/editorial-images";
@@ -20,7 +20,6 @@ function KitItemRow({ line, compact = false }: KitItemRowProps) {
   const { setQuantity, removeItem } = useKit();
   const { product, quantity, lineTotal } = line;
   const brand = getBrandBySlug(product.brandSlug)?.name ?? product.brandSlug;
-  const icon = getCategoryIcon(product.categorySlug);
   const href = `/equipment/${product.slug}`;
 
   return (
@@ -29,7 +28,6 @@ function KitItemRow({ line, compact = false }: KitItemRowProps) {
         <MediaPlaceholder
           src={getProductImage(product.slug, product.categorySlug)}
           alt={product.name}
-          icon={icon}
           className="size-full"
         />
       </Link>
