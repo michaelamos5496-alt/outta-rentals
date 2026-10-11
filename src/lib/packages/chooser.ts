@@ -19,11 +19,22 @@ export interface ChooserTier {
   items: PackageLineItem[];
 }
 
+/**
+ * Manual photo swaps, keyed `${packageSlug}:${tierSlug}` — for a tier whose
+ * auto-derived Camera-role photo would otherwise match a sibling tier's in
+ * the same package (e.g. Music Video's TOP GUY and YOLO are both quoted on
+ * an Alexa Mini). Swapping to a different real product's photo is purely
+ * cosmetic for the card — the tier's actual gear/pricing is untouched.
+ */
+const TIER_IMAGE_OVERRIDE_PRODUCT: Record<string, string> = {
+  "music-video:top-guy": "arri-alexa-mini-lf",
+};
+
 /** The tier's hero shot — its Camera-role line item's photo, else its first item's. */
-function getTierImage(tier: PackageTier): string | undefined {
+function getTierImage(pkg: ProductionPackage, tier: PackageTier): string | undefined {
+  const overrideSlug = TIER_IMAGE_OVERRIDE_PRODUCT[`${pkg.slug}:${tier.slug}`];
   const line = tier.items.find((i) => i.role === "Camera") ?? tier.items[0];
-  if (!line) return undefined;
-  const product = getProductBySlug(line.productSlug);
+  const product = overrideSlug ? getProductBySlug(overrideSlug) : line ? getProductBySlug(line.productSlug) : undefined;
   if (!product) return undefined;
   return product.images?.[0]?.url ?? getProductImage(product.slug, product.categorySlug);
 }
@@ -64,7 +75,7 @@ export function toChooserData(packages: ProductionPackage[]): ChooserPackage[] {
             amount,
             currency: total[0].currency,
             fullAmount: showFullPrice ? fullAmount : undefined,
-            imageUrl: getTierImage(tier),
+            imageUrl: getTierImage(pkg, tier),
             items: tier.items,
           },
         ];
