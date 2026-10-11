@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { List, Plus } from "lucide-react";
+import { List, MousePointerClick, Plus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -96,6 +96,16 @@ function TierLink({ pkg, tier }: { pkg: ChooserPackage; tier: ChooserTier }) {
             fit="contain"
             className="absolute inset-0 h-full w-full"
           />
+          {/* Visible by default so visitors know the price is hidden until
+              hover — fades out the moment the photo starts sliding up.
+              Desktop/mouse only: touch devices don't have a meaningful
+              "hover", and the mobile slide carousel reuses this card. */}
+          <span className="absolute inset-x-0 bottom-3 z-10 hidden justify-center opacity-100 transition-opacity duration-200 group-hover:opacity-0 sm:flex">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-foreground/70 px-3 py-1.5 text-xs font-medium text-background backdrop-blur-sm">
+              <MousePointerClick className="size-3.5" strokeWidth={2} />
+              Hover for price
+            </span>
+          </span>
         </div>
 
         <div className="absolute top-[38%] left-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 gap-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
