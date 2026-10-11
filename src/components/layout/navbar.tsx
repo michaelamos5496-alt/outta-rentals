@@ -23,6 +23,7 @@ import gsap from "gsap";
 import { cn } from "@/lib/utils";
 import { duration, easeOutta } from "@/lib/motion";
 import { showWorkSection, siteConfig, type NavItem } from "@/config/site";
+import { getAllPackages } from "@/lib/packages";
 import { availabilityLabels, availabilityVariant } from "@/lib/catalogue";
 import { searchCatalogueAction, type CatalogueSearchResult } from "@/lib/catalogue/actions";
 import { Container } from "@/components/ui/container";
@@ -166,11 +167,31 @@ const equipmentTabs: EquipmentTab[] = [
     ],
   },
   { label: "Lens", href: "/equipment/lenses" },
-  { label: "Light", href: "/equipment/lighting" },
-  { label: "Modifiers", href: "/equipment/lighting-modifiers" },
+  {
+    label: "Light",
+    href: "/equipment/lighting",
+    children: [
+      {
+        heading: "Light",
+        items: [
+          { label: "Lighting", href: "/equipment/lighting" },
+          { label: "Modifiers", href: "/equipment/lighting-modifiers" },
+        ],
+      },
+    ],
+  },
   { label: "Grip", href: "/equipment/grip" },
   { label: "Audio", href: "/equipment/audio" },
-  { label: "Packages", href: "/packages" },
+  {
+    label: "Packages",
+    href: "/packages",
+    children: [
+      {
+        heading: "Packages",
+        items: getAllPackages().map((pkg) => ({ label: pkg.name, href: `/packages/${pkg.slug}` })),
+      },
+    ],
+  },
 ];
 
 // Thin utility row up top, now a radial FAB instead of a plain link list —
