@@ -405,7 +405,7 @@ function Navbar() {
                   <li className="group/tab relative flex h-full items-center">
                     <Link
                       href={tab.href}
-                      className="text-label relative flex items-center gap-1 !text-white whitespace-nowrap transition-colors hover:!text-white"
+                      className="text-label relative flex items-center gap-1 !text-white/80 whitespace-nowrap transition-colors hover:!text-white"
                     >
                       {tab.label}
                       {tab.children ? (
