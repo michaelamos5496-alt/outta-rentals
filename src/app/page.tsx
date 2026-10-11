@@ -68,9 +68,9 @@ export default async function Home() {
       <CategoryExperience products={products} />
       <FeaturedEquipment packages={toChooserData(featuredPackages)} />
       {showWorkSection ? <WorkShowcase /> : null}
+      <FinalCta />
       <WhyOutta />
       <Services />
-      <FinalCta />
     </div>
   );
 }
