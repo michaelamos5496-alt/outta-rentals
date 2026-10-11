@@ -205,17 +205,6 @@
   }
 }
 
-/* Homepage-only: the navbar is `position: fixed` there (floating over the
-   hero photo, out of normal flow entirely) rather than sticky-in-flow, so
-   nothing needs to reserve space for it — content starts at the true top.
-   Scoped via a `data-floating-nav` attribute Navbar sets on <html> rather
-   than a route-specific stylesheet, since this CSS has no router
-   awareness of its own. */
-html[data-floating-nav="true"] #smooth-wrapper[style*="position: fixed"] {
-  top: 0px !important;
-  height: 100% !important;
-}
-
 @layer utilities {
   /* Editorial typography scale — the canonical OUTTA hierarchy */
   .text-display {

@@ -360,49 +360,26 @@ function Navbar() {
   const [searchOpen, setSearchOpen] = React.useState(false);
   const { itemCount, openDrawer, hydrated } = useKit();
   const pathname = usePathname();
-  const isHome = pathname === "/";
-
-  // The homepage's hero is a full-bleed photo — the pill floats directly
-  // over it (header taken out of flow entirely, hero starting at the true
-  // top) so the actual hero image shows through the margin around the
-  // pill, not a flat color standing in for it. Every other page has plain
-  // white content right under the nav, where a floating header would
-  // either show white through the gap or need its own opaque fill sitting
-  // oddly on top of content, so those stay flush/sticky/in-flow instead.
-  React.useEffect(() => {
-    if (isHome) {
-      document.documentElement.setAttribute("data-floating-nav", "true");
-    } else {
-      document.documentElement.removeAttribute("data-floating-nav");
-    }
-    return () => document.documentElement.removeAttribute("data-floating-nav");
-  }, [isHome]);
 
   return (
-    <header
-      data-slot="navbar"
-      className={cn(
-        isHome
-          ? "fixed top-0 inset-x-0 z-40 pt-3 pb-3 sm:pt-4 sm:pb-4"
-          : "sticky top-0 z-40 w-full"
-      )}
-    >
+    <header data-slot="navbar" className="sticky top-0 z-40 w-full">
       {/* Floating FAB — fixed to the viewport, detached from the header
           entirely (not stacked in a bar on top of the tabs below). */}
       <NavFab />
 
-      {/* Category tabs bar — a floating rounded pill, detached from the
-          viewport edge on every side (page background visible around it)
-          rather than a full-width bar flush against the top. */}
-      <Container>
-        <div className="relative">
-          <nav
-            className={cn(
-              "flex h-14 items-center justify-between gap-6 rounded-full bg-brand px-4 shadow-lg transition-shadow sm:h-16 sm:px-6",
-              scrolled ? "shadow-xl" : ""
-            )}
-            style={{ transitionDuration: `${duration.fast * 1000}ms` }}
-          >
+      {/* Flat, full-bleed dark bar (711rent-style) — spans the full
+          viewport width, no rounded corners/shadow/inset. An inner
+          Container just aligns the logo/links/icons row with the rest of
+          the page's content width. */}
+      <nav
+        className={cn(
+          "w-full bg-foreground transition-shadow",
+          scrolled ? "shadow-lg" : ""
+        )}
+        style={{ transitionDuration: `${duration.fast * 1000}ms` }}
+      >
+        <Container>
+          <div className="flex h-14 items-center justify-between gap-6 sm:h-16">
             <Link href="/" className="inline-flex shrink-0 items-center">
               <Image
                 src="/brand/outta-logo-dark.png"
@@ -432,26 +409,30 @@ function Navbar() {
                     </Link>
 
                     {tab.children ? (
-                      <div className="pointer-events-none absolute top-full left-0 z-50 w-max min-w-max translate-y-2 scale-95 pt-3 opacity-0 transition-[opacity,transform] duration-200 ease-[var(--ease-outta)] [transform-origin:top_left] group-hover/tab:pointer-events-auto group-hover/tab:translate-y-0 group-hover/tab:scale-100 group-hover/tab:opacity-100">
-                        <div className="relative flex gap-10 overflow-hidden rounded-2xl bg-foreground p-6 shadow-xl">
-                          <div aria-hidden className="absolute inset-x-0 top-0 h-0.5 bg-brand" />
-                          {tab.children.map((column, ci) => (
-                            <div key={column.heading} className="flex min-w-[11rem] flex-col gap-2">
-                              <p className="text-xs font-bold tracking-wide text-background/90 uppercase">
-                                {column.heading}
-                              </p>
-                              {column.items.map((child, i) => (
-                                <Link
-                                  key={child.label}
-                                  href={child.href}
-                                  style={{ transitionDelay: `${(ci * 3 + i) * 30}ms` }}
-                                  className="translate-y-1 text-sm whitespace-nowrap text-background/60 opacity-0 transition-[opacity,color,transform] duration-200 ease-[var(--ease-outta)] group-hover/tab:translate-y-0 group-hover/tab:opacity-100 hover:text-background"
-                                >
-                                  {child.label}
-                                </Link>
+                      <div className="pointer-events-none fixed inset-x-0 top-14 z-50 translate-y-1 opacity-0 transition-[opacity,transform] duration-200 ease-[var(--ease-outta)] group-hover/tab:pointer-events-auto group-hover/tab:translate-y-0 group-hover/tab:opacity-100 sm:top-16">
+                        <div className="relative w-full overflow-hidden bg-foreground">
+                          <div aria-hidden className="absolute inset-x-0 top-0 h-[3px] bg-brand" />
+                          <Container>
+                            <div className="flex gap-16 py-8">
+                              {tab.children.map((column, ci) => (
+                                <div key={column.heading} className="flex min-w-[11rem] flex-col gap-4">
+                                  <p className="text-xs font-bold tracking-wider text-white/50 uppercase">
+                                    {column.heading}
+                                  </p>
+                                  {column.items.map((child, i) => (
+                                    <Link
+                                      key={child.label}
+                                      href={child.href}
+                                      style={{ transitionDelay: `${(ci * 3 + i) * 30}ms` }}
+                                      className="translate-y-1 text-sm whitespace-nowrap text-white/60 opacity-0 transition-[opacity,color,transform] duration-200 ease-[var(--ease-outta)] group-hover/tab:translate-y-0 group-hover/tab:opacity-100 hover:text-white"
+                                    >
+                                      {child.label}
+                                    </Link>
+                                  ))}
+                                </div>
                               ))}
                             </div>
-                          ))}
+                          </Container>
                         </div>
                       </div>
                     ) : null}
@@ -493,9 +474,9 @@ function Navbar() {
                   the same panel, so a second control in the header would be
                   redundant. */}
             </div>
-          </nav>
-        </div>
-      </Container>
+          </div>
+        </Container>
+      </nav>
 
       <Modal
         open={searchOpen}
