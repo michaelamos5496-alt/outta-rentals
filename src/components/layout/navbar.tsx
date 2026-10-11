@@ -394,16 +394,19 @@ function Navbar() {
           the page's content width. */}
       <nav
         className={cn(
-          "w-full bg-foreground transition-shadow",
+          "w-full bg-brand transition-shadow",
           scrolled ? "shadow-lg" : ""
         )}
         style={{ transitionDuration: `${duration.fast * 1000}ms` }}
       >
         <Container>
           <div className="flex h-14 items-center justify-between gap-6 sm:h-16">
-            <Link href="/" className="inline-flex shrink-0 items-center">
+            <Link
+              href="/"
+              className="inline-flex shrink-0 items-center rounded-lg bg-white px-3 py-1.5 sm:px-4 sm:py-2"
+            >
               <Image
-                src="/brand/outta-logo-dark.png"
+                src="/brand/outta-logo.png"
                 alt={siteConfig.name}
                 width={595}
                 height={225}
