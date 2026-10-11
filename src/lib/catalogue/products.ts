@@ -2010,7 +2010,7 @@ export const products: DemoProduct[] = [
     tags: ["monitors", "wireless-video"],
     shortDescription: "Real OUTTA inventory — caged director's monitor with a Hollyland wireless transmitter, available to rent.",
     description: "Cage Director's Monitor with Hollyland Transmitter — caged on-set director's monitor paired with a Hollyland wireless video transmitter, from OUTTA's real rental inventory.",
-    dayRate: 500,
+    dayRate: 400,
     currency: "GHS",
     availability: "available",
     specifications: [],
