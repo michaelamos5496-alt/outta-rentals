@@ -240,6 +240,7 @@ export const extraProductImages: Record<string, string[]> = {
   "amaran-150c": ["/equipment/amaran-150c-2.webp", "/equipment/amaran-150c-3.webp"],
   "reflector": ["/equipment/reflector-2.jpg"],
   "wireless-focus-system": ["/equipment/wireless-focus-system-2.jpg"],
+  "wireless-directors-monitor-double": ["/equipment/wireless-directors-monitor-single.webp"],
   "cage-directors-monitor-hollyland": ["/equipment/cage-directors-monitor-hollyland-2.jpg"],
   "pyro-7-s-transmitter": ["/equipment/pyro-7-s-transmitter-2.jpg"],
   "hollyland-mars-400-transmitter": ["/equipment/hollyland-mars-400-transmitter-2.jpg"],
