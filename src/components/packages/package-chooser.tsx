@@ -31,7 +31,7 @@ function TierLink({ pkg, tier, index }: { pkg: ChooserPackage; tier: ChooserTier
       href={`/packages/${pkg.slug}?tier=${tier.slug}`}
       aria-label={`Explore the ${pkg.name} ${tier.label} package`}
       className={cn(
-        "group flex h-full flex-col rounded-2xl border-2 p-6 transition-transform active:scale-[0.99] sm:p-7",
+        "group flex h-full flex-col rounded-2xl border-2 p-6 shadow-md transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1 hover:shadow-xl active:scale-[0.99] sm:p-7",
         dark && "border-foreground bg-foreground text-background",
         brand && "border-brand bg-brand text-brand-foreground",
         !dark && !brand && "border-foreground/30 bg-card text-foreground hover:border-foreground"
