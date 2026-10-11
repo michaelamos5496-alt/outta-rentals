@@ -180,7 +180,7 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
   const suggestedCategories = categories.filter((c) => c.slug !== lockedCategory).slice(0, 4);
 
   return (
-    <Container className="py-10 sm:py-14">
+    <Container width="full" className="py-10 sm:py-14">
       {lockedCategory ? (
         <p className="text-small mb-3">
           <Link href="/equipment" className="hover:text-foreground">
