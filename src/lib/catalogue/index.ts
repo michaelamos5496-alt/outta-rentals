@@ -120,6 +120,6 @@ export const availabilityVariant = {
   available: "outline",
   reserved: "technical",
   maintenance: "destructive",
-  "coming_soon": "secondary",
+  "coming_soon": "solid-dark",
   unavailable: "ghost",
 } as const;
