@@ -76,12 +76,12 @@ export const heroProductImages: Record<string, string> = {
  * (e.g. every Amaran fixture) intentionally share one photo rather than
  * being paired with an unrelated stock shot for the sake of uniqueness —
  * these are the closest visually-plausible match, not confirmed exact-unit
- * photos. Products without an entry here fall back to their category photo
- * (see `categoryImages`).
+ * photos. Products without an entry here get MediaPlaceholder's logo
+ * fallback instead of a photo.
  */
 export const productImages: Record<string, string> = {
   "arri-alexa-mini": "/equipment/arri-alexa-mini.webp",
-  "arri-alexa-mini-foreign": pexelsUrl(37593303),
+  "arri-alexa-mini-foreign": "/equipment/arri-alexa-mini-shared-2.jpg",
   "red-helium": "/equipment/red-helium.jpg",
   "blackmagic-6k-pro": "/equipment/blackmagic-6k-pro-cinestyle.webp",
   "blackmagic-6k": "/equipment/blackmagic-6k.jpg",
@@ -194,7 +194,7 @@ export const productImages: Record<string, string> = {
 export const extraProductImages: Record<string, string[]> = {
   "arri-alexa-mini-lf": ["/equipment/arri-alexa-mini-lf-2.jpg", "/equipment/arri-alexa-mini-lf-3.jpg", "/equipment/arri-alexa-mini-lf-4.jpg", "/equipment/arri-alexa-mini-lf-5.jpg", "/equipment/arri-alexa-mini-lf-6.jpg"],
   "arri-alexa-mini": ["/equipment/arri-alexa-mini-shared-2.jpg", "/equipment/arri-alexa-mini-shared-3.jpg"],
-  "arri-alexa-mini-foreign": ["/equipment/arri-alexa-mini-shared-2.jpg", "/equipment/arri-alexa-mini-shared-3.jpg"],
+  "arri-alexa-mini-foreign": ["/equipment/arri-alexa-mini-shared-3.jpg"],
   "red-helium": ["/equipment/red-helium-2.webp", "/equipment/red-helium-3.jpg", "/equipment/red-helium-4.webp"],
   "red-komodo": ["/equipment/red-komodo-2.jpg", "/equipment/red-komodo-3.png", "/equipment/red-komodo-4.webp", "/equipment/red-komodo-5.webp", "/equipment/red-komodo-6.jpg"],
   "blackmagic-6k-pro": ["/equipment/blackmagic-6k-pro-cinestyle-2.jpg"],
