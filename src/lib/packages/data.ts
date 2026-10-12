@@ -23,7 +23,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "lite",
         label: "LITE",
-        price: 2000,
+        price: 2400,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx3", orProductSlug: "blackmagic-6k-pro", quantity: 1 },
@@ -33,6 +33,7 @@ export const packages: ProductionPackage[] = [
           { role: "Lighting", productSlug: "amaran-300c", quantity: 1 },
           { role: "Lighting", productSlug: "amaran-200x-s", quantity: 1 },
           { role: "Lighting", productSlug: "nanlite-pavotube-4ft", quantity: 2 },
+          { role: "Audio", productSlug: "moma-solidcom-se-5s", quantity: 1 },
         ],
       },
       {
@@ -94,7 +95,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "lite",
         label: "LITE",
-        price: 2120,
+        price: 2520,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx3", orProductSlug: "blackmagic-6k-pro", quantity: 1 },
@@ -105,6 +106,7 @@ export const packages: ProductionPackage[] = [
           { role: "Lighting", productSlug: "amaran-200x-s", quantity: 1 },
           { role: "Lighting", productSlug: "amaran-300c", quantity: 1 },
           { role: "Audio", productSlug: "dji-mic", quantity: 1 },
+          { role: "Audio", productSlug: "moma-solidcom-se-5s", quantity: 1 },
           { role: "Accessories", productSlug: "reflector", quantity: 1 },
         ],
       },
@@ -169,7 +171,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "lite",
         label: "LITE",
-        price: 2680,
+        price: 3080,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx3", orProductSlug: "blackmagic-6k-pro", quantity: 1 },
@@ -182,6 +184,7 @@ export const packages: ProductionPackage[] = [
           { role: "Lighting", productSlug: "amaran-300c", quantity: 1 },
           { role: "Lighting", productSlug: "nanlite-pavotube-4ft", quantity: 1 },
           { role: "Lighting", productSlug: "nanlite-pavotube-1ft", quantity: 1 },
+          { role: "Audio", productSlug: "moma-solidcom-se-5s", quantity: 1 },
           { role: "Accessories", productSlug: "6x6ft-checkerboard", quantity: 1 },
           { role: "Accessories", productSlug: "reflector", quantity: 1 },
         ],
@@ -246,7 +249,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "lite",
         label: "LITE",
-        price: 1960,
+        price: 2360,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "blackmagic-6k-pro", quantity: 1 },
@@ -256,6 +259,7 @@ export const packages: ProductionPackage[] = [
           { role: "Lighting", productSlug: "amaran-300c", quantity: 1 },
           { role: "Lighting", productSlug: "godox-mat-light-2x2", quantity: 1 },
           { role: "Lighting", productSlug: "amaran-200x-s", quantity: 1 },
+          { role: "Audio", productSlug: "moma-solidcom-se-5s", quantity: 1 },
           { role: "Accessories", productSlug: "reflector", quantity: 1 },
         ],
       },
