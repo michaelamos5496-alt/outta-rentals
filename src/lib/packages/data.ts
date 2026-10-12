@@ -95,13 +95,13 @@ export const packages: ProductionPackage[] = [
       {
         slug: "lite",
         label: "LITE",
-        price: 2040,
+        price: 1960,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx3", orProductSlug: "blackmagic-6k-pro", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-546gb", quantity: 1 },
           { role: "Accessories", productSlug: "tilta-mirage-matte-box-w-vnd", quantity: 1 },
-          { role: "Support", productSlug: "dji-rs3-pro-combo-with-ring", quantity: 1 },
+          { role: "Support", productSlug: "dji-rs3-pro-with-ring", quantity: 1 },
           { role: "Lighting", productSlug: "amaran-200x-s", quantity: 1 },
           { role: "Lighting", productSlug: "amaran-300c", quantity: 1 },
           { role: "Audio", productSlug: "dji-mic", quantity: 1 },
@@ -111,12 +111,12 @@ export const packages: ProductionPackage[] = [
       {
         slug: "top-guy",
         label: "TOP GUY",
-        price: 4520,
+        price: 4440,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-546gb", quantity: 1 },
-          { role: "Support", productSlug: "dji-rs3-pro-combo-with-ring", quantity: 1 },
+          { role: "Support", productSlug: "dji-rs3-pro-with-ring", quantity: 1 },
           { role: "Monitoring", productSlug: "wireless-directors-monitor", quantity: 1 },
           { role: "Monitoring", productSlug: "pyro-7-s-transmitter", quantity: 1 },
           { role: "Lighting", productSlug: "amaran-300c", quantity: 1 },
@@ -169,13 +169,13 @@ export const packages: ProductionPackage[] = [
       {
         slug: "lite",
         label: "LITE",
-        price: 2920,
+        price: 2840,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx3", orProductSlug: "blackmagic-6k-pro", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-546gb", quantity: 1 },
           { role: "Accessories", productSlug: "tilta-mirage-matte-box-w-vnd", quantity: 1 },
-          { role: "Support", productSlug: "dji-rs3-pro-combo-with-ring", quantity: 1 },
+          { role: "Support", productSlug: "dji-rs3-pro-with-ring", quantity: 1 },
           { role: "Monitoring", productSlug: "cage-directors-monitor-hollyland", quantity: 1 },
           { role: "Lighting", productSlug: "amaran-200x-s", quantity: 1 },
           { role: "Lighting", productSlug: "amaran-150c", quantity: 1 },
