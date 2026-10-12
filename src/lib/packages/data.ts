@@ -23,7 +23,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "lite",
         label: "LITE",
-        price: 2160,
+        price: 2000,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx3", orProductSlug: "blackmagic-6k-pro", quantity: 1 },
@@ -94,7 +94,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "lite",
         label: "LITE",
-        price: 2280,
+        price: 2120,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx3", orProductSlug: "blackmagic-6k-pro", quantity: 1 },
@@ -169,7 +169,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "lite",
         label: "LITE",
-        price: 2840,
+        price: 2680,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx3", orProductSlug: "blackmagic-6k-pro", quantity: 1 },
@@ -246,7 +246,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "lite",
         label: "LITE",
-        price: 2120,
+        price: 1960,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "blackmagic-6k-pro", quantity: 1 },
