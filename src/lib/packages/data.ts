@@ -70,7 +70,6 @@ export const packages: ProductionPackage[] = [
           { role: "Accessories", productSlug: "teradek-wireless-video-transmitter", quantity: 1 },
           { role: "Monitoring", productSlug: "smallhd-dir-monitor", quantity: 1 },
           { role: "Monitoring", productSlug: "atomos-sumo-19-monitor", quantity: 1 },
-          { role: "Audio", productSlug: "hollyland-solidcom-se-pro-9s", quantity: 1 },
           { role: "Accessories", productSlug: "tilta-3-way-matte-box", quantity: 1 },
           { role: "Accessories", productSlug: "tiffen-black-pro-mist", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-116-mrk3", quantity: 1 },
