@@ -149,6 +149,7 @@ export const productImages: Record<string, string> = {
   "extension-cable": "/equipment/extension-cable.jpg",
   "sennheiser-lapel-mic": "/equipment/sennheiser-lapel-mic.jpg",
   "moma-solidcom-se-5s": "/equipment/moma-solidcom-se-5s.webp",
+  "hollyland-solidcom-se-pro-9s": "/equipment/hollyland-solidcom-se-pro-9s.jpg",
   "infinibar-full-set": "/equipment/infinibar-full-set.webp",
   "nanlite-fc-720b": "/equipment/nanlite-fc-720b.jpeg",
   "nanlite-pavotube-4ft": "/equipment/nanlite-pavotube-4ft.jpg",
@@ -247,6 +248,7 @@ export const extraProductImages: Record<string, string[]> = {
   "hollyland-mars-400-transmitter": ["/equipment/hollyland-mars-400-transmitter-2.jpg"],
   "dji-mic": ["/equipment/dji-mic-2.jpg", "/equipment/dji-mic-3.jpg"],
   "moma-solidcom-se-5s": ["/equipment/moma-solidcom-se-5s-2.jpeg"],
+  "hollyland-solidcom-se-pro-9s": ["/equipment/hollyland-solidcom-se-pro-9s-2.jpg"],
   "sennheiser-lapel-mic": [
     "/equipment/sennheiser-lapel-mic-2.jpg",
     "/equipment/sennheiser-lapel-mic-3.jpg",
