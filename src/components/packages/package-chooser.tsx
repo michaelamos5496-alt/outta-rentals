@@ -89,7 +89,7 @@ function TierLink({ pkg, tier }: { pkg: ChooserPackage; tier: ChooserTier }) {
           </p>
         </div>
 
-        <div className="absolute inset-x-0 top-0 bottom-24 z-10 transition-transform duration-500 ease-[var(--ease-outta)] sm:inset-0 sm:group-hover:-translate-y-28">
+        <div className="absolute inset-x-0 top-0 bottom-24 z-10 transition-[bottom] duration-500 ease-[var(--ease-outta)] sm:bottom-0 sm:group-hover:bottom-28">
           <MediaPlaceholder
             src={tier.imageUrl}
             alt={`${tier.label} package`}
