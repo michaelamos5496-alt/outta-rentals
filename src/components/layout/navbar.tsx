@@ -139,12 +139,17 @@ interface EquipmentTabColumn {
 
 interface EquipmentTab extends NavItem {
   children?: EquipmentTabColumn[];
+  /** Multi-column tabs (Camera) use the full-width 711rent-style mega
+   * menu; single-column tabs (Light, Packages) anchor directly under
+   * their own trigger instead of pinning to the far left of the screen. */
+  fullWidth?: boolean;
 }
 
 const equipmentTabs: EquipmentTab[] = [
   {
     label: "Camera",
     href: "/equipment/cameras",
+    fullWidth: true,
     children: [
       {
         heading: "Camera",
@@ -448,14 +453,46 @@ function EquipmentNavTab({
         {tab.children ? (
           <div
             ref={menuRef}
-            className={cn("fixed inset-x-0 top-14 z-50 sm:top-16", open ? "pointer-events-auto" : "pointer-events-none")}
+            className={cn(
+              tab.fullWidth
+                ? "fixed inset-x-0 top-14 z-50 sm:top-16"
+                : "absolute top-full left-0 z-50 w-max pt-2",
+              open ? "pointer-events-auto" : "pointer-events-none"
+            )}
           >
-            <div className="relative w-full overflow-hidden bg-background">
+            <div
+              className={cn(
+                "relative overflow-hidden bg-background",
+                tab.fullWidth ? "w-full" : "rounded-xl shadow-xl"
+              )}
+            >
               <div aria-hidden className="absolute inset-x-0 top-0 h-[3px] bg-brand" />
-              <Container>
-                <div className="flex gap-16 py-8">
+              {tab.fullWidth ? (
+                <Container>
+                  <div className="flex gap-16 py-8">
+                    {tab.children.map((column) => (
+                      <div key={column.heading} className="flex min-w-[11rem] flex-col gap-4">
+                        <p className="text-xs font-bold tracking-wider text-foreground/50 uppercase">
+                          {column.heading}
+                        </p>
+                        {column.items.map((child) => (
+                          <Link
+                            key={child.label}
+                            href={child.href}
+                            data-dropdown-item
+                            className="text-sm whitespace-nowrap text-foreground/70 transition-colors hover:text-brand"
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </Container>
+              ) : (
+                <div className="flex flex-col gap-4 px-5 py-6">
                   {tab.children.map((column) => (
-                    <div key={column.heading} className="flex min-w-[11rem] flex-col gap-4">
+                    <div key={column.heading} className="flex min-w-[11rem] flex-col gap-3">
                       <p className="text-xs font-bold tracking-wider text-foreground/50 uppercase">
                         {column.heading}
                       </p>
@@ -472,7 +509,7 @@ function EquipmentNavTab({
                     </div>
                   ))}
                 </div>
-              </Container>
+              )}
             </div>
           </div>
         ) : null}
