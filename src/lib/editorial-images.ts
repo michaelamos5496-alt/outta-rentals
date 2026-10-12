@@ -81,6 +81,7 @@ export const heroProductImages: Record<string, string> = {
  */
 export const productImages: Record<string, string> = {
   "arri-alexa-mini": "/equipment/arri-alexa-mini.webp",
+  "arri-alexa-mini-lf": "/equipment/arri-alexa-mini-lf.webp",
   "red-helium": "/equipment/red-helium.jpg",
   "blackmagic-6k-pro": "/equipment/blackmagic-6k-pro-cinestyle.png",
   "blackmagic-6k": "/equipment/blackmagic-6k.jpg",
@@ -200,6 +201,7 @@ export const productImages: Record<string, string> = {
  */
 export const extraProductImages: Record<string, string[]> = {
   "arri-alexa-mini": ["/equipment/arri-alexa-mini-shared-2.jpg", "/equipment/arri-alexa-mini-shared-3.jpg"],
+  "arri-alexa-mini-lf": ["/equipment/arri-alexa-mini-lf-2.jpg", "/equipment/arri-alexa-mini-lf-3.jpg", "/equipment/arri-alexa-mini-lf-4.jpg", "/equipment/arri-alexa-mini-lf-5.jpg", "/equipment/arri-alexa-mini-lf-6.jpg"],
   "red-helium": ["/equipment/red-helium-2.webp", "/equipment/red-helium-3.jpg", "/equipment/red-helium-4.webp"],
   "red-komodo": ["/equipment/red-komodo-2.jpg", "/equipment/red-komodo-3.png", "/equipment/red-komodo-4.webp", "/equipment/red-komodo-5.webp", "/equipment/red-komodo-6.jpg"],
   "blackmagic-6k-pro": ["/equipment/blackmagic-6k-pro-cinestyle-2.png"],
@@ -325,6 +327,7 @@ export const isolatedProductPhotos = new Set<string>([
   "cage-directors-monitor-hollyland",
   "canon-70-200mm",
   "arri-alexa-mini",
+  "arri-alexa-mini-lf",
   "red-komodo",
   "sony-fx3",
   "sony-fx3-body-only",
