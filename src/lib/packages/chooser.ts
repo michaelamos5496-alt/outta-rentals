@@ -22,18 +22,13 @@ export interface ChooserTier {
 /**
  * Manual photo swaps, keyed `${packageSlug}:${tierSlug}` — for a tier whose
  * auto-derived Camera-role photo would otherwise match a sibling tier's in
- * the same package. Either a different real product's photo (Music Video's
- * TOP GUY and YOLO are both quoted on an Alexa Mini — TOP GUY gets the
- * Alexa Mini LF instead) or a different photo of the *same* product
- * (Documentary's TOP GUY and YOLO are both on the FX6 — TOP GUY gets its
- * second gallery shot). Purely cosmetic for the card — the tier's actual
- * gear/pricing is untouched either way.
+ * the same package. A different photo of the *same* product (Music Video's
+ * and Documentary's TOP GUY and YOLO are both quoted on the same camera —
+ * TOP GUY gets its second gallery shot instead). Purely cosmetic for the
+ * card — the tier's actual gear/pricing is untouched either way.
  */
 const TIER_IMAGE_OVERRIDES: Record<string, () => string | undefined> = {
-  "music-video:top-guy": () => {
-    const product = getProductBySlug("arri-alexa-mini-lf");
-    return product ? (product.images?.[0]?.url ?? getProductImage(product.slug)) : undefined;
-  },
+  "music-video:top-guy": () => getProductGallery("arri-alexa-mini")[1],
   "documentary:top-guy": () => getProductGallery("sony-fx6")[1],
 };
 
