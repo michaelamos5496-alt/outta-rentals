@@ -30,6 +30,9 @@ export default async function PackagesPage() {
         <p className="mt-4 font-mono text-sm tracking-[0.08em] text-muted-foreground uppercase">
           20% Package Discount • All Rates in Ghana Cedis (GHC)
         </p>
+        <p className="mt-2 font-mono text-sm tracking-[0.08em] text-muted-foreground uppercase">
+          Package Includes: Camera • Light • Grip
+        </p>
       </div>
 
       <div className="mt-12">
