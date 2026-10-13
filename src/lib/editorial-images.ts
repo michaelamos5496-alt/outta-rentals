@@ -242,6 +242,7 @@ export const extraProductImages: Record<string, string[]> = {
   "wireless-focus-system": ["/equipment/wireless-focus-system-2.jpg"],
   "wireless-directors-monitor-double": ["/equipment/wireless-directors-monitor-single.webp"],
   "cage-directors-monitor-hollyland": ["/equipment/cage-directors-monitor-hollyland-2.jpg"],
+  "camera-cart": ["/equipment/camera-cart-2.jpeg"],
   "pyro-7-s-transmitter": ["/equipment/pyro-7-s-transmitter-2.jpg"],
   "hollyland-mars-400-transmitter": ["/equipment/hollyland-mars-400-transmitter-2.jpg"],
   "dji-mic": ["/equipment/dji-mic-2.jpg", "/equipment/dji-mic-3.jpg"],
