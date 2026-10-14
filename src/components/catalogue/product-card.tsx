@@ -55,7 +55,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
   const category = getCategoryBySlug(product.categorySlug)?.name;
   const symbol = product.currency === "USD" ? "$" : "\u20b5";
   const pill =
-    "inline-flex items-center rounded-full border border-white/15 px-2.5 py-1 text-[10px] font-medium tracking-wide whitespace-nowrap text-white/70 uppercase sm:px-3 sm:text-[11px]";
+    "inline-flex items-center rounded-full border border-white/35 px-2.5 py-1 text-[10px] font-medium tracking-wide whitespace-nowrap text-white/90 uppercase sm:px-3 sm:text-[11px]";
 
   // Dark spec-sheet card: name + tag pills on top, the photo under a soft
   // studio spotlight, a big day rate, and a pill row at the bottom. Clicking
@@ -64,7 +64,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
   return (
     <article
       className={cn(
-        "group/product relative flex flex-col overflow-hidden rounded-3xl bg-neutral-950 text-white ring-1 ring-white/10 transition-shadow duration-300 hover:ring-brand/70",
+        "group/product relative flex flex-col overflow-hidden rounded-3xl bg-brand text-brand-foreground ring-1 ring-black/10 transition-shadow duration-300 hover:ring-white/70",
         className
       )}
     >
@@ -92,14 +92,18 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
             fit="contain"
             className="absolute inset-0 h-full w-full !bg-transparent mix-blend-multiply"
           />
-          {/* On hover, crossfade to a second photo instead of zooming in. */}
+          {/* On hover, crossfade to a second photo. It sits on its own opaque
+              copy of the backdrop so the two photos never show through each
+              other mid-fade. */}
           {secondaryImage(product) ? (
-            <MediaPlaceholder
-              src={secondaryImage(product)}
-              alt={product.name}
-              fit="contain"
-              className="absolute inset-0 h-full w-full !bg-white opacity-0 mix-blend-multiply transition-opacity duration-500 ease-[var(--ease-outta)] group-hover/product:opacity-100"
-            />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,#ffffff_0%,#e4e7ea_55%,#b9bec4_100%)] opacity-0 transition-opacity duration-500 ease-[var(--ease-outta)] group-hover/product:opacity-100">
+              <MediaPlaceholder
+                src={secondaryImage(product)}
+                alt={product.name}
+                fit="contain"
+                className="absolute inset-0 h-full w-full !bg-transparent mix-blend-multiply"
+              />
+            </div>
           ) : null}
         </div>
 
@@ -108,7 +112,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
             <span className="text-3xl leading-none font-semibold tracking-tight sm:text-4xl">
               {product.dayRate.toLocaleString()}
             </span>
-            <span className="text-sm font-medium text-white/50">
+            <span className="text-sm font-medium text-white/70">
               {symbol} /DAY
             </span>
           </p>
@@ -119,7 +123,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
         <span className={cn(pill, "gap-1.5")}>
           <span
             aria-hidden
-            className={cn("size-1.5 rounded-full", isAvailable ? "bg-emerald-400" : "bg-white/40")}
+            className={cn("size-1.5 rounded-full", isAvailable ? "bg-white" : "bg-white/50")}
           />
           {availabilityLabels[product.availability]}
         </span>
@@ -143,8 +147,8 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
             className={cn(
               "ml-auto inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-[11px] font-medium tracking-wide uppercase transition-colors active:scale-95 sm:h-9 sm:px-4",
               added
-                ? "bg-white/10 text-white hover:bg-white/15"
-                : "bg-brand text-brand-foreground hover:brightness-110"
+                ? "bg-white/20 text-white hover:bg-white/30"
+                : "bg-white text-brand hover:bg-white/90"
             )}
           >
             {added ? <Check className="size-3.5" strokeWidth={2.5} /> : <ShoppingCart className="size-3.5" strokeWidth={2} />}
