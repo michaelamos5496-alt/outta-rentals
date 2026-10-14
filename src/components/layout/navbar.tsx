@@ -454,6 +454,10 @@ function EquipmentNavTab({
           <div
             ref={menuRef}
             className={cn(
+              // Hidden in the server-rendered HTML so the panel can't flash
+              // open before GSAP takes over on hydration (its inline
+              // autoAlpha overrides these classes once it runs).
+              "invisible opacity-0",
               tab.fullWidth
                 ? "fixed inset-x-0 top-14 z-50 sm:top-16"
                 : "absolute top-full left-0 z-50 w-max pt-2",
