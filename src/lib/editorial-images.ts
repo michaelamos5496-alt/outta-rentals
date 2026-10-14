@@ -242,6 +242,7 @@ export const extraProductImages: Record<string, string[]> = {
   "reflector": ["/equipment/reflector-2.jpg"],
   "wireless-focus-system": ["/equipment/wireless-focus-system-2.jpg"],
   "wireless-directors-monitor-double": ["/equipment/wireless-directors-monitor-single.webp"],
+  "wireless-directors-monitor": ["/equipment/wireless-directors-monitor-single-2.jpg"],
   "cage-directors-monitor-hollyland": ["/equipment/cage-directors-monitor-hollyland-2.jpg"],
   "camera-cart": ["/equipment/camera-cart-2.jpeg"],
   "c-stand-kit": ["/equipment/c-stand-kit-2.webp"],
