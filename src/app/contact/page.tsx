@@ -23,7 +23,7 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(siteConfig.lo
 
 export default function ContactPage() {
   return (
-    <section className="relative isolate min-h-[calc(100vh-4rem)] overflow-hidden bg-[#0d0d0d] text-white">
+    <section className="relative isolate min-h-[calc(100vh-4rem)] overflow-hidden bg-white text-neutral-900">
       {/* Dimmed map, fading into the dark page on the left. */}
       <div
         aria-hidden
@@ -38,14 +38,14 @@ export default function ContactPage() {
           src={mapSrc}
           loading="lazy"
           tabIndex={-1}
-          className="size-full border-0 opacity-30"
-          style={{ filter: "grayscale(1) invert(1) contrast(0.85) brightness(0.8)" }}
+          className="size-full border-0 opacity-70"
+          style={{ filter: "grayscale(1) contrast(0.9) brightness(1.05)" }}
         />
         <span className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-full lg:block">
-          <MapPin className="size-7 fill-white text-[#0d0d0d]" strokeWidth={1.5} />
+          <MapPin className="size-7 fill-neutral-900 text-neutral-900" strokeWidth={1.5} />
         </span>
       </div>
-      <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0d0d0d] via-[#0d0d0d]/70 to-transparent" />
+      <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-white via-white/70 to-transparent" />
 
       <Container>
         <div className="max-w-3xl py-14 pb-32 sm:py-20">
@@ -53,7 +53,7 @@ export default function ContactPage() {
             <motion.div variants={slideUp()} className="flex gap-5">
               <span aria-hidden className="bg-brand w-1 shrink-0" />
               <div>
-                <p className="text-base text-white/90">How to contact us</p>
+                <p className="text-base text-black/90">How to contact us</p>
                 <h1 className="mt-1 text-5xl font-medium tracking-tight sm:text-7xl">Contacts</h1>
               </div>
             </motion.div>
@@ -64,18 +64,18 @@ export default function ContactPage() {
             >
               {infoRows.map((row) => (
                 <div key={row.label}>
-                  <dt className="flex items-center gap-2.5 text-sm text-white">
+                  <dt className="flex items-center gap-2.5 text-sm text-neutral-900">
                     <row.icon className="size-3.5" />
                     {row.label}
                   </dt>
-                  <dd className="mt-3 pl-6 text-sm leading-relaxed text-white/45">
+                  <dd className="mt-3 pl-6 text-sm leading-relaxed text-black/45">
                     {row.href ? (
                       <a
                         href={row.href}
                         {...(row.href.startsWith("http")
                           ? { target: "_blank", rel: "noopener noreferrer" }
                           : {})}
-                        className="underline-offset-4 transition-colors hover:text-white hover:underline"
+                        className="underline-offset-4 transition-colors hover:text-neutral-900 hover:underline"
                       >
                         {row.value}
                       </a>

@@ -115,7 +115,7 @@ function ContactForm() {
         </span>
         <div>
           <p className="text-2xl font-medium sm:text-3xl">Almost there.</p>
-          <p className="mt-2 max-w-md text-sm text-white/60">
+          <p className="mt-2 max-w-md text-sm text-black/60">
             We opened WhatsApp with your message filled in. Hit send there to reach OUTTA directly.
           </p>
           <button
@@ -127,7 +127,7 @@ function ContactForm() {
               submittedRef.current = false;
               setStatus("idle");
             }}
-            className="mt-6 text-sm text-white/80 underline underline-offset-4 hover:text-white"
+            className="mt-6 text-sm text-black/80 underline underline-offset-4 hover:text-neutral-900"
           >
             Send another message
           </button>
@@ -138,14 +138,14 @@ function ContactForm() {
 
   const progress = ((step + 1) / steps.length) * 100;
   const sharedField =
-    "w-full border-0 bg-transparent p-0 text-3xl font-medium text-white outline-none placeholder:text-white/25 sm:text-5xl";
+    "w-full border-0 bg-transparent p-0 text-3xl font-medium text-neutral-900 outline-none placeholder:text-black/25 sm:text-5xl";
 
   return (
     <form onSubmit={handleSubmit} noValidate>
       <div className="flex items-center gap-4">
         <span aria-hidden className="bg-brand h-4 w-[3px]" />
-        <p className="text-base text-white">Get in touch</p>
-        <p className="text-sm text-white/40">
+        <p className="text-base text-neutral-900">Get in touch</p>
+        <p className="text-sm text-black/40">
           {step + 1} / {steps.length}
         </p>
       </div>
@@ -188,7 +188,7 @@ function ContactForm() {
             />
           )}
 
-          <div className="relative mt-4 h-px w-full bg-white/15">
+          <div className="relative mt-4 h-px w-full bg-black/15">
             <div
               className="bg-brand absolute inset-y-0 left-0 h-px transition-all duration-500 ease-out"
               style={{ width: `${progress}%` }}
@@ -197,19 +197,19 @@ function ContactForm() {
 
           <div className="mt-3 flex min-h-5 items-center justify-between gap-4">
             {error ? (
-              <p className="text-sm text-red-400">{error}</p>
+              <p className="text-sm text-red-600">{error}</p>
             ) : (
-              <p className="text-sm text-white/40">{current.hint}</p>
+              <p className="text-sm text-black/40">{current.hint}</p>
             )}
           </div>
         </div>
 
         <button
           type="submit"
-          className="group flex shrink-0 items-center gap-4 self-start text-sm text-white sm:self-end"
+          className="group flex shrink-0 items-center gap-4 self-start text-sm text-neutral-900 sm:self-end"
         >
           <span>{isLast ? "Send" : "Next"}</span>
-          <span className="relative flex size-16 items-center justify-center rounded-full border border-white/25 transition-colors group-hover:border-brand group-hover:bg-brand sm:size-[72px]">
+          <span className="relative flex size-16 items-center justify-center rounded-full border border-black/25 transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-brand-foreground sm:size-[72px]">
             <ArrowRight className="size-5 transition-transform group-hover:translate-x-0.5" />
           </span>
         </button>
@@ -227,7 +227,7 @@ function ContactForm() {
                 "rounded-full border px-4 py-1.5 text-sm transition-colors",
                 topic === t
                   ? "border-brand bg-brand text-brand-foreground"
-                  : "border-white/20 text-white/60 hover:border-white/50 hover:text-white"
+                  : "border-black/20 text-black/60 hover:border-black/50 hover:text-neutral-900"
               )}
             >
               {t}
@@ -245,13 +245,13 @@ function ContactForm() {
               onClick={() => goTo(i)}
               className={cn(
                 "flex items-center gap-2 transition-colors",
-                i === step ? "text-white" : i < step ? "text-white/60 hover:text-white" : "text-white/25"
+                i === step ? "text-neutral-900" : i < step ? "text-black/60 hover:text-neutral-900" : "text-black/25"
               )}
             >
               <span
                 className={cn(
                   "size-1.5 rounded-full",
-                  i <= step ? "bg-brand" : "bg-white/20"
+                  i <= step ? "bg-brand" : "bg-black/20"
                 )}
               />
               {s.label}
@@ -261,7 +261,7 @@ function ContactForm() {
       </ol>
 
       {status === "error" ? (
-        <div className="mt-6 flex items-start gap-2 text-sm text-red-400">
+        <div className="mt-6 flex items-start gap-2 text-sm text-red-600">
           <AlertTriangle className="size-4 shrink-0 translate-y-0.5" />
           <span>WhatsApp isn&apos;t available right now. Please try again later.</span>
         </div>
