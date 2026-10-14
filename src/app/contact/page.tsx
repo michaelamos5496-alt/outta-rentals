@@ -3,83 +3,101 @@
 import { motion } from "framer-motion";
 import { Mail, MapPin, Phone } from "lucide-react";
 
-import { Section } from "@/components/ui/section";
-import { Divider } from "@/components/ui/divider";
+import { Container } from "@/components/ui/container";
 import { slideUp, staggerContainer } from "@/lib/motion";
 import { ContactForm } from "@/components/contact/contact-form";
-import { WhatsAppButton } from "@/components/quote/whatsapp-button";
 import { siteConfig } from "@/config/site";
 import { getWhatsAppNumber } from "@/lib/quote/whatsapp";
 
 const phone = getWhatsAppNumber();
 
 const infoRows: { icon: typeof Phone; label: string; value: string; href?: string }[] = [
+  { icon: MapPin, label: "Address", value: siteConfig.location, href: siteConfig.mapsUrl },
   ...(phone
     ? [{ icon: Phone, label: "Phone", value: phone, href: `tel:${phone.replace(/[^\d+]/g, "")}` }]
     : []),
-  { icon: Mail, label: "Email", value: siteConfig.email, href: `mailto:${siteConfig.email}` },
-  { icon: MapPin, label: "Location", value: siteConfig.location, href: siteConfig.mapsUrl },
+  { icon: Mail, label: "E-mail", value: siteConfig.email, href: `mailto:${siteConfig.email}` },
 ];
+
+const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(siteConfig.location)}&z=15&output=embed`;
 
 export default function ContactPage() {
   return (
-    <Section className="pt-16 sm:pt-20">
-      <motion.div initial="hidden" animate="visible" variants={staggerContainer(0.08)}>
-        <motion.p variants={slideUp()} className="text-label text-brand">
-          Contact
-        </motion.p>
-        <motion.h1 variants={slideUp(0.05)} className="text-display mt-4 max-w-2xl">
-          LET&rsquo;S TALK ABOUT
-          <br />
-          YOUR NEXT SHOOT.
-        </motion.h1>
-        <motion.p variants={slideUp(0.1)} className="text-body mt-6 max-w-lg">
-          Questions about a kit, a shoot date, or anything else — reach out
-          and OUTTA will get back to you directly.
-        </motion.p>
-      </motion.div>
-
-      <div className="mt-14 grid grid-cols-1 gap-12 lg:grid-cols-[1fr_380px]">
-        <ContactForm />
-
-        <aside className="flex h-fit flex-col gap-6 border border-border p-6 lg:sticky lg:top-24">
-          <div>
-            <p className="text-label mb-3">Prefer WhatsApp?</p>
-            <WhatsAppButton
-              label="Message OUTTA on WhatsApp"
-              heading="OUTTA RENTALS — ENQUIRY"
-              closingLine="I'd like to talk about an upcoming shoot."
-              className="w-full"
-            />
-          </div>
-
-          <Divider />
-
-          <div className="flex flex-col gap-4">
-            {infoRows.map((row) => (
-              <div key={row.label} className="flex items-start gap-3">
-                <row.icon className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
-                <div>
-                  <p className="text-label">{row.label}</p>
-                  {row.href ? (
-                    <a
-                      href={row.href}
-                      {...(row.href.startsWith("http")
-                        ? { target: "_blank", rel: "noopener noreferrer" }
-                        : {})}
-                      className="text-small mt-0.5 block underline-offset-4 hover:text-foreground hover:underline"
-                    >
-                      {row.value}
-                    </a>
-                  ) : (
-                    <p className="text-small mt-0.5">{row.value}</p>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </aside>
+    <section className="relative isolate min-h-[calc(100vh-4rem)] overflow-hidden bg-[#0d0d0d] text-white">
+      {/* Dimmed map, fading into the dark page on the left. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 right-0 -z-10 w-full lg:w-[62%]"
+        style={{
+          maskImage: "linear-gradient(to right, transparent 0%, black 45%)",
+          WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 45%)",
+        }}
+      >
+        <iframe
+          title="OUTTA RENTALS location"
+          src={mapSrc}
+          loading="lazy"
+          tabIndex={-1}
+          className="size-full border-0 opacity-30"
+          style={{ filter: "grayscale(1) invert(1) contrast(0.85) brightness(0.8)" }}
+        />
+        <span className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-full lg:block">
+          <MapPin className="size-7 fill-white text-[#0d0d0d]" strokeWidth={1.5} />
+        </span>
       </div>
-    </Section>
+      <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0d0d0d] via-[#0d0d0d]/70 to-transparent" />
+
+      <Container>
+        <div className="max-w-3xl py-14 pb-32 sm:py-20">
+          <motion.div initial="hidden" animate="visible" variants={staggerContainer(0.08)}>
+            <motion.div variants={slideUp()} className="flex gap-5">
+              <span aria-hidden className="bg-brand w-1 shrink-0" />
+              <div>
+                <p className="text-base text-white/90">How to contact us</p>
+                <h1 className="mt-1 text-5xl font-medium tracking-tight sm:text-7xl">Contacts</h1>
+              </div>
+            </motion.div>
+
+            <motion.dl
+              variants={slideUp(0.05)}
+              className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-10"
+            >
+              {infoRows.map((row) => (
+                <div key={row.label}>
+                  <dt className="flex items-center gap-2.5 text-sm text-white">
+                    <row.icon className="size-3.5" />
+                    {row.label}
+                  </dt>
+                  <dd className="mt-3 pl-6 text-sm leading-relaxed text-white/45">
+                    {row.href ? (
+                      <a
+                        href={row.href}
+                        {...(row.href.startsWith("http")
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {})}
+                        className="underline-offset-4 transition-colors hover:text-white hover:underline"
+                      >
+                        {row.value}
+                      </a>
+                    ) : (
+                      row.value
+                    )}
+                  </dd>
+                </div>
+              ))}
+            </motion.dl>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.5 }}
+            className="mt-20 sm:mt-28"
+          >
+            <ContactForm />
+          </motion.div>
+        </div>
+      </Container>
+    </section>
   );
 }
