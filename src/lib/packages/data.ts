@@ -112,7 +112,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "top-guy",
         label: "TOP GUY",
-        price: 4240,
+        price: 4160,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
