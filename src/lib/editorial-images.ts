@@ -251,6 +251,7 @@ export const extraProductImages: Record<string, string[]> = {
   "american-stand": ["/equipment/american-stand-2.webp"],
   "heavy-duty-tripod": ["/equipment/heavy-duty-tripod-2.jpg"],
   "smallhd-dir-monitor": ["/equipment/smallhd-dir-monitor-2.jpeg"],
+  "mini-jib-12ft": ["/equipment/mini-jib-12ft-2.jpg"],
   "pyro-7-s-transmitter": ["/equipment/pyro-7-s-transmitter-2.jpg"],
   "hollyland-mars-400-transmitter": ["/equipment/hollyland-mars-400-transmitter-2.jpg"],
   "dji-mic": ["/equipment/dji-mic-2.jpg", "/equipment/dji-mic-3.jpg"],
