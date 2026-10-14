@@ -253,6 +253,7 @@ export const extraProductImages: Record<string, string[]> = {
   "mini-jib-12ft": ["/equipment/mini-jib-12ft-2.jpg"],
   "retractable-jib": ["/equipment/retractable-jib-2.jpeg"],
   "smoke-machine": ["/equipment/smoke-machine-2.jpg"],
+  "haze-machine": ["/equipment/haze-machine-2.jpeg"],
   "tiffen-glimmerglass": ["/equipment/tiffen-black-satin-1.png"],
   "tiffen-black-satin": ["/equipment/tiffen-black-satin-2.jpg"],
   "tiffen-hollywood-black-magic": ["/equipment/tiffen-black-satin-2.jpg"],
