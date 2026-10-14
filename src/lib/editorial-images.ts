@@ -258,7 +258,7 @@ export const extraProductImages: Record<string, string[]> = {
   "tiffen-black-pro-mist": ["/equipment/tiffen-black-satin-1.png"],
   "tiffen-nd-filter-single": ["/equipment/tiffen-black-satin-2.jpg"],
   "circular-polarizer": ["/equipment/tiffen-glimmerglass.jpg"],
-  "rota-polarizer": ["/equipment/rota-polarizer.webp", "/equipment/rota-polarizer-2.jpeg"],
+  "rota-polarizer": ["/equipment/rota-polarizer-2.jpeg"],
   "pyro-7-s-transmitter": ["/equipment/pyro-7-s-transmitter-2.jpg"],
   "hollyland-mars-400-transmitter": ["/equipment/hollyland-mars-400-transmitter-2.jpg"],
   "dji-mic": ["/equipment/dji-mic-2.jpg", "/equipment/dji-mic-3.jpg"],
