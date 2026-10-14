@@ -72,20 +72,20 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
         type="button"
         onClick={() => openQuickView(product)}
         aria-label={`View ${product.name}`}
-        className="flex flex-1 flex-col p-3 text-left active:opacity-80 sm:p-5"
+        className="flex flex-1 flex-col p-3 pb-2 text-left active:opacity-80 sm:p-4 sm:pb-2.5"
       >
-        <p className="line-clamp-2 min-h-[2.5rem] text-base leading-tight font-semibold sm:min-h-[3rem] sm:text-xl">
+        <p className="line-clamp-2 min-h-[2.2em] text-base leading-[1.1] font-semibold sm:text-lg">
           {product.name}
         </p>
 
-        <div className="mt-2 flex flex-wrap gap-1.5 sm:mt-3 sm:gap-2">
+        <div className="mt-1.5 flex flex-wrap gap-1.5 sm:mt-2">
           <span className={pill}>{brand}</span>
           {category ? <span className={cn(pill, "hidden sm:inline-flex")}>{category}</span> : null}
         </div>
 
         {/* Studio spotlight behind the photo. The photos sit on white, so they
             multiply into the light backdrop and read as cutouts. */}
-        <div className="relative mt-3 aspect-[4/3] w-full overflow-hidden rounded-2xl bg-[radial-gradient(ellipse_at_50%_35%,#ffffff_0%,#e4e7ea_55%,#b9bec4_100%)] sm:mt-4">
+        <div className="relative mt-2 aspect-[4/3] w-full overflow-hidden rounded-2xl bg-[radial-gradient(ellipse_at_50%_35%,#ffffff_0%,#e4e7ea_55%,#b9bec4_100%)] sm:mt-4">
           <MediaPlaceholder
             src={primaryImage(product)}
             alt={product.name}
@@ -108,8 +108,8 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
         </div>
 
         {product.dayRate > 0 ? (
-          <p className="mt-4 flex items-baseline gap-1.5 sm:mt-5">
-            <span className="text-3xl leading-none font-semibold tracking-tight sm:text-4xl">
+          <p className="mt-2.5 flex items-baseline gap-1.5">
+            <span className="text-3xl leading-none font-semibold tracking-tight">
               {product.dayRate.toLocaleString()}
             </span>
             <span className="text-sm font-medium text-white/70">
@@ -119,7 +119,7 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
         ) : null}
       </button>
 
-      <div className="flex items-center gap-2 px-3 pb-3 sm:px-5 sm:pb-5">
+      <div className="flex items-center gap-2 px-3 pb-3 sm:px-4 sm:pb-4">
         <span className={cn(pill, "gap-1.5")}>
           <span
             aria-hidden
