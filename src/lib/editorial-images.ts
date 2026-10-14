@@ -261,7 +261,7 @@ export const extraProductImages: Record<string, string[]> = {
   "godox-mat-light-2x2": ["/equipment/godox-mat-light-2x2-2.jpeg"],
   "infinibar-full-set": ["/equipment/infinibar-full-set-2.webp", "/equipment/infinibar-full-set-3.webp", "/equipment/infinibar-full-set-4.webp"],
   "nanlite-fc-720b": ["/equipment/nanlite-fc-720b-2.jpeg"],
-  "nanlite-pavotube-4ft": ["/equipment/nanlite-pavotube-4ft-2.webp"],
+  "nanlite-pavotube-4ft": ["/equipment/nanlite-pavotube-4ft-2.jpg"],
   "nanlite-f60": ["/equipment/nanlite-f60-2.jpg"],
   "nanlite-pavotube-1ft": ["/equipment/nanlite-pavotube-1ft-3.webp"],
   "freefly-movi-pro": ["/equipment/freefly-movi-pro-2.jpg", "/equipment/freefly-movi-pro-3.jpg"],
