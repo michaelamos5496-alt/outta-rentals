@@ -114,7 +114,7 @@ export const productImages: Record<string, string> = {
   "tiffen-hollywood-black-magic": "/equipment/tiffen-black-satin-1.png",
   "tiffen-black-satin": "/equipment/tiffen-black-satin-1.png",
   "circular-polarizer": "/equipment/circular-polarizer.jpg",
-  "rota-polarizer": "/equipment/tiffen-glimmerglass.jpg",
+  "rota-polarizer": "/equipment/rota-polarizer.webp",
   "wooden-camera-universal-matte-box": "/equipment/wooden-camera-universal-matte-box.webp",
   "tilta-mirage-matte-box-w-vnd": "/equipment/tilta-mirage-matte-box-w-vnd.webp",
   "tilta-3-way-matte-box": "/equipment/tilta-3-way-matte-box.webp",
