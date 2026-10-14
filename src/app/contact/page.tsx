@@ -23,7 +23,7 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(siteConfig.lo
 
 export default function ContactPage() {
   return (
-    <section className="relative isolate min-h-[calc(100vh-4rem)] overflow-hidden bg-white text-neutral-900">
+    <section className="relative isolate min-h-[calc(100vh-4rem)] overflow-hidden bg-background text-neutral-900">
       {/* Dimmed map, fading into the dark page on the left. */}
       <div
         aria-hidden
@@ -45,7 +45,7 @@ export default function ContactPage() {
           <MapPin className="size-7 fill-neutral-900 text-neutral-900" strokeWidth={1.5} />
         </span>
       </div>
-      <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-white via-white/70 to-transparent" />
+      <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/70 to-transparent" />
 
       <Container>
         <div className="max-w-3xl py-14 pb-32 sm:py-20">
