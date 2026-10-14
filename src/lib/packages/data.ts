@@ -23,7 +23,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "lite",
         label: "LITE",
-        price: 2400,
+        price: 2560,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx3", orProductSlug: "blackmagic-6k-pro", quantity: 1 },
@@ -39,7 +39,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "top-boy-mid",
         label: "TOP GUY",
-        price: 6320,
+        price: 6160,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
@@ -62,7 +62,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "yolo",
         label: "YOLO",
-        price: 13400,
+        price: 13360,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
@@ -112,7 +112,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "top-guy",
         label: "TOP GUY",
-        price: 4440,
+        price: 4240,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
@@ -137,7 +137,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "yolo",
         label: "YOLO",
-        price: 10760,
+        price: 10720,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
@@ -170,7 +170,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "lite",
         label: "LITE",
-        price: 3080,
+        price: 3240,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "sony-fx3", orProductSlug: "blackmagic-6k-pro", quantity: 1 },
@@ -191,7 +191,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "top-guy",
         label: "TOP GUY",
-        price: 9440,
+        price: 8960,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
@@ -215,7 +215,7 @@ export const packages: ProductionPackage[] = [
       {
         slug: "yolo",
         label: "YOLO",
-        price: 13040,
+        price: 13000,
         currency: "GHS",
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
@@ -300,7 +300,7 @@ export const packages: ProductionPackage[] = [
           { role: "Accessories", productSlug: "tilta-3-way-matte-box", quantity: 1 },
           { role: "Accessories", productSlug: "tiffen-black-pro-mist", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-116-mrk3", quantity: 1 },
-          { role: "Lighting", productSlug: "aputure-600x", quantity: 1 },
+          { role: "Lighting", productSlug: "aputure-600x", dayRate: 500, quantity: 1 },
           { role: "Lighting", productSlug: "aputure-600d", quantity: 1 },
           { role: "Lighting", productSlug: "aputure-ls-1200d", quantity: 1 },
           { role: "Lighting", productSlug: "godox-knowled-mat-light-4x4", quantity: 1 },
