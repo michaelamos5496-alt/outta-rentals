@@ -252,6 +252,7 @@ export const extraProductImages: Record<string, string[]> = {
   "smallhd-dir-monitor": ["/equipment/smallhd-dir-monitor-2.jpeg"],
   "mini-jib-12ft": ["/equipment/mini-jib-12ft-2.jpg"],
   "retractable-jib": ["/equipment/retractable-jib-2.jpeg"],
+  "rota-polarizer": ["/equipment/rota-polarizer-2.jpeg"],
   "tiffen-black-satin": ["/equipment/tiffen-glimmerglass.jpg"],
   "tiffen-hollywood-black-magic": ["/equipment/tiffen-hollywood-black-magic.jpg"],
   "tiffen-black-pro-mist": ["/equipment/tiffen-glimmerglass.jpg"],
