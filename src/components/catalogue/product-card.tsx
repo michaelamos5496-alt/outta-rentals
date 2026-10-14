@@ -11,6 +11,7 @@ import {
   availabilityLabels,
   availabilityVariant,
   getBrandBySlug,
+  getCategoryBySlug,
   type DemoProduct,
 } from "@/lib/catalogue";
 import { useKit } from "@/components/kit/kit-provider";
@@ -50,38 +51,46 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
     return <ListProductCard product={product} className={className} />;
   }
 
-  // Green card sitewide: brand + category + description on the green fill,
-  // large photo, circular quick-add button. Clicking the card opens the
-  // quick-view popup — see quick-view-provider.tsx — instead of navigating
-  // to a full product page.
+  const brand = getBrandBySlug(product.brandSlug)?.name ?? product.brandSlug;
+  const category = getCategoryBySlug(product.categorySlug)?.name;
+  const symbol = product.currency === "USD" ? "$" : "\u20b5";
+  const pill =
+    "inline-flex items-center rounded-full border border-white/15 px-2.5 py-1 text-[10px] font-medium tracking-wide whitespace-nowrap text-white/70 uppercase sm:px-3 sm:text-[11px]";
+
+  // Dark spec-sheet card: name + tag pills on top, the photo under a soft
+  // studio spotlight, a big day rate, and a pill row at the bottom. Clicking
+  // the card opens the quick-view popup (see quick-view-provider.tsx) instead
+  // of navigating to a full product page.
   return (
-    <article className={cn("group/product relative flex flex-col overflow-hidden rounded-2xl bg-brand", className)}>
+    <article
+      className={cn(
+        "group/product relative flex flex-col overflow-hidden rounded-3xl bg-neutral-950 text-white ring-1 ring-white/10 transition-shadow duration-300 hover:ring-brand/70",
+        className
+      )}
+    >
       <button
         type="button"
         onClick={() => openQuickView(product)}
         aria-label={`View ${product.name}`}
-        className="flex flex-1 flex-col text-left active:opacity-80"
+        className="flex flex-1 flex-col p-3 text-left active:opacity-80 sm:p-5"
       >
-        <div className="flex items-start justify-between gap-2 p-2.5 pb-1 sm:p-3 sm:pb-1">
-          <p className="line-clamp-2 min-w-0 text-sm leading-tight font-bold text-white">
-            {product.name}
-          </p>
-          {product.dayRate > 0 ? (
-            <p className="shrink-0 font-mono text-sm leading-none font-bold whitespace-nowrap text-white">
-              {formatPrice(product.dayRate, product.currency)}/day
-            </p>
-          ) : null}
+        <p className="line-clamp-2 min-h-[2.5rem] text-base leading-tight font-semibold sm:min-h-[3rem] sm:text-xl">
+          {product.name}
+        </p>
+
+        <div className="mt-2 flex flex-wrap gap-1.5 sm:mt-3 sm:gap-2">
+          <span className={pill}>{brand}</span>
+          {category ? <span className={cn(pill, "hidden sm:inline-flex")}>{category}</span> : null}
         </div>
 
-        {/* The photo area fills whatever height the card has, so a longer name
-            in a neighbouring card never leaves a green strip under the photo. */}
-        <div className="relative mt-1 flex-1">
-          <div className="aspect-[16/11] w-full" />
+        {/* Studio spotlight behind the photo. The photos sit on white, so they
+            multiply into the light backdrop and read as cutouts. */}
+        <div className="relative mt-3 aspect-[4/3] w-full overflow-hidden rounded-2xl bg-[radial-gradient(ellipse_at_50%_35%,#ffffff_0%,#e4e7ea_55%,#b9bec4_100%)] sm:mt-4">
           <MediaPlaceholder
             src={primaryImage(product)}
             alt={product.name}
             fit="contain"
-            className="absolute inset-0 h-full w-full"
+            className="absolute inset-0 h-full w-full !bg-transparent mix-blend-multiply"
           />
           {/* On hover, crossfade to a second photo instead of zooming in. */}
           {secondaryImage(product) ? (
@@ -89,53 +98,60 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
               src={secondaryImage(product)}
               alt={product.name}
               fit="contain"
-              className="absolute inset-0 h-full w-full opacity-0 transition-opacity duration-500 ease-[var(--ease-outta)] group-hover/product:opacity-100"
+              className="absolute inset-0 h-full w-full !bg-white opacity-0 mix-blend-multiply transition-opacity duration-500 ease-[var(--ease-outta)] group-hover/product:opacity-100"
             />
           ) : null}
-
-          {!isAvailable ? (
-            <Badge variant={availabilityVariant[product.availability]} className="absolute top-2 left-2">
-              {availabilityLabels[product.availability]}
-            </Badge>
-          ) : null}
         </div>
+
+        {product.dayRate > 0 ? (
+          <p className="mt-4 flex items-baseline gap-1.5 sm:mt-5">
+            <span className="text-3xl leading-none font-semibold tracking-tight sm:text-4xl">
+              {product.dayRate.toLocaleString()}
+            </span>
+            <span className="text-sm font-medium text-white/50">
+              {symbol} /DAY
+            </span>
+          </p>
+        ) : null}
       </button>
 
-      {/* Round cart button on the photo's corner — the "+" badge makes it read
-          as add-to-cart; it turns into a check once the item is in the cart.
-          Nothing to quick-add for a not-yet-available product. */}
-      {isAvailable ? (
-        <button
-          ref={cartButtonRef}
-          type="button"
-          aria-label={added ? "In cart — view cart" : `Add ${product.name} to cart`}
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (added) openDrawer();
-            else addItem(product.slug);
-          }}
-          onMouseEnter={cartHover.onMouseEnter}
-          onMouseLeave={cartHover.onMouseLeave}
-          className={cn(
-            // Frosted green glass: translucent brand-green fill, heavy blur +
-            // saturation, a bright top edge and a soft green-tinted glow.
-            "absolute right-2 bottom-2 flex size-11 items-center justify-center rounded-full border text-white backdrop-blur-xl backdrop-saturate-200 transition-all active:scale-90",
-            "shadow-[0_6px_20px_rgba(0,110,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.75),inset_0_-1px_1px_rgba(255,255,255,0.2)]",
-            added ? "border-white/60 bg-brand/90" : "border-white/45 bg-brand/70"
-          )}
-        >
-          <ShoppingCart className="size-[1.125rem] drop-shadow-sm" strokeWidth={1.75} />
+      <div className="flex items-center gap-2 px-3 pb-3 sm:px-5 sm:pb-5">
+        <span className={cn(pill, "gap-1.5")}>
           <span
+            aria-hidden
+            className={cn("size-1.5 rounded-full", isAvailable ? "bg-emerald-400" : "bg-white/40")}
+          />
+          {availabilityLabels[product.availability]}
+        </span>
+
+        {/* The "+" badge makes it read as add-to-cart; it turns into a check
+            once the item is in the cart. Nothing to quick-add for a
+            not-yet-available product. */}
+        {isAvailable ? (
+          <button
+            ref={cartButtonRef}
+            type="button"
+            aria-label={added ? "In cart — view cart" : `Add ${product.name} to cart`}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              if (added) openDrawer();
+              else addItem(product.slug);
+            }}
+            onMouseEnter={cartHover.onMouseEnter}
+            onMouseLeave={cartHover.onMouseLeave}
             className={cn(
-              "absolute -top-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full shadow-sm",
-              "bg-white text-brand"
+              "ml-auto inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-[11px] font-medium tracking-wide uppercase transition-colors active:scale-95 sm:h-9 sm:px-4",
+              added
+                ? "bg-white/10 text-white hover:bg-white/15"
+                : "bg-brand text-brand-foreground hover:brightness-110"
             )}
           >
-            {added ? <Check className="size-2.5" strokeWidth={3} /> : <Plus className="size-2.5" strokeWidth={3} />}
-          </span>
-        </button>
-      ) : null}
+            {added ? <Check className="size-3.5" strokeWidth={2.5} /> : <ShoppingCart className="size-3.5" strokeWidth={2} />}
+            {added ? "In cart" : "Add"}
+          </button>
+        ) : null}
+      </div>
     </article>
   );
 }
