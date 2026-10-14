@@ -391,7 +391,6 @@ export const packages: ProductionPackage[] = [
         items: [
           { role: "Camera", productSlug: "blackmagic-6k-pro", quantity: 2 },
           { role: "Lighting", productSlug: "godox-knowled-mat-light-4x4", quantity: 2 },
-          { role: "Monitoring", productSlug: "smallhd-dop-monitor", quantity: 1 },
           { role: "Support", productSlug: "heavy-duty-tripod", quantity: 2 },
         ],
       },

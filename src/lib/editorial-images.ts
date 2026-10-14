@@ -105,7 +105,6 @@ export const productImages: Record<string, string> = {
   "hollyland-mars-400-transmitter": "/equipment/hollyland-mars-400-transmitter.jpeg",
   "smallhd-dir-monitor": "/equipment/smallhd-dir-monitor.png",
   "atomos-sumo-19-monitor": "/equipment/atomos-sumo-19-monitor.webp",
-  "smallhd-dop-monitor": "/equipment/smallhd-dop-monitor.jpg",
   "freefly-movi-pro": "/equipment/freefly-movi-pro.jpg",
   "mini-jib-12ft": "/equipment/mini-jib-12ft.jpg",
   "retractable-jib": "/equipment/retractable-jib.jpg",
