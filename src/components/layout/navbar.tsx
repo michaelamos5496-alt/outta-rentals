@@ -6,15 +6,9 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  Briefcase,
   ChevronDown,
-  Clapperboard,
-  Info,
   LoaderCircle,
-  Mail,
-  MessageCircle,
   ShoppingCart,
-  Plus,
   Search,
   X,
 } from "lucide-react";
@@ -33,9 +27,7 @@ import { SearchInput } from "@/components/ui/search-input";
 import { Modal } from "@/components/ui/modal";
 import { useMobileNav } from "@/components/layout/mobile-nav-provider";
 import { useKit } from "@/components/kit/kit-provider";
-import { getWhatsAppLink } from "@/lib/quote/whatsapp";
 import { formatPrice } from "@/lib/currency";
-import { useElasticHoverScale } from "@/lib/elastic-hover";
 
 function useDebouncedValue<T>(value: T, delayMs: number): T {
   const [debounced, setDebounced] = React.useState(value);
@@ -199,152 +191,6 @@ const equipmentTabs: EquipmentTab[] = [
     ],
   },
 ];
-
-// Thin utility row up top, now a radial FAB instead of a plain link list —
-// mirrors 711rent's Home/Rent/Contact/Service/News row in what it links to,
-// fanned out from a single button instead. Row 2 (logo + category tabs)
-// below is untouched.
-const fabItems: (NavItem & { icon: React.ComponentType<{ className?: string; strokeWidth?: number }> })[] = [
-  { label: "Services", href: "/services", icon: Briefcase },
-  ...(showWorkSection ? [{ label: "Work", href: "/work", icon: Clapperboard }] : []),
-  { label: "About", href: "/about", icon: Info },
-  { label: "Contact", href: "/contact", icon: Mail },
-];
-
-/**
- * Floating FAB — fixed position, its own shadow and pill shape, detached
- * from the sticky header entirely. Hovering (or clicking, for keyboard/touch)
- * pops up a labeled list of the utility links above the button, animated in
- * with a GSAP stagger — panel scales/lifts in, list rows slide up in
- * sequence — rather than the harder-to-read icon-only radial fan this
- * replaced.
- */
-function NavFab() {
-  const containerRef = React.useRef<HTMLDivElement>(null);
-  const panelRef = React.useRef<HTMLDivElement>(null);
-  const iconWrapRef = React.useRef<HTMLSpanElement>(null);
-  const timelineRef = React.useRef<gsap.core.Timeline | null>(null);
-  const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [open, setOpen] = React.useState(false);
-  const fabButtonRef = React.useRef<HTMLButtonElement>(null);
-  const fabHover = useElasticHoverScale(fabButtonRef, 1.1);
-  const whatsappLink = getWhatsAppLink({
-    heading: "OUTTA RENTALS — ENQUIRY",
-    closingLine: "I'd like to talk about an upcoming shoot.",
-  });
-
-  const items = whatsappLink
-    ? [...fabItems, { label: "WhatsApp", href: whatsappLink, icon: MessageCircle, external: true }]
-    : fabItems;
-
-  const open_ = React.useCallback(() => {
-    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
-    timelineRef.current?.play();
-    setOpen(true);
-  }, []);
-
-  const close = React.useCallback(() => {
-    timelineRef.current?.reverse();
-    setOpen(false);
-  }, []);
-
-  const toggle = React.useCallback(() => {
-    if (open) close();
-    else open_();
-  }, [open, close, open_]);
-
-  const scheduleClose = React.useCallback(() => {
-    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
-    closeTimeoutRef.current = setTimeout(close, 200);
-  }, [close]);
-
-  React.useLayoutEffect(() => {
-    const panel = panelRef.current;
-    if (!panel) return;
-    const rows = Array.from(panel.querySelectorAll<HTMLElement>(".fab-row"));
-
-    gsap.set(panel, { opacity: 0, scale: 0.92, y: 12, transformOrigin: "bottom right" });
-    gsap.set(rows, { opacity: 0, y: 10 });
-
-    const tl = gsap.timeline({ paused: true });
-    tl.to(panel, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "back.out(1.7)" });
-    tl.to(rows, { opacity: 1, y: 0, duration: 0.3, stagger: 0.05, ease: "power2.out" }, 0.08);
-
-    if (iconWrapRef.current) {
-      tl.to(iconWrapRef.current, { rotation: 135, duration: 0.3, ease: "back.out(1.7)" }, 0);
-    }
-
-    timelineRef.current = tl;
-    return () => {
-      tl.kill();
-    };
-  }, [items.length]);
-
-  React.useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open, close]);
-
-  return (
-    // Hidden on mobile — the Request Consultation button is the one
-    // floating action there instead (see ConsultationPopup); this FAB's
-    // menu (About/Contact/WhatsApp) is still reachable via the mobile tab
-    // bar and nav. Desktop keeps it.
-    <div ref={containerRef} className="fixed right-4 bottom-24 z-40 hidden lg:right-6 lg:bottom-6 lg:block">
-      <div
-        ref={panelRef}
-        onMouseEnter={open_}
-        onMouseLeave={scheduleClose}
-        className={cn(
-          "absolute right-0 bottom-full z-0 mb-3 flex w-48 flex-col gap-1 rounded-2xl bg-brand p-2 opacity-0 shadow-xl sm:w-56",
-          open ? "pointer-events-auto" : "pointer-events-none"
-        )}
-      >
-        {items.map((item) => {
-          const Icon = item.icon;
-          const external = "external" in item && item.external;
-          return (
-            <Link
-              key={item.label}
-              href={item.href}
-              {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              onClick={close}
-              className="fab-row text-brand-foreground flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-brand-foreground/10"
-            >
-              <Icon className="size-4 shrink-0" strokeWidth={2} />
-              <span className="text-sm font-medium">{item.label}</span>
-            </Link>
-          );
-        })}
-      </div>
-
-      <button
-        ref={fabButtonRef}
-        type="button"
-        aria-expanded={open}
-        aria-label={open ? "Close menu" : "Open menu"}
-        onClick={toggle}
-        onMouseEnter={() => {
-          open_();
-          fabHover.onMouseEnter();
-        }}
-        onMouseLeave={() => {
-          scheduleClose();
-          fabHover.onMouseLeave();
-        }}
-        className="bg-brand text-brand-foreground relative z-10 flex size-14 items-center justify-center rounded-full shadow-xl lg:size-16"
-      >
-        <span ref={iconWrapRef} className="flex items-center justify-center">
-          <Plus className="size-5 lg:size-6" strokeWidth={2} aria-hidden />
-        </span>
-      </button>
-    </div>
-  );
-}
 
 // Mobile-only grouping of the nav. Grouped headers give the mobile panel
 // scannability without changing what routes exist.
@@ -546,7 +392,6 @@ function Navbar() {
     <header data-slot="navbar" className="sticky top-0 z-40 w-full">
       {/* Floating FAB — fixed to the viewport, detached from the header
           entirely (not stacked in a bar on top of the tabs below). */}
-      <NavFab />
 
       {/* Flat, full-bleed dark bar (711rent-style) — spans the full
           viewport width, no rounded corners/shadow/inset. An inner
