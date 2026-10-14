@@ -277,7 +277,7 @@ export const extraProductImages: Record<string, string[]> = {
   "wooden-camera-universal-matte-box": ["/equipment/wooden-camera-universal-matte-box-2.webp", "/equipment/wooden-camera-universal-matte-box-3.webp"],
   "tilta-mirage-matte-box-w-vnd": ["/equipment/tilta-mirage-matte-box-w-vnd-2.jpg"],
   "tilta-3-way-matte-box": ["/equipment/tilta-3-way-matte-box-2.webp", "/equipment/tilta-3-way-matte-box-3.webp", "/equipment/tilta-3-way-matte-box-4.webp"],
-  "tilta-mini-matte-box": ["/equipment/tilta-mini-matte-box-2.webp", "/equipment/tilta-mini-matte-box-3.webp", "/equipment/tilta-mini-matte-box-4.webp"],
+  "tilta-mini-matte-box": ["/equipment/tilta-mini-matte-box-4.webp"],
   "12x12ft-butterfly": ["/equipment/butterfly-frame-kit.jpg"],
   "8x8ft-butterfly": ["/equipment/butterfly-frame-kit.jpg"],
   "flags-set": ["/equipment/flags-set-2.jpg", "/equipment/flags-set-3.webp"],
