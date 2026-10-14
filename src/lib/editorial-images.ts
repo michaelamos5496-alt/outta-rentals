@@ -153,6 +153,7 @@ export const productImages: Record<string, string> = {
   "infinibar-full-set": "/equipment/infinibar-full-set.webp",
   "nanlite-fc-720b": "/equipment/nanlite-fc-720b.jpeg",
   "nanlite-pavotube-4ft": "/equipment/nanlite-pavotube-4ft.jpg",
+  "godox-tl120": "/equipment/nanlite-pavotube-4ft.jpg",
   "nanlite-pavotube-1ft": "/equipment/nanlite-pavotube-1ft-2.webp",
   "nanlite-f60": "/equipment/nanlite-f60.jpg",
   "12x12ft-butterfly": "/equipment/12x12ft-butterfly.jpg",
