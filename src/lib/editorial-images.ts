@@ -254,7 +254,7 @@ export const extraProductImages: Record<string, string[]> = {
   "retractable-jib": ["/equipment/retractable-jib-2.jpeg"],
   "circular-polarizer": ["/equipment/tiffen-glimmerglass.jpg"],
   "rota-polarizer": ["/equipment/rota-polarizer.webp", "/equipment/rota-polarizer-2.jpeg"],
-  "tiffen-black-satin": ["/equipment/tiffen-glimmerglass.jpg"],
+  "tiffen-black-satin": ["/equipment/tiffen-black-satin-2.jpg", "/equipment/tiffen-glimmerglass.jpg"],
   "tiffen-hollywood-black-magic": ["/equipment/tiffen-hollywood-black-magic.jpg"],
   "tiffen-black-pro-mist": ["/equipment/tiffen-glimmerglass.jpg"],
   "tiffen-nd-filter-single": ["/equipment/tiffen-nd-filter-single.jpg"],
