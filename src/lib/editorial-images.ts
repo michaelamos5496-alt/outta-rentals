@@ -110,7 +110,7 @@ export const productImages: Record<string, string> = {
   "retractable-jib": "/equipment/retractable-jib.jpg",
   "camera-cart": "/equipment/camera-cart.jpg",
   "tiffen-nd-filter-single": "/equipment/tiffen-nd-filter-single.jpg",
-  "tiffen-black-pro-mist": "/equipment/tiffen-black-pro-mist.webp",
+  "tiffen-black-pro-mist": "/equipment/tiffen-black-pro-mist-1.jpeg",
   "tiffen-hollywood-black-magic": "/equipment/tiffen-hollywood-black-magic.jpg",
   "tiffen-black-satin": "/equipment/tiffen-black-satin.webp",
   "circular-polarizer": "/equipment/circular-polarizer.jpg",
