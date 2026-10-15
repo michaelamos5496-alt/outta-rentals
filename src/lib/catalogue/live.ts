@@ -26,6 +26,11 @@ export function applyLiveCatalogue(items: LiveProductFields[]): void {
   if (items.length > 0) live = new Map(items.map((i) => [i.slug, i]));
 }
 
+/** Every product the database knows about — including ones that aren't in the static catalogue. */
+export function listLiveFields(): LiveProductFields[] {
+  return [...live.values()];
+}
+
 export function getLiveFields(slug: string): LiveProductFields | undefined {
   return live.get(slug);
 }

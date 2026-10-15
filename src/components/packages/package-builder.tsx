@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Minus, Package, Plus, RotateCcw, X } from "lucide-react";
+import { Package } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -12,107 +12,83 @@ import { MediaPlaceholder } from "@/components/ui/media-placeholder";
 import { getBrandBySlug, getProductBySlug } from "@/lib/catalogue";
 import { useKit } from "@/components/kit/kit-provider";
 import type { PackageLineItem } from "@/lib/packages/types";
+import { getLineChoices } from "@/lib/packages/swaps";
 import { getProductImage } from "@/lib/editorial-images";
-import { formatPrice, formatTotal } from "@/lib/currency";
-
-interface BuilderLine {
-  role: string;
-  productSlug: string;
-  /** The other option when this line is an "X or Y" choice. */
-  orProductSlug?: string;
-  /** This tier's own rate for the line, when it differs from the product's. */
-  dayRate?: number;
-  quantity: number;
-  active: boolean;
-}
+import { formatPrice } from "@/lib/currency";
 
 export interface PackageBuilderProps {
   /** Identifies which package/tier this builder is for — tagged onto cart
-   * lines on add, so the cart can keep pricing this group at OUTTA's flat
-   * quoted rate instead of the sum of each item's own day rate. */
+   * lines on add, so the cart can keep pricing this group as a package. */
   packageSlug: string;
   tierSlug: string;
-  /** The tier's line items — pass a new `key` from the parent when these change (e.g. the tier slug) so the builder's edits reset. */
+  /** The tier's line items — pass a new `key` from the parent when these change (e.g. the tier slug) so any swaps reset. */
   items: PackageLineItem[];
-  /**
-   * OUTTA's flat quoted rate for this exact, un-customized bundle. Shown
-   * instead of the live per-item sum until the customer edits the package —
-   * once they add, remove or resize a line, the flat quote no longer
-   * describes what's in the kit, so the total switches to a live sum.
-   */
+  /** OUTTA's quoted price for the package exactly as it is, per day. */
   quotedPrice?: { amount: number; currency: string };
+  /** The package discount, as a percent. Applied to the new total when an item is swapped. */
+  discountPercent?: number;
 }
 
-function PackageBuilder({ packageSlug, tierSlug, items, quotedPrice }: PackageBuilderProps) {
+/**
+ * A package's contents. Items can't be removed or resized — the package is
+ * what it is — but any item can be swapped for similar equipment, at any
+ * price. A swap re-prices the package from what's actually in it, with the
+ * package discount applied to the new total.
+ */
+function PackageBuilder({ packageSlug, tierSlug, items, quotedPrice, discountPercent }: PackageBuilderProps) {
   const router = useRouter();
   const { addItem } = useKit();
-  const [lines, setLines] = React.useState<BuilderLine[]>(
-    items.map((item) => ({ ...item, active: true }))
-  );
+  // The product currently chosen for each line, by position.
+  const [chosen, setChosen] = React.useState<string[]>(() => items.map((i) => i.productSlug));
   const [added, setAdded] = React.useState(false);
-  const [customized, setCustomized] = React.useState(false);
 
-  function setQuantity(index: number, quantity: number) {
-    setLines((ls) => ls.map((l, i) => (i === index ? { ...l, quantity: Math.max(1, quantity) } : l)));
-    setCustomized(true);
+  const rows = items
+    .map((line, index) => {
+      const product = getProductBySlug(chosen[index] ?? line.productSlug);
+      return product ? { line, index, product } : null;
+    })
+    .filter((r): r is NonNullable<typeof r> => r !== null);
+
+  // Each line at its own rate: the tier's override only applies to the quoted item.
+  const rateOf = (r: (typeof rows)[number]) =>
+    (r.product.slug === r.line.productSlug ? (r.line.dayRate ?? r.product.dayRate) : r.product.dayRate) *
+    r.line.quantity;
+  const liveAmount = rows.reduce((sum, r) => sum + rateOf(r), 0);
+  const currency = rows[0]?.product.currency ?? quotedPrice?.currency ?? "GHS";
+  const swapped = rows.some((r) => r.product.slug !== r.line.productSlug);
+
+  // Untouched, it's OUTTA's quoted price. After a swap it's what's in the
+  // package now, less the package discount.
+  let packagePrice: number | null = quotedPrice?.amount ?? null;
+  if (swapped) {
+    if (typeof discountPercent === "number") {
+      packagePrice = Math.round((liveAmount * (100 - discountPercent)) / 100);
+    } else if (quotedPrice) {
+      const baseline = items.reduce((sum, line) => {
+        const p = getProductBySlug(line.productSlug);
+        return sum + (line.dayRate ?? p?.dayRate ?? 0) * line.quantity;
+      }, 0);
+      packagePrice = Math.max(0, quotedPrice.amount + (liveAmount - baseline));
+    }
   }
-
-  // Swaps which option of an "X or Y" line is picked. It's one of the two
-  // options OUTTA quoted, so it doesn't count as customizing the package.
-  function chooseOption(index: number, slug: string) {
-    setLines((ls) =>
-      ls.map((l, i) =>
-        i === index && l.orProductSlug && slug !== l.productSlug
-          ? { ...l, productSlug: slug, orProductSlug: l.productSlug }
-          : l
-      )
-    );
-  }
-
-  function toggleActive(index: number, active: boolean) {
-    setLines((ls) => ls.map((l, i) => (i === index ? { ...l, active } : l)));
-    setCustomized(true);
-  }
-
-  const activeLines = lines
-    .map((line, index) => ({ line, index, product: getProductBySlug(line.productSlug) }))
-    .filter((l): l is { line: BuilderLine; index: number; product: NonNullable<ReturnType<typeof getProductBySlug>> } =>
-      Boolean(l.product)
-    );
-
-  const activeCount = activeLines.filter((l) => l.line.active).length;
-  const liveTotal = formatTotal(
-    activeLines
-      .filter((l) => l.line.active)
-      .map((l) => ({ amount: (l.line.dayRate ?? l.product.dayRate) * l.line.quantity, currency: l.product.currency }))
-  );
-  // OUTTA's flat quote for the preset bundle, until the customer changes it —
-  // then the total has to reflect what's actually in the kit.
-  const useQuotedPrice = quotedPrice && !customized;
-  // Full price (every item at its own day rate) vs OUTTA's flat quote — only
-  // meaningful for a single-currency kit with a real saving.
-  const liveEntries = activeLines
-    .filter((l) => l.line.active)
-    .map((l) => ({ amount: (l.line.dayRate ?? l.product.dayRate) * l.line.quantity, currency: l.product.currency }));
-  const liveAmount = liveEntries.reduce((sum, e) => sum + e.amount, 0);
   const savings =
-    quotedPrice && liveEntries.every((e) => e.currency === quotedPrice.currency) && liveAmount > quotedPrice.amount
+    packagePrice !== null && liveAmount > packagePrice
       ? {
-          amount: liveAmount - quotedPrice.amount,
-          currency: quotedPrice.currency,
-          percent: Math.round(((liveAmount - quotedPrice.amount) / liveAmount) * 100),
+          amount: liveAmount - packagePrice,
+          percent: Math.round(((liveAmount - packagePrice) / liveAmount) * 100),
         }
       : null;
-  const dailyTotal = useQuotedPrice ? formatPrice(quotedPrice.amount, quotedPrice.currency) : liveTotal;
+
+  function swap(index: number, slug: string) {
+    setChosen((c) => c.map((s, i) => (i === index ? slug : s)));
+  }
 
   function handleAddPackage() {
-    // Only tag lines with this package/tier while the bundle is still
-    // exactly what OUTTA quoted — once customized, items go in as plain
-    // individual equipment so the cart prices them at their own day rate.
-    const tag = useQuotedPrice ? { packageSlug, packageTierSlug: tierSlug } : {};
-    activeLines
-      .filter((l) => l.line.active)
-      .forEach((l) => addItem(l.product.slug, l.line.quantity, { silent: true, ...tag }));
+    // Always tagged: a package is only ever swapped, never trimmed, so the
+    // cart can recognise it and price it as a package.
+    rows.forEach((r) =>
+      addItem(r.product.slug, r.line.quantity, { silent: true, packageSlug, packageTierSlug: tierSlug })
+    );
     setAdded(true);
     router.push("/kit");
   }
@@ -120,23 +96,9 @@ function PackageBuilder({ packageSlug, tierSlug, items, quotedPrice }: PackageBu
   return (
     <div>
       <div className="flex flex-col divide-y divide-border border-y border-border">
-        {activeLines.map(({ line, index, product }) => {
+        {rows.map(({ line, index, product }) => {
           const brand = getBrandBySlug(product.brandSlug)?.name ?? product.brandSlug;
-          const alternative = line.orProductSlug ? getProductBySlug(line.orProductSlug) : undefined;
-
-          if (!line.active) {
-            return (
-              <div key={`${line.role}-${index}`} className="flex items-center justify-between py-4">
-                <div>
-                  <p className="text-label">{line.role}</p>
-                  <p className="text-small mt-0.5">Removed from this package</p>
-                </div>
-                <Button variant="ghost" size="sm" onClick={() => toggleActive(index, true)}>
-                  <RotateCcw /> Add back
-                </Button>
-              </div>
-            );
-          }
+          const choices = getLineChoices(line, { items });
 
           return (
             <div key={`${line.role}-${index}`} className="flex gap-4 py-4">
@@ -151,64 +113,45 @@ function PackageBuilder({ packageSlug, tierSlug, items, quotedPrice }: PackageBu
                 />
               </Link>
               <div className="flex min-w-0 flex-1 flex-col">
-                <div className="flex items-start justify-between gap-2">
-                  <div className="min-w-0">
-                    <Badge variant="technical" className="mb-1.5">
-                      {line.role}
-                    </Badge>
-                    <p className="text-label truncate text-muted-foreground">{brand}</p>
-                    <Link href={`/equipment/${product.slug}`}>
-                      <h3 className="truncate font-medium leading-snug hover:text-brand">
-                        {product.name}
-                      </h3>
-                    </Link>
-                    {alternative ? (
-                      <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-xs">
-                        <span className="text-muted-foreground">or</span>
-                        <button
-                          type="button"
-                          onClick={() => chooseOption(index, alternative.slug)}
-                          className="rounded-full border border-input px-2.5 py-1 text-left font-medium hover:border-brand hover:text-brand"
-                        >
-                          Switch to {alternative.name}
-                        </button>
-                      </div>
-                    ) : null}
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="icon-sm"
-                    aria-label={`Remove ${line.role} from package`}
-                    onClick={() => toggleActive(index, false)}
-                    className="shrink-0 text-muted-foreground hover:text-destructive"
-                  >
-                    <X />
-                  </Button>
+                <div className="min-w-0">
+                  <Badge variant="technical" className="mb-1.5">
+                    {line.role}
+                  </Badge>
+                  <p className="text-label truncate text-muted-foreground">{brand}</p>
+                  <Link href={`/equipment/${product.slug}`}>
+                    <h3 className="truncate font-medium leading-snug hover:text-brand">{product.name}</h3>
+                  </Link>
                 </div>
 
-                <div className="mt-auto flex items-end justify-between gap-3 pt-3">
-                  <div className="flex items-center gap-1 rounded-lg border border-input">
-                    <Button
-                      variant="ghost"
-                      size="icon-sm"
-                      aria-label="Decrease quantity"
-                      disabled={line.quantity <= 1}
-                      onClick={() => setQuantity(index, line.quantity - 1)}
-                    >
-                      <Minus />
-                    </Button>
-                    <span className="w-6 text-center text-sm tabular-nums">{line.quantity}</span>
-                    <Button
-                      variant="ghost"
-                      size="icon-sm"
-                      aria-label="Increase quantity"
-                      onClick={() => setQuantity(index, line.quantity + 1)}
-                    >
-                      <Plus />
-                    </Button>
+                <div className="mt-auto flex flex-wrap items-end justify-between gap-3 pt-3">
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm tabular-nums text-muted-foreground">Qty {line.quantity}</span>
+                    {choices.length > 1 ? (
+                      <label className="flex items-center gap-2 text-xs text-muted-foreground">
+                        Swap
+                        <select
+                          aria-label={`Swap ${product.name} for similar equipment`}
+                          value={product.slug}
+                          onChange={(e) => swap(index, e.target.value)}
+                          className="w-56 max-w-full rounded-lg border border-input bg-transparent px-2 py-1.5 text-sm text-foreground outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+                        >
+                          {choices.map((c) => (
+                            <option key={c.slug} value={c.slug}>
+                              {c.name} — {formatPrice(c.dayRate, c.currency)}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                    ) : null}
                   </div>
                   <p className="text-sm font-medium">
-                    <span className="font-mono">{formatPrice((line.dayRate ?? product.dayRate) * line.quantity, product.currency)}</span>
+                    <span className="font-mono">
+                      {formatPrice(
+                        (product.slug === line.productSlug ? (line.dayRate ?? product.dayRate) : product.dayRate) *
+                          line.quantity,
+                        product.currency
+                      )}
+                    </span>
                     <span className="font-sans text-muted-foreground"> /day</span>
                   </p>
                 </div>
@@ -220,36 +163,32 @@ function PackageBuilder({ packageSlug, tierSlug, items, quotedPrice }: PackageBu
 
       <Divider className="my-6" />
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-4">
         <div>
           <p className="text-sm">
-            {activeCount} item{activeCount === 1 ? "" : "s"} in this package
+            {rows.length} item{rows.length === 1 ? "" : "s"} in this package
           </p>
-          {useQuotedPrice && savings ? (
+          {packagePrice !== null && savings ? (
             <div className="mt-1.5">
               <p className="flex flex-wrap items-baseline gap-x-2">
                 <span className="font-mono text-base text-muted-foreground line-through decoration-2">
-                  {liveTotal}/day
+                  {formatPrice(liveAmount, currency)}/day
                 </span>
-                <span className="font-mono text-xl font-bold">{dailyTotal}/day</span>
+                <span className="font-mono text-xl font-bold">{formatPrice(packagePrice, currency)}/day</span>
               </p>
               <p className="text-meta mt-0.5">
-                OUTTA&apos;s quoted package rate — you save {formatPrice(savings.amount, savings.currency)}
+                {swapped ? "Package discount applied to your swaps" : "OUTTA's package rate"} — you save{" "}
+                {formatPrice(savings.amount, currency)}
                 {savings.percent > 0 ? ` (${savings.percent}% off)` : ""} a day
               </p>
             </div>
           ) : (
             <p className="text-meta mt-0.5">
-              {dailyTotal}/day{useQuotedPrice ? " — OUTTA's quoted rate" : ""}
+              {packagePrice !== null ? `${formatPrice(packagePrice, currency)}/day` : `${formatPrice(liveAmount, currency)}/day`}
             </p>
           )}
         </div>
-        <Button
-          size="lg"
-          className="uppercase tracking-wide"
-          disabled={activeCount === 0}
-          onClick={handleAddPackage}
-        >
+        <Button size="lg" className="uppercase tracking-wide" onClick={handleAddPackage}>
           <Package /> {added ? "Added" : "Add Entire Package to Cart"}
         </Button>
       </div>

@@ -78,6 +78,7 @@ function PackageTierSwitcher({ packageSlug, tiers, initialTierSlug }: PackageTie
         tierSlug={active.slug}
         items={active.items}
         quotedPrice={getTierPrice(active) ?? undefined}
+        discountPercent={active.discountPercent}
       />
     </div>
   );

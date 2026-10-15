@@ -203,6 +203,58 @@ describe("package bookings", () => {
   });
 });
 
+describe("swapping items in a package", () => {
+  function swapped(from: string, to: string) {
+    const { tier, items } = packageCart();
+    return { tier, items: items.map((i) => (i.productSlug === from ? { ...i, productSlug: to } : i)) };
+  }
+
+  it("a similar item at a different cost keeps the package and applies the discount to the new total", () => {
+    const { tier, items } = swapped("amaran-200x-s", "aputure-600d");
+    const original = getTierFullPrice(tier).reduce((n, e) => n + e.amount, 0);
+    const own = (slug: string) => getProductBySlug(slug)!.dayRate;
+    const newSum = original - own("amaran-200x-s") + own("aputure-600d");
+    assert.notEqual(newSum, original);
+    const expected = Math.round((newSum * (100 - (tier.discountPercent ?? 0))) / 100);
+
+    const b = resolveKitBreakdown(items, 1);
+    assert.equal(b.packages.length, 1);
+    assert.equal(b.individuals.length, 0);
+    assert.equal(b.packages[0].dayPrice, expected);
+    assert.notEqual(expected, getTierPrice(tier)!.amount);
+
+    const booked = buildBooking({ items, ...THREE_DAYS });
+    assert.ok(booked.ok);
+    assert.equal(booked.hasPackage, true);
+    assert.equal(booked.estimatedTotal, expected * 3);
+    assert.ok(booked.kit.some((l) => l.productSlug === "aputure-600d" && l.packageDayPrice === expected));
+  });
+
+  it("an untouched package keeps its quoted price", () => {
+    const { tier, items } = packageCart();
+    assert.equal(resolveKitBreakdown(items, 1).packages[0].dayPrice, getTierPrice(tier)!.amount);
+  });
+
+  it("swapping to something that isn't similar breaks the package", () => {
+    // A camera for a light is not a swap.
+    const { items } = swapped("amaran-200x-s", "arri-alexa-mini");
+    const b = resolveKitBreakdown(items, 1);
+    assert.equal(b.packages.length, 0);
+  });
+
+  it("removing an item is not allowed — the package falls back to item-by-item", () => {
+    const { items } = packageCart();
+    const b = resolveKitBreakdown(items.slice(1), 1);
+    assert.equal(b.packages.length, 0);
+    assert.equal(b.individuals.length, items.length - 1);
+  });
+
+  it("a swap can't double up an item that's already in the package", () => {
+    const { items } = swapped("amaran-200x-s", "amaran-300c");
+    assert.equal(resolveKitBreakdown(items, 1).packages.length, 0);
+  });
+});
+
 describe("admin order display", () => {
   const base: AdminQuote = {
     id: "1",

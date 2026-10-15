@@ -45,8 +45,8 @@ export default async function PackagePage({ params, searchParams }: PackagePageP
       </Heading>
       <p className="text-body mt-4 max-w-xl">{pkg.description}</p>
       <p className="text-small mt-2 max-w-xl">
-        Starting point only — add, remove or adjust quantities below before
-        adding it to your kit.
+        Every item stays in the package, but you can swap any of them for
+        similar equipment. The package discount applies to your new total.
       </p>
 
       <div className="mt-10 max-w-2xl">

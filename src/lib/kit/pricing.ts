@@ -1,5 +1,7 @@
 import { getProductBySlug, type DemoProduct } from "@/lib/catalogue";
-import { getPackageBySlug, getTierBySlug, getTierPrice } from "@/lib/packages";
+import { getPackageBySlug, getTierBySlug, getTierFullPrice, getTierPrice } from "@/lib/packages";
+import { getLineChoices } from "@/lib/packages/swaps";
+import type { PackageLineItem } from "@/lib/packages/types";
 import type { KitLineItem } from "./types";
 
 export interface ResolvedKitLine {
@@ -78,41 +80,76 @@ function slugQuantityTotals(items: { productSlug: string; quantity: number }[]):
   return totals;
 }
 
-/**
- * What one copy of the tier should contain. An "X or Y" line accepts either
- * option: if the group holds the alternative (and not the default), the
- * alternative is expected in its place.
- */
-function expectedTierTotals(
-  tier: { items: { productSlug: string; orProductSlug?: string; quantity: number }[] },
-  groupItems: KitLineItem[]
-): Map<string, number> {
-  const held = slugQuantityTotals(groupItems);
-  return slugQuantityTotals(
-    tier.items.map((item) => {
-      const useAlt =
-        item.orProductSlug && !held.has(item.productSlug) && held.has(item.orProductSlug);
-      return { productSlug: useAlt ? item.orProductSlug! : item.productSlug, quantity: item.quantity };
-    })
-  );
+interface TierAssignment {
+  slug: string;
+  quantity: number;
+  /** The tier's own rate for the line, when the quoted item itself is held. */
+  rate?: number;
+  /** True when something other than the quoted item fills the line. */
+  swapped: boolean;
 }
 
 /**
- * How many whole copies of the tier the group holds — 1 for the plain
- * package, 2 for two of them — or null when it isn't an exact multiple
- * (an item removed, resized, or something extra added).
+ * Checks that a group still is the tier: every line filled by its quoted
+ * item, its quoted alternative, or similar equipment swapped in (see
+ * `getLineChoices`), in whole copies of the package, with nothing extra and
+ * nothing missing. Returns how many copies and what filled each line, or null.
  */
-function matchingCopies(held: Map<string, number>, expected: Map<string, number>): number | null {
-  if (held.size !== expected.size || expected.size === 0) return null;
-  let copies: number | null = null;
-  for (const [slug, perCopy] of expected) {
-    const have = held.get(slug);
-    if (!have || perCopy < 1 || have % perCopy !== 0) return null;
-    const k = have / perCopy;
-    if (copies === null) copies = k;
-    else if (copies !== k) return null;
+function matchTier(
+  tier: { items: PackageLineItem[] },
+  groupItems: KitLineItem[]
+): { copies: number; assignments: TierAssignment[] } | null {
+  const held = slugQuantityTotals(groupItems);
+  const heldUnits = [...held.values()].reduce((n, q) => n + q, 0);
+  const tierUnits = tier.items.reduce((n, i) => n + i.quantity, 0);
+  if (tierUnits < 1 || heldUnits % tierUnits !== 0) return null;
+  const copies = heldUnits / tierUnits;
+  if (copies < 1) return null;
+
+  const remaining = new Map(held);
+  const assignments: TierAssignment[] = [];
+  for (const line of tier.items) {
+    const need = line.quantity * copies;
+    const pick = getLineChoices(line, tier)
+      .map((p) => p.slug)
+      .find((slug) => (remaining.get(slug) ?? 0) >= need);
+    if (!pick) return null;
+    remaining.set(pick, (remaining.get(pick) ?? 0) - need);
+    assignments.push({
+      slug: pick,
+      quantity: need,
+      rate: pick === line.productSlug ? line.dayRate : undefined,
+      swapped: pick !== line.productSlug,
+    });
   }
-  return copies;
+  for (const left of remaining.values()) if (left !== 0) return null;
+  return { copies, assignments };
+}
+
+/**
+ * The package's price for one day. Untouched, it's the quoted package price.
+ * Once an item has been swapped it's worked out again from what's actually
+ * in the package — those items at their own day rates, less the package
+ * discount — so a dearer swap costs more and a cheaper one less, always
+ * with the discount applied.
+ */
+function packageDayPrice(
+  tier: { items: PackageLineItem[]; discountPercent?: number },
+  quoted: { amount: number },
+  match: { copies: number; assignments: TierAssignment[] }
+): number {
+  if (!match.assignments.some((a) => a.swapped)) return quoted.amount;
+  const perCopy =
+    match.assignments.reduce((sum, a) => {
+      const product = getProductBySlug(a.slug);
+      return sum + (a.rate ?? product?.dayRate ?? 0) * a.quantity;
+    }, 0) / match.copies;
+  if (typeof tier.discountPercent === "number") {
+    return Math.round((perCopy * (100 - tier.discountPercent)) / 100);
+  }
+  // A flat-priced tier: keep its quoted price and add the difference the swaps make.
+  const original = getTierFullPrice(tier as never).reduce((n, e) => n + e.amount, 0);
+  return Math.max(0, Math.round(quoted.amount + (perCopy - original)));
 }
 
 /**
@@ -169,10 +206,8 @@ export function resolveKitBreakdown(items: KitLineItem[], rentalDays: number): K
     const pkg = packageSlug ? getPackageBySlug(packageSlug) : undefined;
     const tier = pkg && packageTierSlug ? getTierBySlug(pkg, packageTierSlug) : undefined;
     const quoted = tier ? getTierPrice(tier) : null;
-    const copies =
-      tier && quoted
-        ? matchingCopies(slugQuantityTotals(groupItems), expectedTierTotals(tier, groupItems))
-        : null;
+    const match = tier && quoted ? matchTier(tier, groupItems) : null;
+    const copies = match?.copies ?? null;
 
     const lines: ResolvedKitLine[] = [];
     let fullTotal = 0;
@@ -186,8 +221,9 @@ export function resolveKitBreakdown(items: KitLineItem[], rentalDays: number): K
       addAmount(subtotalByCurrency, line.product.currency, line.lineTotal);
     }
 
-    if (pkg && tier && quoted && copies) {
-      const total = quoted.amount * copies * days;
+    if (pkg && tier && quoted && match && copies) {
+      const dayPrice = packageDayPrice(tier, quoted, match);
+      const total = dayPrice * copies * days;
       addAmount(totalByCurrency, quoted.currency, total);
       packages.push({
         packageSlug: pkg.slug,
@@ -195,7 +231,7 @@ export function resolveKitBreakdown(items: KitLineItem[], rentalDays: number): K
         tierSlug: tier.slug,
         tierLabel: tier.label,
         quantity: copies,
-        dayPrice: quoted.amount,
+        dayPrice,
         currency: quoted.currency,
         rentalDays: days,
         total,

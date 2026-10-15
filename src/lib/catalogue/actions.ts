@@ -1,5 +1,6 @@
 "use server";
 
+import { LIGHT_RIGGING, NOT_A_MODIFIER } from "./similarity";
 import { validateDateRange } from "@/lib/kit/rental";
 import { fetchAllProducts, fetchProductBySlug, getAvailableUnits } from "./db";
 import { getBrandBySlug, getCategoryBySlug } from "./index";
@@ -153,18 +154,8 @@ const ADD_ON_CATEGORIES: Record<string, string[]> = {
 /** Generic utility items that aren't camera gear — never auto-suggested on a camera or lens. */
 const NOT_CAMERA_GEAR = new Set(["extension-cable"]);
 
-/**
- * Grip that rigs lights (stands), as opposed to the rest of the grip category,
- * which supports cameras (tripods, gimbals, sliders, jibs…). A camera never
- * gets stands suggested and a light never gets tripods.
- */
-const LIGHT_RIGGING = new Set(["c-stand-kit", "american-stand"]);
-
 /** The camera accessories that control a lens — all a lens gets from that category. */
 const LENS_CONTROL = new Set(["wireless-focus-system", "lidar-focus-pro"]);
-
-/** In the modifiers category but effects, not something that shapes a light — not suggested with one. */
-const NOT_A_MODIFIER = new Set(["haze-machine", "smoke-machine"]);
 
 /** Most suggestions taken from any one category, so no single category floods the list. */
 const MAX_PER_CATEGORY = 4;
