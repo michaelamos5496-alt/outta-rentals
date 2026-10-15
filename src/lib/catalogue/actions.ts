@@ -135,8 +135,10 @@ export interface QuickViewAddOn {
 
 /** Which categories work alongside each category — drives cross-category add-on suggestions. */
 const ADD_ON_CATEGORIES: Record<string, string[]> = {
-  cameras: ["lenses", "camera-accessories", "monitors", "matte-boxes", "filters"],
-  lenses: ["matte-boxes", "filters", "camera-accessories", "cameras"],
+  // Order matters: earlier categories are suggested first. A camera leads with
+  // lenses, grip and lights; a lens suggests only matte boxes and filters.
+  cameras: ["lenses", "grip", "lighting", "monitors", "camera-accessories", "matte-boxes", "filters"],
+  lenses: ["matte-boxes", "filters"],
   lighting: ["lighting-modifiers", "grip"],
   "lighting-modifiers": ["lighting", "grip"],
   grip: ["camera-accessories", "monitors"],
