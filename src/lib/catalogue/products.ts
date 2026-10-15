@@ -510,7 +510,7 @@ export const products: DemoProduct[] = [
     tags: ["camera-accessories"],
     shortDescription: "Real OUTTA inventory — wireless follow focus system, available to rent.",
     description: "Wireless Focus System — wireless follow focus system from OUTTA's real rental inventory.",
-    dayRate: 1000,
+    dayRate: 300,
     currency: "GHS",
     availability: "available",
     specifications: [],
