@@ -304,7 +304,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           products={recommendedForShoot}
           compact
         />
-        <ProductShelf title="Related products" eyebrow="More Like This" products={related} />
+        <ProductShelf title="Related products" eyebrow="More Like This" products={related} compact />
       </Container>
     </>
   );
