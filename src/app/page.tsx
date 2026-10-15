@@ -65,10 +65,10 @@ export default async function Home() {
     // instead of a second chip row on the homepage.
     <div className="flex flex-col">
       <Hero products={spotlightProducts} />
-      <BrandMarquee />
       <CategoryExperience products={products} />
       <FeaturedEquipment packages={toChooserData(featuredPackages)} />
       {showWorkSection ? <WorkShowcase /> : null}
+      <BrandMarquee />
       <FinalCta />
       <ContactSection headingLevel="h2" />
     </div>
