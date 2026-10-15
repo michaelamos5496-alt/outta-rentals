@@ -68,7 +68,7 @@ export default async function Home() {
       <FeaturedEquipment packages={toChooserData(featuredPackages)} />
       {showWorkSection ? <WorkShowcase /> : null}
       <FinalCta />
-      <ContactSection headingLevel="h2" fullHeight={false} />
+      <ContactSection headingLevel="h2" />
     </div>
   );
 }
