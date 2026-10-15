@@ -35,7 +35,7 @@ type Status = "idle" | "error" | "success";
  * line, and a round Next button. Sends the same way as before — opens
  * WhatsApp with the message filled in and records the enquiry.
  */
-function ContactForm() {
+function ContactForm({ compact = false }: { compact?: boolean }) {
   const [values, setValues] = React.useState<FormValues>(emptyValues);
   const [step, setStep] = React.useState(0);
   const [error, setError] = React.useState<string | null>(null);
@@ -137,8 +137,10 @@ function ContactForm() {
   }
 
   const progress = ((step + 1) / steps.length) * 100;
-  const sharedField =
-    "w-full border-0 bg-transparent p-0 text-3xl font-medium text-neutral-900 outline-none placeholder:text-black/25 sm:text-5xl";
+  const sharedField = cn(
+    "w-full border-0 bg-transparent p-0 font-medium text-neutral-900 outline-none placeholder:text-black/25",
+    compact ? "text-2xl sm:text-3xl" : "text-3xl sm:text-5xl"
+  );
 
   return (
     <form onSubmit={handleSubmit} noValidate>
@@ -150,7 +152,7 @@ function ContactForm() {
         </p>
       </div>
 
-      <div className="mt-10 flex flex-col gap-8 sm:flex-row sm:items-end sm:gap-10">
+      <div className={cn("flex flex-col sm:flex-row sm:items-end", compact ? "mt-6 gap-5 sm:gap-8" : "mt-10 gap-8 sm:gap-10")}>
         <div className="min-w-0 flex-1">
           <label htmlFor="contact-field" className="sr-only">
             {current.label}
@@ -209,7 +211,7 @@ function ContactForm() {
           className="group flex shrink-0 items-center gap-4 self-start text-sm text-neutral-900 sm:self-end"
         >
           <span>{isLast ? "Send" : "Next"}</span>
-          <span className="relative flex size-16 items-center justify-center rounded-full border border-black/25 transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-brand-foreground sm:size-[72px]">
+          <span className={cn("relative flex size-16 items-center justify-center rounded-full border border-black/25 transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-brand-foreground sm:size-[72px]", compact && "size-14 sm:size-14")}>
             <ArrowRight className="size-5 transition-transform group-hover:translate-x-0.5" />
           </span>
         </button>
@@ -236,7 +238,7 @@ function ContactForm() {
         </div>
       ) : null}
 
-      <ol className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-xs">
+      <ol className={cn("flex flex-wrap gap-x-6 gap-y-2 text-xs", compact ? "mt-6" : "mt-10")}>
         {steps.map((s, i) => (
           <li key={s.key}>
             <button

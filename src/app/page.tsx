@@ -70,7 +70,7 @@ export default async function Home() {
       {showWorkSection ? <WorkShowcase /> : null}
       <BrandMarquee />
       <FinalCta />
-      <ContactSection headingLevel="h2" />
+      <ContactSection headingLevel="h2" compact />
     </div>
   );
 }

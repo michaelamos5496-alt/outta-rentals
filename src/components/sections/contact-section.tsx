@@ -26,10 +26,10 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(siteConfig.lo
  * form and the dimmed map behind it. Used as the Contact page and as the
  * last section of the home page.
  */
-function ContactSection({ headingLevel = "h1", fullHeight = true }: { headingLevel?: "h1" | "h2"; fullHeight?: boolean }) {
+function ContactSection({ headingLevel = "h1", compact = false }: { headingLevel?: "h1" | "h2"; compact?: boolean }) {
   const Heading = headingLevel;
   return (
-    <section className={`relative isolate overflow-hidden bg-background text-neutral-900 ${fullHeight ? "min-h-[calc(100vh-4rem)]" : ""}`}>
+    <section className={`relative isolate overflow-hidden bg-background text-neutral-900 ${compact ? "" : "min-h-[calc(100vh-4rem)]"}`}>
       {/* Dimmed map, fading into the dark page on the left. */}
       <div
         aria-hidden
@@ -54,19 +54,19 @@ function ContactSection({ headingLevel = "h1", fullHeight = true }: { headingLev
       <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/70 to-transparent" />
 
       <Container>
-        <div className="max-w-3xl py-14 pb-32 sm:py-20">
+        <div className={compact ? "max-w-3xl py-14 sm:py-16" : "max-w-3xl py-14 pb-32 sm:py-20"}>
           <motion.div initial="hidden" animate="visible" variants={staggerContainer(0.08)}>
             <motion.div variants={slideUp()} className="flex gap-5">
               <span aria-hidden className="bg-brand w-1 shrink-0" />
               <div>
                 <p className="text-base text-black/90">How to contact us</p>
-                <Heading className="mt-1 text-5xl font-medium tracking-tight sm:text-7xl">Contacts</Heading>
+                <Heading className={compact ? "mt-1 text-4xl font-medium tracking-tight sm:text-5xl" : "mt-1 text-5xl font-medium tracking-tight sm:text-7xl"}>Contacts</Heading>
               </div>
             </motion.div>
 
             <motion.dl
               variants={slideUp(0.05)}
-              className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-10"
+              className={compact ? "mt-8 grid grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-10" : "mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-10"}
             >
               {infoRows.map((row) => (
                 <div key={row.label}>
@@ -98,9 +98,9 @@ function ContactSection({ headingLevel = "h1", fullHeight = true }: { headingLev
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.5 }}
-            className="mt-20 sm:mt-28"
+            className={compact ? "mt-10 sm:mt-12" : "mt-20 sm:mt-28"}
           >
-            <ContactForm />
+            <ContactForm compact={compact} />
           </motion.div>
         </div>
       </Container>
