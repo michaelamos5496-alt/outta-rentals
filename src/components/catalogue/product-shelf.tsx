@@ -6,9 +6,11 @@ export interface ProductShelfProps {
   title: string;
   eyebrow: string;
   products: DemoProduct[];
+  /** Small cards, more per row — for secondary shelves. */
+  compact?: boolean;
 }
 
-function ProductShelf({ title, eyebrow, products }: ProductShelfProps) {
+function ProductShelf({ title, eyebrow, products, compact = false }: ProductShelfProps) {
   if (products.length === 0) return null;
 
   return (
@@ -18,9 +20,15 @@ function ProductShelf({ title, eyebrow, products }: ProductShelfProps) {
           {title}
         </Heading>
       </div>
-      <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div
+        className={
+          compact
+            ? "mt-6 grid grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-3 lg:grid-cols-6"
+            : "mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4"
+        }
+      >
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product.id} product={product} compact={compact} />
         ))}
       </div>
     </section>

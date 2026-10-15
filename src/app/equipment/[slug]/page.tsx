@@ -302,6 +302,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           title="Recommended for your shoot"
           eyebrow="From Our Preset Packages"
           products={recommendedForShoot}
+          compact
         />
         <ProductShelf title="Related products" eyebrow="More Like This" products={related} />
       </Container>

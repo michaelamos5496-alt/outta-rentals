@@ -23,6 +23,8 @@ import { useElasticHoverScale } from "@/lib/elastic-hover";
 export interface ProductCardProps {
   product: DemoProduct;
   view?: "grid" | "list";
+  /** Much smaller card for secondary shelves: name, photo, price and a small Add button only. */
+  compact?: boolean;
   className?: string;
 }
 
@@ -36,7 +38,7 @@ function secondaryImage(product: DemoProduct): string | undefined {
   return product.images?.[1]?.url ?? getProductGallery(product.slug)[1];
 }
 
-function ProductCard({ product, view = "grid", className }: ProductCardProps) {
+function ProductCard({ product, view = "grid", compact = false, className }: ProductCardProps) {
   const { addItem, items, openDrawer } = useKit();
   const { open: openQuickView } = useQuickView();
   // Stays "In Cart" for as long as the item is in the cart, so it can't be added twice by accident.
@@ -64,7 +66,8 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
   return (
     <article
       className={cn(
-        "group/product relative flex flex-col overflow-hidden rounded-3xl bg-brand text-brand-foreground ring-1 ring-black/10 transition-shadow duration-300 hover:ring-white/70",
+        "group/product relative flex flex-col overflow-hidden bg-brand text-brand-foreground ring-1 ring-black/10 transition-shadow duration-300 hover:ring-white/70",
+        compact ? "rounded-2xl" : "rounded-3xl",
         className
       )}
     >
@@ -72,20 +75,30 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
         type="button"
         onClick={() => openQuickView(product)}
         aria-label={`View ${product.name}`}
-        className="flex flex-1 flex-col p-3 pb-2 text-left active:opacity-80 sm:p-4 sm:pb-2.5"
+        className={cn(
+          "flex flex-1 flex-col text-left active:opacity-80",
+          compact ? "p-2 pb-1.5" : "p-3 pb-2 sm:p-4 sm:pb-2.5"
+        )}
       >
-        <p className="line-clamp-2 min-h-[2.2em] text-base leading-[1.1] font-semibold sm:text-lg">
+        <p
+          className={cn(
+            "line-clamp-2 min-h-[2.2em] leading-[1.1] font-semibold",
+            compact ? "text-xs" : "text-base sm:text-lg"
+          )}
+        >
           {product.name}
         </p>
 
-        <div className="mt-1.5 flex flex-wrap gap-1.5 sm:mt-2">
-          <span className={pill}>{brand}</span>
-          {category ? <span className={cn(pill, "hidden sm:inline-flex")}>{category}</span> : null}
-        </div>
+        {compact ? null : (
+          <div className="mt-1.5 flex flex-wrap gap-1.5 sm:mt-2">
+            <span className={pill}>{brand}</span>
+            {category ? <span className={cn(pill, "hidden sm:inline-flex")}>{category}</span> : null}
+          </div>
+        )}
 
         {/* Studio spotlight behind the photo. The photos sit on white, so they
             multiply into the light backdrop and read as cutouts. */}
-        <div className="relative mt-2 aspect-[4/3] w-full overflow-hidden rounded-2xl bg-[radial-gradient(ellipse_at_50%_35%,#ffffff_0%,#e4e7ea_55%,#b9bec4_100%)] sm:mt-4">
+        <div className="relative mt-1.5 aspect-[4/3] w-full overflow-hidden rounded-xl sm:mt-2 sm:rounded-2xl bg-[radial-gradient(ellipse_at_50%_35%,#ffffff_0%,#e4e7ea_55%,#b9bec4_100%)] sm:mt-4">
           <MediaPlaceholder
             src={primaryImage(product)}
             alt={product.name}
@@ -108,19 +121,19 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
         </div>
 
         {product.dayRate > 0 ? (
-          <p className="mt-2.5 flex items-baseline gap-1.5">
-            <span className="text-3xl leading-none font-semibold tracking-tight">
+          <p className={cn("flex items-baseline gap-1", compact ? "mt-1.5" : "mt-2.5 gap-1.5")}>
+            <span className={cn("leading-none font-semibold tracking-tight", compact ? "text-base" : "text-3xl")}>
               {product.dayRate.toLocaleString()}
             </span>
-            <span className="text-sm font-medium text-white/70">
+            <span className={cn("font-medium text-white/70", compact ? "text-[10px]" : "text-sm")}>
               {symbol} /DAY
             </span>
           </p>
         ) : null}
       </button>
 
-      <div className="flex items-center gap-2 px-3 pb-3 sm:px-4 sm:pb-4">
-        <span className={cn(pill, "gap-1.5")}>
+      <div className={cn("flex items-center gap-2", compact ? "px-2 pb-2" : "px-3 pb-3 sm:px-4 sm:pb-4")}>
+        <span className={cn(pill, "gap-1.5", compact && "hidden")}>
           <span
             aria-hidden
             className={cn("size-1.5 rounded-full", isAvailable ? "bg-white" : "bg-white/50")}
@@ -145,7 +158,8 @@ function ProductCard({ product, view = "grid", className }: ProductCardProps) {
             onMouseEnter={cartHover.onMouseEnter}
             onMouseLeave={cartHover.onMouseLeave}
             className={cn(
-              "ml-auto inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-[11px] font-medium tracking-wide uppercase transition-colors active:scale-95 sm:h-9 sm:px-4",
+              "ml-auto inline-flex items-center gap-1.5 rounded-full font-medium tracking-wide uppercase transition-colors active:scale-95",
+              compact ? "h-6 w-full justify-center px-2 text-[10px]" : "h-8 px-3 text-[11px] sm:h-9 sm:px-4",
               added
                 ? "bg-white/20 text-white hover:bg-white/30"
                 : "bg-white text-brand hover:bg-white/90"
