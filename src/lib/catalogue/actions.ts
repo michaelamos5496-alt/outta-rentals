@@ -136,8 +136,8 @@ export interface QuickViewAddOn {
 /** Which categories work alongside each category — drives cross-category add-on suggestions. */
 const ADD_ON_CATEGORIES: Record<string, string[]> = {
   // Order matters: categories are listed in this order, each as its own group.
-  // A camera suggests lenses, grip and lights; a lens only matte boxes and filters.
-  cameras: ["lenses", "grip", "lighting"],
+  // A camera suggests lenses, grip and camera accessories; a lens only matte boxes and filters.
+  cameras: ["lenses", "grip", "camera-accessories"],
   lenses: ["matte-boxes", "filters"],
   // A light suggests its modifiers and the grip to rig it.
   lighting: ["lighting-modifiers", "grip"],
@@ -167,7 +167,7 @@ function mountsOf(p: { tags: string[]; name: string; specifications: { value: st
  * Add-on suggestions for the equipment popup's "Add to your booking" list:
  * the product's listed accessories and compatible gear first, then in-service
  * items from categories that work alongside it (a camera suggests lenses,
- * grip and lights; a lens, matte boxes and filters; a light, modifiers and grip;
+ * grip and camera accessories; a lens, matte boxes and filters; a light, modifiers and grip;
  * audio, other audio). Lens-mount
  * items that don't match the product's mount are left out. Items are grouped by
  * category, each capped so one category can't crowd out the rest.
