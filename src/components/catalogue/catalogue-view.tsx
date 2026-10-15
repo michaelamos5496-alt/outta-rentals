@@ -66,9 +66,15 @@ export interface CatalogueViewProps {
   /** Already fetched server-side (database when connected, demo data otherwise) — see `src/lib/catalogue/db.ts`. */
   products: DemoProduct[];
   lockedCategory?: string;
+  /** Overrides the category name as the page heading (e.g. a sub-set like "Cine Lens"). */
+  title?: string;
+  /** Overrides the category blurb next to the heading. */
+  description?: string;
+  /** Rendered under the heading — e.g. the Cine / Photo lens tabs. */
+  subNav?: React.ReactNode;
 }
 
-function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
+function CatalogueView({ products, lockedCategory, title, description, subNav }: CatalogueViewProps) {
   const categoryPool = products;
   const priceBounds = React.useMemo(() => getPriceBounds(categoryPool), [categoryPool]);
 
@@ -193,13 +199,14 @@ function CatalogueView({ products, lockedCategory }: CatalogueViewProps) {
 
       <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
         <Heading level="h1" eyebrow="Equipment">
-          {category ? category.name : "All Equipment"}
+          {title ?? (category ? category.name : "All Equipment")}
         </Heading>
         <p className="text-small max-w-sm">
-          {category?.description ??
-            "OUTTA's real rental inventory."}
+          {description ?? category?.description ?? "OUTTA's real rental inventory."}
         </p>
       </div>
+
+      {subNav ? <div className="mt-6">{subNav}</div> : null}
 
       {!lockedCategory ? (
         <div className="scrollbar-none -mx-4 mt-6 flex gap-1.5 overflow-x-auto px-4 pb-1 lg:hidden">

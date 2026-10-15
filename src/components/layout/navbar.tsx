@@ -164,7 +164,20 @@ const equipmentTabs: EquipmentTab[] = [
       },
     ],
   },
-  { label: "Lens", href: "/equipment/lenses" },
+  {
+    label: "Lens",
+    href: "/equipment/lenses",
+    children: [
+      {
+        heading: "Lenses",
+        items: [
+          { label: "All Lenses", href: "/equipment/lenses" },
+          { label: "Cine Lens", href: "/equipment/lenses/cine-lens" },
+          { label: "Photo Lens", href: "/equipment/lenses/photo-lens" },
+        ],
+      },
+    ],
+  },
   {
     label: "Light",
     href: "/equipment/lighting",
