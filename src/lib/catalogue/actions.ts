@@ -136,9 +136,9 @@ export interface QuickViewAddOn {
 /** Which categories work alongside each category — drives cross-category add-on suggestions. */
 const ADD_ON_CATEGORIES: Record<string, string[]> = {
   // Order matters: categories are listed in this order, each as its own group.
-  // A camera suggests lenses, grip and camera accessories; a lens only matte boxes and filters.
-  cameras: ["lenses", "grip", "camera-accessories"],
-  lenses: ["matte-boxes", "filters"],
+  // A camera suggests lenses, grip, camera accessories (wireless video/control) and monitors; a lens matte boxes, filters and lens control.
+  cameras: ["lenses", "grip", "camera-accessories", "monitors"],
+  lenses: ["matte-boxes", "filters", "camera-accessories"],
   // A light suggests its modifiers and the grip to rig it.
   lighting: ["lighting-modifiers", "grip"],
   "lighting-modifiers": ["lighting", "grip"],
@@ -160,6 +160,9 @@ const NOT_CAMERA_GEAR = new Set(["extension-cable"]);
  */
 const LIGHT_RIGGING = new Set(["c-stand-kit", "american-stand"]);
 
+/** The camera accessories that control a lens — all a lens gets from that category. */
+const LENS_CONTROL = new Set(["wireless-focus-system", "lidar-focus-pro"]);
+
 /** In the modifiers category but effects, not something that shapes a light — not suggested with one. */
 const NOT_A_MODIFIER = new Set(["haze-machine", "smoke-machine"]);
 
@@ -177,7 +180,7 @@ function mountsOf(p: { tags: string[]; name: string; specifications: { value: st
  * Add-on suggestions for the equipment popup's "Add to your booking" list:
  * the product's listed accessories and compatible gear first, then in-service
  * items from categories that work alongside it (a camera suggests lenses,
- * grip and camera accessories; a lens, matte boxes and filters; a light, modifiers and grip;
+ * grip, camera accessories and monitors; a lens, matte boxes, filters and lens control; a light, modifiers and grip;
  * audio, other audio). Lens-mount
  * items that don't match the product's mount are left out. Items are grouped by
  * category, each capped so one category can't crowd out the rest.
@@ -212,6 +215,9 @@ export async function getQuickViewAddOns(
     // Within a category, keep only what relates closely to this product.
     if (p.categorySlug === "grip" && LIGHT_RIGGING.has(p.slug) !== lightSide) return false;
     if (lightSide && NOT_A_MODIFIER.has(p.slug)) return false;
+    if (product.categorySlug === "lenses" && p.categorySlug === "camera-accessories" && !LENS_CONTROL.has(p.slug)) {
+      return false;
+    }
     // Don't suggest a lens/camera on a different mount.
     const theirs = mountsOf(p);
     if (mine.size > 0 && theirs.size > 0 && ![...theirs].some((m) => mine.has(m))) return false;
