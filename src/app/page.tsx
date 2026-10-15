@@ -5,6 +5,7 @@ import { FeaturedEquipment } from "@/components/sections/featured-equipment";
 import { CategoryExperience } from "@/components/sections/category-experience";
 import { WorkShowcase } from "@/components/sections/work-showcase";
 import { showWorkSection } from "@/config/site";
+import { BrandMarquee } from "@/components/sections/brand-marquee";
 import { ContactSection } from "@/components/sections/contact-section";
 import { FinalCta } from "@/components/sections/final-cta";
 import { fetchAllProducts } from "@/lib/catalogue/db";
@@ -64,6 +65,7 @@ export default async function Home() {
     // instead of a second chip row on the homepage.
     <div className="flex flex-col">
       <Hero products={spotlightProducts} />
+      <BrandMarquee />
       <CategoryExperience products={products} />
       <FeaturedEquipment packages={toChooserData(featuredPackages)} />
       {showWorkSection ? <WorkShowcase /> : null}
