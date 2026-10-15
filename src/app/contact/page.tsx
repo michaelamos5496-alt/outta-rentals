@@ -5,7 +5,7 @@ import { Mail, MapPin, Phone } from "lucide-react";
 
 import { Container } from "@/components/ui/container";
 import { slideUp, staggerContainer } from "@/lib/motion";
-import { LocationMap } from "@/components/sections/location-map";
+import { ContactForm } from "@/components/contact/contact-form";
 import { siteConfig } from "@/config/site";
 import { getWhatsAppNumber } from "@/lib/quote/whatsapp";
 
@@ -19,12 +19,36 @@ const infoRows: { icon: typeof Phone; label: string; value: string; href?: strin
   { icon: Mail, label: "E-mail", value: siteConfig.email, href: `mailto:${siteConfig.email}` },
 ];
 
+const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(siteConfig.location)}&z=15&output=embed`;
+
 export default function ContactPage() {
   return (
-    <>
-    <section className="relative isolate overflow-hidden bg-background text-neutral-900">
+    <section className="relative isolate min-h-[calc(100vh-4rem)] overflow-hidden bg-background text-neutral-900">
+      {/* Dimmed map, fading into the dark page on the left. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 right-0 -z-10 w-full lg:w-[62%]"
+        style={{
+          maskImage: "linear-gradient(to right, transparent 0%, black 45%)",
+          WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 45%)",
+        }}
+      >
+        <iframe
+          title="OUTTA RENTALS location"
+          src={mapSrc}
+          loading="lazy"
+          tabIndex={-1}
+          className="size-full border-0 opacity-70"
+          style={{ filter: "grayscale(1) contrast(0.9) brightness(1.05)" }}
+        />
+        <span className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-full lg:block">
+          <MapPin className="size-7 fill-neutral-900 text-neutral-900" strokeWidth={1.5} />
+        </span>
+      </div>
+      <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/70 to-transparent" />
+
       <Container>
-        <div className="max-w-3xl py-14 sm:py-20">
+        <div className="max-w-3xl py-14 pb-32 sm:py-20">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer(0.08)}>
             <motion.div variants={slideUp()} className="flex gap-5">
               <span aria-hidden className="bg-brand w-1 shrink-0" />
@@ -64,10 +88,16 @@ export default function ContactPage() {
             </motion.dl>
           </motion.div>
 
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.5 }}
+            className="mt-20 sm:mt-28"
+          >
+            <ContactForm />
+          </motion.div>
         </div>
       </Container>
     </section>
-    <LocationMap />
-    </>
   );
 }
