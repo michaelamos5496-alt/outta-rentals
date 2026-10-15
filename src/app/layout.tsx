@@ -5,6 +5,8 @@ import "./globals.css";
 import { KitProvider } from "@/components/kit/kit-provider";
 import { LiveCatalogue } from "@/components/catalogue/live-catalogue";
 import { loadLiveCatalogue } from "@/lib/catalogue/live-server";
+import { LivePackages } from "@/components/packages/live-packages";
+import { loadLivePackages } from "@/lib/packages/live-server";
 import { SiteChrome } from "@/components/layout/site-chrome";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
@@ -58,6 +60,7 @@ export const revalidate = 60;
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const liveCatalogue = await loadLiveCatalogue();
+  const livePackages = await loadLivePackages();
   return (
     <html
       lang="en"
@@ -69,6 +72,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         <LiveCatalogue items={liveCatalogue} />
+        <LivePackages rows={livePackages} />
         <KitProvider>
           <SiteChrome>{children}</SiteChrome>
         </KitProvider>

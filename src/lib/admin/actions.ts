@@ -27,6 +27,7 @@ import {
   updateQuoteStatus,
   type StatusUpdateResult,
 } from "./quotes";
+import { savePackage, resetPackage, type AdminPackageInput, type SavePackageResult } from "./packages";
 import type { ProductAvailability } from "@/lib/catalogue";
 import type { AdminQuoteStatus } from "./types";
 
@@ -262,4 +263,27 @@ export async function addQuoteNoteAction(id: string, text: string) {
   const quote = await addQuoteNote(id, text);
   revalidatePath(`/admin/quotes/${id}`);
   return quote;
+}
+
+// ---------------------------------------------------------------- Packages
+
+function revalidatePackages(slug: string) {
+  revalidatePath("/admin/packages");
+  revalidatePath(`/admin/packages/${slug}`);
+  revalidatePath("/packages", "layout");
+  revalidatePath("/", "layout");
+}
+
+export async function savePackageAction(input: AdminPackageInput): Promise<SavePackageResult> {
+  await requireAdmin();
+  const result = await savePackage(input);
+  if (result.ok) revalidatePackages(input.slug);
+  return result;
+}
+
+export async function resetPackageAction(slug: string): Promise<SavePackageResult> {
+  await requireAdmin();
+  const result = await resetPackage(slug);
+  if (result.ok) revalidatePackages(slug);
+  return result;
 }

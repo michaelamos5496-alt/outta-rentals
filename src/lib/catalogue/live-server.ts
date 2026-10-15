@@ -1,6 +1,7 @@
 import "server-only";
 
 import { fetchAllProducts } from "./db";
+import { loadLivePackages } from "@/lib/packages/live-server";
 import { applyLiveCatalogue, toLiveFields, type LiveProductFields } from "./live";
 
 /**
@@ -11,5 +12,8 @@ import { applyLiveCatalogue, toLiveFields, type LiveProductFields } from "./live
 export async function loadLiveCatalogue(): Promise<LiveProductFields[]> {
   const items = (await fetchAllProducts()).map(toLiveFields);
   applyLiveCatalogue(items);
+  // Packages price and list their items through the catalogue, so apply any
+  // saved package edits alongside it — every page that loads one loads both.
+  await loadLivePackages();
   return items;
 }

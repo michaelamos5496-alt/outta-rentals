@@ -9,6 +9,7 @@ import {
   Inbox,
   LayoutDashboard,
   Package,
+  PackageOpen,
   Tags,
   Users,
 } from "lucide-react";
@@ -29,6 +30,7 @@ const navGroups = [
     { href: "/admin/inventory", label: "Inventory", icon: Boxes },
     { href: "/admin/products", label: "Products", icon: Package },
     { href: "/admin/categories", label: "Categories", icon: Tags },
+    { href: "/admin/packages", label: "Packages", icon: PackageOpen },
   ],
 ];
 

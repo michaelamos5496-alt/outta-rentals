@@ -578,3 +578,13 @@ alter table product_stock add column if not exists status text
 
 alter table quote_requests add column if not exists picked_up_at timestamptz;
 alter table quote_requests add column if not exists returned_at timestamptz;
+
+-- Editable packages (see migrations/006_packages.sql)
+create table if not exists packages (
+  slug text primary key,
+  name text not null,
+  description text not null default '',
+  tiers jsonb not null,
+  updated_at timestamptz not null default now()
+);
+alter table packages enable row level security;
