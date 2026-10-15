@@ -135,9 +135,9 @@ export interface QuickViewAddOn {
 
 /** Which categories work alongside each category — drives cross-category add-on suggestions. */
 const ADD_ON_CATEGORIES: Record<string, string[]> = {
-  // Order matters: earlier categories are suggested first. A camera leads with
-  // lenses, grip and lights; a lens suggests only matte boxes and filters.
-  cameras: ["lenses", "grip", "lighting", "monitors", "camera-accessories", "matte-boxes", "filters"],
+  // Order matters: categories are listed in this order, each as its own group.
+  // A camera suggests lenses, grip and lights; a lens only matte boxes and filters.
+  cameras: ["lenses", "grip", "lighting"],
   lenses: ["matte-boxes", "filters"],
   // A light suggests its modifiers and the grip to rig it.
   lighting: ["lighting-modifiers", "grip"],
@@ -167,9 +167,10 @@ function mountsOf(p: { tags: string[]; name: string; specifications: { value: st
  * Add-on suggestions for the equipment popup's "Add to your booking" list:
  * the product's listed accessories and compatible gear first, then in-service
  * items from categories that work alongside it (a camera suggests lenses,
- * media, monitors, audio…; a light suggests modifiers and grip). Lens-mount
- * items that don't match the product's mount are left out. Each suggested
- * category is round-robined so one category can't crowd out the rest.
+ * grip and lights; a lens, matte boxes and filters; a light, modifiers and grip;
+ * audio, other audio). Lens-mount
+ * items that don't match the product's mount are left out. Items are grouped by
+ * category, each capped so one category can't crowd out the rest.
  */
 export async function getQuickViewAddOns(
   productSlug: string,
@@ -213,13 +214,9 @@ export async function getQuickViewAddOns(
   const order = [...buckets.keys()].sort(
     (a, b) => (allowed.indexOf(a) + 1 || 99) - (allowed.indexOf(b) + 1 || 99)
   );
-  const candidates: typeof eligible = [];
-  for (let i = 0; candidates.length < 16 && order.some((c) => buckets.get(c)![i]); i++) {
-    for (const c of order) {
-      const item = buckets.get(c)![i];
-      if (item && candidates.length < 16) candidates.push(item);
-    }
-  }
+  // Grouped by category in the order above (not interleaved), so the list
+  // reads "lenses, then grip, then lights".
+  const candidates: typeof eligible = order.flatMap((c) => buckets.get(c) ?? []).slice(0, 16);
 
   return candidates.map((p) => ({
     slug: p.slug,
