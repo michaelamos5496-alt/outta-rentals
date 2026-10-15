@@ -1,6 +1,6 @@
 import { getProductBySlug } from "@/lib/catalogue";
 import { getProductGallery, getProductImage } from "@/lib/editorial-images";
-import { getTierFullPrice, getTierTotal } from "./index";
+import { getTierFullPrice, getTierPrice, getTierTotal } from "./index";
 import type { PackageLineItem, PackageTier, ProductionPackage } from "./types";
 
 export interface ChooserTier {
@@ -71,7 +71,7 @@ export function toChooserData(packages: ProductionPackage[]): ChooserPackage[] {
         const fullAmount = fullPrice.reduce((sum, t) => sum + t.amount, 0);
         // Only worth showing struck through when there's a real flat quote
         // (not just a live item sum) and an actual saving off it.
-        const showFullPrice = typeof tier.price === "number" && fullPrice.length > 0 && fullAmount > amount;
+        const showFullPrice = getTierPrice(tier) !== null && fullPrice.length > 0 && fullAmount > amount;
         return [
           {
             slug: tier.slug,

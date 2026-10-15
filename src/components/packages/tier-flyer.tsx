@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, Briefcase, Clapperboard, Music2, Video, type LucideIcon } from "lucide-react";
 
-import { getTierFullPrice, getTierTotal, type PackageTier, type ProductionPackage } from "@/lib/packages";
+import { getTierFullPrice, getTierPrice, getTierTotal, type PackageTier, type ProductionPackage } from "@/lib/packages";
 import { formatTotal } from "@/lib/currency";
 
 // One distinct silhouette per package, not tied to any single piece of
@@ -40,7 +40,7 @@ function TierFlyer({
   const fullPriceAmount = fullPrice.reduce((sum, r) => sum + r.amount, 0);
   const discountedAmount = rates.reduce((sum, r) => sum + r.amount, 0);
   const showFullPrice =
-    typeof tier.price === "number" && fullPrice.length > 0 && fullPriceAmount > discountedAmount;
+    getTierPrice(tier) !== null && fullPrice.length > 0 && fullPriceAmount > discountedAmount;
 
   return (
     <div

@@ -7,6 +7,7 @@ import { formatPrice } from "@/lib/currency";
 import { PackageBuilder } from "@/components/packages/package-builder";
 import type { PackageTier } from "@/lib/packages/types";
 import { getTierCopy } from "@/lib/packages/tier-copy";
+import { getTierPrice } from "@/lib/packages";
 
 export interface PackageTierSwitcherProps {
   packageSlug: string;
@@ -49,11 +50,14 @@ function PackageTierSwitcher({ packageSlug, tiers, initialTierSlug }: PackageTie
               )}
             >
               <span className="text-lg font-extrabold tracking-wide uppercase sm:text-xl">{tier.label}</span>
-              {tier.price && tier.currency ? (
-                <span className="font-mono text-base font-bold">
-                  {formatPrice(tier.price, tier.currency)}/day
-                </span>
-              ) : null}
+              {(() => {
+                const price = getTierPrice(tier);
+                return price ? (
+                  <span className="font-mono text-base font-bold">
+                    {formatPrice(price.amount, price.currency)}/day
+                  </span>
+                ) : null;
+              })()}
             </button>
           ))}
         </div>
@@ -73,11 +77,7 @@ function PackageTierSwitcher({ packageSlug, tiers, initialTierSlug }: PackageTie
         packageSlug={packageSlug}
         tierSlug={active.slug}
         items={active.items}
-        quotedPrice={
-          typeof active.price === "number" && active.currency
-            ? { amount: active.price, currency: active.currency }
-            : undefined
-        }
+        quotedPrice={getTierPrice(active) ?? undefined}
       />
     </div>
   );

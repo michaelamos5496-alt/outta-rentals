@@ -38,18 +38,41 @@ export function getTierBySlug(pkg: ProductionPackage, tierSlug: string): Package
 }
 
 /**
+ * A tier's price per day. When the tier has a `discountPercent` it is worked
+ * out here — the items' current day rates added up, less the discount — so
+ * any change to the items or to a product's rate flows straight through.
+ * Otherwise (or when the items mix currencies) it is the stored flat `price`.
+ */
+export function getTierPrice(tier: PackageTier): { amount: number; currency: string } | null {
+  if (typeof tier.discountPercent === "number") {
+    const items = getTierItemsTotal(tier);
+    const currencies = new Set(items.map((i) => i.currency));
+    if (items.length > 0 && currencies.size === 1) {
+      const sum = items.reduce((total, i) => total + i.amount, 0);
+      return {
+        amount: Math.round((sum * (100 - tier.discountPercent)) / 100),
+        currency: [...currencies][0],
+      };
+    }
+  }
+  if (typeof tier.price === "number" && tier.currency) {
+    return { amount: tier.price, currency: tier.currency };
+  }
+  return null;
+}
+
+/**
  * The cheapest quoted tier price for a package's card — "From ₵X/day".
- * Packages with no flat-priced tier (their price is computed live from
- * item day rates instead) return null.
+ * Packages with no priced tier (their price is computed live from item day
+ * rates instead) return null.
  */
 export function getFromPrice(pkg: ProductionPackage): { amount: number; currency: string } | null {
-  const priced = pkg.tiers.filter(
-    (t): t is PackageTier & { price: number; currency: string } =>
-      typeof t.price === "number" && Boolean(t.currency)
-  );
+  const priced = pkg.tiers.flatMap((t) => {
+    const price = getTierPrice(t);
+    return price ? [price] : [];
+  });
   if (priced.length === 0) return null;
-  const cheapest = priced.reduce((min, t) => (t.price < min.price ? t : min));
-  return { amount: cheapest.price, currency: cheapest.currency };
+  return priced.reduce((min, t) => (t.amount < min.amount ? t : min));
 }
 
 /** Sum of each line item's own day rate — the price before any package discount. */
@@ -72,9 +95,8 @@ function getTierItemsTotal(tier: PackageTier): { amount: number; currency: strin
  * the default tier's.
  */
 export function getTierTotal(tier: PackageTier): { amount: number; currency: string }[] {
-  if (typeof tier.price === "number" && tier.currency) {
-    return [{ amount: tier.price, currency: tier.currency }];
-  }
+  const price = getTierPrice(tier);
+  if (price) return [price];
   return getTierItemsTotal(tier);
 }
 

@@ -25,6 +25,7 @@ export const packages: ProductionPackage[] = [
         label: "LITE",
         price: 2600,
         currency: "GHS",
+        discountPercent: 20,
         items: [
           { role: "Camera", productSlug: "sony-fx3", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-546gb", quantity: 1 },
@@ -42,6 +43,7 @@ export const packages: ProductionPackage[] = [
         label: "TOP GUY",
         price: 5880,
         currency: "GHS",
+        discountPercent: 20,
         items: [
           { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
           { role: "Lens", productSlug: "dzofilm-pictor-zoom-20-55mm-t2-8", quantity: 1 },
@@ -65,6 +67,7 @@ export const packages: ProductionPackage[] = [
         label: "YOLO",
         price: 11920,
         currency: "GHS",
+        discountPercent: 20,
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
           { role: "Lens", productSlug: "dzofilm-vespid-prime-set-16-125mm", quantity: 1 },
@@ -98,6 +101,7 @@ export const packages: ProductionPackage[] = [
         label: "LITE",
         price: 2040,
         currency: "GHS",
+        discountPercent: 20,
         items: [
           { role: "Camera", productSlug: "sony-fx3", orProductSlug: "blackmagic-6k-pro", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-546gb", quantity: 1 },
@@ -114,6 +118,7 @@ export const packages: ProductionPackage[] = [
         label: "TOP GUY",
         price: 4040,
         currency: "GHS",
+        discountPercent: 20,
         items: [
           { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-546gb", quantity: 1 },
@@ -139,6 +144,7 @@ export const packages: ProductionPackage[] = [
         label: "YOLO",
         price: 9800,
         currency: "GHS",
+        discountPercent: 20,
         items: [
           { role: "Camera", productSlug: "sony-fx6", quantity: 1 },
           { role: "Lens", productSlug: "dzofilm-vespid-prime-set-16-125mm", quantity: 1 },
@@ -172,6 +178,7 @@ export const packages: ProductionPackage[] = [
         label: "LITE",
         price: 3240,
         currency: "GHS",
+        discountPercent: 20,
         items: [
           { role: "Camera", productSlug: "sony-fx3", orProductSlug: "blackmagic-6k-pro", quantity: 1 },
           { role: "Support", productSlug: "manfrotto-546gb", quantity: 1 },
@@ -193,6 +200,7 @@ export const packages: ProductionPackage[] = [
         label: "TOP GUY",
         price: 9040,
         currency: "GHS",
+        discountPercent: 20,
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
           { role: "Lens", productSlug: "dzofilm-pictor-zoom-20-55mm-t2-8", quantity: 1 },
@@ -217,6 +225,7 @@ export const packages: ProductionPackage[] = [
         label: "YOLO",
         price: 12360,
         currency: "GHS",
+        discountPercent: 20,
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
           { role: "Lens", productSlug: "dzofilm-vespid-prime-set-16-125mm", quantity: 1 },
@@ -250,6 +259,7 @@ export const packages: ProductionPackage[] = [
         label: "LITE",
         price: 2120,
         currency: "GHS",
+        discountPercent: 20,
         items: [
           { role: "Camera", productSlug: "blackmagic-6k-pro", quantity: 1 },
           { role: "Monitoring", productSlug: "cage-directors-monitor-hollyland", quantity: 1 },
@@ -266,6 +276,7 @@ export const packages: ProductionPackage[] = [
         label: "TOP GUY",
         price: 5120,
         currency: "GHS",
+        discountPercent: 20,
         items: [
           { role: "Camera", productSlug: "sony-fx3", quantity: 1 },
           { role: "Lens", productSlug: "dzofilm-pictor-zoom-20-55mm-t2-8", quantity: 1 },
@@ -289,6 +300,7 @@ export const packages: ProductionPackage[] = [
         label: "YOLO",
         price: 10320,
         currency: "GHS",
+        discountPercent: 20,
         items: [
           { role: "Camera", productSlug: "arri-alexa-mini", quantity: 1 },
           { role: "Lens", productSlug: "dzofilm-pictor-zoom-20-55mm-t2-8", quantity: 1 },

@@ -34,6 +34,13 @@ export interface PackageTier {
    */
   price?: number;
   currency?: string;
+  /**
+   * Package discount, as a percent off the sum of the tier's line items. When
+   * set, the tier's price is worked out from the items' current day rates
+   * (see `getTierPrice`) — so it follows any change to the items or to a
+   * product's rate — and `price` is only the fallback.
+   */
+  discountPercent?: number;
   items: PackageLineItem[];
 }
 
