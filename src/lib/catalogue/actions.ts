@@ -139,6 +139,7 @@ const ADD_ON_CATEGORIES: Record<string, string[]> = {
   // lenses, grip and lights; a lens suggests only matte boxes and filters.
   cameras: ["lenses", "grip", "lighting", "monitors", "camera-accessories", "matte-boxes", "filters"],
   lenses: ["matte-boxes", "filters"],
+  // A light suggests its modifiers and the grip to rig it.
   lighting: ["lighting-modifiers", "grip"],
   "lighting-modifiers": ["lighting", "grip"],
   grip: ["camera-accessories", "monitors"],
@@ -146,7 +147,7 @@ const ADD_ON_CATEGORIES: Record<string, string[]> = {
   "camera-accessories": ["cameras", "monitors", "matte-boxes"],
   filters: ["matte-boxes", "lenses", "cameras"],
   "matte-boxes": ["filters", "lenses", "cameras"],
-  audio: ["audio", "camera-accessories"],
+  audio: ["audio"],
 };
 
 /** Generic utility items that aren't camera gear — never auto-suggested on a camera or lens. */
