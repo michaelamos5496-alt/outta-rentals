@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ChevronDown,
+  Contact,
   LoaderCircle,
   ShoppingCart,
   Search,
@@ -448,6 +449,16 @@ function Navbar() {
                 className="text-white hover:bg-white/10 hover:text-white"
               >
                 <Search />
+              </Button>
+              <Button
+                asChild
+                variant="ghost"
+                size="icon"
+                className="text-white hover:bg-white/10 hover:text-white"
+              >
+                <Link href="/contact" aria-label="Contact us" title="Contact us">
+                  <Contact />
+                </Link>
               </Button>
               <Button
                 variant="ghost"
