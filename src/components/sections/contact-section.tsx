@@ -19,7 +19,7 @@ const infoRows: { icon: typeof Phone; label: string; value: string; href?: strin
   { icon: Mail, label: "E-mail", value: siteConfig.email, href: `mailto:${siteConfig.email}` },
 ];
 
-const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(siteConfig.location)}&z=16&output=embed`;
+const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(siteConfig.location)}&z=15&output=embed`;
 
 /**
  * The whole contact layout — heading, address/phone/e-mail, the step-by-step
@@ -33,7 +33,7 @@ function ContactSection({ headingLevel = "h1", compact = false }: { headingLevel
       {/* Dimmed map, fading into the dark page on the left. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 -z-10 w-full overflow-hidden bg-[color-mix(in_oklch,var(--brand)_32%,var(--background))] lg:w-[62%]"
+        className="pointer-events-none absolute inset-y-0 right-0 -z-10 w-full lg:w-[62%]"
         style={{
           maskImage: "linear-gradient(to right, transparent 0%, black 45%)",
           WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 45%)",
@@ -44,16 +44,11 @@ function ContactSection({ headingLevel = "h1", compact = false }: { headingLevel
           src={mapSrc}
           loading="lazy"
           tabIndex={-1}
-          // Shifted up so Google's little address card sits above the visible area.
-          className="absolute top-[-140px] left-0 h-[calc(100%+140px)] w-full border-0"
-          // The map draws roads as pale lines with darker grey outlines. This
-          // flips it to pure white (those outlines, and the labels) on pure
-          // black (everything else); "lighten" then lets only the white lines
-          // show over the green behind it.
-          style={{ filter: "grayscale(1) invert(1) brightness(6.6) contrast(40)", mixBlendMode: "lighten" }}
+          className="size-full border-0 opacity-70"
+          style={{ filter: "grayscale(1) contrast(0.9) brightness(1.05)" }}
         />
-        <span className="absolute top-[calc(50%-70px)] left-1/2 hidden -translate-x-1/2 -translate-y-full lg:block">
-          <MapPin className="size-7 fill-white text-brand" strokeWidth={1.5} />
+        <span className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-full lg:block">
+          <MapPin className="size-7 fill-brand text-brand" strokeWidth={1.5} />
         </span>
       </div>
       <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/70 to-transparent" />
