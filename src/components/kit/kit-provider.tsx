@@ -34,6 +34,10 @@ export interface KitContextValue {
   dismissLastAdded: () => void;
   removeItem: (productSlug: string) => void;
   setQuantity: (productSlug: string, quantity: number) => void;
+  /** Removes every item of a package bundle in one go. */
+  removePackage: (packageSlug: string, packageTierSlug: string) => void;
+  /** Changes how many copies of a package bundle are in the cart (from `currentCopies`). */
+  setPackageCopies: (packageSlug: string, packageTierSlug: string, copies: number, currentCopies: number) => void;
   clearKit: () => void;
   setStartDate: (date: string) => void;
   setEndDate: (date: string) => void;
@@ -118,6 +122,29 @@ export function KitProvider({ children }: { children: React.ReactNode }) {
     }));
   }, []);
 
+  const removePackage = React.useCallback((packageSlug: string, packageTierSlug: string) => {
+    setState((s) => ({
+      ...s,
+      items: s.items.filter((i) => !(i.packageSlug === packageSlug && i.packageTierSlug === packageTierSlug)),
+    }));
+  }, []);
+
+  const setPackageCopies = React.useCallback(
+    (packageSlug: string, packageTierSlug: string, copies: number, currentCopies: number) => {
+      const next = Math.max(1, Math.floor(copies));
+      const current = Math.max(1, currentCopies);
+      setState((s) => ({
+        ...s,
+        items: s.items.map((i) =>
+          i.packageSlug === packageSlug && i.packageTierSlug === packageTierSlug
+            ? { ...i, quantity: Math.max(1, Math.round((i.quantity / current) * next)) }
+            : i
+        ),
+      }));
+    },
+    []
+  );
+
   const clearKit = React.useCallback(() => {
     setState((s) => ({ ...s, items: [] }));
   }, []);
@@ -164,6 +191,8 @@ export function KitProvider({ children }: { children: React.ReactNode }) {
     dismissLastAdded,
     removeItem,
     setQuantity,
+    removePackage,
+    setPackageCopies,
     clearKit,
     setStartDate,
     setEndDate,

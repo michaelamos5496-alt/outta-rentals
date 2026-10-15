@@ -1,3 +1,4 @@
+import { isPackageOrder, quotePackageLabel } from "@/lib/admin/order-view";
 import { getAdminSession } from "@/lib/admin/auth";
 import { listEnquiries } from "@/lib/admin/enquiries";
 import { formatDateTime } from "@/lib/admin/format";
@@ -50,6 +51,8 @@ export async function GET(request: Request) {
         "Estimated total",
         "Customer notes",
         "Admin notes",
+        "Booking type",
+        "Package",
       ],
       ...quotes.map((q) => [
         formatDateTime(q.createdAt),
@@ -66,6 +69,8 @@ export async function GET(request: Request) {
         q.estimatedTotal || "",
         q.projectNotes ?? "",
         q.notes.map((n) => n.text).join(" | "),
+        isPackageOrder(q) ? "Package" : "Individual",
+        quotePackageLabel(q),
       ]),
     ]);
   } else if (type === "enquiries") {

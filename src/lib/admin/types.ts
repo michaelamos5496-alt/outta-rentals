@@ -35,7 +35,18 @@ export interface AdminQuoteKitLine {
   productSlug: string;
   productName: string;
   quantity: number;
+  /** The item's own day rate. */
   dayRate: number;
+  // Present only on lines of a package booking (orders recorded before
+  // packages were tracked don't have them and read as individual rentals).
+  packageSlug?: string;
+  packageName?: string;
+  packageTierSlug?: string;
+  packageTierLabel?: string;
+  packageQuantity?: number;
+  /** The configured package price for one day, as it was when ordered. */
+  packageDayPrice?: number;
+  currency?: string;
 }
 
 export interface AdminQuote {

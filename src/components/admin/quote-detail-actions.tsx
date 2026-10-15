@@ -1,5 +1,7 @@
 "use client";
 
+import { groupQuoteKit } from "@/lib/admin/order-view";
+import { formatPrice } from "@/lib/currency";
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { LoaderCircle, Mail } from "lucide-react";
@@ -211,7 +213,16 @@ function QuoteDetailActions({ quote }: { quote: AdminQuote }) {
               label={`Message ${quote.customerName.split(" ")[0] || "customer"} on WhatsApp`}
               to={quote.customerPhone}
               heading="OUTTA RENTALS — YOUR KIT REQUEST"
-              items={quote.kit.map((k) => ({ name: k.productName, quantity: k.quantity }))}
+              items={[
+                ...groupQuoteKit(quote.kit).packages.map((p) => ({
+                  name: `${p.name}${p.tierLabel ? ` — ${p.tierLabel}` : ""} (package)`,
+                  quantity: p.quantity,
+                  dayRate: p.dayPrice,
+                  currency: p.currency,
+                })),
+                ...groupQuoteKit(quote.kit).individuals.map((k) => ({ name: k.productName, quantity: k.quantity })),
+              ]}
+              total={quote.estimatedTotal > 0 ? formatPrice(quote.estimatedTotal) : undefined}
               startDate={quote.startDate || undefined}
               endDate={quote.endDate || undefined}
               projectLabel={quote.projectName}

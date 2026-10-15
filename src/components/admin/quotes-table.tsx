@@ -21,6 +21,8 @@ import {
 } from "@/components/ui/table";
 import { DeleteOrderButton } from "@/components/admin/delete-order-button";
 import { QuoteStatusBadge, quoteStatusLabels, quoteStatuses } from "@/components/admin/quote-status-badge";
+import { PackageBadge } from "@/components/admin/package-badge";
+import { isPackageOrder, quotePackageLabel } from "@/lib/admin/order-view";
 import type { AdminQuote, AdminQuoteStatus } from "@/lib/admin/types";
 import {
   quoteCustomerLabel,
@@ -105,6 +107,11 @@ function QuotesTable({
                     <Link prefetch={false} href={quoteHref(quote)} className="block">
                       {quoteTitle(quote)}
                       <span className="ml-2 text-xs text-muted-foreground">{quote.projectType}</span>
+                      {isPackageOrder(quote) ? (
+                        <span className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
+                          <PackageBadge /> {quotePackageLabel(quote)}
+                        </span>
+                      ) : null}
                     </Link>
                   </TableCell>
                   <TableCell>

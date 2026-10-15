@@ -1,5 +1,5 @@
 import { getProductBySlug, type DemoProduct } from "@/lib/catalogue";
-import { getPackageBySlug, getTierBySlug } from "@/lib/packages";
+import { getPackageBySlug, getTierBySlug, getTierPrice } from "@/lib/packages";
 import type { KitLineItem } from "./types";
 
 export interface ResolvedKitLine {
@@ -42,6 +42,34 @@ export interface KitPricingResult {
   hasPackageDiscount: boolean;
 }
 
+/** A package in the cart that still matches its tier exactly, priced as one unit. */
+export interface ResolvedPackageGroup {
+  packageSlug: string;
+  packageName: string;
+  tierSlug: string;
+  tierLabel: string;
+  /** How many of the package are in the cart (normally 1). */
+  quantity: number;
+  /** One package's price for one day. */
+  dayPrice: number;
+  currency: string;
+  rentalDays: number;
+  /** dayPrice × quantity × rentalDays. */
+  total: number;
+  /** The same equipment at each item's own day rate — what the package saves against. */
+  fullTotal: number;
+  /** The equipment in the package, as it sits in the cart (quantities already × package quantity). */
+  items: ResolvedKitLine[];
+}
+
+export interface KitBreakdown extends KitPricingResult {
+  /** Package groups that kept their quoted price. */
+  packages: ResolvedPackageGroup[];
+  /** Everything else, each priced at its own day rate (including a package
+   * group that no longer matches its tier). */
+  individuals: ResolvedKitLine[];
+}
+
 function slugQuantityTotals(items: { productSlug: string; quantity: number }[]): Map<string, number> {
   const totals = new Map<string, number>();
   for (const item of items) {
@@ -51,7 +79,7 @@ function slugQuantityTotals(items: { productSlug: string; quantity: number }[]):
 }
 
 /**
- * What the tier's group should contain. An "X or Y" line accepts either
+ * What one copy of the tier should contain. An "X or Y" line accepts either
  * option: if the group holds the alternative (and not the default), the
  * alternative is expected in its place.
  */
@@ -69,37 +97,58 @@ function expectedTierTotals(
   );
 }
 
-function slugQuantityMapsEqual(a: Map<string, number>, b: Map<string, number>): boolean {
-  if (a.size !== b.size) return false;
-  for (const [slug, quantity] of a) {
-    if (b.get(slug) !== quantity) return false;
+/**
+ * How many whole copies of the tier the group holds — 1 for the plain
+ * package, 2 for two of them — or null when it isn't an exact multiple
+ * (an item removed, resized, or something extra added).
+ */
+function matchingCopies(held: Map<string, number>, expected: Map<string, number>): number | null {
+  if (held.size !== expected.size || expected.size === 0) return null;
+  let copies: number | null = null;
+  for (const [slug, perCopy] of expected) {
+    const have = held.get(slug);
+    if (!have || perCopy < 1 || have % perCopy !== 0) return null;
+    const k = have / perCopy;
+    if (copies === null) copies = k;
+    else if (copies !== k) return null;
   }
-  return true;
+  return copies;
 }
 
 /**
- * Totals a kit the way OUTTA actually quotes it: items tagged with a
- * package/tier (via "Add Entire Package to Cart") are priced as a group at
- * that tier's flat day rate as long as the group still matches the tier
- * exactly — same products, same quantities. The moment a customer removes,
- * resizes or adds to one of those items, the group no longer matches and
- * falls back to summing each item's own day rate, same as anything added
- * individually.
+ * Sorts a cart into package groups and individual items, and totals it the
+ * way OUTTA actually quotes it: items tagged with a package/tier (via "Add
+ * Entire Package to Cart") are priced as a group at that tier's flat day
+ * rate as long as the group still matches the tier exactly — same products,
+ * same quantities (or a whole multiple of them). The moment a customer
+ * removes, resizes or adds to one of those items, the group no longer
+ * matches and falls back to summing each item's own day rate, same as
+ * anything added individually.
+ *
+ * The package, its tier and its price all come from OUTTA's own package
+ * data, looked up by slug — never from anything the customer sends — so this
+ * is safe to run again on the server to price a submitted order.
  */
-export function resolveKitPricing(items: KitLineItem[], rentalDays: number): KitPricingResult {
+export function resolveKitBreakdown(items: KitLineItem[], rentalDays: number): KitBreakdown {
   const days = Math.max(rentalDays, 0);
   const totalByCurrency = new Map<string, number>();
   const subtotalByCurrency = new Map<string, number>();
-  let hasPackageDiscount = false;
+  const packages: ResolvedPackageGroup[] = [];
+  const individuals: ResolvedKitLine[] = [];
 
   function addAmount(map: Map<string, number>, currency: string, amount: number) {
     map.set(currency, (map.get(currency) ?? 0) + amount);
   }
 
-  function addItemAmount(map: Map<string, number>, item: KitLineItem) {
+  function resolveLine(item: KitLineItem, rate?: number): ResolvedKitLine | null {
     const product = getProductBySlug(item.productSlug);
-    if (!product) return;
-    addAmount(map, product.currency, product.dayRate * item.quantity * days);
+    if (!product) return null;
+    return {
+      product,
+      quantity: item.quantity,
+      rentalDays: days,
+      lineTotal: (rate ?? product.dayRate) * item.quantity * days,
+    };
   }
 
   const groups = new Map<string, KitLineItem[]>();
@@ -116,42 +165,60 @@ export function resolveKitPricing(items: KitLineItem[], rentalDays: number): Kit
   }
 
   for (const groupItems of groups.values()) {
-    const groupPackage = groupItems[0].packageSlug ? getPackageBySlug(groupItems[0].packageSlug) : undefined;
-    const groupTier =
-      groupPackage && groupItems[0].packageTierSlug
-        ? getTierBySlug(groupPackage, groupItems[0].packageTierSlug)
-        : undefined;
-    for (const item of groupItems) {
-      // A tier can count a line at its own rate (see PackageLineItem.dayRate).
-      const tierRate = groupTier?.items.find((t) => t.productSlug === item.productSlug)?.dayRate;
-      const product = getProductBySlug(item.productSlug);
-      if (tierRate !== undefined && product) {
-        addAmount(subtotalByCurrency, product.currency, tierRate * item.quantity * days);
-      } else {
-        addItemAmount(subtotalByCurrency, item);
-      }
-    }
-
     const { packageSlug, packageTierSlug } = groupItems[0];
     const pkg = packageSlug ? getPackageBySlug(packageSlug) : undefined;
     const tier = pkg && packageTierSlug ? getTierBySlug(pkg, packageTierSlug) : undefined;
-    const matches =
-      tier &&
-      typeof tier.price === "number" &&
-      tier.currency &&
-      slugQuantityMapsEqual(slugQuantityTotals(groupItems), expectedTierTotals(tier, groupItems));
+    const quoted = tier ? getTierPrice(tier) : null;
+    const copies =
+      tier && quoted
+        ? matchingCopies(slugQuantityTotals(groupItems), expectedTierTotals(tier, groupItems))
+        : null;
 
-    if (matches) {
-      hasPackageDiscount = true;
-      addAmount(totalByCurrency, tier.currency!, tier.price! * days);
+    const lines: ResolvedKitLine[] = [];
+    let fullTotal = 0;
+    for (const item of groupItems) {
+      // A tier can count a line at its own rate (see PackageLineItem.dayRate).
+      const tierRate = tier?.items.find((t) => t.productSlug === item.productSlug)?.dayRate;
+      const line = resolveLine(item, tierRate);
+      if (!line) continue;
+      lines.push(line);
+      fullTotal += line.lineTotal;
+      addAmount(subtotalByCurrency, line.product.currency, line.lineTotal);
+    }
+
+    if (pkg && tier && quoted && copies) {
+      const total = quoted.amount * copies * days;
+      addAmount(totalByCurrency, quoted.currency, total);
+      packages.push({
+        packageSlug: pkg.slug,
+        packageName: pkg.name,
+        tierSlug: tier.slug,
+        tierLabel: tier.label,
+        quantity: copies,
+        dayPrice: quoted.amount,
+        currency: quoted.currency,
+        rentalDays: days,
+        total,
+        fullTotal,
+        items: lines,
+      });
     } else {
-      for (const item of groupItems) addItemAmount(totalByCurrency, item);
+      // Not a package any more (or an unknown/unpriced one): each item at its own rate.
+      for (const item of groupItems) {
+        const line = resolveLine(item);
+        if (!line) continue;
+        individuals.push(line);
+        addAmount(totalByCurrency, line.product.currency, line.lineTotal);
+      }
     }
   }
 
   for (const item of ungrouped) {
-    addItemAmount(subtotalByCurrency, item);
-    addItemAmount(totalByCurrency, item);
+    const line = resolveLine(item);
+    if (!line) continue;
+    individuals.push(line);
+    addAmount(subtotalByCurrency, line.product.currency, line.lineTotal);
+    addAmount(totalByCurrency, line.product.currency, line.lineTotal);
   }
 
   const toEntries = (map: Map<string, number>) =>
@@ -167,6 +234,17 @@ export function resolveKitPricing(items: KitLineItem[], rentalDays: number): Kit
     totalEntries: toEntries(totalByCurrency),
     subtotalEntries: toEntries(subtotalByCurrency),
     discountEntries: toEntries(discountByCurrency),
-    hasPackageDiscount,
+    hasPackageDiscount: packages.length > 0,
+    packages,
+    individuals,
   };
+}
+
+/** Totals for a cart — see `resolveKitBreakdown` for how packages are priced. */
+export function resolveKitPricing(items: KitLineItem[], rentalDays: number): KitPricingResult {
+  const { totalEntries, subtotalEntries, discountEntries, hasPackageDiscount } = resolveKitBreakdown(
+    items,
+    rentalDays
+  );
+  return { totalEntries, subtotalEntries, discountEntries, hasPackageDiscount };
 }

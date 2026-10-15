@@ -18,6 +18,8 @@ import { QuoteDetailActions } from "@/components/admin/quote-detail-actions";
 import { RentalTimeline } from "@/components/admin/rental-timeline";
 import { todayIso } from "@/lib/kit/rental";
 import { formatPrice } from "@/lib/currency";
+import { PackageBadge } from "@/components/admin/package-badge";
+import { groupQuoteKit } from "@/lib/admin/order-view";
 
 /**
  * One page for a request, shown under Quotes until it's confirmed and under
@@ -41,6 +43,8 @@ export async function OrderDetailPage({ id, section }: { id: string; section: "q
   }
 
   if (isOrder(quote) !== (section === "orders")) redirect(quoteHref(quote));
+
+  const kitView = groupQuoteKit(quote.kit);
 
   return (
     <div>
@@ -110,9 +114,42 @@ export async function OrderDetailPage({ id, section }: { id: string; section: "q
           ) : null}
 
           <section>
-            <p className="text-label mb-3">Equipment</p>
+            <p className="text-label mb-3">{kitView.packages.length > 0 ? "Booking" : "Equipment"}</p>
             <div className="flex flex-col divide-y divide-border rounded-2xl border border-border bg-card">
-              {quote.kit.map((line) => (
+              {kitView.packages.map((pkg) => (
+                <div key={pkg.key} className="p-3 text-sm">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <PackageBadge />
+                      <p className="mt-1.5 text-base font-semibold">
+                        {pkg.name}
+                        {pkg.tierLabel ? ` — ${pkg.tierLabel}` : ""}
+                      </p>
+                      <p className="mt-0.5 text-xs text-muted-foreground">
+                        Package price {formatPrice(pkg.dayPrice, pkg.currency)}/day · Quantity {pkg.quantity}
+                        {quote.rentalDays > 0 ? ` · ${quote.rentalDays} day${quote.rentalDays === 1 ? "" : "s"}` : ""}
+                      </p>
+                    </div>
+                    <span className="shrink-0 font-medium">
+                      {quote.rentalDays > 0
+                        ? formatPrice(pkg.dayPrice * pkg.quantity * quote.rentalDays, pkg.currency)
+                        : `${formatPrice(pkg.dayPrice * pkg.quantity, pkg.currency)}/day`}
+                    </span>
+                  </div>
+                  <p className="text-label mt-3 mb-1.5">Equipment included</p>
+                  <ul className="flex flex-col gap-0.5 text-muted-foreground">
+                    {pkg.items.map((line) => (
+                      <li key={line.productSlug}>
+                        {line.productName} × {line.quantity}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              {kitView.packages.length > 0 && kitView.individuals.length > 0 ? (
+                <p className="text-label bg-muted/40 px-3 py-2">Additional equipment</p>
+              ) : null}
+              {kitView.individuals.map((line) => (
                 <div key={line.productSlug} className="flex justify-between p-3 text-sm">
                   <span>
                     {line.productName} × {line.quantity}
@@ -126,7 +163,7 @@ export async function OrderDetailPage({ id, section }: { id: string; section: "q
                 </div>
               ))}
               <div className="flex justify-between p-3 text-sm font-medium">
-                <span>Estimated total</span>
+                <span>{kitView.packages.length > 0 ? "Total amount" : "Estimated total"}</span>
                 <span>{quoteTotal(quote)}</span>
               </div>
             </div>

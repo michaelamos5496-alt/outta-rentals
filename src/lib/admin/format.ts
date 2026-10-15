@@ -1,4 +1,5 @@
 import { formatPrice } from "@/lib/currency";
+import { quotePackageLabel } from "./order-view";
 import type { AdminQuote } from "./types";
 
 // Admin dates always show Ghana-style (25/09/2026) in Accra time, whatever
@@ -29,6 +30,8 @@ export function quoteCustomerLabel(quote: AdminQuote): string {
 
 export function quoteTitle(quote: AdminQuote): string {
   if (quote.projectName) return quote.projectName;
+  const packageLabel = quotePackageLabel(quote);
+  if (packageLabel) return packageLabel;
   const items = quote.kit.reduce((n, line) => n + line.quantity, 0);
   return `Kit request · ${items} item${items === 1 ? "" : "s"}`;
 }

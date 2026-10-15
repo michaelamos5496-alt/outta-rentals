@@ -21,8 +21,9 @@ import {
 import { EmptyState } from "@/components/ui/state";
 import { useKit } from "@/components/kit/kit-provider";
 import { KitItemRow } from "@/components/kit/kit-item-row";
+import { KitPackageRow } from "@/components/kit/kit-package-row";
 import { RentalDates } from "@/components/kit/rental-dates";
-import { resolveKitLines, resolveKitPricing } from "@/lib/kit/pricing";
+import { resolveKitBreakdown, resolveKitPricing } from "@/lib/kit/pricing";
 import { kitPresets } from "@/lib/placeholder-data";
 import { formatPrice, formatTotal } from "@/lib/currency";
 import { isValidPhone } from "@/lib/kit/phone";
@@ -36,12 +37,11 @@ function SectionLabel({ children }: { children: ReactNode }) {
 export default function KitPage() {
   const { items, rentalDays, dateError, projectInfo, setProjectInfo, clearKit } = useKit();
 
-  const lines = resolveKitLines(items, rentalDays ?? 0);
   const datesValid = !dateError && rentalDays !== null;
   const itemCount = items.reduce((n, i) => n + i.quantity, 0);
   // Prices any unmodified package group at OUTTA's flat quoted rate instead
   // of the sum of each item's own day rate.
-  const pricing = resolveKitPricing(items, rentalDays ?? 0);
+  const pricing = resolveKitBreakdown(items, rentalDays ?? 0);
   const total = formatTotal(pricing.totalEntries);
   const subtotal = formatTotal(pricing.subtotalEntries);
   // Before dates are picked, show a per-day estimate instead of a blank
@@ -87,9 +87,16 @@ export default function KitPage() {
 
       <div className="mt-10 grid grid-cols-1 gap-12 lg:grid-cols-[1fr_400px]">
         <div>
-          <SectionLabel>Your equipment · {itemCount} item{itemCount === 1 ? "" : "s"}</SectionLabel>
+          <SectionLabel>
+            {pricing.packages.length > 0 && pricing.individuals.length === 0
+              ? `Your package${pricing.packages.length === 1 ? "" : "s"}`
+              : `Your equipment · ${itemCount} item${itemCount === 1 ? "" : "s"}`}
+          </SectionLabel>
           <div className="flex flex-col divide-y divide-border border-y border-border">
-            {lines.map((line) => (
+            {pricing.packages.map((group) => (
+              <KitPackageRow key={`${group.packageSlug}::${group.tierSlug}`} group={group} />
+            ))}
+            {pricing.individuals.map((line) => (
               <KitItemRow key={line.product.slug} line={line} />
             ))}
           </div>
@@ -135,7 +142,20 @@ export default function KitPage() {
         <aside id="checkout-details" className="h-fit scroll-mt-24 border border-border p-6 lg:sticky lg:top-24">
           <SectionLabel>Estimated pricing</SectionLabel>
           <div className="flex flex-col gap-2">
-            {lines.map((line) => (
+            {pricing.packages.map((group) => (
+              <div key={`${group.packageSlug}::${group.tierSlug}`} className="flex justify-between gap-3 text-sm">
+                <span className="text-muted-foreground">
+                  {group.packageName} Package — {group.tierLabel}
+                  {group.quantity > 1 ? ` × ${group.quantity}` : ""}
+                </span>
+                <span className="shrink-0 font-mono">
+                  {datesValid
+                    ? formatPrice(group.total, group.currency)
+                    : `${formatPrice(group.dayPrice * group.quantity, group.currency)}/day`}
+                </span>
+              </div>
+            ))}
+            {pricing.individuals.map((line) => (
               <div key={line.product.slug} className="flex justify-between gap-3 text-sm">
                 <span className="text-muted-foreground">
                   {line.product.name} × {line.quantity}

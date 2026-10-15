@@ -10,10 +10,10 @@ import { Label } from "@/components/ui/label";
 import { useKit } from "@/components/kit/kit-provider";
 import { WhatsAppButton } from "@/components/quote/whatsapp-button";
 import { useKitAvailability } from "@/components/kit/use-kit-availability";
-import { resolveKitLines, resolveKitPricing } from "@/lib/kit/pricing";
+import { resolveKitBreakdown } from "@/lib/kit/pricing";
 import { isValidPhone } from "@/lib/kit/phone";
 import { recordKitRequest, type KitRequestInput } from "@/lib/quote/actions";
-import { formatTotal } from "@/lib/currency";
+import { formatPrice, formatTotal } from "@/lib/currency";
 
 /**
  * The one "Send Kit" button — opens WhatsApp and records the request for
@@ -34,10 +34,11 @@ function SendKitButton({
   const phone = projectInfo.customerPhone;
   const phoneOk = isValidPhone(phone);
   const [phoneTouched, setPhoneTouched] = React.useState(false);
-  const lines = resolveKitLines(items, rentalDays ?? 0);
   // Prices any unmodified package group at OUTTA's flat quoted rate instead
-  // of the sum of each item's own day rate.
-  const pricing = resolveKitPricing(items, rentalDays ?? 0);
+  // of the sum of each item's own day rate, and keeps packages apart from
+  // individually rented equipment so the order can say which is which.
+  const pricing = resolveKitBreakdown(items, rentalDays ?? 0);
+  const individualLines = pricing.individuals;
   const { unavailable, checking } = useKitAvailability();
   // Remembers the last request recorded so tapping Send Kit twice for the
   // same kit doesn't create duplicate orders in admin.
@@ -48,7 +49,14 @@ function SendKitButton({
 
   function handleSend() {
     const request: KitRequestInput = {
-      items: lines.map((l) => ({ productSlug: l.product.slug, quantity: l.quantity })),
+      // Package lines carry which package they belong to; the server checks
+      // that against its own package data and does the pricing itself.
+      items: items.map((i) => ({
+        productSlug: i.productSlug,
+        quantity: i.quantity,
+        packageSlug: i.packageSlug,
+        packageTierSlug: i.packageTierSlug,
+      })),
       startDate: validStart,
       endDate: validEnd,
       customerName: projectInfo.customerName,
@@ -127,15 +135,23 @@ function SendKitButton({
     <div className="flex flex-col gap-2">
       {phoneField}
       <WhatsAppButton
-        items={lines.map((l) => ({
+        bookingType={pricing.packages.length > 0 ? "package" : "individual"}
+        rentalDays={datesValid ? (rentalDays ?? undefined) : undefined}
+        packages={pricing.packages.map((g) => ({
+          name: `${g.packageName} Package`,
+          tierLabel: g.tierLabel,
+          quantity: g.quantity,
+          dayPrice: formatPrice(g.dayPrice, g.currency),
+          total: datesValid ? formatPrice(g.total, g.currency) : undefined,
+          items: g.items.map((l) => ({ name: l.product.name, quantity: l.quantity })),
+        }))}
+        items={individualLines.map((l) => ({
           name: l.product.name,
           quantity: l.quantity,
           dayRate: l.product.dayRate,
           currency: l.product.currency,
-          lineTotal: datesValid ? l.lineTotal : undefined,
         }))}
         total={datesValid ? formatTotal(pricing.totalEntries) : undefined}
-        subtotal={datesValid && pricing.hasPackageDiscount ? formatTotal(pricing.subtotalEntries) : undefined}
         startDate={validStart}
         endDate={validEnd}
         startTime={validEnd ? startTime : undefined}

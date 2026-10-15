@@ -16,6 +16,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
+import { PackageBadge } from "@/components/admin/package-badge";
+import { groupQuoteKit } from "@/lib/admin/order-view";
 
 export const metadata = { title: "Orders" };
 
@@ -123,7 +125,20 @@ export default async function AdminOrdersPage({
                       </TableCell>
                       <TableCell className="max-w-72">
                         <Link prefetch={false} href={href} className="line-clamp-2 block whitespace-normal">
-                          {quote.kit.map((k) => `${k.productName} × ${k.quantity}`).join(", ")}
+                          {(() => {
+                            const view = groupQuoteKit(quote.kit);
+                            return (
+                              <>
+                                {view.packages.map((p) => (
+                                  <span key={p.key} className="mr-2 inline-flex items-center gap-1.5 font-medium">
+                                    <PackageBadge /> {p.name}
+                                    {p.tierLabel ? ` — ${p.tierLabel}` : ""}
+                                  </span>
+                                ))}
+                                {view.individuals.map((k) => `${k.productName} × ${k.quantity}`).join(", ")}
+                              </>
+                            );
+                          })()}
                         </Link>
                       </TableCell>
                       <TableCell className="whitespace-nowrap">{quoteDateRange(quote)}</TableCell>

@@ -1,11 +1,16 @@
 "use server";
 
-import { getProductBySlug } from "@/lib/catalogue";
-import { calculateRentalDays, validateDateRange } from "@/lib/kit/rental";
+import { loadLiveCatalogue } from "@/lib/catalogue/live-server";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
+import { buildBooking } from "./booking";
 
 export interface KitRequestInput {
-  items: { productSlug: string; quantity: number }[];
+  /**
+   * `packageSlug`/`packageTierSlug` say "this line belongs to that package".
+   * They're only a claim — the server checks them against OUTTA's own package
+   * data and prices the order itself; any price sent from the browser is ignored.
+   */
+  items: { productSlug: string; quantity: number; packageSlug?: string; packageTierSlug?: string }[];
   startDate?: string;
   endDate?: string;
   customerName?: string;
@@ -15,8 +20,8 @@ export interface KitRequestInput {
   notes?: string;
 }
 
-const MAX_ITEMS = 100;
-const MAX_QUANTITY = 999;
+/** A repeat of the same order from the same phone inside this window is the same order, not a new one. */
+const DUPLICATE_WINDOW_MS = 2 * 60_000;
 
 function cleanText(value: unknown, max: number): string | null {
   if (typeof value !== "string") return null;
@@ -30,52 +35,61 @@ function cleanText(value: unknown, max: number): string | null {
  * the actual order, this is OUTTA's own record of it, so failures are logged
  * and never surfaced to the customer.
  *
- * Public server action: the payload is untrusted. Product names and rates are
- * looked up server-side from slugs rather than taken from the client.
+ * Public server action: the payload is untrusted. Product names, rates and
+ * package prices are looked up server-side (see `buildBooking`) rather than
+ * taken from the client. Package bookings keep their package name, tier and
+ * price inside `kit_snapshot`, so they stay identifiable even if the package
+ * is renamed or repriced later.
  */
 export async function recordKitRequest(input: KitRequestInput): Promise<void> {
   const supabase = getSupabaseServerClient();
   if (!supabase) return;
   if (!input || !Array.isArray(input.items)) return;
 
-  const kit = input.items
-    .slice(0, MAX_ITEMS)
-    .flatMap((item) => {
-      if (!item || typeof item.productSlug !== "string") return [];
-      if (!Number.isInteger(item.quantity) || item.quantity < 1) return [];
-      const product = getProductBySlug(item.productSlug);
-      if (!product) return [];
-      return [
-        {
-          productSlug: product.slug,
-          productName: product.name,
-          quantity: Math.min(item.quantity, MAX_QUANTITY),
-          dayRate: product.dayRate,
-        },
-      ];
-    });
-  if (kit.length === 0) return;
+  // Make sure this server has the current catalogue and package edits before pricing.
+  await loadLiveCatalogue();
 
-  const startDate = typeof input.startDate === "string" ? input.startDate : "";
-  const endDate = typeof input.endDate === "string" ? input.endDate : "";
-  const datesValid = validateDateRange(startDate, endDate).valid;
-  const rentalDays = datesValid ? calculateRentalDays(startDate, endDate) : null;
-  const estimatedTotal = rentalDays
-    ? kit.reduce((sum, line) => sum + line.dayRate * line.quantity * rentalDays, 0)
-    : null;
+  const booking = buildBooking(input);
+  if (!booking.ok) {
+    console.error("[kit-request] Not recorded:", booking.error);
+    return;
+  }
+  for (const warning of booking.warnings) console.warn("[kit-request]", warning);
+
+  const customerPhone = cleanText(input.customerPhone, 40);
+  const notes = [cleanText(input.notes, 2000), ...booking.warnings.map((w) => `[Note] ${w}`)]
+    .filter(Boolean)
+    .join("\n");
+
+  // Same phone, same kit, same total, moments ago → already recorded.
+  if (customerPhone) {
+    const since = new Date(Date.now() - DUPLICATE_WINDOW_MS).toISOString();
+    const { data: recent } = await supabase
+      .from("quote_requests")
+      .select("kit_snapshot, estimated_total")
+      .eq("customer_phone", customerPhone)
+      .gte("created_at", since)
+      .limit(5);
+    const same = (recent ?? []).some(
+      (row) =>
+        Number(row.estimated_total ?? 0) === Number(booking.estimatedTotal ?? 0) &&
+        JSON.stringify(row.kit_snapshot) === JSON.stringify(booking.kit)
+    );
+    if (same) return;
+  }
 
   const { error } = await supabase.from("quote_requests").insert({
     status: "new",
-    start_date: datesValid ? startDate : null,
-    end_date: datesValid ? endDate : null,
-    rental_days: rentalDays,
-    estimated_total: estimatedTotal,
-    kit_snapshot: kit,
+    start_date: booking.startDate || null,
+    end_date: booking.endDate || null,
+    rental_days: booking.rentalDays,
+    estimated_total: booking.estimatedTotal,
+    kit_snapshot: booking.kit,
     customer_name: cleanText(input.customerName, 120),
-    customer_phone: cleanText(input.customerPhone, 40),
+    customer_phone: customerPhone,
     project_name: cleanText(input.projectName, 200),
     project_type: cleanText(input.productionType, 100),
-    project_description: cleanText(input.notes, 2000),
+    project_description: notes || null,
   });
 
   if (error) console.error("[kit-request] Failed to record kit request:", error.message);
