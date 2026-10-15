@@ -6,7 +6,7 @@ export const siteConfig = {
     "OUTTA RENTALS is a premium film, photography and production-equipment rental company.",
   instagramUrl: "https://www.instagram.com/outtarentals/",
   email: "hello@outtarentals.com",
-  location: "Mantse Boi St, Accra, Ghana",
+  location: "53 Mantse Boi Street, Accra, Ghana",
   mapsUrl: "https://maps.app.goo.gl/w34baLapHWuV6Nzh8",
 } as const;
 
