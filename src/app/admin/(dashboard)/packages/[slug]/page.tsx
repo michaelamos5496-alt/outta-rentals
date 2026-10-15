@@ -14,7 +14,7 @@ export const metadata = { title: "Edit Package" };
 
 export default async function EditPackagePage({ params }: EditPackagePageProps) {
   const { slug } = await params;
-  const pkg = await getAdminPackage(slug);
+  const [pkg, productList, edited] = await Promise.all([getAdminPackage(slug), listProducts(), isPackageEdited(slug)]);
 
   if (!pkg) {
     return (
@@ -30,11 +30,10 @@ export default async function EditPackagePage({ params }: EditPackagePageProps) 
     );
   }
 
-  const products = (await listProducts())
+  const products = productList
     .filter((p) => !p.archived)
     .map((p) => ({ slug: p.slug, name: p.name, dayRate: p.dayRate, currency: p.currency }))
     .sort((a, b) => a.name.localeCompare(b.name));
-  const edited = await isPackageEdited(slug);
 
   return (
     <div>

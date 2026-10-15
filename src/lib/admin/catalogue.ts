@@ -77,9 +77,40 @@ async function resolveCompatibleSlugs(
   return (data ?? []).map((r) => r.compatible?.slug).filter((s): s is string => Boolean(s));
 }
 
+/** Every product's accessory and compatible slugs in two queries, instead of two per product. */
+async function resolveAllRelationSlugs(
+  supabase: NonNullable<ReturnType<typeof getSupabaseServerClient>>
+): Promise<{ accessories: Map<string, string[]>; compatible: Map<string, string[]> }> {
+  const [acc, compat] = await Promise.all([
+    supabase
+      .from("product_accessories")
+      .select("product_id, accessory:products!product_accessories_accessory_product_id_fkey(slug)")
+      .returns<{ product_id: string; accessory: { slug: string } | null }[]>(),
+    supabase
+      .from("product_compatibility")
+      .select("product_id, compatible:products!product_compatibility_compatible_product_id_fkey(slug)")
+      .returns<{ product_id: string; compatible: { slug: string } | null }[]>(),
+  ]);
+  const group = (rows: { product_id: string; slug: string | undefined }[]) => {
+    const map = new Map<string, string[]>();
+    for (const r of rows) {
+      if (!r.slug) continue;
+      const list = map.get(r.product_id) ?? [];
+      list.push(r.slug);
+      map.set(r.product_id, list);
+    }
+    return map;
+  };
+  return {
+    accessories: group((acc.data ?? []).map((r) => ({ product_id: r.product_id, slug: r.accessory?.slug }))),
+    compatible: group((compat.data ?? []).map((r) => ({ product_id: r.product_id, slug: r.compatible?.slug }))),
+  };
+}
+
 async function toAdminProduct(
   supabase: ReturnType<typeof getSupabaseServerClient>,
-  row: ProductRow
+  row: ProductRow,
+  relations?: { accessorySlugs: string[]; compatibleSlugs: string[] }
 ): Promise<AdminProduct> {
   const dayRate = row.rental_rates.find((r) => r.period === "day");
   const specifications: DemoProductSpec[] = [...row.product_specifications]
@@ -89,10 +120,9 @@ async function toAdminProduct(
     .sort((a, b) => a.order - b.order)
     .map((img) => ({ url: img.url, alt: img.alt }));
 
-  const [accessorySlugs, compatibleSlugs] = await Promise.all([
-    resolveAccessorySlugs(supabase, row.id),
-    resolveCompatibleSlugs(supabase, row.id),
-  ]);
+  const [accessorySlugs, compatibleSlugs] = relations
+    ? [relations.accessorySlugs, relations.compatibleSlugs]
+    : await Promise.all([resolveAccessorySlugs(supabase, row.id), resolveCompatibleSlugs(supabase, row.id)]);
 
   return {
     id: row.id,
@@ -134,7 +164,15 @@ export async function listProducts(): Promise<AdminProduct[]> {
     console.error("[admin/catalogue] Failed to load products, falling back to demo data:", error.message);
     return memory.listProducts();
   }
-  return Promise.all((data ?? []).map((row) => toAdminProduct(supabase, row)));
+  const relations = await resolveAllRelationSlugs(supabase);
+  return Promise.all(
+    (data ?? []).map((row) =>
+      toAdminProduct(supabase, row, {
+        accessorySlugs: relations.accessories.get(row.id) ?? [],
+        compatibleSlugs: relations.compatible.get(row.id) ?? [],
+      })
+    )
+  );
 }
 
 export async function getProductById(id: string): Promise<AdminProduct | undefined> {

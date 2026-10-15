@@ -53,7 +53,12 @@ export async function getAdminPackage(slug: string): Promise<ProductionPackage |
 
 /** True when a built-in package has been edited away from its original. */
 export async function isPackageEdited(slug: string): Promise<boolean> {
-  return (await readSavedPackages()).some((r) => r.slug === slug && !r.custom);
+  return (await listEditedPackageSlugs()).has(slug);
+}
+
+/** Slugs of the built-in packages that have saved edits — one read for the whole list. */
+export async function listEditedPackageSlugs(): Promise<Set<string>> {
+  return new Set((await readSavedPackages()).filter((r) => !r.custom).map((r) => r.slug));
 }
 
 function fail(error: string): { ok: false; error: string } {

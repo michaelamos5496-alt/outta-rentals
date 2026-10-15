@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Pencil, Plus } from "lucide-react";
 
-import { listAdminPackages, isPackageEdited } from "@/lib/admin/packages";
+import { listAdminPackages, listEditedPackageSlugs } from "@/lib/admin/packages";
 import { getTierFullPrice, getTierPrice } from "@/lib/packages";
 import { formatPrice, formatTotal } from "@/lib/currency";
 import { Button } from "@/components/ui/button";
@@ -10,8 +10,7 @@ import { Badge } from "@/components/ui/badge";
 export const metadata = { title: "Packages" };
 
 export default async function AdminPackagesPage() {
-  const packages = await listAdminPackages();
-  const edited = await Promise.all(packages.map((p) => isPackageEdited(p.slug)));
+  const [packages, editedSlugs] = await Promise.all([listAdminPackages(), listEditedPackageSlugs()]);
 
   return (
     <div>
@@ -30,13 +29,13 @@ export default async function AdminPackagesPage() {
       </p>
 
       <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2">
-        {packages.map((pkg, i) => (
+        {packages.map((pkg) => (
           <section key={pkg.slug} className="rounded-2xl border border-border bg-card p-5">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <div className="flex items-center gap-2">
                   <h2 className="text-h3">{pkg.name}</h2>
-                  {pkg.custom ? <Badge variant="outline">Custom</Badge> : edited[i] ? <Badge variant="outline">Edited</Badge> : null}
+                  {pkg.custom ? <Badge variant="outline">Custom</Badge> : editedSlugs.has(pkg.slug) ? <Badge variant="outline">Edited</Badge> : null}
                 </div>
                 <p className="text-small mt-1">{pkg.description}</p>
               </div>
