@@ -82,8 +82,8 @@ function ProductCard({ product, view = "grid", compact = false, className }: Pro
       >
         <p
           className={cn(
-            "line-clamp-2 min-h-[2.2em] leading-[1.1] font-semibold",
-            compact ? "text-xs" : "text-base sm:text-lg"
+            "line-clamp-2 min-h-[2.2em] font-semibold",
+            compact ? "text-xs/[1.1]" : "text-base/[1.1] sm:text-lg/[1.1]"
           )}
         >
           {product.name}

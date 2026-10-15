@@ -20,17 +20,26 @@ function ProductShelf({ title, eyebrow, products, compact = false }: ProductShel
           {title}
         </Heading>
       </div>
-      <div
-        className={
-          compact
-            ? "mt-6 grid grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-3 lg:grid-cols-6"
-            : "mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4"
-        }
-      >
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} compact={compact} />
-        ))}
-      </div>
+      {compact ? (
+        // Flex-wrap rather than a grid so a short row (or the last row) sits
+        // centred under the heading instead of hugging the left edge.
+        <div className="mt-6 flex flex-wrap justify-center gap-2 sm:gap-3">
+          {products.map((product) => (
+            <div
+              key={product.id}
+              className="flex w-[calc((100%-1rem)/3)] sm:w-[calc((100%-2.25rem)/4)] lg:w-[calc((100%-3.75rem)/6)]"
+            >
+              <ProductCard product={product} compact className="w-full" />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
     </section>
   );
 }
