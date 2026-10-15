@@ -153,6 +153,16 @@ const ADD_ON_CATEGORIES: Record<string, string[]> = {
 /** Generic utility items that aren't camera gear — never auto-suggested on a camera or lens. */
 const NOT_CAMERA_GEAR = new Set(["extension-cable"]);
 
+/**
+ * Grip that rigs lights (stands), as opposed to the rest of the grip category,
+ * which supports cameras (tripods, gimbals, sliders, jibs…). A camera never
+ * gets stands suggested and a light never gets tripods.
+ */
+const LIGHT_RIGGING = new Set(["c-stand-kit", "american-stand"]);
+
+/** In the modifiers category but effects, not something that shapes a light — not suggested with one. */
+const NOT_A_MODIFIER = new Set(["haze-machine", "smoke-machine"]);
+
 /** Most suggestions taken from any one category, so no single category floods the list. */
 const MAX_PER_CATEGORY = 4;
 
@@ -184,7 +194,12 @@ export async function getQuickViewAddOns(
   if (!product) return [];
 
   const listed = new Set([...product.accessorySlugs, ...product.compatibleSlugs]);
-  const allowed = ADD_ON_CATEGORIES[product.categorySlug] ?? [];
+  // A stand is light gear: it suggests lights and modifiers, not camera gear.
+  const productIsLightRigging = LIGHT_RIGGING.has(product.slug);
+  const allowed = productIsLightRigging
+    ? ["lighting", "lighting-modifiers"]
+    : (ADD_ON_CATEGORIES[product.categorySlug] ?? []);
+  const lightSide = product.categorySlug === "lighting" || product.categorySlug === "lighting-modifiers";
   const mine = mountsOf(product);
 
   const eligible = all.filter((p) => {
@@ -194,6 +209,9 @@ export async function getQuickViewAddOns(
       return false;
     }
     if (!allowed.includes(p.categorySlug)) return false;
+    // Within a category, keep only what relates closely to this product.
+    if (p.categorySlug === "grip" && LIGHT_RIGGING.has(p.slug) !== lightSide) return false;
+    if (lightSide && NOT_A_MODIFIER.has(p.slug)) return false;
     // Don't suggest a lens/camera on a different mount.
     const theirs = mountsOf(p);
     if (mine.size > 0 && theirs.size > 0 && ![...theirs].some((m) => mine.has(m))) return false;
