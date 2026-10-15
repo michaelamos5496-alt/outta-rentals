@@ -417,7 +417,7 @@ export const products: DemoProduct[] = [
     name: "Laowa 12mm EF",
     brandSlug: "laowa",
     categorySlug: "lenses",
-    tags: ["lenses", "photo-lens"],
+    tags: ["lenses", "cine-lens"],
     shortDescription: "Real OUTTA inventory — cine lens, available to rent.",
     description: "Laowa 12mm EF — cine lens from OUTTA's real rental inventory.",
     dayRate: 500,

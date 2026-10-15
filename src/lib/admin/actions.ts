@@ -27,7 +27,7 @@ import {
   updateQuoteStatus,
   type StatusUpdateResult,
 } from "./quotes";
-import { savePackage, resetPackage, type AdminPackageInput, type SavePackageResult } from "./packages";
+import { savePackage, resetPackage, deletePackage, type AdminPackageInput, type SavePackageResult } from "./packages";
 import type { ProductAvailability } from "@/lib/catalogue";
 import type { AdminQuoteStatus } from "./types";
 
@@ -277,13 +277,20 @@ function revalidatePackages(slug: string) {
 export async function savePackageAction(input: AdminPackageInput): Promise<SavePackageResult> {
   await requireAdmin();
   const result = await savePackage(input);
-  if (result.ok) revalidatePackages(input.slug);
+  if (result.ok) revalidatePackages(result.slug);
   return result;
 }
 
 export async function resetPackageAction(slug: string): Promise<SavePackageResult> {
   await requireAdmin();
   const result = await resetPackage(slug);
+  if (result.ok) revalidatePackages(slug);
+  return result;
+}
+
+export async function deletePackageAction(slug: string): Promise<SavePackageResult> {
+  await requireAdmin();
+  const result = await deletePackage(slug);
   if (result.ok) revalidatePackages(slug);
   return result;
 }

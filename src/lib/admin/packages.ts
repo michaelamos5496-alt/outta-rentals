@@ -4,9 +4,10 @@ import { getProductBySlug } from "@/lib/catalogue";
 import { loadLiveCatalogue } from "@/lib/catalogue/live-server";
 import { getAllPackages, getTierPrice } from "@/lib/packages";
 import { getDefaultPackage } from "@/lib/packages/live";
-import { invalidateLivePackages } from "@/lib/packages/live-server";
+import { readSavedPackages, writeSavedPackages } from "@/lib/packages/live-server";
 import type { PackageRole, PackageTier, ProductionPackage } from "@/lib/packages/types";
-import { getSupabaseServerClient } from "@/lib/supabase/server";
+import { packages as allPackages } from "@/lib/packages/data";
+import type { LivePackageRow } from "@/lib/packages/live";
 
 export const PACKAGE_ROLES: PackageRole[] = [
   "Camera",
@@ -19,11 +20,13 @@ export const PACKAGE_ROLES: PackageRole[] = [
 ];
 
 export interface AdminPackageInput {
-  slug: string;
+  /** Omitted when creating a new package; the slug is made from the name. */
+  slug?: string;
   name: string;
   description: string;
   tiers: {
-    slug: string;
+    /** Omitted for a tier added in this edit; the slug is made from its label. */
+    slug?: string;
     label: string;
     discountPercent: number;
     items: {
@@ -36,7 +39,7 @@ export interface AdminPackageInput {
   }[];
 }
 
-export type SavePackageResult = { ok: true } | { ok: false; error: string };
+export type SavePackageResult = { ok: true; slug: string } | { ok: false; error: string };
 
 /** The published packages as they currently are — saved edits applied. */
 export async function listAdminPackages(): Promise<ProductionPackage[]> {
@@ -48,37 +51,54 @@ export async function getAdminPackage(slug: string): Promise<ProductionPackage |
   return (await listAdminPackages()).find((p) => p.slug === slug);
 }
 
-/** True when the package has been edited away from its built-in default. */
+/** True when a built-in package has been edited away from its original. */
 export async function isPackageEdited(slug: string): Promise<boolean> {
-  const supabase = getSupabaseServerClient();
-  if (!supabase) return false;
-  const { data } = await supabase.from("packages").select("slug").eq("slug", slug).maybeSingle();
-  return Boolean(data);
+  return (await readSavedPackages()).some((r) => r.slug === slug && !r.custom);
 }
 
-function fail(error: string): SavePackageResult {
+function fail(error: string): { ok: false; error: string } {
   return { ok: false, error };
 }
 
-export async function savePackage(input: AdminPackageInput): Promise<SavePackageResult> {
-  const supabase = getSupabaseServerClient();
-  if (!supabase) return fail("The database isn't connected, so edits can't be saved.");
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 40);
+}
 
+function uniqueSlug(base: string, taken: Set<string>): string {
+  const root = base || "item";
+  let slug = root;
+  for (let n = 2; taken.has(slug); n++) slug = `${root}-${n}`;
+  return slug;
+}
+
+export async function savePackage(input: AdminPackageInput): Promise<SavePackageResult> {
   await loadLiveCatalogue();
-  const existing = getAllPackages().find((p) => p.slug === input.slug);
-  if (!existing) return fail("That package doesn't exist.");
+  const saved = await readSavedPackages();
 
   const name = input.name.trim().slice(0, 80);
   if (!name) return fail("The package needs a name.");
   const description = input.description.trim().slice(0, 300);
   if (input.tiers.length === 0 || input.tiers.length > 8) return fail("A package needs between 1 and 8 tiers.");
 
+  const creating = !input.slug;
+  let slug = input.slug ?? "";
+  if (creating) {
+    const taken = new Set([...allPackages.map((p) => p.slug), ...saved.map((r) => r.slug)]);
+    slug = uniqueSlug(slugify(name), taken);
+  }
+  const existing = getAllPackages().find((p) => p.slug === slug);
+  if (!creating && !existing) return fail("That package doesn't exist.");
+
   const tiers: PackageTier[] = [];
+  const usedTierSlugs = new Set(input.tiers.flatMap((t) => (t.slug ? [t.slug] : [])));
   for (const tierInput of input.tiers) {
-    const current = existing.tiers.find((t) => t.slug === tierInput.slug);
-    if (!current) return fail(`Unknown tier "${tierInput.slug}".`);
     const label = tierInput.label.trim().slice(0, 30);
-    if (!label) return fail("Every tier needs a label.");
+    if (!label) return fail("Every tier needs a name.");
     const discount = Number(tierInput.discountPercent);
     if (!Number.isFinite(discount) || discount < 0 || discount > 90) {
       return fail(`${label}: the discount must be between 0 and 90%.`);
@@ -90,7 +110,7 @@ export async function savePackage(input: AdminPackageInput): Promise<SavePackage
     const items: PackageTier["items"] = [];
     for (const item of tierInput.items) {
       if (!PACKAGE_ROLES.includes(item.role)) return fail(`${label}: invalid item role.`);
-      if (!getProductBySlug(item.productSlug)) return fail(`${label}: "${item.productSlug}" isn't a product.`);
+      if (!getProductBySlug(item.productSlug)) return fail(`${label}: pick a product for every item.`);
       if (item.orProductSlug && !getProductBySlug(item.orProductSlug)) {
         return fail(`${label}: "${item.orProductSlug}" isn't a product.`);
       }
@@ -106,10 +126,16 @@ export async function savePackage(input: AdminPackageInput): Promise<SavePackage
       items.push(clean);
     }
 
+    let tierSlug = tierInput.slug;
+    if (!tierSlug) {
+      tierSlug = uniqueSlug(slugify(label), usedTierSlugs);
+      usedTierSlugs.add(tierSlug);
+    }
+    const current = existing?.tiers.find((t) => t.slug === tierSlug);
     const tier: PackageTier = {
-      slug: current.slug,
+      slug: tierSlug,
       label,
-      currency: current.currency ?? "GHS",
+      currency: current?.currency ?? "GHS",
       discountPercent: discount,
       items,
     };
@@ -120,25 +146,26 @@ export async function savePackage(input: AdminPackageInput): Promise<SavePackage
     tiers.push(tier);
   }
 
-  const { error } = await supabase
-    .from("packages")
-    .upsert({ slug: input.slug, name, description, tiers, updated_at: new Date().toISOString() });
-  if (error) {
-    if (/relation .*packages|schema cache|does not exist/i.test(error.message)) {
-      return fail("The packages table doesn't exist yet. Run migration 006_packages.sql in Supabase, then try again.");
-    }
-    return fail(`Couldn't save: ${error.message}`);
-  }
-  invalidateLivePackages();
-  return { ok: true };
+  const row: LivePackageRow = { slug, name, description, tiers, ...(creating || existing?.custom ? { custom: true } : {}) };
+  const next = [...saved.filter((r) => r.slug !== slug), row];
+  const error = await writeSavedPackages(next);
+  if (error) return fail(error);
+  return { ok: true, slug };
 }
 
+/** Puts a built-in package back to its original items and prices. */
 export async function resetPackage(slug: string): Promise<SavePackageResult> {
-  const supabase = getSupabaseServerClient();
-  if (!supabase) return fail("The database isn't connected.");
   if (!getDefaultPackage(slug)) return fail("That package doesn't exist.");
-  const { error } = await supabase.from("packages").delete().eq("slug", slug);
-  if (error) return fail(`Couldn't reset: ${error.message}`);
-  invalidateLivePackages();
-  return { ok: true };
+  const saved = await readSavedPackages();
+  const error = await writeSavedPackages(saved.filter((r) => r.slug !== slug));
+  return error ? fail(error) : { ok: true, slug };
+}
+
+/** Deletes a package that was created in the admin. The built-in ones can't be deleted. */
+export async function deletePackage(slug: string): Promise<SavePackageResult> {
+  const saved = await readSavedPackages();
+  const row = saved.find((r) => r.slug === slug);
+  if (!row?.custom) return fail("Only packages you created can be deleted.");
+  const error = await writeSavedPackages(saved.filter((r) => r.slug !== slug));
+  return error ? fail(error) : { ok: true, slug };
 }

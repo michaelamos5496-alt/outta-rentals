@@ -16,7 +16,8 @@ export { packages } from "./data";
 const LIVE_PACKAGE_SLUGS = new Set(["commercial", "documentary", "music-video", "short-film"]);
 
 function isLive(pkg: ProductionPackage): boolean {
-  return LIVE_PACKAGE_SLUGS.has(pkg.slug);
+  // Packages created in the admin panel are published straight away.
+  return pkg.custom === true || LIVE_PACKAGE_SLUGS.has(pkg.slug);
 }
 
 export function getAllPackages(): ProductionPackage[] {

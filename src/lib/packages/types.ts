@@ -46,6 +46,8 @@ export interface PackageTier {
 
 export interface ProductionPackage {
   slug: string;
+  /** True for a package created in the admin panel (not one of the built-in ones). */
+  custom?: boolean;
   name: string;
   description: string;
   /** At least one tier. A package with a single tier renders with no tier switcher. */

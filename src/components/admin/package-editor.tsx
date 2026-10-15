@@ -6,7 +6,7 @@ import { AlertTriangle, CheckCircle2, Plus, RotateCcw, Trash2 } from "lucide-rea
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { savePackageAction, resetPackageAction } from "@/lib/admin/actions";
+import { savePackageAction, resetPackageAction, deletePackageAction } from "@/lib/admin/actions";
 import { formatPrice } from "@/lib/currency";
 import type { PackageRole, ProductionPackage } from "@/lib/packages/types";
 
@@ -29,7 +29,9 @@ interface DraftItem {
 }
 
 interface DraftTier {
-  slug: string;
+  /** Stable id for React keys; `slug` is undefined for a tier added in this session. */
+  id: string;
+  slug?: string;
   label: string;
   discountPercent: string;
   currency: string;
@@ -44,6 +46,7 @@ const nextKey = () => `item-${++keyCounter}`;
 
 function toDraft(pkg: ProductionPackage): DraftTier[] {
   return pkg.tiers.map((t) => ({
+    id: nextKey(),
     slug: t.slug,
     label: t.label,
     discountPercent: String(t.discountPercent ?? 0),
@@ -59,19 +62,32 @@ function toDraft(pkg: ProductionPackage): DraftTier[] {
   }));
 }
 
+function blankTier(products: ProductOption[]): DraftTier {
+  return {
+    id: nextKey(),
+    label: "",
+    discountPercent: "20",
+    currency: "GHS",
+    items: [
+      { key: nextKey(), role: "Camera", productSlug: products[0]?.slug ?? "", orProductSlug: "", dayRate: "", quantity: "1" },
+    ],
+  };
+}
+
 function PackageEditor({
   pkg,
   products,
   edited,
 }: {
-  pkg: ProductionPackage;
+  /** The package being edited, or null to create a new one. */
+  pkg: ProductionPackage | null;
   products: ProductOption[];
   edited: boolean;
 }) {
   const router = useRouter();
-  const [name, setName] = React.useState(pkg.name);
-  const [description, setDescription] = React.useState(pkg.description);
-  const [tiers, setTiers] = React.useState<DraftTier[]>(() => toDraft(pkg));
+  const [name, setName] = React.useState(pkg?.name ?? "");
+  const [description, setDescription] = React.useState(pkg?.description ?? "");
+  const [tiers, setTiers] = React.useState<DraftTier[]>(() => (pkg ? toDraft(pkg) : [blankTier(products)]));
   const [busy, setBusy] = React.useState(false);
   const [message, setMessage] = React.useState<{ ok: boolean; text: string } | null>(null);
 
@@ -88,6 +104,18 @@ function PackageEditor({
         i === tierIndex ? { ...t, items: t.items.map((it) => (it.key === key ? { ...it, ...patch } : it)) } : t
       )
     );
+    setMessage(null);
+  }
+
+  function addTier() {
+    setTiers((all) => [...all, blankTier(products)]);
+    setMessage(null);
+  }
+
+  function removeTier(index: number) {
+    if (tiers.length <= 1) return;
+    if (!window.confirm("Remove this tier from the package?")) return;
+    setTiers((all) => all.filter((_, i) => i !== index));
     setMessage(null);
   }
 
@@ -133,7 +161,7 @@ function PackageEditor({
     setBusy(true);
     setMessage(null);
     const result = await savePackageAction({
-      slug: pkg.slug,
+      slug: pkg?.slug,
       name,
       description,
       tiers: tiers.map((t) => ({
@@ -151,6 +179,10 @@ function PackageEditor({
     });
     setBusy(false);
     if (result.ok) {
+      if (!pkg) {
+        router.push(`/admin/packages/${result.slug}`);
+        return;
+      }
       setMessage({ ok: true, text: "Saved. The site now shows the new items and prices." });
       router.refresh();
     } else {
@@ -161,6 +193,7 @@ function PackageEditor({
   async function handleReset() {
     if (!window.confirm("Reset this package to its original items and prices? Your edits will be lost.")) return;
     setBusy(true);
+    if (!pkg) return;
     const result = await resetPackageAction(pkg.slug);
     setBusy(false);
     if (result.ok) {
@@ -171,37 +204,48 @@ function PackageEditor({
     }
   }
 
+  async function handleDelete() {
+    if (!pkg) return;
+    if (!window.confirm(`Delete the "${pkg.name}" package? This can't be undone.`)) return;
+    setBusy(true);
+    const result = await deletePackageAction(pkg.slug);
+    setBusy(false);
+    if (result.ok) router.push("/admin/packages");
+    else setMessage({ ok: false, text: result.error });
+  }
+
   return (
     <div className="flex flex-col gap-6">
       <div className="grid gap-4 rounded-2xl border border-border bg-card p-5 sm:grid-cols-[1fr_2fr]">
         <div>
           <label className="text-label" htmlFor="pkg-name">Name</label>
-          <Input id="pkg-name" className="mt-1.5" value={name} onChange={(e) => setName(e.target.value)} />
+          <Input id="pkg-name" className="mt-1.5" placeholder="e.g. Podcast" value={name} onChange={(e) => setName(e.target.value)} />
         </div>
         <div>
           <label className="text-label" htmlFor="pkg-desc">Description</label>
-          <Input id="pkg-desc" className="mt-1.5" value={description} onChange={(e) => setDescription(e.target.value)} />
+          <Input id="pkg-desc" className="mt-1.5" placeholder="One line shown on the package card" value={description} onChange={(e) => setDescription(e.target.value)} />
         </div>
       </div>
 
       {tiers.map((tier, ti) => {
         const t = totals(tier);
         return (
-          <section key={tier.slug} className="rounded-2xl border border-border bg-card p-5">
+          <section key={tier.id} className="rounded-2xl border border-border bg-card p-5">
             <div className="flex flex-wrap items-end gap-4">
               <div className="w-40">
-                <label className="text-label" htmlFor={`label-${tier.slug}`}>Tier name</label>
+                <label className="text-label" htmlFor={`label-${tier.id}`}>Tier name</label>
                 <Input
-                  id={`label-${tier.slug}`}
+                  id={`label-${tier.id}`}
                   className="mt-1.5"
+                  placeholder="e.g. LITE"
                   value={tier.label}
                   onChange={(e) => updateTier(ti, { label: e.target.value })}
                 />
               </div>
               <div className="w-32">
-                <label className="text-label" htmlFor={`disc-${tier.slug}`}>Discount %</label>
+                <label className="text-label" htmlFor={`disc-${tier.id}`}>Discount %</label>
                 <Input
-                  id={`disc-${tier.slug}`}
+                  id={`disc-${tier.id}`}
                   className="mt-1.5"
                   type="number"
                   min={0}
@@ -315,20 +359,36 @@ function PackageEditor({
               </table>
             </div>
 
-            <Button type="button" variant="outline" size="sm" className="mt-3" onClick={() => addItem(ti)}>
-              <Plus /> Add item
-            </Button>
+            <div className="mt-3 flex items-center justify-between">
+              <Button type="button" variant="outline" size="sm" onClick={() => addItem(ti)}>
+                <Plus /> Add item
+              </Button>
+              {tiers.length > 1 ? (
+                <Button type="button" variant="ghost" size="sm" onClick={() => removeTier(ti)}>
+                  <Trash2 /> Remove tier
+                </Button>
+              ) : null}
+            </div>
           </section>
         );
       })}
 
+      <Button type="button" variant="outline" className="self-start" onClick={addTier}>
+        <Plus /> Add tier
+      </Button>
+
       <div className="flex flex-wrap items-center gap-3">
         <Button onClick={handleSave} disabled={busy}>
-          {busy ? "Saving…" : "Save changes"}
+          {busy ? "Saving…" : pkg ? "Save changes" : "Create package"}
         </Button>
-        {edited ? (
+        {pkg && edited && !pkg.custom ? (
           <Button type="button" variant="outline" onClick={handleReset} disabled={busy}>
             <RotateCcw /> Reset to original
+          </Button>
+        ) : null}
+        {pkg?.custom ? (
+          <Button type="button" variant="outline" onClick={handleDelete} disabled={busy}>
+            <Trash2 /> Delete package
           </Button>
         ) : null}
         {message ? (

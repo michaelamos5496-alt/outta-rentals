@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Pencil } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
 
 import { listAdminPackages, isPackageEdited } from "@/lib/admin/packages";
 import { getTierFullPrice, getTierPrice } from "@/lib/packages";
@@ -15,7 +15,14 @@ export default async function AdminPackagesPage() {
 
   return (
     <div>
-      <h1 className="text-h2">Packages</h1>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h1 className="text-h2">Packages</h1>
+        <Button asChild size="sm">
+          <Link prefetch={false} href="/admin/packages/new">
+            <Plus /> New package
+          </Link>
+        </Button>
+      </div>
       <p className="text-small mt-1 max-w-2xl">
         Edit what each package includes. The total is added up from the items&rsquo; day rates and the
         discount is applied automatically — change an item, a quantity or the discount and the price
@@ -29,7 +36,7 @@ export default async function AdminPackagesPage() {
               <div>
                 <div className="flex items-center gap-2">
                   <h2 className="text-h3">{pkg.name}</h2>
-                  {edited[i] ? <Badge variant="outline">Edited</Badge> : null}
+                  {pkg.custom ? <Badge variant="outline">Custom</Badge> : edited[i] ? <Badge variant="outline">Edited</Badge> : null}
                 </div>
                 <p className="text-small mt-1">{pkg.description}</p>
               </div>
