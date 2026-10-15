@@ -5,7 +5,7 @@ import { FeaturedEquipment } from "@/components/sections/featured-equipment";
 import { CategoryExperience } from "@/components/sections/category-experience";
 import { WorkShowcase } from "@/components/sections/work-showcase";
 import { showWorkSection } from "@/config/site";
-import { HomeContact } from "@/components/sections/home-contact";
+import { ContactSection } from "@/components/sections/contact-section";
 import { FinalCta } from "@/components/sections/final-cta";
 import { fetchAllProducts } from "@/lib/catalogue/db";
 import { getAllPackages } from "@/lib/packages";
@@ -68,7 +68,7 @@ export default async function Home() {
       <FeaturedEquipment packages={toChooserData(featuredPackages)} />
       {showWorkSection ? <WorkShowcase /> : null}
       <FinalCta />
-      <HomeContact />
+      <ContactSection headingLevel="h2" fullHeight={false} />
     </div>
   );
 }
