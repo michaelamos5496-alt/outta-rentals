@@ -30,6 +30,27 @@ function ContactSection({ headingLevel = "h1", compact = false }: { headingLevel
   const Heading = headingLevel;
   return (
     <section className={`relative isolate overflow-hidden bg-background text-neutral-900 ${compact ? "" : "min-h-[calc(100vh-4rem)]"}`}>
+      {/* Phones: faint map behind the bottom of the section, fading in from the
+          top. The map runs past the top and bottom edges so Google's address
+          card and map buttons are clipped out of view; its own pin marks the spot. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[24rem] overflow-hidden lg:hidden"
+        style={{
+          maskImage: "linear-gradient(to bottom, transparent 0%, black 45%)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 45%)",
+        }}
+      >
+        <iframe
+          title="OUTTA RENTALS location"
+          src={mapSrc}
+          loading="lazy"
+          tabIndex={-1}
+          className="absolute -top-24 left-0 h-[calc(100%+10.5rem)] w-full border-0 opacity-70"
+          style={{ filter: "grayscale(1) contrast(0.9) brightness(1.05)" }}
+        />
+      </div>
+
       {/* Dimmed map, fading into the dark page on the left. */}
       <div
         aria-hidden
@@ -103,24 +124,16 @@ function ContactSection({ headingLevel = "h1", compact = false }: { headingLevel
             <ContactForm compact={compact} />
           </motion.div>
 
-          {/* Phones: the map gets its own card under the form instead of
-              sitting behind the text, where it made everything hard to read. */}
-          <div className="mt-12 lg:hidden">
+          {/* Phones: the map sits behind this spot under the form (the faint
+              background map is hidden up the page, where it hurt readability).
+              The space below is left open so the map shows through. */}
+          <div className="relative mt-12 flex h-60 flex-col justify-between lg:hidden">
             <p className="text-label">Find us</p>
-            <div className="mt-3 overflow-hidden rounded-2xl border border-brand/30 bg-background">
-              <iframe
-                title="OUTTA RENTALS location map"
-                src={mapSrc}
-                loading="lazy"
-                className="h-64 w-full border-0"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
             <a
               href={siteConfig.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 inline-flex items-center gap-2 text-sm font-medium underline-offset-4 hover:underline"
+              className="inline-flex w-fit items-center gap-2 rounded-full bg-background/85 px-4 py-2 text-sm font-medium shadow-sm backdrop-blur-sm"
             >
               <MapPin className="size-4" /> Get directions
             </a>
