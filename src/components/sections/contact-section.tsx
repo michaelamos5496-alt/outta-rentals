@@ -33,7 +33,7 @@ function ContactSection({ headingLevel = "h1", compact = false }: { headingLevel
       {/* Dimmed map, fading into the dark page on the left. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 -z-10 w-full lg:w-[62%]"
+        className="pointer-events-none absolute inset-y-0 right-0 -z-10 hidden w-full lg:block lg:w-[62%]"
         style={{
           maskImage: "linear-gradient(to right, transparent 0%, black 45%)",
           WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 45%)",
@@ -51,7 +51,7 @@ function ContactSection({ headingLevel = "h1", compact = false }: { headingLevel
           <MapPin className="size-7 fill-brand text-brand" strokeWidth={1.5} />
         </span>
       </div>
-      <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/70 to-transparent" />
+      <div aria-hidden className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-background via-background/70 to-transparent lg:block" />
 
       <Container>
         <div className={compact ? "max-w-3xl py-14 sm:py-16" : "max-w-3xl py-14 pb-32 sm:py-20"}>
@@ -102,6 +102,29 @@ function ContactSection({ headingLevel = "h1", compact = false }: { headingLevel
           >
             <ContactForm compact={compact} />
           </motion.div>
+
+          {/* Phones: the map gets its own card under the form instead of
+              sitting behind the text, where it made everything hard to read. */}
+          <div className="mt-12 lg:hidden">
+            <p className="text-label">Find us</p>
+            <div className="mt-3 overflow-hidden rounded-2xl border border-brand/30 bg-background">
+              <iframe
+                title="OUTTA RENTALS location map"
+                src={mapSrc}
+                loading="lazy"
+                className="h-64 w-full border-0"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+            <a
+              href={siteConfig.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex items-center gap-2 text-sm font-medium underline-offset-4 hover:underline"
+            >
+              <MapPin className="size-4" /> Get directions
+            </a>
+          </div>
         </div>
       </Container>
     </section>

@@ -14,51 +14,51 @@ const brandLogos = [
   { file: "dzofilm.png", name: "DZOFilm" },
   { file: "freefly.svg", name: "Freefly" },
   { file: "godox.svg", name: "Godox" },
-  { file: "hollyland.jpeg", name: "Hollyland" },
+  { file: "hollyland.png", name: "Hollyland" },
   { file: "laowa.svg", name: "Laowa" },
   { file: "manfrotto.svg", name: "Manfrotto" },
-  { file: "nanlite.webp", name: "Nanlite" },
+  { file: "nanlite.png", name: "Nanlite" },
   { file: "nanlux.png", name: "Nanlux" },
-  { file: "red.jpeg", name: "RED" },
+  { file: "red.png", name: "RED" },
   { file: "sachtler.svg", name: "Sachtler" },
   { file: "sennheiser.svg", name: "Sennheiser" },
   { file: "sigma.svg", name: "Sigma" },
   { file: "smallhd.png", name: "SmallHD" },
   { file: "smallrig.png", name: "SmallRig" },
   { file: "sony.svg", name: "Sony" },
-  { file: "teradek.webp", name: "Teradek" },
-  { file: "tiffen.webp", name: "Tiffen" },
+  { file: "teradek.png", name: "Teradek" },
+  { file: "tiffen.png", name: "Tiffen" },
   { file: "tilta.svg", name: "Tilta" },
   { file: "zoom.svg", name: "Zoom" },
 ];
 
 function BrandMarquee() {
   return (
-    <section aria-label="Brands we rent" className="border-y border-border bg-background py-8 sm:py-10">
-      <p className="text-label text-center text-muted-foreground">Brands we rent</p>
+    <section aria-label="Brands we rent" className="border-y border-brand/20 bg-[color-mix(in_oklch,var(--brand)_28%,var(--background))] py-10 sm:py-14">
+      <p className="text-label text-center text-brand">Brands we rent</p>
       <div
-        className="mt-6 overflow-hidden bg-background"
+        className="mt-8 overflow-hidden"
         style={{
           maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
           WebkitMaskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
         }}
       >
         <ul
-          className="animate-marquee flex w-max items-center bg-background motion-reduce:animate-none"
+          className="animate-marquee flex w-max items-center motion-reduce:animate-none"
           style={{ animationDuration: "60s" }}
         >
           {[...brandLogos, ...brandLogos].map((brand, i) => (
             <li
               key={`${brand.file}-${i}`}
               aria-hidden={i >= brandLogos.length}
-              className="flex h-12 w-36 shrink-0 items-center justify-center px-5 sm:h-14 sm:w-44 sm:px-7"
+              className="flex h-20 w-48 shrink-0 items-center justify-center px-6 sm:h-28 sm:w-72 sm:px-9"
             >
               {/* eslint-disable-next-line @next/next/no-img-element -- static logo files, mixed SVG/PNG/WebP */}
               <img
                 src={`/brands/${brand.file}`}
                 alt={i < brandLogos.length ? brand.name : ""}
                 loading="lazy"
-                className="max-h-full max-w-full object-contain opacity-70 mix-blend-multiply grayscale contrast-125 transition duration-300 hover:opacity-100 hover:grayscale-0 hover:contrast-100"
+                className="max-h-full max-w-full object-contain transition-transform duration-300 hover:scale-105"
               />
             </li>
           ))}
