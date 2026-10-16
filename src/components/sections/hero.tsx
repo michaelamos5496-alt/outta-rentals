@@ -105,7 +105,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
       <Section
         spacing="none"
         bleed
-        className="relative overflow-hidden border-b border-border min-h-[78svh] lg:min-h-[78vh]"
+        className="relative overflow-hidden border-b border-border min-h-[calc(78svh-3.5rem)] sm:min-h-[calc(78svh-4rem)] lg:min-h-[calc(78vh-4rem)]"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
@@ -151,7 +151,7 @@ function Hero({ products }: { products: DemoProduct[] }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/60" />
         </div>
 
-        <Container className="relative flex min-h-[78svh] items-end pb-14 sm:pb-16 lg:min-h-[78vh]">
+        <Container className="relative flex min-h-[calc(78svh-3.5rem)] items-end pb-14 sm:min-h-[calc(78svh-4rem)] sm:pb-16 lg:min-h-[calc(78vh-4rem)]">
           <div className="max-w-3xl">
             <h1
               key={product.slug}
