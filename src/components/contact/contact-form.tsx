@@ -115,7 +115,7 @@ function ContactForm({ compact = false }: { compact?: boolean }) {
         </span>
         <div>
           <p className="text-2xl font-medium sm:text-3xl">Almost there.</p>
-          <p className="mt-2 max-w-md text-sm text-brand/80">
+          <p className="mt-2 max-w-md text-sm text-black/60">
             We opened WhatsApp with your message filled in. Hit send there to reach OUTTA directly.
           </p>
           <button
@@ -127,7 +127,7 @@ function ContactForm({ compact = false }: { compact?: boolean }) {
               submittedRef.current = false;
               setStatus("idle");
             }}
-            className="mt-6 text-sm text-brand underline underline-offset-4 hover:text-brand"
+            className="mt-6 text-sm text-black/80 underline underline-offset-4 hover:text-neutral-900"
           >
             Send another message
           </button>
@@ -138,7 +138,7 @@ function ContactForm({ compact = false }: { compact?: boolean }) {
 
   const progress = ((step + 1) / steps.length) * 100;
   const sharedField = cn(
-    "w-full border-0 bg-transparent p-0 font-medium text-brand outline-none placeholder:text-brand/45",
+    "w-full border-0 bg-transparent p-0 font-medium text-neutral-900 outline-none placeholder:text-black/25",
     compact ? "text-2xl sm:text-3xl" : "text-3xl sm:text-5xl"
   );
 
@@ -146,8 +146,8 @@ function ContactForm({ compact = false }: { compact?: boolean }) {
     <form onSubmit={handleSubmit} noValidate>
       <div className="flex items-center gap-4">
         <span aria-hidden className="bg-brand h-4 w-[3px]" />
-        <p className="text-base text-brand">Get in touch</p>
-        <p className="text-sm text-brand/70">
+        <p className="text-base text-neutral-900">Get in touch</p>
+        <p className="text-sm text-black/40">
           {step + 1} / {steps.length}
         </p>
       </div>
@@ -190,7 +190,7 @@ function ContactForm({ compact = false }: { compact?: boolean }) {
             />
           )}
 
-          <div className="relative mt-4 h-px w-full bg-brand/25">
+          <div className="relative mt-4 h-px w-full bg-black/15">
             <div
               className="bg-brand absolute inset-y-0 left-0 h-px transition-all duration-500 ease-out"
               style={{ width: `${progress}%` }}
@@ -201,17 +201,17 @@ function ContactForm({ compact = false }: { compact?: boolean }) {
             {error ? (
               <p className="text-sm text-red-600">{error}</p>
             ) : (
-              <p className="text-sm text-brand/70">{current.hint}</p>
+              <p className="text-sm text-black/40">{current.hint}</p>
             )}
           </div>
         </div>
 
         <button
           type="submit"
-          className="group flex shrink-0 items-center gap-4 self-start text-sm text-brand sm:self-end"
+          className="group flex shrink-0 items-center gap-4 self-start text-sm text-neutral-900 sm:self-end"
         >
           <span>{isLast ? "Send" : "Next"}</span>
-          <span className={cn("relative flex size-16 items-center justify-center rounded-full border border-brand/40 transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-brand-foreground sm:size-[72px]", compact && "size-14 sm:size-14")}>
+          <span className={cn("relative flex size-16 items-center justify-center rounded-full border border-black/25 transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-brand-foreground sm:size-[72px]", compact && "size-14 sm:size-14")}>
             <ArrowRight className="size-5 transition-transform group-hover:translate-x-0.5" />
           </span>
         </button>
@@ -229,7 +229,7 @@ function ContactForm({ compact = false }: { compact?: boolean }) {
                 "rounded-full border px-4 py-1.5 text-sm transition-colors",
                 topic === t
                   ? "border-brand bg-brand text-brand-foreground"
-                  : "border-brand/30 text-brand/80 hover:border-brand/70 hover:text-brand"
+                  : "border-black/20 text-black/60 hover:border-black/50 hover:text-neutral-900"
               )}
             >
               {t}
@@ -247,13 +247,13 @@ function ContactForm({ compact = false }: { compact?: boolean }) {
               onClick={() => goTo(i)}
               className={cn(
                 "flex items-center gap-2 transition-colors",
-                i === step ? "text-brand" : i < step ? "text-brand/80 hover:text-brand" : "text-brand/45"
+                i === step ? "text-neutral-900" : i < step ? "text-black/60 hover:text-neutral-900" : "text-black/25"
               )}
             >
               <span
                 className={cn(
                   "size-1.5 rounded-full",
-                  i <= step ? "bg-brand" : "bg-brand/30"
+                  i <= step ? "bg-brand" : "bg-black/20"
                 )}
               />
               {s.label}

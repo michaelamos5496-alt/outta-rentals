@@ -29,7 +29,7 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(siteConfig.lo
 function ContactSection({ headingLevel = "h1", compact = false }: { headingLevel?: "h1" | "h2"; compact?: boolean }) {
   const Heading = headingLevel;
   return (
-    <section className={`relative isolate overflow-hidden bg-background text-brand ${compact ? "" : "min-h-[calc(100vh-4rem)]"}`}>
+    <section className={`relative isolate overflow-hidden bg-background text-neutral-900 ${compact ? "" : "min-h-[calc(100vh-4rem)]"}`}>
       {/* Dimmed map, fading into the dark page on the left. */}
       <div
         aria-hidden
@@ -48,7 +48,7 @@ function ContactSection({ headingLevel = "h1", compact = false }: { headingLevel
           style={{ filter: "grayscale(1) contrast(0.9) brightness(1.05)" }}
         />
         <span className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-full lg:block">
-          <MapPin className="size-7 fill-brand text-brand" strokeWidth={1.5} />
+          <MapPin className="size-7 fill-neutral-900 text-neutral-900" strokeWidth={1.5} />
         </span>
       </div>
       <div aria-hidden className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-background via-background/70 to-transparent lg:block" />
@@ -59,7 +59,7 @@ function ContactSection({ headingLevel = "h1", compact = false }: { headingLevel
             <motion.div variants={slideUp()} className="flex gap-5">
               <span aria-hidden className="bg-brand w-1 shrink-0" />
               <div>
-                <p className="text-base text-brand">How to contact us</p>
+                <p className="text-base text-black/90">How to contact us</p>
                 <Heading className={compact ? "mt-1 text-4xl font-medium tracking-tight sm:text-5xl" : "mt-1 text-5xl font-medium tracking-tight sm:text-7xl"}>Contacts</Heading>
               </div>
             </motion.div>
@@ -70,18 +70,18 @@ function ContactSection({ headingLevel = "h1", compact = false }: { headingLevel
             >
               {infoRows.map((row) => (
                 <div key={row.label}>
-                  <dt className="flex items-center gap-2.5 text-sm text-brand">
+                  <dt className="flex items-center gap-2.5 text-sm text-neutral-900">
                     <row.icon className="size-3.5" />
                     {row.label}
                   </dt>
-                  <dd className="mt-3 pl-6 text-sm leading-relaxed text-brand/80">
+                  <dd className="mt-3 pl-6 text-sm leading-relaxed text-black/45">
                     {row.href ? (
                       <a
                         href={row.href}
                         {...(row.href.startsWith("http")
                           ? { target: "_blank", rel: "noopener noreferrer" }
                           : {})}
-                        className="underline-offset-4 transition-colors hover:text-brand hover:underline"
+                        className="underline-offset-4 transition-colors hover:text-neutral-900 hover:underline"
                       >
                         {row.value}
                       </a>
