@@ -172,6 +172,13 @@
   html {
     @apply font-sans scroll-smooth;
   }
+  /* Phones: scale the whole rem-based design (type, spacing, buttons, nav) down
+     to 87.5% so nothing looks oversized on a small screen. */
+  @media (max-width: 639px) {
+    html {
+      font-size: 87.5%;
+    }
+  }
   ::selection {
     background: var(--brand);
     color: var(--brand-foreground);
@@ -197,6 +204,14 @@
 #smooth-wrapper[style*="position: fixed"] {
   top: 56px !important;
   height: calc(100% - 56px) !important;
+}
+/* Phones: the navbar is 3.5rem tall and rem is scaled down there (see the
+   html rule above), so follow it instead of a fixed 56px. */
+@media (max-width: 639px) {
+  #smooth-wrapper[style*="position: fixed"] {
+    top: 3.5rem !important;
+    height: calc(100% - 3.5rem) !important;
+  }
 }
 @media (min-width: 1024px) {
   #smooth-wrapper[style*="position: fixed"] {
