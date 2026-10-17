@@ -30,6 +30,10 @@ export const brands: Brand[] = [
   { id: "brand-zoom", name: "Zoom", slug: "zoom" },
   { id: "brand-hollyland", name: "Hollyland", slug: "hollyland" },
   { id: "brand-pyro", name: "Pyro", slug: "pyro" },
+  { id: "brand-portkeys", name: "Portkeys", slug: "portkeys" },
+  { id: "brand-zeiss", name: "Carl Zeiss", slug: "carl-zeiss" },
+  { id: "brand-lilliput", name: "Lilliput", slug: "lilliput" },
+  { id: "brand-freeworld", name: "Freeworld", slug: "freeworld" },
   { id: "brand-outta", name: "OUTTA Essentials", slug: "outta-essentials" },
 ];
 
