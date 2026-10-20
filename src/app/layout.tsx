@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 import { KitProvider } from "@/components/kit/kit-provider";
@@ -76,6 +77,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <KitProvider>
           <SiteChrome>{children}</SiteChrome>
         </KitProvider>
+        <Analytics />
       </body>
     </html>
   );
