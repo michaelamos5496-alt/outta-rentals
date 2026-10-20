@@ -14,10 +14,17 @@ export interface LivePackageRow {
   custom?: boolean;
 }
 
+// Deep copy of plain package data. Not structuredClone: this module ships to
+// the browser, and older phone browsers (pre-2022 Chrome) don't have it, which
+// crashed the whole site on load.
+function clone<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value)) as T;
+}
+
 // Snapshot of the built-in packages, taken before anything is applied, so an
 // edit can be undone ("reset to original") and the admin form has something
 // to compare against.
-const defaults: ProductionPackage[] = structuredClone(packages);
+const defaults: ProductionPackage[] = clone(packages);
 
 export function getDefaultPackage(slug: string): ProductionPackage | undefined {
   return defaults.find((p) => p.slug === slug);
@@ -42,7 +49,7 @@ export function applyLivePackages(rows: LivePackageRow[]): void {
     const source = bySlug.get(pkg.slug) ?? base;
     pkg.name = source.name;
     pkg.description = source.description;
-    pkg.tiers = structuredClone(source.tiers);
+    pkg.tiers = clone(source.tiers);
   }
 
   for (const row of rows) {
@@ -51,7 +58,7 @@ export function applyLivePackages(rows: LivePackageRow[]): void {
       slug: row.slug,
       name: row.name,
       description: row.description,
-      tiers: structuredClone(row.tiers),
+      tiers: clone(row.tiers),
       custom: true,
     });
   }
