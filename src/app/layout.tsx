@@ -10,6 +10,7 @@ import { loadLivePackages } from "@/lib/packages/live-server";
 import { SiteChrome } from "@/components/layout/site-chrome";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
+import { Analytics } from "@vercel/analytics/next";
 
 // One typeface sitewide — body copy, UI, mono-style figures and headings
 // all render in Montserrat (at different weights), instead of the
@@ -76,6 +77,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <KitProvider>
           <SiteChrome>{children}</SiteChrome>
         </KitProvider>
+        <Analytics />
       </body>
     </html>
   );
