@@ -32,6 +32,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
+  const lensTypeRoutes: MetadataRoute.Sitemap = ["cine-lens", "photo-lens"].map((type) => ({
+    url: `${SITE_URL}/equipment/lenses/${type}`,
+    changeFrequency: "daily",
+    priority: 0.7,
+  }));
+
   const productRoutes: MetadataRoute.Sitemap = products.map((product) => ({
     url: `${SITE_URL}/equipment/${product.slug}`,
     changeFrequency: "daily",
@@ -44,5 +50,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...productRoutes, ...packageRoutes];
+  return [...staticRoutes, ...categoryRoutes, ...lensTypeRoutes, ...productRoutes, ...packageRoutes];
 }
