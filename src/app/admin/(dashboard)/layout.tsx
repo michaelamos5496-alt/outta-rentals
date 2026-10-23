@@ -37,6 +37,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
             <Link prefetch={false} href="/admin" className="mb-8 block px-2 pt-2" aria-label="Admin dashboard">
               <Image
                 src="/brand/outta-logo-dark.png"
+                unoptimized
                 alt="OUTTA Rentals"
                 width={595}
                 height={225}

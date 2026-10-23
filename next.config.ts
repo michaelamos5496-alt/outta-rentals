@@ -23,6 +23,14 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
+    // Every distinct (image, width) pair is one billed Image Transformation,
+    // so keep the width list short (the defaults have 16 widths up to 3840)
+    // and keep each result cached for 31 days instead of re-transforming it.
+    deviceSizes: [640, 1200, 1920],
+    imageSizes: [128, 384],
+    formats: ["image/webp"],
+    qualities: [75],
+    minimumCacheTTL: 2678400,
     remotePatterns: [
       { protocol: "https", hostname: "images.pexels.com" },
       // Admin-uploaded product photos (Supabase Storage).

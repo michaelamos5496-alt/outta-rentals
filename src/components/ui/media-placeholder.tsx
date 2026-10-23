@@ -2,6 +2,7 @@ import * as React from "react";
 import Image from "next/image";
 
 import { cn } from "@/lib/utils";
+import { isPreOptimized } from "@/lib/image-optimization";
 
 /**
  * Cinematic stand-in for real photography/video. When a product has no
@@ -58,6 +59,7 @@ function MediaPlaceholder({
           alt={alt}
           fill
           priority={priority}
+          unoptimized={isPreOptimized(src)}
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className={isContain ? "object-contain p-1" : "object-cover"}
         />
@@ -105,6 +107,7 @@ function MediaPlaceholder({
       <div className="absolute inset-0 ring-1 ring-inset ring-foreground/10" />
       <Image
         src="/brand/outta-logo.png"
+        unoptimized
         alt=""
         aria-hidden
         width={595}

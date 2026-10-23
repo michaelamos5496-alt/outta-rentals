@@ -4,6 +4,7 @@ import * as React from "react";
 import Image from "next/image";
 
 import { cn } from "@/lib/utils";
+import { isPreOptimized } from "@/lib/image-optimization";
 
 export interface AutoplayVideoProps extends React.ComponentProps<"div"> {
   src: string;
@@ -73,6 +74,7 @@ function AutoplayVideo({ src, poster, alt, className, ...props }: AutoplayVideoP
           src={poster}
           alt={alt}
           fill
+          unoptimized={isPreOptimized(poster)}
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover"
         />

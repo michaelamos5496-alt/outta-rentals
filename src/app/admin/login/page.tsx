@@ -38,6 +38,7 @@ export default function AdminLoginPage() {
     <div className="flex min-h-svh flex-col items-center justify-center bg-brand px-4 py-12">
       <Image
         src="/brand/outta-logo-dark.png"
+        unoptimized
         alt="OUTTA Rentals"
         width={595}
         height={225}

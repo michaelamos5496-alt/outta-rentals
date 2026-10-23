@@ -37,10 +37,14 @@ async function requireAdmin() {
   return session;
 }
 
+/**
+ * Product names, prices, photos and status ride along in the root layout on
+ * every public page, so a product edit refreshes the whole site. Pages are
+ * only marked stale here — each one re-renders on its next visit.
+ */
 function revalidateStorefront() {
   invalidateProductCache();
-  revalidatePath("/equipment", "layout");
-  revalidatePath("/", "page");
+  revalidatePath("/", "layout");
 }
 
 // ---------------------------------------------------------------- Products
@@ -176,6 +180,8 @@ export async function updateQuoteDatesAction(id: string, startDate: string, endD
     return { ok: false as const, error: "Choose a valid start and end date." };
   }
   const result = await updateQuoteDates(id, startDate, endDate);
+  // A confirmed order's bookings move with its dates — refresh booked dates.
+  revalidatePath("/equipment", "layout");
   revalidatePath(`/admin/quotes/${id}`);
   revalidatePath("/admin/quotes");
   revalidatePath("/admin/orders", "layout");
@@ -207,6 +213,8 @@ export async function setProductUnitsAction(slug: string, units: number) {
   }
   const ok = await setProductUnits(slug, units);
   revalidatePath("/admin/inventory");
+  // Units owned decide which days count as fully booked on product pages.
+  revalidatePath("/equipment", "layout");
   return ok;
 }
 

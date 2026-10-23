@@ -16,6 +16,7 @@ function Footer() {
       {/* Oversized watermark of the real logo, bleeding off the edge — a texture, not a UI element. Dropped on mobile to keep the footer minimal. */}
       <Image
         src="/brand/outta-logo.png"
+        unoptimized
         alt=""
         aria-hidden
         width={1190}
@@ -28,6 +29,7 @@ function Footer() {
           <Link href="/" className="inline-block">
             <Image
               src="/brand/outta-logo.png"
+              unoptimized
               alt={siteConfig.name}
               width={595}
               height={225}
@@ -56,6 +58,7 @@ function Footer() {
             <Link href="/" className="inline-block">
               <Image
                 src="/brand/outta-logo.png"
+                unoptimized
                 alt={siteConfig.name}
                 width={595}
                 height={225}

@@ -56,8 +56,11 @@ const organizationJsonLd = {
   sameAs: [siteConfig.instagramUrl],
 };
 
-// Re-read prices/names/photos from the database at most once a minute.
-export const revalidate = 60;
+// Every page carries the live prices/names/photos, so admin saves refresh the
+// whole site on demand (revalidatePath("/", "layout") in lib/admin/actions).
+// This daily re-read is only a safety net — a short timer here re-renders
+// every page on the site over and over and burns Vercel's ISR write quota.
+export const revalidate = 86400;
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const liveCatalogue = await loadLiveCatalogue();

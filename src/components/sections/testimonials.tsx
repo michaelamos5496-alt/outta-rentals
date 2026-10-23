@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { testimonials } from "@/lib/placeholder-data";
 import { testimonialImages } from "@/lib/editorial-images";
+import { isPreOptimized } from "@/lib/image-optimization";
 
 // Hover (or focus/tap) a thumbnail to feature it — its photo crossfades
 // into the large frame, its quote appears alongside, and the thumbnail
@@ -52,6 +53,7 @@ function Testimonials() {
                   src={testimonialImages[active % testimonialImages.length]}
                   alt={testimonial.role}
                   fill
+                  unoptimized={isPreOptimized(testimonialImages[active % testimonialImages.length])}
                   sizes="256px"
                   className="object-cover"
                 />
@@ -97,6 +99,7 @@ function Testimonials() {
                 src={testimonialImages[i % testimonialImages.length]}
                 alt={item.role}
                 fill
+                unoptimized={isPreOptimized(testimonialImages[i % testimonialImages.length])}
                 sizes="80px"
                 className="object-cover"
               />

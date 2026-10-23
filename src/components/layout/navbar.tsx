@@ -426,6 +426,7 @@ function Navbar() {
             >
               <Image
                 src="/brand/outta-logo.png"
+                unoptimized
                 alt={siteConfig.name}
                 width={595}
                 height={225}
@@ -511,6 +512,7 @@ function Navbar() {
               <div className="flex h-16 shrink-0 items-center justify-between sm:h-20">
                 <Image
                   src="/brand/outta-logo.png"
+                  unoptimized
                   alt={siteConfig.name}
                   width={595}
                   height={225}

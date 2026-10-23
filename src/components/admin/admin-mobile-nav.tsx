@@ -22,6 +22,7 @@ function AdminMobileNav({ email }: { email: string }) {
       <Link prefetch={false} href="/admin" aria-label="Admin dashboard">
         <Image
           src="/brand/outta-logo-dark.png"
+          unoptimized
           alt="OUTTA Rentals"
           width={595}
           height={225}
@@ -58,6 +59,7 @@ function AdminMobileNav({ email }: { email: string }) {
           <SheetTitle className="sr-only">Admin menu</SheetTitle>
           <Image
             src="/brand/outta-logo-dark.png"
+            unoptimized
             alt="OUTTA Rentals"
             width={595}
             height={225}

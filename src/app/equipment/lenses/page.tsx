@@ -4,7 +4,7 @@ import { fetchProductsByCategory } from "@/lib/catalogue/db";
 import { CatalogueView } from "@/components/catalogue/catalogue-view";
 import { LensTypeTabs } from "@/components/catalogue/lens-type-tabs";
 
-export const revalidate = 60; // seconds — keep inventory reasonably fresh once a real DB is connected
+export const revalidate = 86400; // daily safety net — admin edits refresh it straight away (see revalidateStorefront)
 
 export const metadata: Metadata = {
   title: "Lenses",
