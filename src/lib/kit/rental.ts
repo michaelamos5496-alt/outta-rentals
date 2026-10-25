@@ -26,14 +26,30 @@ export function todayIso(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
-/** Inclusive day count: a same-day rental is 1 day, next-day is 2 days. */
-export function calculateRentalDays(startDate: string, endDate: string): number | null {
+function minutesOf(time: string | undefined): number {
+  const match = /^(\d{2}):(\d{2})$/.exec(time ?? "");
+  return match ? Number(match[1]) * 60 + Number(match[2]) : minutesOf(DEFAULT_TIME);
+}
+
+/**
+ * Rental days are charged per 24 hours from pickup to return, rounded up:
+ * a same-day rental is 1 day, today 1 PM → tomorrow 1 PM (or earlier) is
+ * 1 day, and tomorrow 2 PM is 2 days. Without times, pickup and return are
+ * assumed to be at the same time of day, so next-day is 1 day.
+ */
+export function calculateRentalDays(
+  startDate: string,
+  endDate: string,
+  startTime?: string,
+  endTime?: string
+): number | null {
   const start = parseDate(startDate);
   const end = parseDate(endDate);
   if (!start || !end) return null;
-  const diff = Math.round((end.getTime() - start.getTime()) / MS_PER_DAY);
-  if (diff < 0) return null;
-  return diff + 1;
+  const nights = Math.round((end.getTime() - start.getTime()) / MS_PER_DAY);
+  if (nights < 0) return null;
+  const minutes = nights * 24 * 60 + minutesOf(endTime) - minutesOf(startTime);
+  return Math.max(1, Math.ceil(minutes / (24 * 60)));
 }
 
 export interface DateRangeValidation {

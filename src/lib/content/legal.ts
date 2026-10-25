@@ -154,7 +154,7 @@ export const rentalTerms: LegalDocument = {
       heading: "1. Booking and confirmation",
       body: [
         "A rental is confirmed once OUTTA reviews your kit request, confirms equipment availability for your dates, and both parties agree on final pricing. Sending a kit request does not itself reserve equipment.",
-        "Rental periods are calculated in full days from pickup/delivery to return, inclusive of the start date.",
+        "Rental periods are charged per 24 hours from pickup/delivery to return, rounded up to the next full day. For example, pickup at 1:00 PM and return by 1:00 PM the next day is one day; a same-day rental is also one day.",
       ],
     },
     {

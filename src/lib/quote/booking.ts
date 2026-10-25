@@ -41,6 +41,8 @@ export interface BookingInput {
   items: unknown;
   startDate?: unknown;
   endDate?: unknown;
+  startTime?: unknown;
+  endTime?: unknown;
 }
 
 export type BuiltBooking =
@@ -92,7 +94,9 @@ export function buildBooking(input: BookingInput): BuiltBooking {
   const startDate = typeof input.startDate === "string" ? input.startDate : "";
   const endDate = typeof input.endDate === "string" ? input.endDate : "";
   const datesValid = validateDateRange(startDate, endDate).valid;
-  const rentalDays = datesValid ? calculateRentalDays(startDate, endDate) : null;
+  const startTime = typeof input.startTime === "string" ? input.startTime : undefined;
+  const endTime = typeof input.endTime === "string" ? input.endTime : undefined;
+  const rentalDays = datesValid ? calculateRentalDays(startDate, endDate, startTime, endTime) : null;
 
   // Priced as one day when there are no valid dates, just to work out which
   // package groups are genuine; the stored total stays null in that case.

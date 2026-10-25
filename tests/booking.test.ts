@@ -4,6 +4,7 @@ import { describe, it } from "node:test";
 import { buildBooking } from "@/lib/quote/booking";
 import { buildWhatsAppMessage } from "@/lib/quote/whatsapp";
 import { resolveKitBreakdown } from "@/lib/kit/pricing";
+import { calculateRentalDays } from "@/lib/kit/rental";
 import { getPackageBySlug, getTierBySlug, getTierPrice, getTierFullPrice } from "@/lib/packages";
 import { getProductBySlug } from "@/lib/catalogue";
 import { groupQuoteKit, isPackageOrder, quotePackageLabel } from "@/lib/admin/order-view";
@@ -12,7 +13,7 @@ import { formatPrice } from "@/lib/currency";
 import type { AdminQuote } from "@/lib/admin/types";
 
 const ONE_DAY = { startDate: "2030-03-04", endDate: "2030-03-04" };
-const THREE_DAYS = { startDate: "2030-03-04", endDate: "2030-03-06" };
+const THREE_DAYS = { startDate: "2030-03-04", endDate: "2030-03-07" };
 
 function packageCart(packageSlug = "commercial", tierSlug = "lite") {
   const pkg = getPackageBySlug(packageSlug)!;
@@ -321,5 +322,31 @@ describe("admin order display", () => {
       pkg.name = original.name;
       pkg.tiers = original.tiers;
     }
+  });
+});
+
+describe("rental day count", () => {
+  it("charges per 24 hours from pickup to return", () => {
+    assert.equal(calculateRentalDays("2030-03-04", "2030-03-04", "09:00", "17:00"), 1);
+    assert.equal(calculateRentalDays("2030-03-04", "2030-03-05", "13:00", "13:00"), 1);
+    assert.equal(calculateRentalDays("2030-03-04", "2030-03-05", "13:00", "12:00"), 1);
+    assert.equal(calculateRentalDays("2030-03-04", "2030-03-05", "13:00", "14:00"), 2);
+    assert.equal(calculateRentalDays("2030-03-04", "2030-03-07", "09:00", "09:00"), 3);
+    assert.equal(calculateRentalDays("2030-03-04", "2030-03-05"), 1);
+    assert.equal(calculateRentalDays("2030-03-05", "2030-03-04"), null);
+  });
+
+  it("the server prices with the pickup and return times", () => {
+    const items = [{ productSlug: "sony-fx3", quantity: 1 }];
+    const booked = buildBooking({
+      items,
+      startDate: "2030-03-04",
+      endDate: "2030-03-05",
+      startTime: "13:00",
+      endTime: "12:00",
+    });
+    assert.ok(booked.ok);
+    assert.equal(booked.rentalDays, 1);
+    assert.equal(booked.estimatedTotal, getProductBySlug("sony-fx3")!.dayRate);
   });
 });

@@ -170,7 +170,7 @@ export function KitProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const { valid, error } = validateDateRange(state.startDate, state.endDate);
-  const rentalDays = valid ? calculateRentalDays(state.startDate, state.endDate) : null;
+  const rentalDays = valid ? calculateRentalDays(state.startDate, state.endDate, state.startTime, state.endTime) : null;
   const itemCount = state.items.reduce((sum, i) => sum + i.quantity, 0);
 
   const value: KitContextValue = {

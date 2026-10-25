@@ -59,6 +59,8 @@ function SendKitButton({
       })),
       startDate: validStart,
       endDate: validEnd,
+      startTime: validEnd ? startTime : undefined,
+      endTime: validEnd ? endTime : undefined,
       customerName: projectInfo.customerName,
       customerPhone: projectInfo.customerPhone,
       projectName: projectInfo.projectName,

@@ -13,6 +13,8 @@ export interface KitRequestInput {
   items: { productSlug: string; quantity: number; packageSlug?: string; packageTierSlug?: string }[];
   startDate?: string;
   endDate?: string;
+  startTime?: string;
+  endTime?: string;
   customerName?: string;
   customerPhone?: string;
   projectName?: string;
