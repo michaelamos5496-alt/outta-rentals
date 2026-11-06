@@ -9,7 +9,7 @@ import { loadLiveCatalogue } from "@/lib/catalogue/live-server";
 import { LivePackages } from "@/components/packages/live-packages";
 import { loadLivePackages } from "@/lib/packages/live-server";
 import { SiteChrome } from "@/components/layout/site-chrome";
-import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/seo";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, SITE_TITLE } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
 
 // One typeface sitewide — body copy, UI, mono-style figures and headings
@@ -24,10 +24,19 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — Professional Production Equipment`,
+    default: SITE_TITLE,
     template: `%s — ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
+  keywords: [
+    "camera rental Accra",
+    "camera hire Ghana",
+    "film equipment rental Accra",
+    "cine lens rental Accra",
+    "lighting rental Accra",
+    "video equipment rental Ghana",
+  ],
+  alternates: { canonical: "/" },
   icons: {
     // /favicon.ico is picked up automatically from src/app/favicon.ico.
     icon: [{ url: "/brand/outta-favicon.png", type: "image/png", sizes: "512x512" }],
@@ -36,23 +45,42 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
-    title: `${SITE_NAME} — Professional Production Equipment`,
+    title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     url: "/",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} — Professional Production Equipment`,
+    title: SITE_TITLE,
     description: SITE_DESCRIPTION,
   },
 };
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": ["LocalBusiness", "Store"],
+  "@id": `${SITE_URL}/#business`,
   name: SITE_NAME,
   url: SITE_URL,
   description: SITE_DESCRIPTION,
+  image: `${SITE_URL}/brand/outta-logo.png`,
+  logo: `${SITE_URL}/brand/outta-logo.png`,
+  email: siteConfig.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "53 Mantse Boi Street",
+    addressLocality: "Accra",
+    addressCountry: "GH",
+  },
+  hasMap: siteConfig.mapsUrl,
+  areaServed: { "@type": "City", name: "Accra" },
+  makesOffer: [
+    "Camera rental",
+    "Cine lens rental",
+    "Lighting rental",
+    "Grip rental",
+    "Audio equipment rental",
+  ].map((name) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name } })),
   sameAs: [siteConfig.instagramUrl],
 };
 

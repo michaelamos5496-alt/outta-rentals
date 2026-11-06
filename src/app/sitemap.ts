@@ -5,6 +5,7 @@ import { SITE_URL } from "@/lib/seo";
 import { categorySlugs } from "@/lib/catalogue/categories";
 import { fetchAllProducts } from "@/lib/catalogue/db";
 import { getAllPackages } from "@/lib/packages";
+import { rentPages } from "@/lib/content/rent-pages";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const products = await fetchAllProducts();
@@ -38,6 +39,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
+  const rentRoutes: MetadataRoute.Sitemap = rentPages.map((p) => ({
+    url: `${SITE_URL}/rent/${p.slug}`,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
   const productRoutes: MetadataRoute.Sitemap = products.map((product) => ({
     url: `${SITE_URL}/equipment/${product.slug}`,
     changeFrequency: "daily",
@@ -50,5 +57,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...lensTypeRoutes, ...productRoutes, ...packageRoutes];
+  return [...staticRoutes, ...rentRoutes, ...categoryRoutes, ...lensTypeRoutes, ...productRoutes, ...packageRoutes];
 }

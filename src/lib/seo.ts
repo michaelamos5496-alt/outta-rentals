@@ -15,7 +15,9 @@ export const SITE_URL = (
 export const SITE_NAME = "OUTTA RENTALS";
 
 export const SITE_DESCRIPTION =
-  "OUTTA RENTALS is a premium film, photography and production-equipment rental company — cameras, lenses, lighting, grip and audio for serious productions.";
+  "Camera rental in Accra, Ghana. OUTTA RENTALS hires out cinema cameras, cine lenses, lighting, grip and audio for film, photo and video productions — with delivery and collection across Accra.";
+
+export const SITE_TITLE = `${SITE_NAME} — Camera & Film Equipment Rental in Accra, Ghana`;
 
 export function absoluteUrl(path: string): string {
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;

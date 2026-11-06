@@ -46,6 +46,8 @@ export const footerLinkGroups: FooterLinkGroup[] = [
       { label: "Lenses", href: "/equipment/lenses" },
       { label: "Lighting", href: "/equipment/lighting" },
       { label: "Grip", href: "/equipment/grip" },
+      { label: "Camera Rental Accra", href: "/rent/camera-rental-accra" },
+      { label: "Film Equipment Rental", href: "/rent/film-equipment-rental-accra" },
     ],
   },
   {
