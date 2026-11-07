@@ -546,31 +546,6 @@ export interface Fx3Tab {
 
 export const fx3Tabs: Fx3Tab[] = [
   {
-    id: "main",
-    label: "Main",
-    groups: [
-      {
-        title: "Main",
-        items: [
-          "recFrameRate",
-          "shutterSpeed",
-          "shutterAngle",
-          "aperture",
-          "iso",
-          "exposureIndex",
-          "whiteBalance",
-          "pictureProfile",
-          "fileFormat",
-          "recordSetting",
-          "proxyRecording",
-          "audioLevel",
-          "focusMode",
-          "focusArea",
-        ],
-      },
-    ],
-  },
-  {
     id: "shooting",
     label: "Shooting",
     groups: [
@@ -619,6 +594,28 @@ export const fx3Tabs: Fx3Tab[] = [
       { title: "Setup Option", items: ["system"] },
     ],
   },
+];
+
+/**
+ * The Main tab's two pages of tiles, in the order Sony's Help Guide numbers
+ * them for movie shooting. Media and file tiles are left out.
+ */
+export const fx3MainPages: (keyof Fx3State)[][] = [
+  [
+    "recFrameRate",
+    "shutterSpeed",
+    "aperture",
+    "iso",
+    "whiteBalance",
+    "pictureProfile",
+    "fileFormat",
+    "recordSetting",
+    "gammaAssist",
+    "proxyRecording",
+    "windNoise",
+    "audioLevel",
+  ],
+  ["logShooting", "exposureMode", "steadyShot", "focusMode", "focusArea", "faceEye"],
 ];
 
 /** Options for an item, with SteadyShot's Active removed at high frame rates. */
