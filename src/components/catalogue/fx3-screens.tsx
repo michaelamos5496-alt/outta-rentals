@@ -415,6 +415,7 @@ function LiveScreen({
   seconds,
   showInfo,
   magnified,
+  peaking,
   focusFlash,
   onPick,
 }: {
@@ -423,6 +424,7 @@ function LiveScreen({
   seconds: number;
   showInfo: boolean;
   magnified: boolean;
+  peaking: boolean;
   focusFlash: boolean;
   onPick: (item: Fx3Item) => void;
 }) {
@@ -496,6 +498,17 @@ function LiveScreen({
             className="absolute top-[20%] right-[16%] h-1/4 w-1/4 rounded-full opacity-60"
             style={{ backgroundImage: "repeating-linear-gradient(45deg,#fff 0 0.4cqw,transparent 0.4cqw 1.2cqw)" }}
           />
+        ) : null}
+        {peaking ? (
+          <svg aria-hidden viewBox="0 0 100 60" className="absolute inset-[14%] opacity-90" preserveAspectRatio="none">
+            <path
+              d="M38 52 C36 40 40 30 50 28 C60 30 64 40 62 52 M44 22 C44 14 56 14 56 22 C56 28 44 28 44 22"
+              fill="none"
+              stroke="#ff3b30"
+              strokeWidth="0.8"
+              strokeDasharray="1.2 1"
+            />
+          </svg>
         ) : null}
         {magnified ? (
           <>

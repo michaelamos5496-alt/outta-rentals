@@ -38,9 +38,9 @@ import {
  */
 
 const SCREEN_FONT = { fontFamily: "Helvetica, Arial, sans-serif" };
-// The top plate and rear panel together are about 0.83× as tall as they are
+// The top plate and rear panel together are about 0.95× as tall as they are
 // wide; cap the width so the whole camera fits the viewer without scrolling.
-const CAMERA_WIDTH = { maxWidth: "min(64rem, calc((100dvh - 16rem) * 1.2))" };
+const CAMERA_WIDTH = { maxWidth: "min(64rem, calc((100dvh - 16rem) * 1.05))" };
 type Direction = "up" | "down" | "left" | "right" | "center";
 
 /** Main tiles swap to the matching item for the current setup. */
@@ -77,6 +77,7 @@ function Fx3Simulator() {
   const [deleting, setDeleting] = React.useState<number | null>(null);
   const [showInfo, setShowInfo] = React.useState(true);
   const [magnified, setMagnified] = React.useState(false);
+  const [peaking, setPeaking] = React.useState(false);
   const [focusFlash, setFocusFlash] = React.useState(false);
   const [guide, setGuide] = React.useState(false);
   const [part, setPart] = React.useState<Fx3Part | null>(null);
@@ -245,11 +246,16 @@ function Fx3Simulator() {
     }
     if (view === "menu") return moveMenu(direction);
 
-    // Shooting screen: DISP on top, zebras on the left.
+    // Shooting screen: the wheel's printed functions — DISP, PEAKING,
+    // SHUTTER and ZEBRA.
     if (direction === "up") setShowInfo((v) => !v);
-    else if (direction === "left") choose(fx3Items.zebra, state.zebra === "On" ? "Off" : "On");
+    else if (direction === "right") {
+      setNotice(peaking ? "Peaking Display: Off" : "Peaking Display: On");
+      setPeaking(!peaking);
+    } else if (direction === "down") {
+      openPicker(state.shutterMode === "Angle" ? fx3Items.shutterAngle : fx3Items.shutterSpeed);
+    } else if (direction === "left") choose(fx3Items.zebra, state.zebra === "On" ? "Off" : "On");
     else if (direction === "center" && magnified) setMagnified(false);
-    else if (direction !== "center") setNotice("Nothing is assigned to that side of the wheel in this simulator.");
   }
 
   function confirmDelete(choice: number) {
@@ -393,6 +399,7 @@ function Fx3Simulator() {
             seconds={seconds}
             showInfo={showInfo && fn === null}
             magnified={magnified}
+            peaking={peaking}
             focusFlash={focusFlash}
             onPick={openPicker}
           />
@@ -509,6 +516,7 @@ function Fx3Simulator() {
             setPicking(null);
             setFn(null);
             setClips([]);
+            setPeaking(false);
             setView("live");
             setPower(true);
             setNotice("Settings reset to the starting setup.");
