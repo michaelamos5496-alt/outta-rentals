@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { ArrowUpRight, LoaderCircle, MonitorPlay, X } from "lucide-react";
 
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
@@ -10,9 +11,15 @@ import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { getCameraSimulator, type CameraSimulator } from "@/lib/camera-simulators";
 
+// Only downloaded once someone opens the FX3 viewer.
+const Fx3Simulator = dynamic(() => import("@/components/catalogue/fx3-simulator"), {
+  ssr: false,
+  loading: () => <Loading />,
+});
+
 /**
- * "Try the camera menu" card for ARRI bodies that have a simulator. Renders
- * nothing for other products. ARRI's app only loads once the viewer is
+ * "Try the camera menu" card for bodies that have a simulator. Renders
+ * nothing for other products. The simulator only loads once the viewer is
  * opened, so product pages don't pay for it on every visit.
  */
 function CameraSimulatorCard({
@@ -48,7 +55,7 @@ function CameraSimulatorCard({
   );
 }
 
-/** Full-screen, OUTTA-branded frame around ARRI's simulator app. */
+/** Full-screen, OUTTA-branded frame around a camera simulator. */
 function CameraSimulatorViewer({
   simulator,
   open,
@@ -81,7 +88,7 @@ function CameraSimulatorViewer({
                 {simulator.cameraName} Simulator
               </DialogTitle>
               <DialogDescription className="truncate text-xs text-white/70">
-                Interactive camera menu by ARRI
+                {simulator.kind === "arri" ? "Interactive camera menu by ARRI" : "Menu practice by OUTTA RENTALS"}
               </DialogDescription>
             </div>
           </div>
@@ -99,19 +106,25 @@ function CameraSimulatorViewer({
 
         <div className="relative min-h-0 flex-1">
           {/* Radix unmounts the content when closed, so each open starts fresh. */}
-          <SimulatorFrame simulator={simulator} />
+          {simulator.kind === "arri" ? <ArriFrame simulator={simulator} /> : <Fx3Simulator />}
         </div>
 
         <div className="flex shrink-0 items-center justify-between gap-3 bg-brand px-3 py-2 text-xs text-white/70 sm:px-5">
-          <span>Simulator &copy; ARRI. Rent the {simulator.cameraName} from {siteConfig.name}.</span>
-          <a
-            href={simulator.arriPage}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex shrink-0 items-center gap-1 hover:text-white"
-          >
-            arri.com <ArrowUpRight className="size-3" />
-          </a>
+          {simulator.kind === "arri" ? (
+            <>
+              <span>Simulator &copy; ARRI. Rent the {simulator.cameraName} from {siteConfig.name}.</span>
+              <a
+                href={simulator.arriPage}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex shrink-0 items-center gap-1 hover:text-white"
+              >
+                arri.com <ArrowUpRight className="size-3" />
+              </a>
+            </>
+          ) : (
+            <span>Rent the {simulator.cameraName} from {siteConfig.name}.</span>
+          )}
         </div>
       </DialogContent>
     </Dialog>
@@ -123,17 +136,12 @@ function CameraSimulatorViewer({
  * to fit once it has (its own `autofit` on window load). Keep it hidden behind
  * a spinner until then so viewers never see it oversized.
  */
-function SimulatorFrame({ simulator }: { simulator: CameraSimulator }) {
+function ArriFrame({ simulator }: { simulator: Extract<CameraSimulator, { kind: "arri" }> }) {
   const [loaded, setLoaded] = React.useState(false);
 
   return (
     <>
-      {!loaded ? (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-sm text-white/70">
-          <LoaderCircle className="size-6 animate-spin" />
-          Loading simulator&hellip;
-        </div>
-      ) : null}
+      {!loaded ? <Loading /> : null}
       <iframe
         src={simulator.url}
         title={`${simulator.cameraName} camera simulator`}
@@ -145,6 +153,15 @@ function SimulatorFrame({ simulator }: { simulator: CameraSimulator }) {
         allow="fullscreen"
       />
     </>
+  );
+}
+
+function Loading() {
+  return (
+    <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-sm text-white/70">
+      <LoaderCircle className="size-6 animate-spin" />
+      Loading simulator&hellip;
+    </div>
   );
 }
 
