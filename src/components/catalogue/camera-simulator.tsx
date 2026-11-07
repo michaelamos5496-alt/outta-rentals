@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { ArrowUpRight, LoaderCircle, MonitorPlay, X } from "lucide-react";
+import { ArrowUpRight, LoaderCircle, MonitorPlay, Smartphone, X } from "lucide-react";
 
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -64,7 +64,10 @@ function CameraSimulatorViewer({
         showCloseButton={false}
         className="top-0 left-0 flex h-dvh w-screen max-w-none translate-x-0 translate-y-0 flex-col gap-0 rounded-none bg-black p-0 ring-0 sm:max-w-none"
       >
-        <div className="flex h-14 shrink-0 items-center justify-between gap-3 bg-brand px-3 sm:h-16 sm:px-5">
+        {/* On short screens (a phone turned sideways) the header and footer
+            give way to a small logo and close button over the black margins,
+            so the simulator gets the full height. */}
+        <div className="flex h-14 shrink-0 items-center justify-between gap-3 bg-brand px-3 sm:h-16 sm:px-5 [@media(max-height:500px)]:hidden">
           <div className="flex min-w-0 items-center gap-3">
             <span className="inline-flex shrink-0 items-center rounded-lg bg-white px-2.5 py-1.5">
               <Image
@@ -100,9 +103,29 @@ function CameraSimulatorViewer({
         <div className="relative min-h-0 flex-1">
           {/* Radix unmounts the content when closed, so each open starts fresh. */}
           <ArriFrame simulator={simulator} />
+          <span className="absolute top-2 left-2 z-20 hidden items-center rounded-md bg-white px-2 py-1 [@media(max-height:500px)]:inline-flex">
+            <Image
+              src="/brand/outta-logo.png"
+              unoptimized
+              alt={siteConfig.name}
+              width={595}
+              height={225}
+              className="h-5 w-auto"
+            />
+          </span>
+          <DialogClose asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Close simulator"
+              className="absolute top-2 right-2 z-20 hidden bg-white/10 text-white hover:bg-white/20 hover:text-white [@media(max-height:500px)]:inline-flex"
+            >
+              <X />
+            </Button>
+          </DialogClose>
         </div>
 
-        <div className="flex shrink-0 items-center justify-between gap-3 bg-brand px-3 py-2 text-xs text-white/70 sm:px-5">
+        <div className="flex shrink-0 items-center justify-between gap-3 bg-brand px-3 py-2 text-xs text-white/70 sm:px-5 [@media(max-height:500px)]:hidden">
           <span>Simulator &copy; ARRI. Rent the {simulator.cameraName} from {siteConfig.name}.</span>
           <a
             href={simulator.arriPage}
@@ -119,35 +142,67 @@ function CameraSimulatorViewer({
 }
 
 /**
- * ARRI's app takes several seconds to load and only scales its 2880px canvas
- * to fit once it has (its own `autofit` on window load). Keep it hidden behind
- * a spinner until then so viewers never see it oversized.
+ * ARRI's app draws a fixed-size canvas, pins it top-left and scales it to fit
+ * its window once loaded (its own `autofit`), filling the rest with white. So
+ * the frame is sized to the canvas's own shape and centred on black, and the
+ * app stays hidden behind a spinner until it has loaded and fitted itself.
  */
 function ArriFrame({ simulator }: { simulator: CameraSimulator }) {
   const [loaded, setLoaded] = React.useState(false);
+  const [box, setBox] = React.useState<{ width: number; height: number; portrait: boolean } | null>(null);
+  const [rotateHint, setRotateHint] = React.useState(true);
+  const areaRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const area = areaRef.current;
+    if (!area) return;
+    const { width: cw, height: ch, maxScale } = simulator.canvas;
+    const fit = () => {
+      const { width, height } = area.getBoundingClientRect();
+      const scale = Math.min(width / cw, height / ch, maxScale);
+      setBox({ width: Math.floor(cw * scale), height: Math.floor(ch * scale), portrait: height > width && width < 768 });
+    };
+    fit();
+    const observer = new ResizeObserver(fit);
+    observer.observe(area);
+    return () => observer.disconnect();
+  }, [simulator.canvas]);
 
   return (
-    <>
-      {!loaded ? <Loading /> : null}
-      <iframe
-        src={simulator.url}
-        title={`${simulator.cameraName} camera simulator`}
-        onLoad={() => setLoaded(true)}
-        className={cn(
-          "relative size-full border-0 bg-white transition-opacity",
-          loaded ? "opacity-100" : "opacity-0"
-        )}
-        allow="fullscreen"
-      />
-    </>
-  );
-}
-
-function Loading() {
-  return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-sm text-white/70">
-      <LoaderCircle className="size-6 animate-spin" />
-      Loading simulator&hellip;
+    <div ref={areaRef} className="absolute inset-0 flex items-center justify-center bg-black">
+      {!loaded ? (
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center text-sm text-white/70">
+          <LoaderCircle className="size-6 animate-spin" />
+          <p>
+            Loading simulator&hellip;
+            <br />
+            <span className="text-xs text-white/50">ARRI&rsquo;s simulator can take up to a minute to load.</span>
+          </p>
+        </div>
+      ) : null}
+      {box ? (
+        <iframe
+          src={simulator.url}
+          title={`${simulator.cameraName} camera simulator`}
+          onLoad={() => setLoaded(true)}
+          style={{ width: box.width, height: box.height }}
+          className={cn("shrink-0 border-0 bg-white transition-opacity", loaded ? "opacity-100" : "opacity-0")}
+          allow="fullscreen"
+        />
+      ) : null}
+      {box?.portrait && rotateHint ? (
+        <button
+          type="button"
+          onClick={() => setRotateHint(false)}
+          className="absolute inset-x-4 top-4 z-10 flex items-center gap-3 rounded-xl bg-white/10 px-4 py-3 text-left text-sm text-white backdrop-blur"
+        >
+          <Smartphone className="size-6 shrink-0 rotate-90 text-white/80" />
+          <span className="flex-1">
+            Rotate your phone for the best view.
+            <span className="block text-xs text-white/60">Tap to dismiss</span>
+          </span>
+        </button>
+      ) : null}
     </div>
   );
 }

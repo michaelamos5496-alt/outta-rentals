@@ -11,6 +11,11 @@ export interface CameraSimulator {
   cameraName: string;
   url: string;
   arriPage: string;
+  /**
+   * The app's fixed-size canvas (its `.sizer` element) and the largest scale
+   * its own autofit allows — used to size the frame to the app's shape.
+   */
+  canvas: { width: number; height: number; maxScale: number };
 }
 
 export const cameraSimulators: CameraSimulator[] = [
@@ -20,6 +25,7 @@ export const cameraSimulators: CameraSimulator[] = [
     cameraName: "ALEXA Mini LF",
     url: "https://tools.arri.com/fileadmin/adapps/simulators/mini-lf/",
     arriPage: "https://www.arri.com/en/learn/camera-systems/camera-simulators/alexa-mini-lf-simulator",
+    canvas: { width: 2880, height: 1850, maxScale: 0.58 },
   },
   {
     id: "alexa-mini",
@@ -27,6 +33,7 @@ export const cameraSimulators: CameraSimulator[] = [
     cameraName: "ALEXA Mini",
     url: "https://tools.arri.com/fileadmin/adapps/alexa_mini_simulator/index.html",
     arriPage: "https://www.arri.com/en/learn/camera-systems/camera-simulators/alexa-mini-simulator",
+    canvas: { width: 2048, height: 1547, maxScale: 1 },
   },
 ];
 
