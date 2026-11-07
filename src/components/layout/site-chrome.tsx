@@ -12,6 +12,7 @@ import { AddedToCartSheet } from "@/components/kit/added-to-cart-sheet";
 import { ConsultationPopup } from "@/components/consultation/consultation-popup";
 import { QuickViewProvider } from "@/components/catalogue/quick-view-provider";
 import { EquipmentQuickView } from "@/components/catalogue/equipment-quick-view";
+import { SimulatorWarmup } from "@/components/catalogue/simulator-warmup";
 
 /**
  * The admin backend has its own header/sidebar chrome (see
@@ -46,6 +47,7 @@ function SiteChrome({ children }: { children: React.ReactNode }) {
         <MobileTabBar />
         <ConsultationPopup />
         <EquipmentQuickView />
+        <SimulatorWarmup />
       </QuickViewProvider>
     </MobileNavProvider>
   );
