@@ -27,7 +27,7 @@ import { ProductGallery } from "@/components/catalogue/product-gallery";
 import { ProductActions } from "@/components/catalogue/product-actions";
 import { ProductShelf } from "@/components/catalogue/product-shelf";
 import { MobileStickyRent } from "@/components/catalogue/mobile-sticky-rent";
-import { CameraSimulatorCard } from "@/components/catalogue/camera-simulator";
+import { CameraSimulatorSection } from "@/components/catalogue/camera-simulator";
 
 export const revalidate = 60; // seconds — keep inventory reasonably fresh once a real DB is connected
 
@@ -223,10 +223,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 </ul>
               </div>
             ) : null}
-
-            <CameraSimulatorCard productSlug={product.slug} className="mt-8" />
           </div>
         </div>
+
+        <CameraSimulatorSection
+          productSlug={product.slug}
+          className="mt-16 border-t border-border pt-14 sm:mt-20 sm:pt-16"
+        />
 
         {specGroups.length > 0 ? (
           <div className="mt-16 border-t border-border pt-14 sm:mt-20 sm:pt-16">

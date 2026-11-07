@@ -9,6 +9,7 @@ import {
   ChevronDown,
   Contact,
   LoaderCircle,
+  MonitorPlay,
   ShoppingCart,
   Search,
   X,
@@ -163,10 +164,6 @@ const equipmentTabs: EquipmentTab[] = [
           { label: "Filters", href: "/equipment/filters" },
         ],
       },
-      {
-        heading: "Learn",
-        items: [{ label: "Camera Simulators", href: "/camera-simulators" }],
-      },
     ],
   },
   {
@@ -214,11 +211,14 @@ const equipmentTabs: EquipmentTab[] = [
 // scannability without changing what routes exist.
 const mobileNavGroups: { title: string; items: NavItem[] }[] = [
   {
+    title: "Try Before You Rent",
+    items: [{ label: "Camera Simulators", href: "/camera-simulators" }],
+  },
+  {
     title: "Equipment",
     items: [
       { label: "All Equipment", href: "/equipment" },
       ...equipmentTabs.map((tab) => ({ label: tab.label, href: tab.href })),
-      { label: "Camera Simulators", href: "/camera-simulators" },
     ],
   },
   ...(showWorkSection
@@ -447,6 +447,17 @@ function Navbar() {
             </ul>
 
             <div className="flex items-center gap-1">
+              {/* Standalone, always-visible entry to the camera simulators. */}
+              <Link
+                href="/camera-simulators"
+                className={cn(
+                  "mr-1 inline-flex h-8 items-center gap-1.5 rounded-full border border-white/50 px-2.5 text-[0.6875rem] font-semibold tracking-wider whitespace-nowrap text-white uppercase transition-colors hover:bg-white hover:text-brand sm:px-3.5 sm:text-xs",
+                  pathname === "/camera-simulators" && "bg-white text-brand"
+                )}
+              >
+                <MonitorPlay className="size-4 shrink-0" strokeWidth={2} />
+                <span className="hidden min-[360px]:inline">Simulators</span>
+              </Link>
               <Button
                 variant="ghost"
                 size="icon"

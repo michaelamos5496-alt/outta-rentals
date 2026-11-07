@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
-import { CameraSimulatorCard } from "@/components/catalogue/camera-simulator";
+import { CameraSimulatorSection } from "@/components/catalogue/camera-simulator";
 import { cameraSimulators } from "@/lib/camera-simulators";
 
 export const metadata: Metadata = {
@@ -28,17 +27,21 @@ export default function CameraSimulatorsPage() {
         </p>
       </div>
 
-      <div className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <nav aria-label="Simulators" className="mt-8 flex flex-wrap justify-center gap-2">
         {cameraSimulators.map((simulator) => (
-          <div key={simulator.id} className="flex flex-col gap-2">
-            <CameraSimulatorCard simulator={simulator} className="flex-1" />
-            <Link
-              href={`/equipment/${simulator.productSlugs[0]}`}
-              className="text-small inline-flex items-center gap-1 self-end hover:text-foreground"
-            >
-              Rent the {simulator.cameraName} <ArrowUpRight className="size-3.5" />
-            </Link>
-          </div>
+          <Link
+            key={simulator.id}
+            href={`#${simulator.id}`}
+            className="rounded-full border border-border px-4 py-1.5 text-sm font-medium transition-colors hover:border-brand hover:text-brand"
+          >
+            {simulator.cameraName}
+          </Link>
+        ))}
+      </nav>
+
+      <div className="mt-12 flex flex-col gap-16 sm:gap-20">
+        {cameraSimulators.map((simulator) => (
+          <CameraSimulatorSection key={simulator.id} simulator={simulator} showRentLink />
         ))}
       </div>
     </Section>

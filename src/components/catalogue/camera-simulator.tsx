@@ -1,9 +1,11 @@
 "use client";
 
 import * as React from "react";
+import { preconnect } from "react-dom";
 import Image from "next/image";
+import Link from "next/link";
 import dynamic from "next/dynamic";
-import { ArrowUpRight, LoaderCircle, MonitorPlay, Smartphone, X } from "lucide-react";
+import { ArrowUpRight, Expand, LoaderCircle, MonitorPlay, Play, Smartphone, X } from "lucide-react";
 
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -11,8 +13,102 @@ import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { getCameraSimulator, type ArriSimulator, type CameraSimulator } from "@/lib/camera-simulators";
 
-// OUTTA's own KOMODO simulator, only downloaded once its viewer opens.
-const KomodoSimulator = dynamic(() => import("@/components/catalogue/komodo-simulator"), { ssr: false });
+// OUTTA's own KOMODO simulator, loaded in the browser only.
+const KomodoSimulator = dynamic(() => import("@/components/catalogue/komodo-simulator"), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center text-white/60">
+      <LoaderCircle className="size-6 animate-spin" />
+    </div>
+  ),
+});
+
+/**
+ * The simulator as a section of the page rather than behind a button. The
+ * KOMODO (OUTTA's own, light) runs straight away. ARRI's apps are ~2–10 MB
+ * and slow to load, so they sit in place behind a Start button instead of
+ * costing every visitor that download; they then load inline. Either can be
+ * opened full screen.
+ */
+function CameraSimulatorSection({
+  productSlug,
+  simulator: given,
+  showRentLink,
+  className,
+}: {
+  productSlug?: string;
+  simulator?: CameraSimulator;
+  showRentLink?: boolean;
+  className?: string;
+}) {
+  const simulator = given ?? (productSlug ? getCameraSimulator(productSlug) : undefined);
+  const [started, setStarted] = React.useState(false);
+  const [fullScreen, setFullScreen] = React.useState(false);
+  // Warm up the connection to ARRI's server while the visitor reads the page.
+  if (simulator?.kind === "arri") preconnect("https://tools.arri.com");
+  if (!simulator) return null;
+
+  return (
+    <section id={simulator.id} className={cn("scroll-mt-24", className)}>
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div className="max-w-2xl">
+          <p className="text-label text-brand">Camera Simulator</p>
+          <h2 className="text-h2 mt-2">Try the {simulator.cameraName}</h2>
+          <p className="text-small mt-2">
+            {simulator.kind === "arri"
+              ? "ARRI's own interactive simulator — the real menus, buttons and screens. Practise your setup before you collect."
+              : "The KOMODO's touchscreen and buttons, laid out from RED's operation guide. Tap the screen or use the buttons to set up your shoot."}
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          {showRentLink ? (
+            <Button asChild variant="outline" size="sm">
+              <Link href={`/equipment/${simulator.productSlugs[0]}`}>
+                Rent the {simulator.cameraName} <ArrowUpRight />
+              </Link>
+            </Button>
+          ) : null}
+          <Button variant="outline" size="sm" onClick={() => setFullScreen(true)}>
+            <Expand /> Full screen
+          </Button>
+        </div>
+      </div>
+
+      <div className="mt-6 overflow-hidden rounded-2xl border border-border bg-black">
+        {simulator.kind === "komodo" ? (
+          <div className="relative mx-auto aspect-[1036/958] w-full max-w-3xl">
+            <KomodoSimulator />
+          </div>
+        ) : (
+          <div
+            className="relative mx-auto w-full max-w-5xl"
+            style={{ aspectRatio: `${simulator.canvas.width} / ${simulator.canvas.height}` }}
+          >
+            {started ? (
+              <ArriFrame simulator={simulator} />
+            ) : (
+              <button
+                type="button"
+                onClick={() => setStarted(true)}
+                className="group absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[radial-gradient(ellipse_at_center,#2b2d31_0%,#0b0b0c_75%)] px-6 text-center text-white"
+              >
+                <span className="flex size-16 items-center justify-center rounded-full bg-brand transition-transform group-hover:scale-105 sm:size-20">
+                  <Play className="ml-1 size-7 fill-current sm:size-9" />
+                </span>
+                <span className="text-base font-semibold sm:text-lg">Start the {simulator.cameraName} simulator</span>
+                <span className="max-w-sm text-xs text-white/60 sm:text-sm">
+                  Runs ARRI&rsquo;s simulator here on the page. It can take up to a minute to load on mobile.
+                </span>
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+
+      <CameraSimulatorViewer simulator={simulator} open={fullScreen} onOpenChange={setFullScreen} />
+    </section>
+  );
+}
 
 /**
  * "Try the camera menu" card for bodies that have a simulator. Renders
@@ -213,4 +309,4 @@ function ArriFrame({ simulator }: { simulator: ArriSimulator }) {
   );
 }
 
-export { CameraSimulatorCard };
+export { CameraSimulatorCard, CameraSimulatorSection };
