@@ -205,15 +205,12 @@ const equipmentTabs: EquipmentTab[] = [
       },
     ],
   },
+  { label: "Simulators", href: "/camera-simulators" },
 ];
 
 // Mobile-only grouping of the nav. Grouped headers give the mobile panel
 // scannability without changing what routes exist.
 const mobileNavGroups: { title: string; items: NavItem[] }[] = [
-  {
-    title: "Try Before You Rent",
-    items: [{ label: "Camera Simulators", href: "/camera-simulators" }],
-  },
   {
     title: "Equipment",
     items: [
@@ -447,17 +444,18 @@ function Navbar() {
             </ul>
 
             <div className="flex items-center gap-1">
-              {/* Standalone, always-visible entry to the camera simulators. */}
-              <Link
-                href="/camera-simulators"
-                className={cn(
-                  "mr-1 inline-flex h-8 items-center gap-1.5 rounded-full border border-white/50 px-2.5 text-[0.6875rem] font-semibold tracking-wider whitespace-nowrap text-white uppercase transition-colors hover:bg-white hover:text-brand sm:px-3.5 sm:text-xs",
-                  pathname === "/camera-simulators" && "bg-white text-brand"
-                )}
+              {/* On desktop Simulators is a tab in the row; on smaller
+                  screens, where the tabs live in the menu, it's an icon here. */}
+              <Button
+                asChild
+                variant="ghost"
+                size="icon"
+                className="text-white hover:bg-white/10 hover:text-white lg:hidden"
               >
-                <MonitorPlay className="size-4 shrink-0" strokeWidth={2} />
-                <span className="hidden min-[360px]:inline">Simulators</span>
-              </Link>
+                <Link href="/camera-simulators" aria-label="Camera simulators" title="Camera simulators">
+                  <MonitorPlay />
+                </Link>
+              </Button>
               <Button
                 variant="ghost"
                 size="icon"
