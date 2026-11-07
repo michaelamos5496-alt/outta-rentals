@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import { ArrowUpRight, LoaderCircle, MonitorPlay, X } from "lucide-react";
 
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
@@ -10,12 +9,6 @@ import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { getCameraSimulator, type CameraSimulator } from "@/lib/camera-simulators";
-
-// Only downloaded once someone opens the FX3 viewer.
-const Fx3Simulator = dynamic(() => import("@/components/catalogue/fx3-simulator"), {
-  ssr: false,
-  loading: () => <Loading />,
-});
 
 /**
  * "Try the camera menu" card for bodies that have a simulator. Renders
@@ -55,7 +48,7 @@ function CameraSimulatorCard({
   );
 }
 
-/** Full-screen, OUTTA-branded frame around a camera simulator. */
+/** Full-screen, OUTTA-branded frame around ARRI's simulator app. */
 function CameraSimulatorViewer({
   simulator,
   open,
@@ -88,7 +81,7 @@ function CameraSimulatorViewer({
                 {simulator.cameraName} Simulator
               </DialogTitle>
               <DialogDescription className="truncate text-xs text-white/70">
-                {simulator.kind === "arri" ? "Interactive camera menu by ARRI" : "Menu practice by OUTTA RENTALS"}
+                Interactive camera menu by ARRI
               </DialogDescription>
             </div>
           </div>
@@ -106,25 +99,19 @@ function CameraSimulatorViewer({
 
         <div className="relative min-h-0 flex-1">
           {/* Radix unmounts the content when closed, so each open starts fresh. */}
-          {simulator.kind === "arri" ? <ArriFrame simulator={simulator} /> : <Fx3Simulator />}
+          <ArriFrame simulator={simulator} />
         </div>
 
         <div className="flex shrink-0 items-center justify-between gap-3 bg-brand px-3 py-2 text-xs text-white/70 sm:px-5">
-          {simulator.kind === "arri" ? (
-            <>
-              <span>Simulator &copy; ARRI. Rent the {simulator.cameraName} from {siteConfig.name}.</span>
-              <a
-                href={simulator.arriPage}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex shrink-0 items-center gap-1 hover:text-white"
-              >
-                arri.com <ArrowUpRight className="size-3" />
-              </a>
-            </>
-          ) : (
-            <span>Rent the {simulator.cameraName} from {siteConfig.name}.</span>
-          )}
+          <span>Simulator &copy; ARRI. Rent the {simulator.cameraName} from {siteConfig.name}.</span>
+          <a
+            href={simulator.arriPage}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex shrink-0 items-center gap-1 hover:text-white"
+          >
+            arri.com <ArrowUpRight className="size-3" />
+          </a>
         </div>
       </DialogContent>
     </Dialog>
@@ -136,7 +123,7 @@ function CameraSimulatorViewer({
  * to fit once it has (its own `autofit` on window load). Keep it hidden behind
  * a spinner until then so viewers never see it oversized.
  */
-function ArriFrame({ simulator }: { simulator: Extract<CameraSimulator, { kind: "arri" }> }) {
+function ArriFrame({ simulator }: { simulator: CameraSimulator }) {
   const [loaded, setLoaded] = React.useState(false);
 
   return (
