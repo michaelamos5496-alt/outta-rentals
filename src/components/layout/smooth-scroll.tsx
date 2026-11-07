@@ -57,6 +57,46 @@ function SmoothScroll({ children }: { children: React.ReactNode }) {
     smootherRef.current?.refresh();
   }, [pathname]);
 
+  // ScrollSmoother moves the content with a transform, so the browser's own
+  // jump to a #section link doesn't land. Scroll there ourselves — on arrival
+  // and whenever the hash changes — clearing the sticky navbar. Repeated
+  // briefly in case the content above it is still settling.
+  React.useEffect(() => {
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const goToHash = (hash = window.location.hash) => {
+      const id = decodeURIComponent(hash.slice(1));
+      if (!id) return;
+      const jump = () => {
+        const target = document.getElementById(id);
+        if (!target) return;
+        const smoother = smootherRef.current;
+        if (smoother) {
+          smoother.refresh();
+          smoother.scrollTo(target, false, "top 88px");
+        } else {
+          window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 88 });
+        }
+      };
+      [0, 150, 600].forEach((delay) => timers.push(setTimeout(jump, delay)));
+    };
+    // Next.js updates the URL for same-page #links without a hashchange event.
+    const onClick = (e: MouseEvent) => {
+      const link = (e.target as Element | null)?.closest?.("a[href*='#']") as HTMLAnchorElement | null;
+      if (!link) return;
+      const url = new URL(link.href, window.location.href);
+      if (url.pathname === window.location.pathname && url.hash) goToHash(url.hash);
+    };
+    const onHashChange = () => goToHash();
+    goToHash();
+    window.addEventListener("hashchange", onHashChange);
+    document.addEventListener("click", onClick);
+    return () => {
+      window.removeEventListener("hashchange", onHashChange);
+      document.removeEventListener("click", onClick);
+      timers.forEach(clearTimeout);
+    };
+  }, [pathname]);
+
   return (
     <div id="smooth-wrapper">
       <div id="smooth-content">{children}</div>
