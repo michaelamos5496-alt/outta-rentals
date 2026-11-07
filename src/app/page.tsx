@@ -6,6 +6,7 @@ import { CategoryExperience } from "@/components/sections/category-experience";
 import { WorkShowcase } from "@/components/sections/work-showcase";
 import { showWorkSection } from "@/config/site";
 import { BrandMarquee } from "@/components/sections/brand-marquee";
+import { SimulatorCta } from "@/components/sections/simulator-cta";
 import { ContactSection } from "@/components/sections/contact-section";
 import { FinalCta } from "@/components/sections/final-cta";
 import { fetchAllProducts } from "@/lib/catalogue/db";
@@ -67,6 +68,7 @@ export default async function Home() {
       <CategoryExperience products={products} />
       <FeaturedEquipment packages={toChooserData(featuredPackages)} />
       {showWorkSection ? <WorkShowcase /> : null}
+      <SimulatorCta />
       <BrandMarquee />
       <FinalCta />
       <ContactSection headingLevel="h2" compact />
