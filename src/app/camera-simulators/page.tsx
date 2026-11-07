@@ -10,7 +10,7 @@ import { cameraSimulators } from "@/lib/camera-simulators";
 export const metadata: Metadata = {
   title: "Camera Simulators",
   description:
-    "Learn the ARRI ALEXA menus before your shoot — interactive camera simulators for the ARRI bodies you can rent from OUTTA RENTALS.",
+    "Learn the ARRI ALEXA and RED KOMODO menus before your shoot — interactive camera simulators for the cameras you can rent from OUTTA RENTALS.",
   alternates: { canonical: "/camera-simulators" },
 };
 
@@ -28,7 +28,7 @@ export default function CameraSimulatorsPage() {
         </p>
       </div>
 
-      <div className="mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {cameraSimulators.map((simulator) => (
           <div key={simulator.id} className="flex flex-col gap-2">
             <CameraSimulatorCard simulator={simulator} className="flex-1" />

@@ -2,13 +2,17 @@
 
 import * as React from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { ArrowUpRight, LoaderCircle, MonitorPlay, Smartphone, X } from "lucide-react";
 
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { getCameraSimulator, type CameraSimulator } from "@/lib/camera-simulators";
+import { getCameraSimulator, type ArriSimulator, type CameraSimulator } from "@/lib/camera-simulators";
+
+// OUTTA's own KOMODO simulator, only downloaded once its viewer opens.
+const KomodoSimulator = dynamic(() => import("@/components/catalogue/komodo-simulator"), { ssr: false });
 
 /**
  * "Try the camera menu" card for bodies that have a simulator. Renders
@@ -84,7 +88,7 @@ function CameraSimulatorViewer({
                 {simulator.cameraName} Simulator
               </DialogTitle>
               <DialogDescription className="truncate text-xs text-white/70">
-                Interactive camera menu by ARRI
+                {simulator.kind === "arri" ? "Interactive camera menu by ARRI" : "Touchscreen practice by OUTTA RENTALS"}
               </DialogDescription>
             </div>
           </div>
@@ -102,7 +106,7 @@ function CameraSimulatorViewer({
 
         <div className="relative min-h-0 flex-1">
           {/* Radix unmounts the content when closed, so each open starts fresh. */}
-          <ArriFrame simulator={simulator} />
+          {simulator.kind === "arri" ? <ArriFrame simulator={simulator} /> : <KomodoSimulator />}
           <span className="absolute top-2 left-2 z-20 hidden items-center rounded-md bg-white px-2 py-1 [@media(max-height:500px)]:inline-flex">
             <Image
               src="/brand/outta-logo.png"
@@ -126,14 +130,16 @@ function CameraSimulatorViewer({
         </div>
 
         <div className="flex shrink-0 items-center justify-between gap-3 bg-brand px-3 py-2 text-xs text-white/70 sm:px-5 [@media(max-height:500px)]:hidden">
-          <span>Simulator &copy; ARRI. Rent the {simulator.cameraName} from {siteConfig.name}.</span>
+          <span>
+            {simulator.kind === "arri" ? "Simulator © ARRI. " : ""}Rent the {simulator.cameraName} from {siteConfig.name}.
+          </span>
           <a
-            href={simulator.arriPage}
+            href={simulator.kind === "arri" ? simulator.arriPage : simulator.guideUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex shrink-0 items-center gap-1 hover:text-white"
           >
-            arri.com <ArrowUpRight className="size-3" />
+            {simulator.kind === "arri" ? "arri.com" : "RED guide"} <ArrowUpRight className="size-3" />
           </a>
         </div>
       </DialogContent>
@@ -147,7 +153,7 @@ function CameraSimulatorViewer({
  * the frame is sized to the canvas's own shape and centred on black, and the
  * app stays hidden behind a spinner until it has loaded and fitted itself.
  */
-function ArriFrame({ simulator }: { simulator: CameraSimulator }) {
+function ArriFrame({ simulator }: { simulator: ArriSimulator }) {
   const [loaded, setLoaded] = React.useState(false);
   const [box, setBox] = React.useState<{ width: number; height: number; portrait: boolean } | null>(null);
   const [rotateHint, setRotateHint] = React.useState(true);
