@@ -163,6 +163,10 @@ const equipmentTabs: EquipmentTab[] = [
           { label: "Filters", href: "/equipment/filters" },
         ],
       },
+      {
+        heading: "Learn",
+        items: [{ label: "Camera Simulators", href: "/camera-simulators" }],
+      },
     ],
   },
   {
@@ -214,6 +218,7 @@ const mobileNavGroups: { title: string; items: NavItem[] }[] = [
     items: [
       { label: "All Equipment", href: "/equipment" },
       ...equipmentTabs.map((tab) => ({ label: tab.label, href: tab.href })),
+      { label: "Camera Simulators", href: "/camera-simulators" },
     ],
   },
   ...(showWorkSection

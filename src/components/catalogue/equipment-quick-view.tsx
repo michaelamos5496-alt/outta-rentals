@@ -13,6 +13,7 @@ import {
   getBrandBySlug,
 } from "@/lib/catalogue";
 import { ProductGallery } from "@/components/catalogue/product-gallery";
+import { CameraSimulatorCard } from "@/components/catalogue/camera-simulator";
 import { useQuickView } from "@/components/catalogue/quick-view-provider";
 import { useKit } from "@/components/kit/kit-provider";
 import { Input } from "@/components/ui/input";
@@ -162,6 +163,8 @@ function QuickViewBody({ productSlug }: { productSlug: string }) {
             ))}
           </ul>
         ) : null}
+
+        <CameraSimulatorCard productSlug={product.slug} className="mt-5" />
 
         <Divider className="my-5" />
 
