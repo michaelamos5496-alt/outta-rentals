@@ -11,11 +11,11 @@ function Footer() {
   return (
     <footer
       data-slot="footer"
-      className="relative overflow-hidden border-t border-border bg-background pb-20 lg:pb-0"
+      className="dark relative overflow-hidden bg-[#0e0f10] pb-20 text-foreground lg:pb-0"
     >
       {/* Oversized watermark of the real logo, bleeding off the edge — a texture, not a UI element. Dropped on mobile to keep the footer minimal. */}
       <Image
-        src="/brand/outta-logo.png"
+        src="/brand/outta-logo-dark.png"
         unoptimized
         alt=""
         aria-hidden
@@ -28,7 +28,7 @@ function Footer() {
         <div className="lg:hidden">
           <Link href="/" className="inline-block">
             <Image
-              src="/brand/outta-logo.png"
+              src="/brand/outta-logo-dark.png"
               unoptimized
               alt={siteConfig.name}
               width={595}
@@ -57,7 +57,7 @@ function Footer() {
           <div className="col-span-2 sm:col-span-3 lg:col-span-1">
             <Link href="/" className="inline-block">
               <Image
-                src="/brand/outta-logo.png"
+                src="/brand/outta-logo-dark.png"
                 unoptimized
                 alt={siteConfig.name}
                 width={595}
