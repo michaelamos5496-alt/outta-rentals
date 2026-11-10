@@ -13,6 +13,12 @@ function Footer() {
       data-slot="footer"
       className="dark relative overflow-hidden bg-[#0e0f10] pb-20 text-foreground lg:pb-0"
     >
+      {/* Soft green glow, same as the simulators section. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-40 right-[-10%] size-[36rem] rounded-full bg-brand/25 blur-3xl"
+      />
+
       {/* Oversized watermark of the real logo, bleeding off the edge — a texture, not a UI element. Dropped on mobile to keep the footer minimal. */}
       <Image
         src="/brand/outta-logo-dark.png"
