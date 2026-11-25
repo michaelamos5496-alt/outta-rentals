@@ -1678,9 +1678,9 @@ export const products: DemoProduct[] = [
     brandSlug: "blackmagic",
     categorySlug: "cameras",
     tags: ["cameras"],
-    shortDescription: "Full package — PYXIS 6K with cage, 16-35mm lens, monitor, 1TB card and V-mount.",
+    shortDescription: "Full package — PYXIS 6K with cage, Sigma 16-35mm lens, monitor, 1TB card and V-mount.",
     description:
-      "Blackmagic PYXIS 6K full package from OUTTA's real rental inventory: camera body, cage, 16-35mm lens, monitor, 1TB card and V-mount battery.",
+      "Blackmagic PYXIS 6K full package from OUTTA's real rental inventory: camera body, cage, Sigma 16-35mm lens, monitor, 1TB card and V-mount battery.",
     dayRate: 1000,
     currency: "GHS",
     availability: "available",
