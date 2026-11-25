@@ -1688,7 +1688,7 @@ export const products: DemoProduct[] = [
     included: [
       "Camera body",
       "Camera cage",
-      "16-35mm lens",
+      "Sigma 16-35mm lens",
       "Monitor",
       "1TB card",
       "V-mount battery",
