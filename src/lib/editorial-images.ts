@@ -210,6 +210,7 @@ export const extraProductImages: Record<string, string[]> = {
   "blackmagic-6k-pro": ["/equipment/blackmagic-6k-pro-cinestyle-2.png"],
   "blackmagic-6k": ["/equipment/blackmagic-6k-2.jpg", "/equipment/blackmagic-6k-3.webp", "/equipment/blackmagic-6k-4.jpg"],
   "blackmagic-pyxis-6k": ["/equipment/blackmagic-pyxis-6k-cinestyle.jpg"],
+  "blackmagic-pyxis-6k-body-only": ["/equipment/blackmagic-pyxis-6k-body-only-2.jpg"],
   "sony-fx3": ["/equipment/sony-fx3-cinestyle-2.jpeg"],
   "sony-fx3-body-only": ["/equipment/sony-fx3-body-only-2.jpeg"],
   "sony-fx5": ["/equipment/sony-fx5-2.jpg", "/equipment/sony-fx5-3.webp"],
