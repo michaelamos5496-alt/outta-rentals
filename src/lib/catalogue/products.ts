@@ -1620,7 +1620,7 @@ export const products: DemoProduct[] = [
     id: "prod-red-komodo",
     slug: "red-komodo",
     sku: "OUTTA-CAM-0113",
-    name: "RED Komodo",
+    name: "RED Komodo (Cine Style)",
     brandSlug: "red",
     categorySlug: "cameras",
     tags: ["cameras"],
