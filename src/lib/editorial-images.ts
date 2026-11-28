@@ -62,7 +62,7 @@ export const heroProductImages: Record<string, string> = {
   "red-helium": "/equipment/red-helium-rig.jpg",
   "arri-alexa-mini": "/equipment/arri-alexa-mini-rig.jpg",
   "blackmagic-6k": "/equipment/blackmagic-6k-rig.jpg",
-  "blackmagic-pyxis-6k": "/equipment/blackmagic-pyxis-6k-rig.jpg",
+  "blackmagic-pyxis-6k": "/equipment/blackmagic-pyxis-6k-forest-rig.jpg",
   "dzofilm-pictor-zoom-12-25mm-t2-8": "/equipment/dzofilm-pictor-zoom-12-25mm-t2-8-rig.jpg",
   "dzofilm-vespid-prime-set-16-125mm": "/equipment/dzofilm-vespid-prime-set-16-125mm-rig.jpg",
   "laowa-12mm-ef": "/equipment/laowa-12mm-ef-rig.jpg",
