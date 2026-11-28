@@ -1711,7 +1711,7 @@ export const products: DemoProduct[] = [
     currency: "GHS",
     availability: "available",
     specifications: [],
-    included: ["Camera body only"],
+    included: ["Camera body only", "2× NP batteries"],
     accessorySlugs: [],
     compatibleSlugs: [],
   },
