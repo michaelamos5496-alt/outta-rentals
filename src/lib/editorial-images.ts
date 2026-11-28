@@ -86,7 +86,7 @@ export const productImages: Record<string, string> = {
   "red-helium": "/equipment/red-helium.jpg",
   "blackmagic-6k-pro": "/equipment/blackmagic-6k-pro-cinestyle.png",
   "blackmagic-6k": "/equipment/blackmagic-6k.jpg",
-  "blackmagic-pyxis-6k": "/equipment/blackmagic-pyxis-6k-cinestyle.jpg",
+  "blackmagic-pyxis-6k": "/equipment/blackmagic-pyxis-6k-cinestyle.png",
   "blackmagic-pyxis-6k-body-only": "/equipment/blackmagic-pyxis-6k-2.jpg",
   "dzofilm-arles-prime-set-25-35-50-75-100mm": "/equipment/dzofilm-arles-prime-set-25-35-50-75-100mm.jpg",
   "dzofilm-arles-prime-single": "/equipment/dzofilm-arles-prime-single.jpg",
