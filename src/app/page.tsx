@@ -33,6 +33,7 @@ const HERO_SLUGS = [
   "arri-alexa-mini",
   "red-helium",
   "blackmagic-6k",
+  "blackmagic-pyxis-6k",
   "dzofilm-vespid-prime-set-16-125mm",
   "dzofilm-pictor-zoom-12-25mm-t2-8",
   "dzofilm-pictor-zoom-20-55mm-t2-8",
